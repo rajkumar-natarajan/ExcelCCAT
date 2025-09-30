@@ -1,0 +1,310 @@
+/* 
+   Localizable.strings (English)
+   ExcelCCAT
+
+   Created by Rajkumar Natarajan on 2025-09-30.
+*/
+
+// MARK: - App Info
+"app_name" = "CCAT Prep TDSB Grade 6";
+"app_subtitle" = "Mock Tests for Gifted – English/French";
+"app_tagline" = "Unlock Your Gifted Potential";
+
+// MARK: - Language and Navigation
+"english" = "English";
+"french" = "Français";
+"continue" = "Continue";
+"start" = "Start";
+"next" = "Next";
+"previous" = "Previous";
+"finish" = "Finish";
+"submit" = "Submit";
+"cancel" = "Cancel";
+"done" = "Done";
+"close" = "Close";
+"save" = "Save";
+"reset" = "Reset";
+"retry" = "Retry";
+"back" = "Back";
+
+// MARK: - Question Types
+"verbal" = "Verbal";
+"quantitative" = "Quantitative";
+"non_verbal" = "Non-Verbal";
+
+// MARK: - Verbal Subtypes
+"analogies" = "Analogies";
+"sentence_completion" = "Sentence Completion";
+"classification" = "Classification";
+
+// MARK: - Quantitative Subtypes
+"number_analogies" = "Number Analogies";
+"quantitative_analogies" = "Quantitative Analogies";
+"equation_building" = "Equation Building";
+
+// MARK: - Non-Verbal Subtypes
+"figure_matrices" = "Figure Matrices";
+"figure_classification" = "Figure Classification";
+"figure_series" = "Figure Series";
+
+// MARK: - Session Types
+"full_mock" = "Full Mock Test";
+"practice" = "Practice Mode";
+"verbal_only" = "Verbal Only";
+"quantitative_only" = "Quantitative Only";
+"non_verbal_only" = "Non-Verbal Only";
+
+// MARK: - Difficulty Levels
+"difficulty_easy" = "Easy";
+"difficulty_medium" = "Medium";
+"difficulty_hard" = "Hard";
+
+// MARK: - Font Sizes
+"font_size_small" = "Small";
+"font_size_medium" = "Medium";
+"font_size_large" = "Large";
+"font_size_extra_large" = "Extra Large";
+
+// MARK: - Home Screen
+"welcome_message" = "Ready for TDSB's gifted program? Let's go!";
+"start_full_mock" = "Start Full Mock";
+"practice_mode" = "Practice Mode";
+"progress_overview" = "Progress Overview";
+"weekly_goal" = "Weekly Goal";
+"current_streak" = "Current Streak";
+"questions_this_week" = "Questions This Week";
+"best_score" = "Best Score";
+"average_score" = "Average Score";
+"total_tests" = "Total Tests";
+
+// MARK: - Test Interface
+"question_number" = "Question %d of %d";
+"time_remaining" = "Time Remaining";
+"minutes_seconds" = "%d:%02d";
+"select_answer" = "Select your answer";
+"answer_selected" = "Answer selected";
+"no_answer_selected" = "No answer selected";
+"confirm_submit" = "Are you sure you want to submit your test?";
+"test_auto_submit" = "Test will auto-submit when time expires";
+
+// MARK: - Results Screen
+"test_completed" = "Test Completed!";
+"great_job" = "Great Job!";
+"your_score" = "Your Score";
+"percentage_score" = "%d%% (%d/%d)";
+"percentile_rank" = "Percentile Rank: %d%%";
+"gifted_range" = "Gifted Range";
+"keep_practicing" = "Keep Practicing";
+"time_taken" = "Time Taken: %@";
+"breakdown_by_type" = "Breakdown by Type";
+"verbal_score" = "Verbal: %d/%d";
+"quantitative_score" = "Quantitative: %d/%d";
+"non_verbal_score" = "Non-Verbal: %d/%d";
+"view_detailed_results" = "View Detailed Results";
+"retake_test" = "Retake Test";
+"practice_weak_areas" = "Practice Weak Areas";
+
+// MARK: - Progress Screen
+"progress_title" = "Your Progress";
+"test_history" = "Test History";
+"practice_history" = "Practice History";
+"performance_trends" = "Performance Trends";
+"weekly_insights" = "Weekly Insights";
+"export_progress" = "Export Progress Report";
+"filter_by_date" = "Filter by Date";
+"filter_by_type" = "Filter by Type";
+"sort_by_date" = "Sort by Date";
+"sort_by_score" = "Sort by Score";
+
+// MARK: - Practice Mode
+"practice_title" = "Practice Mode";
+"confirm_reset_progress_message" = "This will erase all progress. This action cannot be undone.";
+"low_battery_warning" = "Low Battery";
+"low_battery_message" = "Battery below 20%. Consider plugging in to avoid interruption.";
+"time_warning" = "Time Warning";
+"time_critical" = "Time Critical";
+"less_than_minute" = "Less than 1 minute remaining!";
+"minutes_remaining" = "minutes remaining";
+"select_question_type" = "Select Question Type";
+"select_difficulty" = "Select Difficulty";
+"number_of_questions" = "Number of Questions";
+"timed_practice" = "Timed Practice";
+"untimed_practice" = "Untimed Practice";
+"immediate_feedback" = "Immediate Feedback";
+"review_at_end" = "Review at End";
+"custom_practice" = "Custom Practice";
+
+// MARK: - Settings Screen
+"settings_title" = "Settings";
+"language_settings" = "Language";
+"appearance" = "Appearance";
+"dark_mode" = "Dark Mode";
+"font_size" = "Font Size";
+"accessibility" = "Accessibility";
+"reduce_motion" = "Reduce Motion";
+"haptic_feedback" = "Haptic Feedback";
+"sound_effects" = "Sound Effects";
+"notifications" = "Notifications";
+"timer_warnings" = "Timer Warnings";
+"auto_submit" = "Auto Submit on Timeout";
+"parental_controls" = "Parental Controls";
+"progress_reports" = "Progress Reports";
+"data_management" = "Data Management";
+"export_data" = "Export Data";
+"import_data" = "Import Data";
+"reset_progress" = "Reset Progress";
+"about" = "About";
+"privacy_policy" = "Privacy Policy";
+"contact_support" = "Contact Support";
+
+// MARK: - Insights and Tips
+"strength_verbal" = "Strength: Verbal";
+"strength_quantitative" = "Strength: Quantitative";
+"strength_non_verbal" = "Strength: Non-Verbal";
+"focus_on_patterns" = "Focus on patterns";
+"practice_more_analogies" = "Practice more analogies";
+"work_on_time_management" = "Work on time management";
+"excellent_progress" = "Excellent progress!";
+"good_improvement" = "Good improvement";
+"keep_up_good_work" = "Keep up the good work";
+"consistency_is_key" = "Consistency is key";
+"verbal_improved" = "Verbal +%d%% - super!";
+"quantitative_improved" = "Quantitative +%d%% - great!";
+"non_verbal_improved" = "Non-Verbal +%d%% - awesome!";
+
+// MARK: - Error Messages
+"error_title" = "Error";
+"error_loading_questions" = "Error loading questions";
+"error_saving_progress" = "Error saving progress";
+"error_network" = "Network error";
+"error_generic" = "Something went wrong";
+"try_again" = "Try Again";
+"contact_support_error" = "Please contact support if this persists";
+
+// MARK: - Achievements and Badges
+"achievement_unlocked" = "Achievement Unlocked!";
+"first_test_completed" = "First Test Completed";
+"perfect_score" = "Perfect Score";
+"streak_5_days" = "5-Day Streak";
+"streak_10_days" = "10-Day Streak";
+"streak_30_days" = "30-Day Streak";
+"hundred_questions" = "100 Questions Answered";
+"five_hundred_questions" = "500 Questions Answered";
+"gifted_range_achieved" = "Gifted Range Achieved";
+"improvement_master" = "Improvement Master";
+"consistency_champion" = "Consistency Champion";
+
+// MARK: - Accessibility
+"accessibility_question_stem" = "Question: %@";
+"accessibility_option" = "Option %@: %@";
+"accessibility_selected" = "Selected";
+"accessibility_correct_answer" = "Correct answer";
+"accessibility_incorrect_answer" = "Incorrect answer";
+"accessibility_timer" = "Timer: %@ remaining";
+"accessibility_progress" = "Progress: %d of %d questions completed";
+"accessibility_score_ring" = "Score: %d percent";
+
+// MARK: - Alerts and Confirmations
+"confirm_exit_test" = "Exit Test";
+"confirm_exit_test_message" = "Are you sure you want to exit? Your progress will be lost.";
+"confirm_reset_progress" = "Reset Progress";
+"confirm_reset_progress_message" = "This will delete all your test results and progress. This cannot be undone.";
+"confirm_language_change" = "Change Language";
+"confirm_language_change_message" = "Changing language will restart the current session. Continue?";
+"low_battery_warning" = "Low Battery";
+"low_battery_message" = "Your device battery is low. Consider charging before continuing.";
+
+// MARK: - Time Formats
+"seconds" = "seconds";
+"minutes" = "minutes";
+"hours" = "hours";
+"days" = "days";
+"weeks" = "weeks";
+
+// MARK: - Statistics
+"accuracy" = "Accuracy";
+"total_time_spent" = "Total Time Spent";
+"average_time_per_question" = "Average Time per Question";
+"strongest_area" = "Strongest Area";
+"improvement_area" = "Area for Improvement";
+"recommendation" = "Recommendation";
+
+// MARK: - Onboarding
+"welcome_title" = "Welcome to CCAT Prep";
+"welcome_subtitle" = "Your path to gifted program success";
+"onboarding_features" = "Features";
+"onboarding_practice" = "Practice with real CCAT questions";
+"onboarding_mock_tests" = "Take full mock tests";
+"onboarding_progress" = "Track your progress";
+"onboarding_bilingual" = "Available in English and French";
+"get_started" = "Get Started";
+"skip_intro" = "Skip Intro";
+
+// MARK: - Review Mode
+"review_mode" = "Review Mode";
+"review_question" = "Review Question %d";
+"your_answer" = "Your Answer";
+"correct_answer" = "Correct Answer";
+"explanation" = "Explanation";
+"show_explanation" = "Show Explanation";
+"hide_explanation" = "Hide Explanation";
+"marked_for_review" = "Marked for Review";
+"review_summary" = "Review Summary";
+"questions_correct" = "Questions Correct";
+"questions_incorrect" = "Questions Incorrect";
+"questions_skipped" = "Questions Skipped";
+
+// MARK: - Review and Weak Areas (Added 2025-09-30)
+"review_weak_areas" = "Review Weak Areas";
+"performance_analysis" = "Performance Analysis";
+"review_description" = "Identify areas that need improvement based on your test history";
+"analyzing_performance" = "Analyzing your performance...";
+"no_test_data" = "No Test Data Available";
+"take_tests_first" = "Complete some practice sessions or mock tests to see your weak areas";
+"start_practicing" = "Start Practicing";
+"areas_to_improve" = "Areas to Improve";
+"recommendations" = "Recommendations";
+"critical" = "Critical";
+"moderate" = "Moderate";
+"minor" = "Minor";
+"focused_practice" = "Focused Practice";
+"targeted_practice" = "Targeted Practice";
+"session_settings" = "Session Settings";
+"question_count" = "Question Count";
+"timed_session" = "Timed Session";
+"start_focused_practice" = "Start Focused Practice";
+
+// Weakness Descriptions
+"verbal_weakness_desc" = "Difficulty with word relationships and language comprehension";
+"quantitative_weakness_desc" = "Challenges with mathematical reasoning and number patterns";
+"nonverbal_weakness_desc" = "Struggles with visual patterns and spatial reasoning";
+"analogies_weakness_desc" = "Trouble identifying relationships between words and concepts";
+"sentence_completion_weakness_desc" = "Difficulty understanding context and vocabulary";
+"classification_weakness_desc" = "Challenges grouping items by common characteristics";
+"number_analogies_weakness_desc" = "Trouble with mathematical relationships and patterns";
+"quantitative_analogies_weakness_desc" = "Difficulty with formula and equation patterns";
+"equation_building_weakness_desc" = "Challenges solving mathematical problems step by step";
+"general_weakness_desc" = "This area needs focused practice and improvement";
+"easy_difficulty_weakness_desc" = "Basic concepts need strengthening";
+"medium_difficulty_weakness_desc" = "Intermediate skills require development";
+"hard_difficulty_weakness_desc" = "Advanced problem-solving needs improvement";
+"difficulty_questions" = "Difficulty Questions";
+
+// Recommendation Actions
+"improve_vocabulary" = "Improve Vocabulary";
+"vocabulary_tip" = "Focus on word relationships and analogies";
+"practice_verbal" = "Practice Verbal";
+"strengthen_math" = "Strengthen Math Skills";
+"math_tip" = "Practice number patterns and equations";
+"practice_quantitative" = "Practice Quantitative";
+"enhance_visual_reasoning" = "Enhance Visual Reasoning";
+"visual_tip" = "Focus on pattern recognition and spatial relationships";
+"practice_nonverbal" = "Practice Non-Verbal";
+"take_mock_test" = "Take a Full Mock Test";
+"mock_test_tip" = "Get a complete assessment of your abilities";
+"start_mock_test" = "Start Mock Test";
+
+// Difficulty Levels
+"easy" = "Easy";
+"medium" = "Medium";
+"hard" = "Hard";
