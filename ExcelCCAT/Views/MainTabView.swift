@@ -41,6 +41,13 @@ struct MainTabView: View {
                     Text(NSLocalizedString("settings_title", comment: ""))
                 }
                 .tag(Tab.settings)
+            
+            ReviewView()
+                .tabItem {
+                    Image(systemName: selectedTab == .review ? "magnifyingglass.circle.fill" : "magnifyingglass.circle")
+                    Text(NSLocalizedString("review_title", comment: ""))
+                }
+                .tag(Tab.review)
         }
         .tint(AppTheme.Colors.skyBlue)
         .onAppear {
@@ -68,11 +75,8 @@ struct MainTabView: View {
 
 // MARK: - Tab Enum
 
-enum Tab: String, CaseIterable {
-    case home = "home"
-    case practice = "practice"
-    case progress = "progress"
-    case settings = "settings"
+enum Tab: CaseIterable {
+    case home, practice, progress, settings, review
     
     var displayName: String {
         switch self {
@@ -84,6 +88,8 @@ enum Tab: String, CaseIterable {
             return NSLocalizedString("progress_title", comment: "")
         case .settings:
             return NSLocalizedString("settings_title", comment: "")
+        case .review:
+            return NSLocalizedString("review_title", comment: "")
         }
     }
     
@@ -97,6 +103,8 @@ enum Tab: String, CaseIterable {
             return "chart.line.uptrend.xyaxis.circle"
         case .settings:
             return "gearshape"
+        case .review:
+            return "magnifyingglass.circle"
         }
     }
     

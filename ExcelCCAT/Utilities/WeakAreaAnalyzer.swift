@@ -41,6 +41,42 @@ struct Recommendation: Identifiable {
 
 class WeakAreaAnalyzer {
     
+    /// Analyzes user progress to identify weak areas (simplified version)
+    func analyzePerformance(from userProgress: UserProgress) -> [WeakArea] {
+        var weakAreas: [WeakArea] = []
+        
+        // For now, generate some sample weak areas based on overall performance
+        let overallAccuracy = userProgress.averageScore
+        
+        if overallAccuracy < 70 {
+            weakAreas.append(WeakArea(
+                questionType: .verbal,
+                subType: nil,
+                difficulty: nil,
+                title: "Verbal Reasoning",
+                description: "Word analogies and verbal comprehension",
+                averageScore: max(0, overallAccuracy - 10),
+                totalAttempts: userProgress.totalTestsTaken,
+                severity: overallAccuracy < 50 ? .critical : .moderate
+            ))
+        }
+        
+        if overallAccuracy < 75 {
+            weakAreas.append(WeakArea(
+                questionType: .quantitative,
+                subType: nil,
+                difficulty: nil,
+                title: "Quantitative Reasoning",
+                description: "Mathematical patterns and number series",
+                averageScore: max(0, overallAccuracy - 5),
+                totalAttempts: userProgress.totalTestsTaken,
+                severity: overallAccuracy < 60 ? .critical : .moderate
+            ))
+        }
+        
+        return weakAreas.sorted { $0.averageScore < $1.averageScore }
+    }
+    
     /// Analyzes test and practice results to identify weak areas
     static func analyzePerformance(
         testResults: [TestResult],
