@@ -13,6 +13,7 @@ struct HomeView: View {
     @State private var showingMoodPicker = false
     @State private var selectedMood: Mood = .neutral
     @State private var isAnimating = false
+    @State private var showingCustomTestConfig = false
     
     var body: some View {
         NavigationView {
@@ -23,6 +24,9 @@ struct HomeView: View {
                     
                     // Level Selection
                     levelSelectionSection
+                    
+                    // Test Configuration
+                    testConfigurationSection
                     
                     // Stats Overview
                     statsOverview
@@ -54,6 +58,10 @@ struct HomeView: View {
             withAnimation(AppTheme.Animation.smooth.delay(0.3)) {
                 isAnimating = true
             }
+        }
+        .sheet(isPresented: $showingCustomTestConfig) {
+            CustomTestConfigView()
+                .environment(appViewModel)
         }
     }
     
@@ -192,6 +200,70 @@ struct HomeView: View {
         }
     }
     
+    // MARK: - Test Configuration Section
+    
+    private var testConfigurationSection: some View {
+        VStack(alignment: .leading, spacing: AppTheme.Spacing.sm) {
+            Text("Test Type (TDSB Standards)")
+                .font(AppTheme.Typography.headline)
+                .foregroundColor(colorScheme == .dark ? .white : AppTheme.Colors.softGray)
+            
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: AppTheme.Spacing.xs), count: 2), spacing: AppTheme.Spacing.xs) {
+                ForEach(TDSBTestType.allCases, id: \.self) { testType in
+                    testTypeButton(for: testType)
+                }
+            }
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: AppTheme.CornerRadius.card)
+                .fill(colorScheme == .dark ? AppTheme.Colors.softGray : Color.white)
+                .shadow(
+                    color: AppTheme.Colors.lightGray.opacity(0.3),
+                    radius: 4,
+                    x: 0,
+                    y: 2
+                )
+        )
+        .opacity(isAnimating ? 1.0 : 0.0)
+        .offset(y: isAnimating ? 0 : 20)
+        .animation(AppTheme.Animation.smooth.delay(0.15), value: isAnimating)
+    }
+    
+    private func testTypeButton(for testType: TDSBTestType) -> some View {
+        Button(action: {
+            if testType == .customTest {
+                showingCustomTestConfig = true
+            } else {
+                appViewModel.setTestType(testType)
+            }
+        }) {
+            VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
+                Text(testType.displayName)
+                    .font(AppTheme.Typography.caption)
+                    .fontWeight(.semibold)
+                    .multilineTextAlignment(.leading)
+                
+                Text(testType.description)
+                    .font(AppTheme.Typography.footnote)
+                    .opacity(0.8)
+                    .multilineTextAlignment(.leading)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, AppTheme.Spacing.sm)
+            .padding(.vertical, AppTheme.Spacing.xs)
+            .background(
+                RoundedRectangle(cornerRadius: AppTheme.CornerRadius.small)
+                    .fill(appViewModel.currentTestConfiguration.testType == testType ? 
+                          AppTheme.Colors.sageGreen : 
+                          (colorScheme == .dark ? AppTheme.Colors.mediumGray : AppTheme.Colors.lightGray))
+            )
+            .foregroundColor(appViewModel.currentTestConfiguration.testType == testType ? 
+                            .white : 
+                            (colorScheme == .dark ? .white : AppTheme.Colors.softGray))
+        }
+    }
+    
     // MARK: - Main Action Section
     
     private var mainActionSection: some View {
@@ -231,7 +303,7 @@ struct HomeView: View {
                             .font(AppTheme.Typography.headline)
                             .fontWeight(.semibold)
                         
-                        Text("\(appViewModel.selectedCCATLevel.questionCount) questions • \(appViewModel.selectedCCATLevel.timeLimit) minutes")
+                        Text("\(appViewModel.currentTestConfiguration.displayDescription)")
                             .font(AppTheme.Typography.caption)
                             .opacity(0.9)
                     }

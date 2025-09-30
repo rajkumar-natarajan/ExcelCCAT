@@ -308,3 +308,24 @@
 "easy" = "Facile";
 "medium" = "Moyen";
 "hard" = "Difficile";
+
+// MARK: - CCAT Levels
+"ccat_level_10" = "Niveau 10";
+"ccat_level_11" = "Niveau 11";
+"ccat_level_12" = "Niveau 12";
+"grades_2_3" = "2e-3e année";
+"grades_4_5" = "4e-5e année";
+"grade_6" = "6e année";
+"level_10_description" = "Compétences cognitives de base pour le primaire débutant";
+"level_11_description" = "Compétences cognitives intermédiaires pour le primaire avancé";
+"level_12_description" = "Compétences cognitives avancées pour le programme doué";
+
+// MARK: - TDSB Test Types
+"quick_assessment" = "Évaluation Rapide";
+"standard_practice" = "Pratique Standard";
+"full_mock" = "Test Simulé Complet";
+"custom_test" = "Test Personnalisé";
+"quick_assessment_desc" = "20-30 questions, 15-20 minutes";
+"standard_practice_desc" = "60-80 questions, 30-40 minutes";
+"full_mock_desc" = "Simulation de test complète";
+"custom_test_desc" = "Choisissez vos propres paramètres";

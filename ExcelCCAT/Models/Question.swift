@@ -93,8 +93,155 @@ enum Language: String, CaseIterable, Codable {
         case .english:
             return "🇨🇦"
         case .french:
-            return "🇫🇷"
+            return "��" // Canadian French, not France French
         }
+    }
+}
+
+// MARK: - TDSB Test Configuration
+enum TDSBTestType: String, CaseIterable, Codable {
+    case quickAssessment = "quick_assessment"
+    case standardPractice = "standard_practice"
+    case fullMock = "full_mock"
+    case customTest = "custom_test"
+    
+    var displayName: String {
+        switch self {
+        case .quickAssessment:
+            return NSLocalizedString("quick_assessment", comment: "Quick Assessment")
+        case .standardPractice:
+            return NSLocalizedString("standard_practice", comment: "Standard Practice")
+        case .fullMock:
+            return NSLocalizedString("full_mock", comment: "Full Mock Test")
+        case .customTest:
+            return NSLocalizedString("custom_test", comment: "Custom Test")
+        }
+    }
+    
+    var description: String {
+        switch self {
+        case .quickAssessment:
+            return NSLocalizedString("quick_assessment_desc", comment: "20-30 questions, 15-20 minutes")
+        case .standardPractice:
+            return NSLocalizedString("standard_practice_desc", comment: "60-80 questions, 30-40 minutes")
+        case .fullMock:
+            return NSLocalizedString("full_mock_desc", comment: "Full test simulation")
+        case .customTest:
+            return NSLocalizedString("custom_test_desc", comment: "Choose your own parameters")
+        }
+    }
+    
+    func questionCountRange(for level: CCATLevel) -> ClosedRange<Int> {
+        switch (self, level) {
+        case (.quickAssessment, .level10):
+            return 15...25
+        case (.quickAssessment, .level11):
+            return 20...30
+        case (.quickAssessment, .level12):
+            return 25...35
+        case (.standardPractice, .level10):
+            return 40...60
+        case (.standardPractice, .level11):
+            return 60...80
+        case (.standardPractice, .level12):
+            return 80...100
+        case (.fullMock, _):
+            return level.questionCount...level.questionCount
+        case (.customTest, .level10):
+            return 10...120
+        case (.customTest, .level11):
+            return 10...150
+        case (.customTest, .level12):
+            return 10...176
+        }
+    }
+    
+    func defaultQuestionCount(for level: CCATLevel) -> Int {
+        switch (self, level) {
+        case (.quickAssessment, .level10):
+            return 20
+        case (.quickAssessment, .level11):
+            return 25
+        case (.quickAssessment, .level12):
+            return 30
+        case (.standardPractice, .level10):
+            return 50
+        case (.standardPractice, .level11):
+            return 70
+        case (.standardPractice, .level12):
+            return 90
+        case (.fullMock, _):
+            return level.questionCount
+        case (.customTest, _):
+            return level.questionCount
+        }
+    }
+    
+    func timeRange(for level: CCATLevel) -> ClosedRange<Int> {
+        switch (self, level) {
+        case (.quickAssessment, .level10):
+            return 10...20  // minutes
+        case (.quickAssessment, .level11):
+            return 15...25
+        case (.quickAssessment, .level12):
+            return 20...30
+        case (.standardPractice, .level10):
+            return 25...40
+        case (.standardPractice, .level11):
+            return 35...50
+        case (.standardPractice, .level12):
+            return 45...60
+        case (.fullMock, _):
+            return Int(level.timeLimit / 60)...Int(level.timeLimit / 60)
+        case (.customTest, .level10):
+            return 5...60
+        case (.customTest, .level11):
+            return 5...75
+        case (.customTest, .level12):
+            return 5...90
+        }
+    }
+    
+    func defaultTime(for level: CCATLevel) -> Int {
+        switch (self, level) {
+        case (.quickAssessment, .level10):
+            return 15
+        case (.quickAssessment, .level11):
+            return 20
+        case (.quickAssessment, .level12):
+            return 25
+        case (.standardPractice, .level10):
+            return 30
+        case (.standardPractice, .level11):
+            return 40
+        case (.standardPractice, .level12):
+            return 50
+        case (.fullMock, _):
+            return Int(level.timeLimit / 60)
+        case (.customTest, _):
+            return Int(level.timeLimit / 60)
+        }
+    }
+}
+
+struct TestConfiguration {
+    let testType: TDSBTestType
+    let level: CCATLevel
+    let questionCount: Int
+    let timeLimit: Int // in minutes
+    let isTimedSession: Bool
+    
+    init(testType: TDSBTestType, level: CCATLevel, questionCount: Int? = nil, timeLimit: Int? = nil, isTimedSession: Bool = true) {
+        self.testType = testType
+        self.level = level
+        self.questionCount = questionCount ?? testType.defaultQuestionCount(for: level)
+        self.timeLimit = timeLimit ?? testType.defaultTime(for: level)
+        self.isTimedSession = isTimedSession
+    }
+    
+    var displayDescription: String {
+        let timeText = isTimedSession ? "\(timeLimit) minutes" : "Untimed"
+        return "\(questionCount) questions • \(timeText)"
     }
 }
 

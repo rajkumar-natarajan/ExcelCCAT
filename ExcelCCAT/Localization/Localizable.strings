@@ -308,3 +308,24 @@
 "easy" = "Easy";
 "medium" = "Medium";
 "hard" = "Hard";
+
+// MARK: - CCAT Levels
+"ccat_level_10" = "Level 10";
+"ccat_level_11" = "Level 11";
+"ccat_level_12" = "Level 12";
+"grades_2_3" = "Grades 2-3";
+"grades_4_5" = "Grades 4-5";
+"grade_6" = "Grade 6";
+"level_10_description" = "Basic cognitive skills for early elementary";
+"level_11_description" = "Intermediate cognitive skills for upper elementary";
+"level_12_description" = "Advanced cognitive skills for gifted program";
+
+// MARK: - TDSB Test Types
+"quick_assessment" = "Quick Assessment";
+"standard_practice" = "Standard Practice";
+"full_mock" = "Full Mock Test";
+"custom_test" = "Custom Test";
+"quick_assessment_desc" = "20-30 questions, 15-20 minutes";
+"standard_practice_desc" = "60-80 questions, 30-40 minutes";
+"full_mock_desc" = "Full test simulation";
+"custom_test_desc" = "Choose your own parameters";

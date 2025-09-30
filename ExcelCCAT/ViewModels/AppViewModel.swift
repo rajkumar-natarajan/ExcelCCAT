@@ -16,6 +16,7 @@ class AppViewModel {
     // MARK: - Published Properties
     var currentLanguage: Language = .english
     var selectedCCATLevel: CCATLevel = .level12
+    var currentTestConfiguration: TestConfiguration = TestConfiguration(testType: .fullMock, level: .level12)
     var appSettings: AppSettings = AppSettings()
     var userProgress: UserProgress = UserProgress()
     var isFirstLaunch: Bool = true
@@ -91,7 +92,36 @@ class AppViewModel {
     // MARK: - CCAT Level Management
     func changeCCATLevel(to level: CCATLevel) {
         selectedCCATLevel = level
+        // Update test configuration to match new level
+        currentTestConfiguration = TestConfiguration(
+            testType: currentTestConfiguration.testType,
+            level: level
+        )
         saveSelectedLevel()
+    }
+    
+    // MARK: - Test Configuration Management
+    func updateTestConfiguration(_ configuration: TestConfiguration) {
+        currentTestConfiguration = configuration
+        selectedCCATLevel = configuration.level
+        saveSelectedLevel()
+    }
+    
+    func setTestType(_ testType: TDSBTestType) {
+        currentTestConfiguration = TestConfiguration(
+            testType: testType,
+            level: selectedCCATLevel
+        )
+    }
+    
+    func updateCustomTestParameters(questionCount: Int, timeLimit: Int, isTimedSession: Bool) {
+        currentTestConfiguration = TestConfiguration(
+            testType: .customTest,
+            level: selectedCCATLevel,
+            questionCount: questionCount,
+            timeLimit: timeLimit,
+            isTimedSession: isTimedSession
+        )
     }
     
     // MARK: - Language Management
@@ -125,19 +155,31 @@ class AppViewModel {
     }
     
     // MARK: - Test Session Management
-    func startFullMockTest(language: Language = .english) {
-        let questions = QuestionDataManager.shared.getFullMockQuestions(language: language, level: selectedCCATLevel)
+    func startConfiguredTest(language: Language = .english) {
+        let questions = QuestionDataManager.shared.getConfiguredQuestions(
+            configuration: currentTestConfiguration,
+            language: language
+        )
         let shuffledQuestions = questions.shuffled()
+        
+        let timeInSeconds = currentTestConfiguration.isTimedSession ? 
+            TimeInterval(currentTestConfiguration.timeLimit * 60) : 0
         
         currentTestSession = TestSession(
             questions: shuffledQuestions,
             sessionType: .fullMock,
             language: language,
-            timeRemaining: TimeInterval(selectedCCATLevel.timeLimit * 60) // Convert minutes to seconds
+            timeRemaining: timeInSeconds
         )
         
         isTestInProgress = true
         saveCurrentSession()
+    }
+    
+    func startFullMockTest(language: Language = .english) {
+        // Set to full mock configuration
+        setTestType(.fullMock)
+        startConfiguredTest(language: language)
     }
     
     func startPracticeSession(

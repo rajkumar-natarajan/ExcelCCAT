@@ -37,6 +37,22 @@ class QuestionDataManager: ObservableObject {
         return base
     }
     
+    func getConfiguredQuestions(configuration: TestConfiguration, language: Language) -> [Question] {
+        let levelQuestions = allQuestions.filter { $0.level == configuration.level }
+        let questionCount = configuration.questionCount
+        
+        // If we need more questions than available, cycle through them
+        if levelQuestions.count >= questionCount {
+            return Array(levelQuestions.shuffled().prefix(questionCount))
+        } else {
+            var questions = levelQuestions.shuffled()
+            while questions.count < questionCount {
+                questions.append(contentsOf: levelQuestions.shuffled().prefix(min(levelQuestions.count, questionCount - questions.count)))
+            }
+            return Array(questions.prefix(questionCount))
+        }
+    }
+    
     func getPracticeQuestions(
         type: QuestionType,
         subType: String? = nil,
