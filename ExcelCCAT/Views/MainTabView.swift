@@ -28,13 +28,6 @@ struct MainTabView: View {
                 }
                 .tag(Tab.practice)
             
-            ReviewView()
-                .tabItem {
-                    Image(systemName: selectedTab == .review ? "magnifyingglass.circle.fill" : "magnifyingglass.circle")
-                    Text(NSLocalizedString("review_weak_areas", comment: ""))
-                }
-                .tag(Tab.review)
-            
             ProgressView()
                 .tabItem {
                     Image(systemName: selectedTab == .progress ? "chart.line.uptrend.xyaxis.circle.fill" : "chart.line.uptrend.xyaxis.circle")
@@ -78,7 +71,6 @@ struct MainTabView: View {
 enum Tab: String, CaseIterable {
     case home = "home"
     case practice = "practice"
-    case review = "review"
     case progress = "progress"
     case settings = "settings"
     
@@ -88,8 +80,6 @@ enum Tab: String, CaseIterable {
             return NSLocalizedString("home", comment: "")
         case .practice:
             return NSLocalizedString("practice", comment: "")
-        case .review:
-            return NSLocalizedString("review_weak_areas", comment: "")
         case .progress:
             return NSLocalizedString("progress_title", comment: "")
         case .settings:
@@ -103,8 +93,6 @@ enum Tab: String, CaseIterable {
             return "house"
         case .practice:
             return "brain.head.profile"
-        case .review:
-            return "magnifyingglass.circle"
         case .progress:
             return "chart.line.uptrend.xyaxis.circle"
         case .settings:
