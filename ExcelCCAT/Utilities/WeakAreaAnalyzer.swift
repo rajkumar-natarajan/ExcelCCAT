@@ -175,38 +175,31 @@ class WeakAreaAnalyzer {
         practiceResults: [PracticeResult]
     ) -> [WeakArea] {
         
+        // Note: PracticeResult doesn't track difficulty, so we'll analyze from test results
+        // This is a simplified implementation that could be enhanced
         var difficultyScores: [Difficulty: [Double]] = [:]
         
-        // Analyze difficulty-specific performance from practice results
-        for result in practiceResults {
-            if let difficulty = result.difficulty {
-                difficultyScores[difficulty, default: []].append(result.percentageScore)
+        // For now, we'll create placeholder weak difficulties based on overall performance
+        // In a real implementation, we'd need to track difficulty at the question level
+        if !testResults.isEmpty {
+            let averageScore = testResults.map(\.percentageScore).reduce(0, +) / Double(testResults.count)
+            
+            // Create difficulty analysis based on performance patterns
+            if averageScore < 60 {
+                return [WeakArea(
+                    questionType: .verbal, // Mixed type indicator
+                    subType: nil,
+                    difficulty: .hard,
+                    title: "Hard " + NSLocalizedString("difficulty_questions", comment: "Difficulty Questions"),
+                    description: generateDifficultyDescription(.hard, score: averageScore),
+                    averageScore: averageScore,
+                    totalAttempts: testResults.count,
+                    severity: .critical
+                )]
             }
         }
         
-        var weakDifficulties: [WeakArea] = []
-        
-        for (difficulty, scores) in difficultyScores {
-            guard scores.count >= 3 else { continue } // Need sufficient data
-            
-            let averageScore = scores.reduce(0, +) / Double(scores.count)
-            guard averageScore < 70 else { continue } // Only weak difficulties
-            
-            let severity = determineSeverity(score: averageScore)
-            
-            weakDifficulties.append(WeakArea(
-                questionType: .verbal, // Will be updated with mixed type indicator
-                subType: nil,
-                difficulty: difficulty,
-                title: "\(difficulty.displayName) " + NSLocalizedString("difficulty_questions", comment: "Difficulty Questions"),
-                description: generateDifficultyDescription(difficulty, score: averageScore),
-                averageScore: averageScore,
-                totalAttempts: scores.count,
-                severity: severity
-            ))
-        }
-        
-        return weakDifficulties
+        return []
     }
     
     // MARK: - Helper Methods
@@ -214,13 +207,6 @@ class WeakAreaAnalyzer {
     private static func extractTypeScore(from result: TestResult, type: QuestionType) -> Double? {
         // This would extract type-specific performance from a full test result
         // For now, we'll estimate based on overall score and type distribution
-        
-        let typeWeight: Double
-        switch type {
-        case .verbal: typeWeight = 0.33
-        case .quantitative: typeWeight = 0.34
-        case .nonVerbal: typeWeight = 0.33
-        }
         
         // Simulate type-specific performance with some variance
         let variance = Double.random(in: -10...10)
@@ -298,16 +284,6 @@ extension WeakArea.Severity {
         case .critical: return 0
         case .moderate: return 1
         case .minor: return 2
-        }
-    }
-}
-
-extension Difficulty {
-    var displayName: String {
-        switch self {
-        case .easy: return NSLocalizedString("easy", comment: "Easy")
-        case .medium: return NSLocalizedString("medium", comment: "Medium")
-        case .hard: return NSLocalizedString("hard", comment: "Hard")
         }
     }
 }
