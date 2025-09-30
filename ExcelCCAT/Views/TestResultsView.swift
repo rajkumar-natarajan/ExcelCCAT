@@ -177,7 +177,7 @@ struct TestResultsView: View {
             .animation(AppTheme.Animation.smooth.delay(1.4), value: animateScore)
             
             // Time Taken
-            Text(String(format: NSLocalizedString("time_taken", comment: ""), formatTime(result.timeTaken)))
+            Text(String(format: NSLocalizedString("time_taken", comment: ""), formatTime(result.timeSpent)))
                 .font(AppTheme.Typography.callout)
                 .foregroundColor(colorScheme == .dark ? AppTheme.Colors.darkText.opacity(0.7) : AppTheme.Colors.softGray.opacity(0.7))
                 .opacity(animateScore ? 1.0 : 0.0)

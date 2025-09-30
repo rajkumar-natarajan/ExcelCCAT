@@ -7,6 +7,28 @@
 
 import SwiftUI
 
+// MARK: - Supporting Types
+
+enum FontSize: String, CaseIterable, Codable {
+    case small = "small"
+    case medium = "medium"
+    case large = "large"
+    case extraLarge = "extra_large"
+    
+    var displayName: String {
+        switch self {
+        case .small:
+            return NSLocalizedString("font_size_small", comment: "")
+        case .medium:
+            return NSLocalizedString("font_size_medium", comment: "")
+        case .large:
+            return NSLocalizedString("font_size_large", comment: "")
+        case .extraLarge:
+            return NSLocalizedString("font_size_extra_large", comment: "")
+        }
+    }
+}
+
 // MARK: - App Theme and Design System
 
 struct AppTheme {

@@ -61,8 +61,8 @@ class AppViewModel {
     }
     
     private func loadSelectedLevel() {
-        let levelRawValue = UserDefaults.standard.integer(forKey: "SelectedCCATLevel")
-        if levelRawValue != 0, let level = CCATLevel(rawValue: levelRawValue) {
+        let levelRawValue = UserDefaults.standard.string(forKey: "SelectedCCATLevel") ?? ""
+        if !levelRawValue.isEmpty, let level = CCATLevel(rawValue: levelRawValue) {
             self.selectedCCATLevel = level
         }
     }
@@ -277,6 +277,8 @@ class AppViewModel {
                 questionType: .verbal, // Placeholder aggregate; could refine by dominant type
                 subType: nil,
                 language: session.language,
+                level: session.level,
+                date: Date(),
                 score: score,
                 totalQuestions: session.totalQuestions,
                 timeSpent: Date().timeIntervalSince(session.startTime)
@@ -318,9 +320,6 @@ class AppViewModel {
             userProgress.bestScore = result.percentageScore
         }
         
-        // Update average score
-        userProgress.averageScore = Double(userProgress.totalCorrectAnswers) / Double(userProgress.totalQuestionsAnswered) * 100
-        
         // Update streak
         let calendar = Calendar.current
         if calendar.isDateInToday(userProgress.lastActiveDate) {
@@ -345,9 +344,6 @@ class AppViewModel {
     func updateUserProgressWithPracticeResult(_ result: PracticeResult) {
         userProgress.totalQuestionsAnswered += result.totalQuestions
         userProgress.totalCorrectAnswers += result.score
-        
-        // Update average score
-        userProgress.averageScore = Double(userProgress.totalCorrectAnswers) / Double(userProgress.totalQuestionsAnswered) * 100
         
         // Update streak for practice sessions
         let calendar = Calendar.current

@@ -175,7 +175,7 @@ struct HomeView: View {
                     .font(AppTheme.Typography.caption)
                     .fontWeight(.medium)
                 
-                Text(level.gradeRange)
+                Text(level.targetGrades)
                     .font(AppTheme.Typography.caption)
                     .opacity(0.8)
             }
@@ -651,64 +651,6 @@ enum MotivationType {
             return "star.circle.fill"
         case .encouragement:
             return "heart.fill"
-        }
-    }
-}
-
-// MARK: - Extensions
-
-extension QuestionType {
-    var icon: String {
-        switch self {
-        case .verbal:
-            return "text.bubble.fill"
-        case .quantitative:
-            return "number.circle.fill"
-        case .nonVerbal:
-            return "square.on.square"
-        }
-    }
-    
-    var color: Color {
-        switch self {
-        case .verbal:
-            return AppTheme.Colors.skyBlue
-        case .quantitative:
-            return AppTheme.Colors.sageGreen
-        case .nonVerbal:
-            return AppTheme.Colors.sunnyYellow
-        }
-    }
-}
-
-extension SessionType {
-    var icon: String {
-        switch self {
-        case .fullMock:
-            return "doc.text.fill"
-        case .practice:
-            return "brain.head.profile.fill"
-        case .verbalOnly:
-            return "text.bubble.fill"
-        case .quantitativeOnly:
-            return "number.circle.fill"
-        case .nonVerbalOnly:
-            return "square.on.square"
-        }
-    }
-    
-    var color: Color {
-        switch self {
-        case .fullMock:
-            return AppTheme.Colors.skyBlue
-        case .practice:
-            return AppTheme.Colors.sageGreen
-        case .verbalOnly:
-            return AppTheme.Colors.skyBlue
-        case .quantitativeOnly:
-            return AppTheme.Colors.sageGreen
-        case .nonVerbalOnly:
-            return AppTheme.Colors.sunnyYellow
         }
     }
 }

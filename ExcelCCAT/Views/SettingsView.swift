@@ -21,7 +21,9 @@ struct SettingsView: View {
                 languageSection
                 
                 // Appearance Section
-                appearanceSection
+                Section(header: Text("Appearance")) {
+                    appearanceSection
+                }
                 
                 // Audio & Haptics Section
                 audioHapticsSection
@@ -93,7 +95,7 @@ struct SettingsView: View {
     // MARK: - Appearance Section
     
     private var appearanceSection: some View {
-        Section("Appearance") {
+        VStack(spacing: 16) {
             // Dark Mode Toggle
             HStack {
                 Image(systemName: "moon")
@@ -149,9 +151,7 @@ struct SettingsView: View {
                 .toggleStyle(SwitchToggleStyle(tint: AppTheme.Colors.skyBlue))
             }
         }
-    }
-    
-    // MARK: - Audio & Haptics Section
+    }    // MARK: - Audio & Haptics Section
     
     private var audioHapticsSection: some View {
         Section("Audio & Haptics") {

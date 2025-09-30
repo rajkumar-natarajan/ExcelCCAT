@@ -68,7 +68,7 @@ class QuestionDataManager: ObservableObject {
         }
         
         if let difficulty = difficulty {
-            filteredQuestions = filteredQuestions.filter { $0.difficulty == difficulty }
+            filteredQuestions = filteredQuestions.filter { $0.difficulty == difficulty.rawValue }
         }
         
         return Array(filteredQuestions.shuffled().prefix(count))
@@ -143,7 +143,7 @@ class QuestionDataManager: ObservableObject {
                     correctAnswer: 0,
                     explanation: "Synthetic generated verbal analogy.",
                     explanationFrench: "Analogie verbale synthétique.",
-                    difficulty: difficulty,
+                    difficulty: difficulty.rawValue,
                     subType: VerbalSubType.analogies.rawValue
                 ))
             case .quantitative:
@@ -158,7 +158,7 @@ class QuestionDataManager: ObservableObject {
                     correctAnswer: 1,
                     explanation: "Square relationship synthetic.",
                     explanationFrench: "Relation de carré synthétique.",
-                    difficulty: difficulty,
+                    difficulty: difficulty.rawValue,
                     subType: QuantitativeSubType.numberAnalogies.rawValue
                 ))
             case .nonVerbal:
@@ -172,9 +172,8 @@ class QuestionDataManager: ObservableObject {
                     correctAnswer: Int.random(in: 0...3),
                     explanation: "Synthetic non-verbal pattern.",
                     explanationFrench: "Motif non verbal synthétique.",
-                    difficulty: difficulty,
-                    subType: NonVerbalSubType.figureSeries.rawValue,
-                    imageName: nil
+                    difficulty: difficulty.rawValue,
+                    subType: NonVerbalSubType.figureSeries.rawValue
                 ))
             }
         }
@@ -194,7 +193,6 @@ class QuestionDataManager: ObservableObject {
             questions.append(contentsOf: [
                 Question(
                     type: .verbal,
-                    level: level,
                     stem: "Dog is to puppy as cat is to:",
                     stemFrench: "Chien est à chiot comme chat est à:",
                     options: ["kitten", "mouse", "fish", "bird"],
@@ -202,12 +200,13 @@ class QuestionDataManager: ObservableObject {
                     correctAnswer: 0,
                     explanation: "A puppy is a baby dog, and a kitten is a baby cat.",
                     explanationFrench: "Un chiot est un bébé chien, et un chaton est un bébé chat.",
-                    difficulty: difficulty,
-                    subType: VerbalSubType.analogies.rawValue
+                    difficulty: difficulty.rawValue,
+                    subType: VerbalSubType.analogies.rawValue,
+                    language: .english,
+                    level: level
                 ),
                 Question(
                     type: .verbal,
-                    level: level,
                     stem: "Big is to small as tall is to:",
                     stemFrench: "Grand est à petit comme haut est à:",
                     options: ["short", "wide", "long", "fat"],
@@ -215,8 +214,10 @@ class QuestionDataManager: ObservableObject {
                     correctAnswer: 0,
                     explanation: "Big and small are opposites, just like tall and short.",
                     explanationFrench: "Grand et petit sont opposés, tout comme haut et court.",
-                    difficulty: difficulty,
-                    subType: VerbalSubType.analogies.rawValue
+                    difficulty: difficulty.rawValue,
+                    subType: VerbalSubType.analogies.rawValue,
+                    language: .english,
+                    level: level
                 )
             ])
         } else if level == .level11 {
@@ -224,7 +225,6 @@ class QuestionDataManager: ObservableObject {
             questions.append(contentsOf: [
                 Question(
                     type: .verbal,
-                    level: level,
                     stem: "Author is to book as composer is to:",
                     stemFrench: "Auteur est à livre comme compositeur est à:",
                     options: ["song", "instrument", "concert", "orchestra"],
@@ -232,12 +232,13 @@ class QuestionDataManager: ObservableObject {
                     correctAnswer: 0,
                     explanation: "An author creates a book, and a composer creates a song.",
                     explanationFrench: "Un auteur crée un livre, et un compositeur crée une chanson.",
-                    difficulty: difficulty,
-                    subType: VerbalSubType.analogies.rawValue
+                    difficulty: difficulty.rawValue,
+                    subType: VerbalSubType.analogies.rawValue,
+                    language: .english,
+                    level: level
                 ),
                 Question(
                     type: .verbal,
-                    level: level,
                     stem: "Library is to books as museum is to:",
                     stemFrench: "Bibliothèque est à livres comme musée est à:",
                     options: ["artifacts", "people", "tickets", "guides"],
@@ -245,8 +246,10 @@ class QuestionDataManager: ObservableObject {
                     correctAnswer: 0,
                     explanation: "A library contains books, and a museum contains artifacts.",
                     explanationFrench: "Une bibliothèque contient des livres, et un musée contient des artefacts.",
-                    difficulty: difficulty,
-                    subType: VerbalSubType.analogies.rawValue
+                    difficulty: difficulty.rawValue,
+                    subType: VerbalSubType.analogies.rawValue,
+                    language: .english,
+                    level: level
                 )
             ])
         } else {
@@ -254,7 +257,6 @@ class QuestionDataManager: ObservableObject {
             questions.append(contentsOf: [
                 Question(
                     type: .verbal,
-                    level: level,
                     stem: "Cat is to meow as dog is to:",
                     stemFrench: "Chat est à miauler comme chien est à:",
                     options: ["bark", "run", "sleep", "eat"],
@@ -262,12 +264,13 @@ class QuestionDataManager: ObservableObject {
                     correctAnswer: 0,
                     explanation: "Cats meow and dogs bark - both are the sounds these animals make.",
                     explanationFrench: "Les chats miaulent et les chiens aboient - ce sont les sons que ces animaux font.",
-                    difficulty: difficulty,
-                    subType: VerbalSubType.analogies.rawValue
+                    difficulty: difficulty.rawValue,
+                    subType: VerbalSubType.analogies.rawValue,
+                    language: .english,
+                    level: level
                 ),
                 Question(
                     type: .verbal,
-                    level: level,
                     stem: "Hot is to cold as fire is to:",
                     stemFrench: "Chaud est à froid comme feu est à:",
                     options: ["water", "ice", "snow", "wind"],
@@ -275,8 +278,10 @@ class QuestionDataManager: ObservableObject {
                     correctAnswer: 1,
                     explanation: "Hot and cold are opposites, just as fire and ice are opposites.",
                     explanationFrench: "Chaud et froid sont opposés, tout comme feu et glace sont opposés.",
-                    difficulty: difficulty,
-                    subType: VerbalSubType.analogies.rawValue
+                    difficulty: difficulty.rawValue,
+                    subType: VerbalSubType.analogies.rawValue,
+                    language: .english,
+                    level: level
                 )
             ])
         }
@@ -312,7 +317,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 1,
                 explanation: "A teacher works at a school, and a doctor works at a hospital.",
                 explanationFrench: "Un enseignant travaille à l'école, et un médecin travaille à l'hôpital.",
-                difficulty: .easy,
+                difficulty: Difficulty.easy.rawValue,
                 subType: VerbalSubType.analogies.rawValue
             ),
             
@@ -326,7 +331,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 1,
                 explanation: "An author creates a novel, and a composer creates a symphony.",
                 explanationFrench: "Un auteur crée un roman, et un compositeur crée une symphonie.",
-                difficulty: .medium,
+                difficulty: Difficulty.medium.rawValue,
                 subType: VerbalSubType.analogies.rawValue
             ),
             Question(
@@ -338,7 +343,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 1,
                 explanation: "A petal is part of a flower, and a page is part of a book.",
                 explanationFrench: "Un pétale fait partie d'une fleur, et une page fait partie d'un livre.",
-                difficulty: .medium,
+                difficulty: Difficulty.medium.rawValue,
                 subType: VerbalSubType.analogies.rawValue
             ),
             Question(
@@ -350,7 +355,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 1,
                 explanation: "An archipelago is a group of islands, and a constellation is a group of stars.",
                 explanationFrench: "Un archipel est un groupe d'îles, et une constellation est un groupe d'étoiles.",
-                difficulty: .medium,
+                difficulty: Difficulty.medium.rawValue,
                 subType: VerbalSubType.analogies.rawValue
             ),
             
@@ -364,7 +369,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 0,
                 explanation: "Ephemeral and permanent are opposites, as are cacophony (harsh sound) and harmony (pleasant sound).",
                 explanationFrench: "Éphémère et permanent sont opposés, comme cacophonie (son dur) et harmonie (son agréable).",
-                difficulty: .hard,
+                difficulty: Difficulty.hard.rawValue,
                 subType: VerbalSubType.analogies.rawValue
             ),
             Question(
@@ -376,7 +381,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 1,
                 explanation: "Meticulous and careless are opposites, as are frugal (careful with money) and wasteful.",
                 explanationFrench: "Méticuleux et négligent sont opposés, comme frugal (prudent avec l'argent) et gaspilleur.",
-                difficulty: .hard,
+                difficulty: Difficulty.hard.rawValue,
                 subType: VerbalSubType.analogies.rawValue
             )
         ]
@@ -394,7 +399,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 1,
                 explanation: "Purring loudly when petted indicates the cat is happy and content.",
                 explanationFrench: "Ronronner fort quand on le caresse indique que le chat est heureux et content.",
-                difficulty: .easy,
+                difficulty: Difficulty.easy.rawValue,
                 subType: VerbalSubType.sentenceCompletion.rawValue
             ),
             Question(
@@ -406,7 +411,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 1,
                 explanation: "Running a marathon is very tiring, so Sarah would feel exhausted.",
                 explanationFrench: "Courir un marathon est très fatigant, donc Sarah se sentirait épuisée.",
-                difficulty: .easy,
+                difficulty: Difficulty.easy.rawValue,
                 subType: VerbalSubType.sentenceCompletion.rawValue
             ),
             
@@ -420,7 +425,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 1,
                 explanation: "Experimental results typically validate or disprove a hypothesis.",
                 explanationFrench: "Les résultats expérimentaux valident ou réfutent généralement une hypothèse.",
-                difficulty: .medium,
+                difficulty: Difficulty.medium.rawValue,
                 subType: VerbalSubType.sentenceCompletion.rawValue
             ),
             Question(
@@ -432,7 +437,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 1,
                 explanation: "'Despite' indicates contrast - intimidating appearance contrasts with being friendly.",
                 explanationFrench: "'Malgré' indique un contraste - une apparence intimidante contraste avec être amicale.",
-                difficulty: .medium,
+                difficulty: Difficulty.medium.rawValue,
                 subType: VerbalSubType.sentenceCompletion.rawValue
             ),
             
@@ -446,7 +451,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 1,
                 explanation: "A bombastic (pompous, inflated) speech would fail to convince a skeptical audience.",
                 explanationFrench: "Un discours emphatique (pompeux, gonflé) échouerait à convaincre une audience sceptique.",
-                difficulty: .hard,
+                difficulty: Difficulty.hard.rawValue,
                 subType: VerbalSubType.sentenceCompletion.rawValue
             )
         ]
@@ -466,7 +471,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 1,
                 explanation: "2 × 2 = 4, so 3 × 2 = 6",
                 explanationFrench: "2 × 2 = 4, donc 3 × 2 = 6",
-                difficulty: .easy,
+                difficulty: Difficulty.easy.rawValue,
                 subType: QuantitativeSubType.numberAnalogies.rawValue
             ),
             Question(
@@ -478,7 +483,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 1,
                 explanation: "5² = 25, so 6² = 36",
                 explanationFrench: "5² = 25, donc 6² = 36",
-                difficulty: .easy,
+                difficulty: Difficulty.easy.rawValue,
                 subType: QuantitativeSubType.numberAnalogies.rawValue
             ),
             
@@ -492,7 +497,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 2,
                 explanation: "8³ = 64, so 5³ = 125",
                 explanationFrench: "8³ = 64, donc 5³ = 125",
-                difficulty: .medium,
+                difficulty: Difficulty.medium.rawValue,
                 subType: QuantitativeSubType.numberAnalogies.rawValue
             ),
             Question(
@@ -504,7 +509,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 1,
                 explanation: "12 ÷ 2 = 6, so 18 ÷ 2 = 9",
                 explanationFrench: "12 ÷ 2 = 6, donc 18 ÷ 2 = 9",
-                difficulty: .medium,
+                difficulty: Difficulty.medium.rawValue,
                 subType: QuantitativeSubType.numberAnalogies.rawValue
             ),
             
@@ -518,7 +523,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 2,
                 explanation: "3² + 1 = 10, so 7² + 1 = 50",
                 explanationFrench: "3² + 1 = 10, donc 7² + 1 = 50",
-                difficulty: .hard,
+                difficulty: Difficulty.hard.rawValue,
                 subType: QuantitativeSubType.numberAnalogies.rawValue
             )
         ]
@@ -536,7 +541,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 1,
                 explanation: "1/2 = 0.5 (decimal form), so 1/4 = 0.25",
                 explanationFrench: "1/2 = 0,5 (forme décimale), donc 1/4 = 0,25",
-                difficulty: .easy,
+                difficulty: Difficulty.easy.rawValue,
                 subType: QuantitativeSubType.quantitativeAnalogies.rawValue
             ),
             Question(
@@ -548,7 +553,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 1,
                 explanation: "10% = 0.1, so 25% = 0.25",
                 explanationFrench: "10% = 0,1, donc 25% = 0,25",
-                difficulty: .easy,
+                difficulty: Difficulty.easy.rawValue,
                 subType: QuantitativeSubType.quantitativeAnalogies.rawValue
             ),
             
@@ -562,7 +567,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 1,
                 explanation: "The area of a circle is π × r², and the area of a rectangle is length × width.",
                 explanationFrench: "L'aire d'un cercle est π × r², et l'aire d'un rectangle est longueur × largeur.",
-                difficulty: .medium,
+                difficulty: Difficulty.medium.rawValue,
                 subType: QuantitativeSubType.quantitativeAnalogies.rawValue
             ),
             
@@ -576,7 +581,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 2,
                 explanation: "2⁴ = 16, so 3³ = 27",
                 explanationFrench: "2⁴ = 16, donc 3³ = 27",
-                difficulty: .hard,
+                difficulty: Difficulty.hard.rawValue,
                 subType: QuantitativeSubType.quantitativeAnalogies.rawValue
             )
         ]
@@ -594,7 +599,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 1,
                 explanation: "5 + 3 + 2 = 8 + 2 = 10",
                 explanationFrench: "5 + 3 + 2 = 8 + 2 = 10",
-                difficulty: .easy,
+                difficulty: Difficulty.easy.rawValue,
                 subType: QuantitativeSubType.equationBuilding.rawValue
             ),
             Question(
@@ -606,7 +611,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 2,
                 explanation: "3 × 5 = 15",
                 explanationFrench: "3 × 5 = 15",
-                difficulty: .easy,
+                difficulty: Difficulty.easy.rawValue,
                 subType: QuantitativeSubType.equationBuilding.rawValue
             ),
             
@@ -620,7 +625,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 1,
                 explanation: "2x = 11 - 3 = 8, so x = 4",
                 explanationFrench: "2x = 11 - 3 = 8, donc x = 4",
-                difficulty: .medium,
+                difficulty: Difficulty.medium.rawValue,
                 subType: QuantitativeSubType.equationBuilding.rawValue
             ),
             
@@ -634,7 +639,7 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 0,
                 explanation: "3(4) - 2y = 10, so 12 - 2y = 10, therefore 2y = 2, so y = 1",
                 explanationFrench: "3(4) - 2y = 10, donc 12 - 2y = 10, par conséquent 2y = 2, donc y = 1",
-                difficulty: .hard,
+                difficulty: Difficulty.hard.rawValue,
                 subType: QuantitativeSubType.equationBuilding.rawValue
             )
         ]
@@ -654,9 +659,8 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 0,
                 explanation: "The pattern shows increasing dots inside the circle: 0, 1, 2.",
                 explanationFrench: "Le motif montre des points croissants à l'intérieur du cercle: 0, 1, 2.",
-                difficulty: .easy,
+                difficulty: Difficulty.easy.rawValue,
                 subType: NonVerbalSubType.figureMatrices.rawValue,
-                imageName: "matrix_easy_1"
             ),
             Question(
                 type: .nonVerbal,
@@ -667,9 +671,8 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 1,
                 explanation: "The pattern alternates diagonally between squares and circles.",
                 explanationFrench: "Le motif alterne en diagonal entre carrés et cercles.",
-                difficulty: .easy,
+                difficulty: Difficulty.easy.rawValue,
                 subType: NonVerbalSubType.figureMatrices.rawValue,
-                imageName: "matrix_easy_2"
             ),
             
             // Medium Level
@@ -682,9 +685,8 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 2,
                 explanation: "Arrows rotate 90 degrees clockwise in each position.",
                 explanationFrench: "Les flèches tournent de 90 degrés dans le sens horaire à chaque position.",
-                difficulty: .medium,
+                difficulty: Difficulty.medium.rawValue,
                 subType: NonVerbalSubType.figureMatrices.rawValue,
-                imageName: "matrix_medium_1"
             ),
             
             // Hard Level
@@ -697,9 +699,8 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 0,
                 explanation: "The pattern combines rotation and addition of elements following specific rules.",
                 explanationFrench: "Le motif combine rotation et ajout d'éléments suivant des règles spécifiques.",
-                difficulty: .hard,
+                difficulty: Difficulty.hard.rawValue,
                 subType: NonVerbalSubType.figureMatrices.rawValue,
-                imageName: "matrix_hard_1"
             )
         ]
     }
@@ -716,9 +717,8 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 3,
                 explanation: "Circle, square, and triangle are closed shapes. A line is not closed.",
                 explanationFrench: "Cercle, carré et triangle sont des formes fermées. Une ligne n'est pas fermée.",
-                difficulty: .easy,
+                difficulty: Difficulty.easy.rawValue,
                 subType: NonVerbalSubType.figureClassification.rawValue,
-                imageName: "classification_easy_1"
             ),
             Question(
                 type: .nonVerbal,
@@ -729,9 +729,8 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 3,
                 explanation: "Three shapes are shaded (filled), while the diamond is empty (not shaded).",
                 explanationFrench: "Trois formes sont ombrées (remplies), tandis que le losange est vide (non ombré).",
-                difficulty: .easy,
+                difficulty: Difficulty.easy.rawValue,
                 subType: NonVerbalSubType.figureClassification.rawValue,
-                imageName: "classification_easy_2"
             ),
             
             // Medium Level
@@ -744,9 +743,8 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 3,
                 explanation: "The rectangle has only straight lines, while others have curved elements.",
                 explanationFrench: "Le rectangle n'a que des lignes droites, tandis que les autres ont des éléments courbes.",
-                difficulty: .medium,
+                difficulty: Difficulty.medium.rawValue,
                 subType: NonVerbalSubType.figureClassification.rawValue,
-                imageName: "classification_medium_1"
             ),
             
             // Hard Level
@@ -759,9 +757,8 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 3,
                 explanation: "The arrow is asymmetric while all others have symmetrical properties.",
                 explanationFrench: "La flèche est asymétrique tandis que toutes les autres ont des propriétés symétriques.",
-                difficulty: .hard,
+                difficulty: Difficulty.hard.rawValue,
                 subType: NonVerbalSubType.figureClassification.rawValue,
-                imageName: "classification_hard_1"
             )
         ]
     }
@@ -778,9 +775,8 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 0,
                 explanation: "The pattern alternates between circle and square, so next is circle.",
                 explanationFrench: "Le motif alterne entre cercle et carré, donc le suivant est cercle.",
-                difficulty: .easy,
+                difficulty: Difficulty.easy.rawValue,
                 subType: NonVerbalSubType.figureSeries.rawValue,
-                imageName: "series_easy_1"
             ),
             Question(
                 type: .nonVerbal,
@@ -791,9 +787,8 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 0,
                 explanation: "Each shape has one more side than the previous: 3, 4, 5, 6 (hexagon).",
                 explanationFrench: "Chaque forme a un côté de plus que la précédente: 3, 4, 5, 6 (hexagone).",
-                difficulty: .easy,
+                difficulty: Difficulty.easy.rawValue,
                 subType: NonVerbalSubType.figureSeries.rawValue,
-                imageName: "series_easy_2"
             ),
             
             // Medium Level
@@ -806,9 +801,8 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 2,
                 explanation: "Following 45-degree clockwise rotation pattern from the sequence.",
                 explanationFrench: "Suivant le motif de rotation de 45 degrés dans le sens horaire de la séquence.",
-                difficulty: .medium,
+                difficulty: Difficulty.medium.rawValue,
                 subType: NonVerbalSubType.figureSeries.rawValue,
-                imageName: "series_medium_1"
             ),
             
             // Hard Level
@@ -821,9 +815,8 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 1,
                 explanation: "The pattern combines rotation with systematic shape modifications.",
                 explanationFrench: "Le motif combine rotation avec modifications systématiques de forme.",
-                difficulty: .hard,
+                difficulty: Difficulty.hard.rawValue,
                 subType: NonVerbalSubType.figureSeries.rawValue,
-                imageName: "series_hard_1"
             )
         ]
     }
@@ -867,7 +860,6 @@ class QuestionDataManager: ObservableObject {
         for _ in 0..<questionCount {
             questions.append(Question(
                 type: .verbal,
-                level: level,
                 stem: "The student was very _____ about the test results.",
                 stemFrench: "L'étudiant était très _____ des résultats du test.",
                 options: ["anxious", "happy", "tired", "hungry"],
@@ -875,8 +867,10 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 0,
                 explanation: "Students are typically anxious about test results.",
                 explanationFrench: "Les étudiants sont généralement anxieux des résultats des tests.",
-                difficulty: difficulty,
-                subType: VerbalSubType.sentenceCompletion.rawValue
+                difficulty: difficulty.rawValue,
+                subType: VerbalSubType.sentenceCompletion.rawValue,
+                language: .english,
+                level: level
             ))
         }
         return questions
@@ -890,7 +884,6 @@ class QuestionDataManager: ObservableObject {
         for _ in 0..<questionCount {
             questions.append(Question(
                 type: .verbal,
-                level: level,
                 stem: "Which word does NOT belong with the others?",
                 stemFrench: "Quel mot n'appartient PAS avec les autres?",
                 options: ["Apple", "Orange", "Banana", "Carrot"],
@@ -898,8 +891,10 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 3,
                 explanation: "Carrot is a vegetable, while the others are fruits.",
                 explanationFrench: "La carotte est un légume, tandis que les autres sont des fruits.",
-                difficulty: difficulty,
-                subType: VerbalSubType.classification.rawValue
+                difficulty: difficulty.rawValue,
+                subType: VerbalSubType.classification.rawValue,
+                language: .english,
+                level: level
             ))
         }
         return questions
@@ -919,7 +914,6 @@ class QuestionDataManager: ObservableObject {
             
             questions.append(Question(
                 type: .quantitative,
-                level: level,
                 stem: "\(num1) : \(num2) :: \(num3) : ?",
                 stemFrench: "\(num1) : \(num2) :: \(num3) : ?",
                 options: ["\(num4)", "\(num4-1)", "\(num4+1)", "\(num4*2)"],
@@ -927,8 +921,10 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 0,
                 explanation: "The relationship is multiply by 2.",
                 explanationFrench: "La relation est multiplier par 2.",
-                difficulty: difficulty,
-                subType: QuantitativeSubType.numberAnalogies.rawValue
+                difficulty: difficulty.rawValue,
+                subType: QuantitativeSubType.numberAnalogies.rawValue,
+                language: .english,
+                level: level
             ))
         }
         return questions
@@ -942,7 +938,6 @@ class QuestionDataManager: ObservableObject {
         for _ in 0..<questionCount {
             questions.append(Question(
                 type: .quantitative,
-                level: level,
                 stem: "If 5 + 3 = 8, then 7 + 4 = ?",
                 stemFrench: "Si 5 + 3 = 8, alors 7 + 4 = ?",
                 options: ["11", "10", "12", "9"],
@@ -950,8 +945,10 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 0,
                 explanation: "Simple addition: 7 + 4 = 11.",
                 explanationFrench: "Addition simple: 7 + 4 = 11.",
-                difficulty: difficulty,
-                subType: QuantitativeSubType.quantitativeAnalogies.rawValue
+                difficulty: difficulty.rawValue,
+                subType: QuantitativeSubType.quantitativeAnalogies.rawValue,
+                language: .english,
+                level: level
             ))
         }
         return questions
@@ -965,7 +962,6 @@ class QuestionDataManager: ObservableObject {
         for _ in 0..<questionCount {
             questions.append(Question(
                 type: .quantitative,
-                level: level,
                 stem: "Using 2, 3, and 5, which equation equals 10?",
                 stemFrench: "En utilisant 2, 3, et 5, quelle équation égale 10?",
                 options: ["2 + 3 + 5", "2 × 3 + 4", "5 × 2", "3 + 5 + 2"],
@@ -973,8 +969,10 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 2,
                 explanation: "5 × 2 = 10.",
                 explanationFrench: "5 × 2 = 10.",
-                difficulty: difficulty,
-                subType: QuantitativeSubType.equationBuilding.rawValue
+                difficulty: difficulty.rawValue,
+                subType: QuantitativeSubType.equationBuilding.rawValue,
+                language: .english,
+                level: level
             ))
         }
         return questions
@@ -988,7 +986,6 @@ class QuestionDataManager: ObservableObject {
         for index in 0..<questionCount {
             questions.append(Question(
                 type: .nonVerbal,
-                level: level,
                 stem: "Complete the pattern in this 2×2 matrix.",
                 stemFrench: "Complétez le motif dans cette matrice 2×2.",
                 options: ["Option A", "Option B", "Option C", "Option D"],
@@ -996,9 +993,10 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 0,
                 explanation: "The pattern follows logical progression.",
                 explanationFrench: "Le motif suit une progression logique.",
-                difficulty: difficulty,
+                difficulty: difficulty.rawValue,
                 subType: NonVerbalSubType.figureMatrices.rawValue,
-                imageName: "matrix_\(level.rawValue)_\(index)"
+                language: .english,
+                level: level
             ))
         }
         return questions
@@ -1012,7 +1010,6 @@ class QuestionDataManager: ObservableObject {
         for index in 0..<questionCount {
             questions.append(Question(
                 type: .nonVerbal,
-                level: level,
                 stem: "Which figure does NOT belong with the others?",
                 stemFrench: "Quelle figure n'appartient PAS avec les autres?",
                 options: ["Figure A", "Figure B", "Figure C", "Figure D"],
@@ -1020,9 +1017,10 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 0,
                 explanation: "One figure has different properties.",
                 explanationFrench: "Une figure a des propriétés différentes.",
-                difficulty: difficulty,
+                difficulty: difficulty.rawValue,
                 subType: NonVerbalSubType.figureClassification.rawValue,
-                imageName: "classification_\(level.rawValue)_\(index)"
+                language: .english,
+                level: level
             ))
         }
         return questions
@@ -1036,7 +1034,6 @@ class QuestionDataManager: ObservableObject {
         for index in 0..<questionCount {
             questions.append(Question(
                 type: .nonVerbal,
-                level: level,
                 stem: "What comes next in this series?",
                 stemFrench: "Que vient ensuite dans cette série?",
                 options: ["Next A", "Next B", "Next C", "Next D"],
@@ -1044,9 +1041,10 @@ class QuestionDataManager: ObservableObject {
                 correctAnswer: 0,
                 explanation: "The series follows a logical pattern.",
                 explanationFrench: "La série suit un motif logique.",
-                difficulty: difficulty,
+                difficulty: difficulty.rawValue,
                 subType: NonVerbalSubType.figureSeries.rawValue,
-                imageName: "series_\(level.rawValue)_\(index)"
+                language: .english,
+                level: level
             ))
         }
         return questions

@@ -114,7 +114,7 @@ struct PracticeView: View {
                     .font(AppTheme.Typography.caption)
                     .fontWeight(.medium)
                 
-                Text(level.gradeRange)
+                Text(level.targetGrades)
                     .font(AppTheme.Typography.caption)
                     .opacity(0.8)
             }

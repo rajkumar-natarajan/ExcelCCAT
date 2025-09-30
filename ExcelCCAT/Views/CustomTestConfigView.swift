@@ -57,7 +57,17 @@ struct CustomTestConfigView: View {
                         Slider(
                             value: Binding(
                                 get: { Double(selectedQuestionCount) },
-                                set: { selectedQuestionCount = Int($0) }
+                                set: { 
+                                    selectedQuestionCount = Int($0)
+                                    // Auto-adjust time based on question count
+                                    if isTimedSession {
+                                        selectedTimeLimit = TestConfiguration.calculateRecommendedTime(
+                                            for: selectedQuestionCount, 
+                                            level: appViewModel.selectedCCATLevel, 
+                                            testType: .customTest
+                                        )
+                                    }
+                                }
                             ),
                             in: Double(questionRange.lowerBound)...Double(questionRange.upperBound),
                             step: 5

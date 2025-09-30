@@ -190,11 +190,6 @@ struct TestSessionView: View {
                     .foregroundColor(colorScheme == .dark ? AppTheme.Colors.darkText : AppTheme.Colors.softGray)
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                
-                // Image for non-verbal questions
-                if let imageName = question.imageName {
-                    questionImage(imageName)
-                }
             }
             .cardStyle()
             
