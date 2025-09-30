@@ -21,6 +21,9 @@ struct HomeView: View {
                     // Welcome Header
                     welcomeHeader
                     
+                    // Level Selection
+                    levelSelectionSection
+                    
                     // Stats Overview
                     statsOverview
                     
@@ -125,6 +128,70 @@ struct HomeView: View {
         .animation(AppTheme.Animation.smooth.delay(0.2), value: isAnimating)
     }
     
+    // MARK: - Level Selection Section
+    
+    private var levelSelectionSection: some View {
+        VStack(alignment: .leading, spacing: AppTheme.Spacing.sm) {
+            Text("Test Level")
+                .font(AppTheme.Typography.headline)
+                .foregroundColor(colorScheme == .dark ? AppTheme.Colors.darkText : AppTheme.Colors.softGray)
+            
+            HStack(spacing: AppTheme.Spacing.sm) {
+                ForEach([CCATLevel.level10, CCATLevel.level11, CCATLevel.level12], id: \.self) { level in
+                    levelButton(for: level)
+                }
+            }
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: AppTheme.CornerRadius.card)
+                .fill(colorScheme == .dark ? AppTheme.Colors.softGray : Color.white)
+                .shadow(
+                    color: AppTheme.Colors.lightGray.opacity(0.3),
+                    radius: 4,
+                    x: 0,
+                    y: 2
+                )
+        )
+        .opacity(isAnimating ? 1.0 : 0.0)
+        .offset(y: isAnimating ? 0 : 20)
+        .animation(AppTheme.Animation.smooth.delay(0.1), value: isAnimating)
+    }
+    
+    private func levelButton(for level: CCATLevel) -> some View {
+        Button(action: {
+            appViewModel.changeCCATLevel(to: level)
+        }) {
+            VStack(spacing: AppTheme.Spacing.xs) {
+                Text(level.displayName)
+                    .font(AppTheme.Typography.caption)
+                    .fontWeight(.medium)
+                
+                Text(level.gradeRange)
+                    .font(AppTheme.Typography.caption)
+                    .opacity(0.8)
+            }
+            .padding(.horizontal, AppTheme.Spacing.sm)
+            .padding(.vertical, AppTheme.Spacing.xs)
+            .frame(maxWidth: .infinity)
+            .background(
+                RoundedRectangle(cornerRadius: AppTheme.CornerRadius.medium)
+                    .fill(appViewModel.selectedCCATLevel == level ? 
+                          AppTheme.Colors.skyBlue : 
+                          (colorScheme == .dark ? AppTheme.Colors.softGray : Color.white))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: AppTheme.CornerRadius.medium)
+                    .stroke(appViewModel.selectedCCATLevel == level ? 
+                            AppTheme.Colors.skyBlue : 
+                            AppTheme.Colors.lightGray, lineWidth: 1)
+            )
+            .foregroundColor(appViewModel.selectedCCATLevel == level ? 
+                            .white : 
+                            (colorScheme == .dark ? .white : AppTheme.Colors.softGray))
+        }
+    }
+    
     // MARK: - Main Action Section
     
     private var mainActionSection: some View {
@@ -164,7 +231,7 @@ struct HomeView: View {
                             .font(AppTheme.Typography.headline)
                             .fontWeight(.semibold)
                         
-                        Text("176 questions • 30 minutes")
+                        Text("\(appViewModel.selectedCCATLevel.questionCount) questions • \(appViewModel.selectedCCATLevel.timeLimit) minutes")
                             .font(AppTheme.Typography.caption)
                             .opacity(0.9)
                     }

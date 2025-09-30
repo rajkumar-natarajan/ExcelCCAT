@@ -98,6 +98,67 @@ enum Language: String, CaseIterable, Codable {
     }
 }
 
+enum CCATLevel: Int, CaseIterable, Codable {
+    case level10 = 10  // Grades 2-3
+    case level11 = 11  // Grades 4-5
+    case level12 = 12  // Grade 6 (Gifted Program)
+    
+    var displayName: String {
+        switch self {
+        case .level10:
+            return NSLocalizedString("ccat_level_10", comment: "CCAT Level 10")
+        case .level11:
+            return NSLocalizedString("ccat_level_11", comment: "CCAT Level 11")
+        case .level12:
+            return NSLocalizedString("ccat_level_12", comment: "CCAT Level 12")
+        }
+    }
+    
+    var gradeRange: String {
+        switch self {
+        case .level10:
+            return NSLocalizedString("grades_2_3", comment: "Grades 2-3")
+        case .level11:
+            return NSLocalizedString("grades_4_5", comment: "Grades 4-5")
+        case .level12:
+            return NSLocalizedString("grade_6", comment: "Grade 6")
+        }
+    }
+    
+    var description: String {
+        switch self {
+        case .level10:
+            return NSLocalizedString("level_10_description", comment: "Basic cognitive skills for early elementary")
+        case .level11:
+            return NSLocalizedString("level_11_description", comment: "Intermediate cognitive skills for upper elementary")
+        case .level12:
+            return NSLocalizedString("level_12_description", comment: "Advanced cognitive skills for gifted program")
+        }
+    }
+    
+    var questionCount: Int {
+        switch self {
+        case .level10:
+            return 120  // Shorter test for younger students
+        case .level11:
+            return 150  // Medium length test
+        case .level12:
+            return 176  // Full length gifted program test
+        }
+    }
+    
+    var timeLimit: TimeInterval {
+        switch self {
+        case .level10:
+            return 45 * 60  // 45 minutes for younger students
+        case .level11:
+            return 60 * 60  // 60 minutes
+        case .level12:
+            return 75 * 60  // 75 minutes for gifted program
+        }
+    }
+}
+
 enum Difficulty: Int, CaseIterable, Codable {
     case easy = 1
     case medium = 2
@@ -118,6 +179,7 @@ enum Difficulty: Int, CaseIterable, Codable {
 struct Question: Identifiable, Codable, Hashable {
     let id: UUID
     let type: QuestionType
+    let level: CCATLevel
     let stem: String
     let stemFrench: String
     let options: [String]
@@ -132,6 +194,7 @@ struct Question: Identifiable, Codable, Hashable {
     
     init(id: UUID = UUID(),
          type: QuestionType,
+         level: CCATLevel = .level12,
          stem: String,
          stemFrench: String,
          options: [String],
@@ -145,6 +208,7 @@ struct Question: Identifiable, Codable, Hashable {
          timeAllocated: TimeInterval? = nil) {
         self.id = id
         self.type = type
+        self.level = level
         self.stem = stem
         self.stemFrench = stemFrench
         self.options = options

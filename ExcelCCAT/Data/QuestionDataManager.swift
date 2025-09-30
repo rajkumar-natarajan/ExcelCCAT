@@ -11,10 +11,6 @@ class QuestionDataManager: ObservableObject {
     static let shared = QuestionDataManager()
     
     private var allQuestions: [Question] = []
-    // Deterministic partitions for three full mock tests
-    private var mockSetA: [Question] = []
-    private var mockSetB: [Question] = []
-    private var mockSetC: [Question] = []
     
     init() {
         loadQuestions()
@@ -23,19 +19,21 @@ class QuestionDataManager: ObservableObject {
     private func loadQuestions() {
         allQuestions = generateHardcodedQuestions()
         ensureMinimumVolume()
-        buildDeterministicMockSets()
     }
     
     // MARK: - Public Methods
     
-    func getFullMockQuestions(language: Language, set: Int = 1) -> [Question] {
+    func getFullMockQuestions(language: Language, level: CCATLevel = .level12, set: Int = 1) -> [Question] {
+        let levelQuestions = allQuestions.filter { $0.level == level }
+        let questionCount = level.questionCount
+        
         let base: [Question]
         switch set {
-        case 2: base = mockSetB
-        case 3: base = mockSetC
-        default: base = mockSetA
+        case 2: base = Array(levelQuestions.shuffled().prefix(questionCount))
+        case 3: base = Array(levelQuestions.shuffled().prefix(questionCount))
+        default: base = Array(levelQuestions.shuffled().prefix(questionCount))
         }
-        // Currently questions are language‑agnostic except localized text already embedded.
+        
         return base
     }
     
@@ -44,9 +42,10 @@ class QuestionDataManager: ObservableObject {
         subType: String? = nil,
         difficulty: Difficulty? = nil,
         language: Language,
-        count: Int
+        count: Int,
+        level: CCATLevel = .level12
     ) -> [Question] {
-        var filteredQuestions = allQuestions.filter { $0.type == type }
+        var filteredQuestions = allQuestions.filter { $0.type == type && $0.level == level }
         
         if let subType = subType {
             filteredQuestions = filteredQuestions.filter { $0.subType == subType }
@@ -59,16 +58,16 @@ class QuestionDataManager: ObservableObject {
         return Array(filteredQuestions.shuffled().prefix(count))
     }
     
-    func getQuestionsByType(_ type: QuestionType, count: Int) -> [Question] {
-        let typeQuestions = allQuestions.filter { $0.type == type }
-    if typeQuestions.count <= count { return typeQuestions }
-    return Array(typeQuestions.shuffled().prefix(count))
+    func getQuestionsByType(_ type: QuestionType, level: CCATLevel = .level12, count: Int) -> [Question] {
+        let typeQuestions = allQuestions.filter { $0.type == type && $0.level == level }
+        if typeQuestions.count <= count { return typeQuestions }
+        return Array(typeQuestions.shuffled().prefix(count))
     }
     
-    func getQuestionsBySubType(_ subType: String, count: Int) -> [Question] {
-        let subTypeQuestions = allQuestions.filter { $0.subType == subType }
-    if subTypeQuestions.count <= count { return subTypeQuestions }
-    return Array(subTypeQuestions.shuffled().prefix(count))
+    func getQuestionsBySubType(_ subType: String, level: CCATLevel = .level12, count: Int) -> [Question] {
+        let subTypeQuestions = allQuestions.filter { $0.subType == subType && $0.level == level }
+        if subTypeQuestions.count <= count { return subTypeQuestions }
+        return Array(subTypeQuestions.shuffled().prefix(count))
     }
     
     // MARK: - Question Generation
@@ -76,20 +75,23 @@ class QuestionDataManager: ObservableObject {
     private func generateHardcodedQuestions() -> [Question] {
         var questions: [Question] = []
         
-        // Generate Verbal Questions (200+ questions for variety)
-        questions.append(contentsOf: generateVerbalAnalogies())
-        questions.append(contentsOf: generateSentenceCompletion())
-        questions.append(contentsOf: generateVerbalClassification())
-        
-        // Generate Quantitative Questions (200+ questions)
-        questions.append(contentsOf: generateNumberAnalogies())
-        questions.append(contentsOf: generateQuantitativeAnalogies())
-        questions.append(contentsOf: generateEquationBuilding())
-        
-        // Generate Non-Verbal Questions (200+ questions)
-        questions.append(contentsOf: generateFigureMatrices())
-        questions.append(contentsOf: generateFigureClassification())
-        questions.append(contentsOf: generateFigureSeries())
+        // Generate questions for all CCAT levels
+        for level in CCATLevel.allCases {
+            // Generate Verbal Questions for each level
+            questions.append(contentsOf: generateVerbalAnalogies(for: level))
+            questions.append(contentsOf: generateSentenceCompletion(for: level))
+            questions.append(contentsOf: generateVerbalClassification(for: level))
+            
+            // Generate Quantitative Questions for each level
+            questions.append(contentsOf: generateNumberAnalogies(for: level))
+            questions.append(contentsOf: generateQuantitativeAnalogies(for: level))
+            questions.append(contentsOf: generateEquationBuilding(for: level))
+            
+            // Generate Non-Verbal Questions for each level
+            questions.append(contentsOf: generateFigureMatrices(for: level))
+            questions.append(contentsOf: generateFigureClassification(for: level))
+            questions.append(contentsOf: generateFigureSeries(for: level))
+        }
         
         return questions
     }
@@ -162,56 +164,129 @@ class QuestionDataManager: ObservableObject {
         }
         return synthetic
     }
-
-    // Build deterministic mock sets by partitioning sorted questions per type.
-    private func buildDeterministicMockSets() {
-        let verbal = allQuestions.filter { $0.type == .verbal }.sorted { $0.id.uuidString < $1.id.uuidString }
-        let quantitative = allQuestions.filter { $0.type == .quantitative }.sorted { $0.id.uuidString < $1.id.uuidString }
-        let nonVerbal = allQuestions.filter { $0.type == .nonVerbal }.sorted { $0.id.uuidString < $1.id.uuidString }
-        
-        func slice(_ arr: [Question], start: Int, length: Int) -> [Question] {
-            if arr.isEmpty { return [] }
-            var result: [Question] = []
-            for i in 0..<length {
-                result.append(arr[(start + i) % arr.count])
-            }
-            return result
-        }
-        // Each mock: 59 verbal, 59 quantitative, 58 non-verbal
-        mockSetA = slice(verbal, start: 0, length: 59) + slice(quantitative, start: 0, length: 59) + slice(nonVerbal, start: 0, length: 58)
-        mockSetB = slice(verbal, start: 59, length: 59) + slice(quantitative, start: 59, length: 59) + slice(nonVerbal, start: 58, length: 58)
-        mockSetC = slice(verbal, start: 118, length: 59) + slice(quantitative, start: 118, length: 59) + slice(nonVerbal, start: 116, length: 58)
-    }
     
     // MARK: - Verbal Questions
     
-    private func generateVerbalAnalogies() -> [Question] {
+    private func generateVerbalAnalogies(for level: CCATLevel = .level12) -> [Question] {
+        let difficulty: Difficulty = getDifficultyForLevel(level)
+        let questionCount = getQuestionCountForType(level: level, type: .verbal, subType: VerbalSubType.analogies.rawValue)
+        
+        var questions: [Question] = []
+        
+        if level == .level10 {
+            // Level 10: Simple, concrete analogies for grades 2-3
+            questions.append(contentsOf: [
+                Question(
+                    type: .verbal,
+                    level: level,
+                    stem: "Dog is to puppy as cat is to:",
+                    stemFrench: "Chien est à chiot comme chat est à:",
+                    options: ["kitten", "mouse", "fish", "bird"],
+                    optionsFrench: ["chaton", "souris", "poisson", "oiseau"],
+                    correctAnswer: 0,
+                    explanation: "A puppy is a baby dog, and a kitten is a baby cat.",
+                    explanationFrench: "Un chiot est un bébé chien, et un chaton est un bébé chat.",
+                    difficulty: difficulty,
+                    subType: VerbalSubType.analogies.rawValue
+                ),
+                Question(
+                    type: .verbal,
+                    level: level,
+                    stem: "Big is to small as tall is to:",
+                    stemFrench: "Grand est à petit comme haut est à:",
+                    options: ["short", "wide", "long", "fat"],
+                    optionsFrench: ["court", "large", "long", "gros"],
+                    correctAnswer: 0,
+                    explanation: "Big and small are opposites, just like tall and short.",
+                    explanationFrench: "Grand et petit sont opposés, tout comme haut et court.",
+                    difficulty: difficulty,
+                    subType: VerbalSubType.analogies.rawValue
+                )
+            ])
+        } else if level == .level11 {
+            // Level 11: Intermediate analogies for grades 4-5
+            questions.append(contentsOf: [
+                Question(
+                    type: .verbal,
+                    level: level,
+                    stem: "Author is to book as composer is to:",
+                    stemFrench: "Auteur est à livre comme compositeur est à:",
+                    options: ["song", "instrument", "concert", "orchestra"],
+                    optionsFrench: ["chanson", "instrument", "concert", "orchestre"],
+                    correctAnswer: 0,
+                    explanation: "An author creates a book, and a composer creates a song.",
+                    explanationFrench: "Un auteur crée un livre, et un compositeur crée une chanson.",
+                    difficulty: difficulty,
+                    subType: VerbalSubType.analogies.rawValue
+                ),
+                Question(
+                    type: .verbal,
+                    level: level,
+                    stem: "Library is to books as museum is to:",
+                    stemFrench: "Bibliothèque est à livres comme musée est à:",
+                    options: ["artifacts", "people", "tickets", "guides"],
+                    optionsFrench: ["artefacts", "gens", "billets", "guides"],
+                    correctAnswer: 0,
+                    explanation: "A library contains books, and a museum contains artifacts.",
+                    explanationFrench: "Une bibliothèque contient des livres, et un musée contient des artefacts.",
+                    difficulty: difficulty,
+                    subType: VerbalSubType.analogies.rawValue
+                )
+            ])
+        } else {
+            // Level 12: Advanced analogies for grade 6 gifted program
+            questions.append(contentsOf: [
+                Question(
+                    type: .verbal,
+                    level: level,
+                    stem: "Cat is to meow as dog is to:",
+                    stemFrench: "Chat est à miauler comme chien est à:",
+                    options: ["bark", "run", "sleep", "eat"],
+                    optionsFrench: ["aboyer", "courir", "dormir", "manger"],
+                    correctAnswer: 0,
+                    explanation: "Cats meow and dogs bark - both are the sounds these animals make.",
+                    explanationFrench: "Les chats miaulent et les chiens aboient - ce sont les sons que ces animaux font.",
+                    difficulty: difficulty,
+                    subType: VerbalSubType.analogies.rawValue
+                ),
+                Question(
+                    type: .verbal,
+                    level: level,
+                    stem: "Hot is to cold as fire is to:",
+                    stemFrench: "Chaud est à froid comme feu est à:",
+                    options: ["water", "ice", "snow", "wind"],
+                    optionsFrench: ["eau", "glace", "neige", "vent"],
+                    correctAnswer: 1,
+                    explanation: "Hot and cold are opposites, just as fire and ice are opposites.",
+                    explanationFrench: "Chaud et froid sont opposés, tout comme feu et glace sont opposés.",
+                    difficulty: difficulty,
+                    subType: VerbalSubType.analogies.rawValue
+                )
+            ])
+        }
+        
+        // Generate additional questions if needed
+        while questions.count < questionCount {
+            questions.append(contentsOf: questions.prefix(min(questions.count, questionCount - questions.count)))
+        }
+        
+        return Array(questions.prefix(questionCount))
+    }
+    
+    private func generateVerbalSynonyms(for level: CCATLevel = .level12) -> [Question] {
+        // Placeholder for verbal synonyms generation
+        return []
+    }
+    
+    private func generateVerbalAntonyms(for level: CCATLevel = .level12) -> [Question] {
+        // Placeholder for verbal antonyms generation
+        return []
+    }
+    
+    // MARK: - Sample Questions (for reference)
+    
+    private func getSampleQuestions() -> [Question] {
         return [
-            // Easy Level
-            Question(
-                type: .verbal,
-                stem: "Cat is to meow as dog is to:",
-                stemFrench: "Chat est à miauler comme chien est à:",
-                options: ["bark", "run", "sleep", "eat"],
-                optionsFrench: ["aboyer", "courir", "dormir", "manger"],
-                correctAnswer: 0,
-                explanation: "Cats meow and dogs bark - both are the sounds these animals make.",
-                explanationFrench: "Les chats miaulent et les chiens aboient - ce sont les sons que ces animaux font.",
-                difficulty: .easy,
-                subType: VerbalSubType.analogies.rawValue
-            ),
-            Question(
-                type: .verbal,
-                stem: "Hot is to cold as fire is to:",
-                stemFrench: "Chaud est à froid comme feu est à:",
-                options: ["water", "ice", "snow", "wind"],
-                optionsFrench: ["eau", "glace", "neige", "vent"],
-                correctAnswer: 1,
-                explanation: "Hot and cold are opposites, just as fire and ice are opposites.",
-                explanationFrench: "Chaud et froid sont opposés, tout comme feu et glace sont opposés.",
-                difficulty: .easy,
-                subType: VerbalSubType.analogies.rawValue
-            ),
             Question(
                 type: .verbal,
                 stem: "Teacher is to school as doctor is to:",
@@ -357,64 +432,6 @@ class QuestionDataManager: ObservableObject {
                 explanationFrench: "Un discours emphatique (pompeux, gonflé) échouerait à convaincre une audience sceptique.",
                 difficulty: .hard,
                 subType: VerbalSubType.sentenceCompletion.rawValue
-            )
-        ]
-    }
-    
-    private func generateVerbalClassification() -> [Question] {
-        return [
-            // Easy Level
-            Question(
-                type: .verbal,
-                stem: "Which word does NOT belong with the others?",
-                stemFrench: "Quel mot N'APPARTIENT PAS avec les autres?",
-                options: ["apple", "banana", "carrot", "orange"],
-                optionsFrench: ["pomme", "banane", "carotte", "orange"],
-                correctAnswer: 2,
-                explanation: "Apple, banana, and orange are fruits. Carrot is a vegetable.",
-                explanationFrench: "Pomme, banane et orange sont des fruits. Carotte est un légume.",
-                difficulty: .easy,
-                subType: VerbalSubType.classification.rawValue
-            ),
-            Question(
-                type: .verbal,
-                stem: "Which word does NOT belong with the others?",
-                stemFrench: "Quel mot N'APPARTIENT PAS avec les autres?",
-                options: ["triangle", "circle", "square", "line"],
-                optionsFrench: ["triangle", "cercle", "carré", "ligne"],
-                correctAnswer: 3,
-                explanation: "Triangle, circle, and square are shapes. Line is not a complete shape.",
-                explanationFrench: "Triangle, cercle et carré sont des formes. Ligne n'est pas une forme complète.",
-                difficulty: .easy,
-                subType: VerbalSubType.classification.rawValue
-            ),
-            
-            // Medium Level
-            Question(
-                type: .verbal,
-                stem: "Which word does NOT belong with the others?",
-                stemFrench: "Quel mot N'APPARTIENT PAS avec les autres?",
-                options: ["novel", "biography", "dictionary", "poem"],
-                optionsFrench: ["roman", "biographie", "dictionnaire", "poème"],
-                correctAnswer: 2,
-                explanation: "Novel, biography, and poem are creative literature. Dictionary is a reference book.",
-                explanationFrench: "Roman, biographie et poème sont de la littérature créative. Dictionnaire est un livre de référence.",
-                difficulty: .medium,
-                subType: VerbalSubType.classification.rawValue
-            ),
-            
-            // Hard Level
-            Question(
-                type: .verbal,
-                stem: "Which word does NOT belong with the others?",
-                stemFrench: "Quel mot N'APPARTIENT PAS avec les autres?",
-                options: ["altruistic", "benevolent", "magnanimous", "parsimonious"],
-                optionsFrench: ["altruiste", "bienveillant", "magnanime", "parcimonieux"],
-                correctAnswer: 3,
-                explanation: "Altruistic, benevolent, and magnanimous all describe generous qualities. Parsimonious means stingy.",
-                explanationFrench: "Altruiste, bienveillant et magnanime décrivent tous des qualités généreuses. Parcimonieux signifie avare.",
-                difficulty: .hard,
-                subType: VerbalSubType.classification.rawValue
             )
         ]
     }
@@ -793,5 +810,244 @@ class QuestionDataManager: ObservableObject {
                 imageName: "series_hard_1"
             )
         ]
+    }
+    
+    // MARK: - Helper Methods for Multi-Level Support
+    
+    private func getDifficultyForLevel(_ level: CCATLevel) -> Difficulty {
+        switch level {
+        case .level10:
+            return .easy
+        case .level11:
+            return .medium
+        case .level12:
+            return .hard
+        }
+    }
+    
+    private func getQuestionCountForType(level: CCATLevel, type: QuestionType, subType: Any) -> Int {
+        // Base question counts per subtype for different levels
+        let baseCount: Int
+        switch level {
+        case .level10:
+            baseCount = 8  // Fewer questions for younger students
+        case .level11:
+            baseCount = 12 // Medium count
+        case .level12:
+            baseCount = 20 // Full count for gifted program
+        }
+        return baseCount
+    }
+    
+    // Placeholder implementations for other generation methods
+    // These would be updated similarly to generateVerbalAnalogies
+    
+    private func generateSentenceCompletion(for level: CCATLevel = .level12) -> [Question] {
+        // Simplified placeholder - would be fully implemented
+        let difficulty = getDifficultyForLevel(level)
+        let questionCount = getQuestionCountForType(level: level, type: .verbal, subType: VerbalSubType.sentenceCompletion)
+        
+        var questions: [Question] = []
+        for _ in 0..<questionCount {
+            questions.append(Question(
+                type: .verbal,
+                level: level,
+                stem: "The student was very _____ about the test results.",
+                stemFrench: "L'étudiant était très _____ des résultats du test.",
+                options: ["anxious", "happy", "tired", "hungry"],
+                optionsFrench: ["anxieux", "heureux", "fatigué", "affamé"],
+                correctAnswer: 0,
+                explanation: "Students are typically anxious about test results.",
+                explanationFrench: "Les étudiants sont généralement anxieux des résultats des tests.",
+                difficulty: difficulty,
+                subType: VerbalSubType.sentenceCompletion.rawValue
+            ))
+        }
+        return questions
+    }
+    
+    private func generateVerbalClassification(for level: CCATLevel = .level12) -> [Question] {
+        let difficulty = getDifficultyForLevel(level)
+        let questionCount = getQuestionCountForType(level: level, type: .verbal, subType: VerbalSubType.classification)
+        
+        var questions: [Question] = []
+        for _ in 0..<questionCount {
+            questions.append(Question(
+                type: .verbal,
+                level: level,
+                stem: "Which word does NOT belong with the others?",
+                stemFrench: "Quel mot n'appartient PAS avec les autres?",
+                options: ["Apple", "Orange", "Banana", "Carrot"],
+                optionsFrench: ["Pomme", "Orange", "Banane", "Carotte"],
+                correctAnswer: 3,
+                explanation: "Carrot is a vegetable, while the others are fruits.",
+                explanationFrench: "La carotte est un légume, tandis que les autres sont des fruits.",
+                difficulty: difficulty,
+                subType: VerbalSubType.classification.rawValue
+            ))
+        }
+        return questions
+    }
+    
+    private func generateNumberAnalogies(for level: CCATLevel = .level12) -> [Question] {
+        let difficulty = getDifficultyForLevel(level)
+        let questionCount = getQuestionCountForType(level: level, type: .quantitative, subType: QuantitativeSubType.numberAnalogies)
+        
+        var questions: [Question] = []
+        for index in 0..<questionCount {
+            let base = level == .level10 ? 2 : (level == .level11 ? 3 : 4)
+            let num1 = base + index % 10
+            let num2 = num1 * 2
+            let num3 = base + 1 + index % 10
+            let num4 = num3 * 2
+            
+            questions.append(Question(
+                type: .quantitative,
+                level: level,
+                stem: "\(num1) : \(num2) :: \(num3) : ?",
+                stemFrench: "\(num1) : \(num2) :: \(num3) : ?",
+                options: ["\(num4)", "\(num4-1)", "\(num4+1)", "\(num4*2)"],
+                optionsFrench: ["\(num4)", "\(num4-1)", "\(num4+1)", "\(num4*2)"],
+                correctAnswer: 0,
+                explanation: "The relationship is multiply by 2.",
+                explanationFrench: "La relation est multiplier par 2.",
+                difficulty: difficulty,
+                subType: QuantitativeSubType.numberAnalogies.rawValue
+            ))
+        }
+        return questions
+    }
+    
+    private func generateQuantitativeAnalogies(for level: CCATLevel = .level12) -> [Question] {
+        let difficulty = getDifficultyForLevel(level)
+        let questionCount = getQuestionCountForType(level: level, type: .quantitative, subType: QuantitativeSubType.quantitativeAnalogies)
+        
+        var questions: [Question] = []
+        for _ in 0..<questionCount {
+            questions.append(Question(
+                type: .quantitative,
+                level: level,
+                stem: "If 5 + 3 = 8, then 7 + 4 = ?",
+                stemFrench: "Si 5 + 3 = 8, alors 7 + 4 = ?",
+                options: ["11", "10", "12", "9"],
+                optionsFrench: ["11", "10", "12", "9"],
+                correctAnswer: 0,
+                explanation: "Simple addition: 7 + 4 = 11.",
+                explanationFrench: "Addition simple: 7 + 4 = 11.",
+                difficulty: difficulty,
+                subType: QuantitativeSubType.quantitativeAnalogies.rawValue
+            ))
+        }
+        return questions
+    }
+    
+    private func generateEquationBuilding(for level: CCATLevel = .level12) -> [Question] {
+        let difficulty = getDifficultyForLevel(level)
+        let questionCount = getQuestionCountForType(level: level, type: .quantitative, subType: QuantitativeSubType.equationBuilding)
+        
+        var questions: [Question] = []
+        for _ in 0..<questionCount {
+            questions.append(Question(
+                type: .quantitative,
+                level: level,
+                stem: "Using 2, 3, and 5, which equation equals 10?",
+                stemFrench: "En utilisant 2, 3, et 5, quelle équation égale 10?",
+                options: ["2 + 3 + 5", "2 × 3 + 4", "5 × 2", "3 + 5 + 2"],
+                optionsFrench: ["2 + 3 + 5", "2 × 3 + 4", "5 × 2", "3 + 5 + 2"],
+                correctAnswer: 2,
+                explanation: "5 × 2 = 10.",
+                explanationFrench: "5 × 2 = 10.",
+                difficulty: difficulty,
+                subType: QuantitativeSubType.equationBuilding.rawValue
+            ))
+        }
+        return questions
+    }
+    
+    private func generateFigureMatrices(for level: CCATLevel = .level12) -> [Question] {
+        let difficulty = getDifficultyForLevel(level)
+        let questionCount = getQuestionCountForType(level: level, type: .nonVerbal, subType: NonVerbalSubType.figureMatrices)
+        
+        var questions: [Question] = []
+        for index in 0..<questionCount {
+            questions.append(Question(
+                type: .nonVerbal,
+                level: level,
+                stem: "Complete the pattern in this 2×2 matrix.",
+                stemFrench: "Complétez le motif dans cette matrice 2×2.",
+                options: ["Option A", "Option B", "Option C", "Option D"],
+                optionsFrench: ["Option A", "Option B", "Option C", "Option D"],
+                correctAnswer: 0,
+                explanation: "The pattern follows logical progression.",
+                explanationFrench: "Le motif suit une progression logique.",
+                difficulty: difficulty,
+                subType: NonVerbalSubType.figureMatrices.rawValue,
+                imageName: "matrix_\(level.rawValue)_\(index)"
+            ))
+        }
+        return questions
+    }
+    
+    private func generateFigureClassification(for level: CCATLevel = .level12) -> [Question] {
+        let difficulty = getDifficultyForLevel(level)
+        let questionCount = getQuestionCountForType(level: level, type: .nonVerbal, subType: NonVerbalSubType.figureClassification)
+        
+        var questions: [Question] = []
+        for index in 0..<questionCount {
+            questions.append(Question(
+                type: .nonVerbal,
+                level: level,
+                stem: "Which figure does NOT belong with the others?",
+                stemFrench: "Quelle figure n'appartient PAS avec les autres?",
+                options: ["Figure A", "Figure B", "Figure C", "Figure D"],
+                optionsFrench: ["Figure A", "Figure B", "Figure C", "Figure D"],
+                correctAnswer: 0,
+                explanation: "One figure has different properties.",
+                explanationFrench: "Une figure a des propriétés différentes.",
+                difficulty: difficulty,
+                subType: NonVerbalSubType.figureClassification.rawValue,
+                imageName: "classification_\(level.rawValue)_\(index)"
+            ))
+        }
+        return questions
+    }
+    
+    private func generateFigureSeries(for level: CCATLevel = .level12) -> [Question] {
+        let difficulty = getDifficultyForLevel(level)
+        let questionCount = getQuestionCountForType(level: level, type: .nonVerbal, subType: NonVerbalSubType.figureSeries)
+        
+        var questions: [Question] = []
+        for index in 0..<questionCount {
+            questions.append(Question(
+                type: .nonVerbal,
+                level: level,
+                stem: "What comes next in this series?",
+                stemFrench: "Que vient ensuite dans cette série?",
+                options: ["Next A", "Next B", "Next C", "Next D"],
+                optionsFrench: ["Suivant A", "Suivant B", "Suivant C", "Suivant D"],
+                correctAnswer: 0,
+                explanation: "The series follows a logical pattern.",
+                explanationFrench: "La série suit un motif logique.",
+                difficulty: difficulty,
+                subType: NonVerbalSubType.figureSeries.rawValue,
+                imageName: "series_\(level.rawValue)_\(index)"
+            ))
+        }
+        return questions
+    }
+}
+
+// MARK: - Seeded Random Number Generator for Deterministic Tests
+
+struct SeededRandomNumberGenerator: RandomNumberGenerator {
+    private var state: UInt64
+    
+    init(seed: UInt64) {
+        self.state = seed
+    }
+    
+    mutating func next() -> UInt64 {
+        state = state &* 1103515245 &+ 12345
+        return state
     }
 }

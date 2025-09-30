@@ -72,6 +72,70 @@ struct PracticeView: View {
                         .foregroundColor(colorScheme == .dark ? AppTheme.Colors.darkText.opacity(0.6) : AppTheme.Colors.softGray.opacity(0.6))
                 }
             }
+            
+            // Level Selection
+            levelSelectionSection
+        }
+    }
+    
+    // MARK: - Level Selection Section
+    
+    private var levelSelectionSection: some View {
+        VStack(alignment: .leading, spacing: AppTheme.Spacing.sm) {
+            Text("Practice Level")
+                .font(AppTheme.Typography.headline)
+                .foregroundColor(colorScheme == .dark ? AppTheme.Colors.darkText : AppTheme.Colors.softGray)
+            
+            HStack(spacing: AppTheme.Spacing.sm) {
+                ForEach([CCATLevel.level10, CCATLevel.level11, CCATLevel.level12], id: \.self) { level in
+                    practiceButton(for: level)
+                }
+            }
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: AppTheme.CornerRadius.card)
+                .fill(colorScheme == .dark ? AppTheme.Colors.softGray : Color.white)
+                .shadow(
+                    color: AppTheme.Colors.lightGray.opacity(0.3),
+                    radius: 4,
+                    x: 0,
+                    y: 2
+                )
+        )
+    }
+    
+    private func practiceButton(for level: CCATLevel) -> some View {
+        Button(action: {
+            appViewModel.changeCCATLevel(to: level)
+        }) {
+            VStack(spacing: AppTheme.Spacing.xs) {
+                Text(level.displayName)
+                    .font(AppTheme.Typography.caption)
+                    .fontWeight(.medium)
+                
+                Text(level.gradeRange)
+                    .font(AppTheme.Typography.caption)
+                    .opacity(0.8)
+            }
+            .padding(.horizontal, AppTheme.Spacing.sm)
+            .padding(.vertical, AppTheme.Spacing.xs)
+            .frame(maxWidth: .infinity)
+            .background(
+                RoundedRectangle(cornerRadius: AppTheme.CornerRadius.medium)
+                    .fill(appViewModel.selectedCCATLevel == level ? 
+                          AppTheme.Colors.skyBlue : 
+                          (colorScheme == .dark ? AppTheme.Colors.softGray : Color.white))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: AppTheme.CornerRadius.medium)
+                    .stroke(appViewModel.selectedCCATLevel == level ? 
+                            AppTheme.Colors.skyBlue : 
+                            AppTheme.Colors.lightGray, lineWidth: 1)
+            )
+            .foregroundColor(appViewModel.selectedCCATLevel == level ? 
+                            .white : 
+                            (colorScheme == .dark ? .white : AppTheme.Colors.softGray))
         }
     }
     

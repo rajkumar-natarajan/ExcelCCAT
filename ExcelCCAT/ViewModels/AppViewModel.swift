@@ -15,6 +15,7 @@ class AppViewModel {
     
     // MARK: - Published Properties
     var currentLanguage: Language = .english
+    var selectedCCATLevel: CCATLevel = .level12
     var appSettings: AppSettings = AppSettings()
     var userProgress: UserProgress = UserProgress()
     var isFirstLaunch: Bool = true
@@ -39,6 +40,7 @@ class AppViewModel {
     func loadUserData() {
         loadSettings()
         loadProgress()
+        loadSelectedLevel()
         updateLanguage()
     }
     
@@ -57,9 +59,17 @@ class AppViewModel {
         }
     }
     
+    private func loadSelectedLevel() {
+        let levelRawValue = UserDefaults.standard.integer(forKey: "SelectedCCATLevel")
+        if levelRawValue != 0, let level = CCATLevel(rawValue: levelRawValue) {
+            self.selectedCCATLevel = level
+        }
+    }
+    
     func saveUserData() {
         saveSettings()
         saveProgress()
+        saveSelectedLevel()
     }
     
     private func saveSettings() {
@@ -72,6 +82,16 @@ class AppViewModel {
         if let data = try? JSONEncoder().encode(userProgress) {
             UserDefaults.standard.set(data, forKey: "UserProgress")
         }
+    }
+    
+    private func saveSelectedLevel() {
+        UserDefaults.standard.set(selectedCCATLevel.rawValue, forKey: "SelectedCCATLevel")
+    }
+    
+    // MARK: - CCAT Level Management
+    func changeCCATLevel(to level: CCATLevel) {
+        selectedCCATLevel = level
+        saveSelectedLevel()
     }
     
     // MARK: - Language Management
@@ -106,14 +126,14 @@ class AppViewModel {
     
     // MARK: - Test Session Management
     func startFullMockTest(language: Language = .english) {
-        let questions = QuestionDataManager.shared.getFullMockQuestions(language: language)
+        let questions = QuestionDataManager.shared.getFullMockQuestions(language: language, level: selectedCCATLevel)
         let shuffledQuestions = questions.shuffled()
         
         currentTestSession = TestSession(
             questions: shuffledQuestions,
             sessionType: .fullMock,
             language: language,
-            timeRemaining: SessionType.fullMock.timeLimit
+            timeRemaining: TimeInterval(selectedCCATLevel.timeLimit * 60) // Convert minutes to seconds
         )
         
         isTestInProgress = true
@@ -133,7 +153,8 @@ class AppViewModel {
             subType: subType,
             difficulty: difficulty,
             language: language,
-            count: questionCount
+            count: questionCount,
+            level: selectedCCATLevel
         )
         
         let timeLimit: TimeInterval = isTimedSession ? TimeInterval(questionCount * 60) : 0 // 1 minute per question
