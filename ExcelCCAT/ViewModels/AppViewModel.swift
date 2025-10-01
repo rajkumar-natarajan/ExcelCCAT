@@ -407,6 +407,11 @@ class AppViewModel {
         lastTestResult = nil
     }
     
+    func updateWeeklyGoal(_ goal: Int) {
+        userProgress.weeklyGoal = goal
+        saveUserData()
+    }
+    
     // MARK: - Haptic Feedback
     private func setupHaptics() {
         guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }

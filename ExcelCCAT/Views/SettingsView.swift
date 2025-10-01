@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AudioToolbox
 
 struct SettingsView: View {
     @Environment(AppViewModel.self) private var appViewModel
@@ -17,13 +18,14 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             List {
+                // User Profile Summary
+                userProfileSection
+                
                 // Language Section
                 languageSection
                 
                 // Appearance Section
-                Section(header: Text("Appearance")) {
-                    appearanceSection
-                }
+                appearanceSection
                 
                 // Audio & Haptics Section
                 audioHapticsSection
@@ -37,9 +39,7 @@ struct SettingsView: View {
                 // About Section
                 aboutSection
             }
-            .listStyle(InsetGroupedListStyle())
-            .navigationTitle(NSLocalizedString("settings_title", comment: ""))
-            .navigationBarTitleDisplayMode(.large)
+            .navigationTitle("Settings")
         }
         .alert("Reset Progress", isPresented: $showingResetConfirmation) {
             Button("Cancel", role: .cancel) { }
@@ -47,7 +47,7 @@ struct SettingsView: View {
                 appViewModel.resetAllProgress()
             }
         } message: {
-            Text(NSLocalizedString("confirm_reset_progress_message", comment: ""))
+            Text("This action cannot be undone. All your progress and statistics will be permanently deleted.")
         }
         .sheet(isPresented: $showingAbout) {
             AboutView()
@@ -57,48 +57,92 @@ struct SettingsView: View {
         }
     }
     
+    // MARK: - User Profile Section
+    
+    private var userProfileSection: some View {
+        Section {
+            HStack {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Your Progress")
+                        .font(AppTheme.Typography.headline)
+                        .fontWeight(.semibold)
+                    
+                    HStack(spacing: 20) {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Total Questions")
+                                .font(AppTheme.Typography.caption)
+                                .foregroundColor(.secondary)
+                            Text("1,247")
+                                .font(AppTheme.Typography.title3)
+                                .fontWeight(.bold)
+                                .foregroundColor(AppTheme.Colors.skyBlue)
+                        }
+                        
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Accuracy")
+                                .font(AppTheme.Typography.caption)
+                                .foregroundColor(.secondary)
+                            Text("85%")
+                                .font(AppTheme.Typography.title3)
+                                .fontWeight(.bold)
+                                .foregroundColor(AppTheme.Colors.sageGreen)
+                        }
+                        
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Current Streak")
+                                .font(AppTheme.Typography.caption)
+                                .foregroundColor(.secondary)
+                            Text("12 days")
+                                .font(AppTheme.Typography.title3)
+                                .fontWeight(.bold)
+                                .foregroundColor(AppTheme.Colors.coral)
+                        }
+                    }
+                }
+                Spacer()
+            }
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(colorScheme == .dark ? AppTheme.Colors.darkSurface : AppTheme.Colors.offWhite)
+            )
+        } header: {
+            Text("Profile")
+        }
+    }
+    
     // MARK: - Language Section
     
     private var languageSection: some View {
-        Section {
+        Section("Language") {
             HStack {
                 Image(systemName: "globe")
                     .foregroundColor(AppTheme.Colors.skyBlue)
                     .frame(width: 20)
                 
-                Text(NSLocalizedString("language_settings", comment: ""))
+                Text(NSLocalizedString("language", comment: ""))
                 
                 Spacer()
                 
                 Picker("Language", selection: Binding(
-                    get: { appViewModel.currentLanguage },
-                    set: { appViewModel.changeLanguage(to: $0) }
+                    get: { appViewModel.appSettings.language },
+                    set: { appViewModel.updateSetting(\.language, value: $0) }
                 )) {
-                    ForEach(Language.allCases, id: \.self) { language in
-                        HStack {
-                            Text(language.flag)
-                            Text(language.displayName)
-                        }
-                        .tag(language)
-                    }
+                    Text("English").tag(Language.english)
+                    Text("Français").tag(Language.french)
                 }
                 .pickerStyle(MenuPickerStyle())
             }
-        } header: {
-            Text("Language")
-        } footer: {
-            Text("Changing language will restart the current session if one is active.")
-                .font(.caption)
         }
     }
     
     // MARK: - Appearance Section
     
     private var appearanceSection: some View {
-        VStack(spacing: 16) {
+        Section("Appearance") {
             // Dark Mode Toggle
             HStack {
-                Image(systemName: "moon")
+                Image(systemName: "paintbrush")
                     .foregroundColor(AppTheme.Colors.skyBlue)
                     .frame(width: 20)
                 
@@ -133,28 +177,30 @@ struct SettingsView: View {
                 }
                 .pickerStyle(MenuPickerStyle())
             }
-            
-            // Reduce Motion
+        }
+    }
+    
+    // MARK: - Audio & Haptics Section
+    
+    private var audioHapticsSection: some View {
+        Section("Audio & Haptics") {
+            // Sound Effects
             HStack {
-                Image(systemName: "accessibility")
+                Image(systemName: "speaker.wave.2")
                     .foregroundColor(AppTheme.Colors.skyBlue)
                     .frame(width: 20)
                 
-                Text(NSLocalizedString("reduce_motion", comment: ""))
+                Text(NSLocalizedString("sound_effects", comment: ""))
                 
                 Spacer()
                 
                 Toggle("", isOn: Binding(
-                    get: { appViewModel.appSettings.isReducedMotionEnabled },
-                    set: { appViewModel.updateSetting(\.isReducedMotionEnabled, value: $0) }
+                    get: { appViewModel.appSettings.isSoundEnabled },
+                    set: { appViewModel.updateSetting(\.isSoundEnabled, value: $0) }
                 ))
                 .toggleStyle(SwitchToggleStyle(tint: AppTheme.Colors.skyBlue))
             }
-        }
-    }    // MARK: - Audio & Haptics Section
-    
-    private var audioHapticsSection: some View {
-        Section("Audio & Haptics") {
+            
             // Haptic Feedback
             HStack {
                 Image(systemName: "iphone.radiowaves.left.and.right")
@@ -168,23 +214,6 @@ struct SettingsView: View {
                 Toggle("", isOn: Binding(
                     get: { appViewModel.appSettings.isHapticsEnabled },
                     set: { appViewModel.updateSetting(\.isHapticsEnabled, value: $0) }
-                ))
-                .toggleStyle(SwitchToggleStyle(tint: AppTheme.Colors.skyBlue))
-            }
-            
-            // Sound Effects
-            HStack {
-                Image(systemName: "speaker.2")
-                    .foregroundColor(AppTheme.Colors.skyBlue)
-                    .frame(width: 20)
-                
-                Text(NSLocalizedString("sound_effects", comment: ""))
-                
-                Spacer()
-                
-                Toggle("", isOn: Binding(
-                    get: { appViewModel.appSettings.isSoundEnabled },
-                    set: { appViewModel.updateSetting(\.isSoundEnabled, value: $0) }
                 ))
                 .toggleStyle(SwitchToggleStyle(tint: AppTheme.Colors.skyBlue))
             }
@@ -302,7 +331,7 @@ struct SettingsView: View {
                         .foregroundColor(AppTheme.Colors.skyBlue)
                         .frame(width: 20)
                     
-                    Text(NSLocalizedString("about", comment: ""))
+                    Text(NSLocalizedString("about_app", comment: ""))
                         .foregroundColor(colorScheme == .dark ? AppTheme.Colors.darkText : AppTheme.Colors.softGray)
                 }
             }
@@ -365,54 +394,61 @@ struct SettingsView: View {
 struct WeeklyGoalView: View {
     @Environment(AppViewModel.self) private var appViewModel
     @Environment(\.dismiss) private var dismiss
-    @State private var goalValue: Double
-    
-    init() {
-        _goalValue = State(initialValue: 50.0) // Default value, will be updated in onAppear
-    }
+    @State private var goalValue: Double = 0
     
     var body: some View {
         NavigationView {
-            VStack(spacing: AppTheme.Spacing.xl) {
-                VStack(spacing: AppTheme.Spacing.md) {
-                    Text("Weekly Goal")
-                        .font(AppTheme.Typography.largeTitle)
-                        .fontWeight(.thin)
-                    
-                    Text("Set your weekly question target")
-                        .font(AppTheme.Typography.body)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                }
+            VStack(spacing: AppTheme.Spacing.lg) {
+                Text("Set Your Weekly Goal")
+                    .font(AppTheme.Typography.headline)
+                    .padding()
                 
-                VStack(spacing: AppTheme.Spacing.lg) {
-                    Text("\(Int(goalValue))")
-                        .font(.system(size: 60, weight: .thin, design: .rounded))
+                VStack(spacing: AppTheme.Spacing.md) {
+                    Text("\(Int(goalValue)) questions per week")
+                        .font(AppTheme.Typography.title2)
+                        .fontWeight(.semibold)
                         .foregroundColor(AppTheme.Colors.skyBlue)
                     
-                    Text("questions per week")
-                        .font(AppTheme.Typography.callout)
-                        .foregroundColor(.secondary)
+                    Slider(
+                        value: $goalValue,
+                        in: 10...100,
+                        step: 5
+                    )
+                    .accentColor(AppTheme.Colors.skyBlue)
+                    .padding(.horizontal)
                     
-                    Slider(value: $goalValue, in: 10...200, step: 5)
-                        .tint(AppTheme.Colors.skyBlue)
-                        .padding(.horizontal, AppTheme.Spacing.lg)
+                    HStack {
+                        Text("10")
+                        Spacer()
+                        Text("100")
+                    }
+                    .font(AppTheme.Typography.caption)
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal)
                 }
+                .padding()
                 
                 Spacer()
                 
-                Button("Save Goal") {
-                    appViewModel.userProgress.weeklyGoal = Int(goalValue)
-                    appViewModel.saveUserData()
+                Button(action: {
+                    appViewModel.updateWeeklyGoal(Int(goalValue))
                     dismiss()
+                }) {
+                    Text("Save Goal")
+                        .font(AppTheme.Typography.body)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(AppTheme.Colors.skyBlue)
+                        .cornerRadius(AppTheme.CornerRadius.medium)
                 }
-                .primaryButtonStyle()
-                .padding(.horizontal, AppTheme.Spacing.lg)
+                .padding()
             }
-            .padding(AppTheme.Spacing.lg)
+            .navigationTitle("Weekly Goal")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Cancel") {
                         dismiss()
                     }
@@ -449,44 +485,23 @@ struct AboutView: View {
                             .multilineTextAlignment(.center)
                     }
                     
-                    // App Description
+                    // Features Section
                     VStack(alignment: .leading, spacing: AppTheme.Spacing.md) {
-                        Text("About This App")
+                        Text("Features")
                             .font(AppTheme.Typography.headline)
-                        
-                        Text("""
-                        ExcelCCAT is designed specifically for students preparing for the Canadian Cognitive Abilities Test (CCAT-7 Level 12) used by the Toronto District School Board (TDSB) for gifted program screening.
-                        
-                        Our app provides:
-                        • Full mock tests matching the real CCAT format
-                        • Practice sessions for each question type
-                        • Bilingual support (English/French)
-                        • Detailed progress tracking
-                        • Performance insights and recommendations
-                        
-                        All content is offline and designed to reduce test anxiety while building confidence.
-                        """)
-                        .font(AppTheme.Typography.body)
-                        .foregroundColor(.secondary)
-                    }
-                    .cardStyle()
-                    
-                    // Contact Information
-                    VStack(alignment: .leading, spacing: AppTheme.Spacing.md) {
-                        Text("Contact & Support")
-                            .font(AppTheme.Typography.headline)
+                            .fontWeight(.semibold)
                         
                         VStack(alignment: .leading, spacing: AppTheme.Spacing.sm) {
-                            Text("Email: support@ccatprep.com")
-                            Text("Website: www.ccatprep.com")
-                            Text("Version: \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0")")
+                            FeatureRow(icon: "brain", title: "CCAT-7 Practice", description: "Comprehensive test preparation")
+                            FeatureRow(icon: "globe", title: "Bilingual Support", description: "English and French content")
+                            FeatureRow(icon: "chart.line.uptrend.xyaxis", title: "Progress Tracking", description: "Monitor your improvement")
+                            FeatureRow(icon: "target", title: "Adaptive Learning", description: "Personalized question difficulty")
                         }
-                        .font(AppTheme.Typography.body)
-                        .foregroundColor(.secondary)
                     }
-                    .cardStyle()
+                    
+                    Spacer()
                 }
-                .padding(AppTheme.Spacing.lg)
+                .padding()
             }
             .navigationTitle("About")
             .navigationBarTitleDisplayMode(.inline)
@@ -501,6 +516,34 @@ struct AboutView: View {
     }
 }
 
+struct FeatureRow: View {
+    let icon: String
+    let title: String
+    let description: String
+    
+    var body: some View {
+        HStack(spacing: AppTheme.Spacing.md) {
+            Image(systemName: icon)
+                .font(.title2)
+                .foregroundColor(AppTheme.Colors.skyBlue)
+                .frame(width: 30)
+            
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title)
+                    .font(AppTheme.Typography.body)
+                    .fontWeight(.medium)
+                
+                Text(description)
+                    .font(AppTheme.Typography.caption)
+                    .foregroundColor(.secondary)
+            }
+            
+            Spacer()
+        }
+        .padding(.vertical, 4)
+    }
+}
+
 struct PrivacyPolicyView: View {
     @Environment(\.dismiss) private var dismiss
     
@@ -508,39 +551,35 @@ struct PrivacyPolicyView: View {
         NavigationView {
             ScrollView {
                 VStack(alignment: .leading, spacing: AppTheme.Spacing.lg) {
-                    Text("""
-                    Privacy Policy
+                    Text("Privacy Policy")
+                        .font(AppTheme.Typography.largeTitle)
+                        .fontWeight(.bold)
                     
-                    Last updated: September 30, 2025
+                    Text("Your privacy is important to us. This privacy policy explains how we collect, use, and protect your information when you use ExcelCCAT.")
+                        .font(AppTheme.Typography.body)
                     
-                    Data Collection
-                    ExcelCCAT is designed with privacy in mind. We collect minimal data necessary for app functionality:
-                    • Test scores and progress data (stored locally on your device)
-                    • App usage analytics (anonymized)
-                    • Crash reports (if you opt-in)
+                    Text("Data Collection")
+                        .font(AppTheme.Typography.headline)
+                        .fontWeight(.semibold)
                     
-                    Data Storage
-                    All your personal test data and progress is stored locally on your device using secure iOS storage mechanisms. We do not upload your test results or personal information to external servers.
+                    Text("We collect only the data necessary to provide you with the best learning experience. This includes your test scores, progress data, and app usage statistics.")
+                        .font(AppTheme.Typography.body)
                     
-                    Data Sharing
-                    We do not share, sell, or distribute your personal information to third parties. Your test scores and progress remain private to you.
+                    Text("Data Usage")
+                        .font(AppTheme.Typography.headline)
+                        .fontWeight(.semibold)
                     
-                    Children's Privacy (COPPA Compliance)
-                    This app is designed for students, including those under 13. We comply with COPPA requirements:
-                    • No personal information is collected without parental consent
-                    • All data processing is done locally on the device
-                    • No behavioral advertising or data profiling
+                    Text("Your data is used solely to improve your learning experience and provide personalized recommendations. We do not share your personal data with third parties.")
+                        .font(AppTheme.Typography.body)
                     
-                    Data Deletion
-                    You can delete all your data at any time using the "Reset Progress" option in Settings. This action is irreversible.
+                    Text("Contact Us")
+                        .font(AppTheme.Typography.headline)
+                        .fontWeight(.semibold)
                     
-                    Contact Us
-                    If you have questions about this privacy policy, contact us at privacy@ccatprep.com
-                    """)
-                    .font(AppTheme.Typography.body)
-                    .foregroundColor(.secondary)
+                    Text("If you have any questions about this privacy policy, please contact us at support@ccatprep.com")
+                        .font(AppTheme.Typography.body)
                 }
-                .padding(AppTheme.Spacing.lg)
+                .padding()
             }
             .navigationTitle("Privacy Policy")
             .navigationBarTitleDisplayMode(.inline)
@@ -553,9 +592,4 @@ struct PrivacyPolicyView: View {
             }
         }
     }
-}
-
-#Preview {
-    SettingsView()
-        .environment(AppViewModel())
 }

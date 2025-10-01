@@ -29,6 +29,23 @@ enum FontSize: String, CaseIterable, Codable {
     }
 }
 
+enum Theme: String, CaseIterable, Codable {
+    case light = "light"
+    case dark = "dark"
+    case system = "system"
+    
+    var displayName: String {
+        switch self {
+        case .light:
+            return NSLocalizedString("theme_light", comment: "Light theme")
+        case .dark:
+            return NSLocalizedString("theme_dark", comment: "Dark theme")
+        case .system:
+            return NSLocalizedString("theme_system", comment: "System theme")
+        }
+    }
+}
+
 // MARK: - App Theme and Design System
 
 struct AppTheme {
