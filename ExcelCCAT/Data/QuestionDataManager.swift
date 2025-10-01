@@ -17,8 +17,11 @@ class QuestionDataManager: ObservableObject {
     }
     
     private func loadQuestions() {
+        print("🐛 DEBUG: Loading questions...")
         allQuestions = generateHardcodedQuestions()
+        print("🐛 DEBUG: Generated \(allQuestions.count) hardcoded questions")
         ensureMinimumVolume()
+        print("🐛 DEBUG: After ensuring volume: \(allQuestions.count) total questions")
     }
     
     // MARK: - Public Methods
@@ -38,19 +41,103 @@ class QuestionDataManager: ObservableObject {
     }
     
     func getConfiguredQuestions(configuration: TestConfiguration, language: Language) -> [Question] {
+        print("🐛 DEBUG: Total questions available: \(allQuestions.count)")
+        print("🐛 DEBUG: Configuration level: \(configuration.level)")
+        print("🐛 DEBUG: Configuration question count: \(configuration.questionCount)")
+        
         let levelQuestions = allQuestions.filter { $0.level == configuration.level }
+        print("🐛 DEBUG: Level questions available: \(levelQuestions.count)")
+        
         let questionCount = configuration.questionCount
+        
+        // If we have no questions, generate them now
+        if allQuestions.isEmpty {
+            print("🐛 DEBUG: No questions found, regenerating...")
+            loadQuestions()
+        }
+        
+        // If still no questions for this level, create fallback questions
+        if levelQuestions.isEmpty {
+            print("🐛 DEBUG: No questions for level \(configuration.level), creating fallback questions...")
+            let fallbackQuestions = createFallbackQuestions(for: configuration.level, count: questionCount)
+            allQuestions.append(contentsOf: fallbackQuestions)
+            print("🐛 DEBUG: Created \(fallbackQuestions.count) fallback questions")
+            return fallbackQuestions
+        }
         
         // If we need more questions than available, cycle through them
         if levelQuestions.count >= questionCount {
-            return Array(levelQuestions.shuffled().prefix(questionCount))
+            let result = Array(levelQuestions.shuffled().prefix(questionCount))
+            print("🐛 DEBUG: Returning \(result.count) questions")
+            return result
         } else {
             var questions = levelQuestions.shuffled()
             while questions.count < questionCount {
                 questions.append(contentsOf: levelQuestions.shuffled().prefix(min(levelQuestions.count, questionCount - questions.count)))
             }
-            return Array(questions.prefix(questionCount))
+            let result = Array(questions.prefix(questionCount))
+            print("🐛 DEBUG: Cycling through questions, returning \(result.count) questions")
+            return result
         }
+    }
+    
+    private func createFallbackQuestions(for level: CCATLevel, count: Int) -> [Question] {
+        var questions: [Question] = []
+        let questionCount = min(count, 50) // Limit to reasonable number
+        
+        for i in 0..<questionCount {
+            let questionType: QuestionType = [.verbal, .quantitative, .nonVerbal][i % 3]
+            
+            switch questionType {
+            case .verbal:
+                questions.append(Question(
+                    type: .verbal,
+                    stem: "Choose the word that best completes the analogy: Cat is to kitten as dog is to:",
+                    stemFrench: "Choisissez le mot qui complète le mieux l'analogie: Chat est à chaton comme chien est à:",
+                    options: ["puppy", "bark", "tail", "house"],
+                    optionsFrench: ["chiot", "aboiement", "queue", "maison"],
+                    correctAnswer: 0,
+                    explanation: "A kitten is a baby cat, and a puppy is a baby dog.",
+                    explanationFrench: "Un chaton est un bébé chat, et un chiot est un bébé chien.",
+                    difficulty: Difficulty.medium.rawValue,
+                    subType: VerbalSubType.analogies.rawValue,
+                    language: .english,
+                    level: level
+                ))
+            case .quantitative:
+                questions.append(Question(
+                    type: .quantitative,
+                    stem: "If 2 + 4 = 6, then 6 + 8 = ?",
+                    stemFrench: "Si 2 + 4 = 6, alors 6 + 8 = ?",
+                    options: ["12", "14", "16", "18"],
+                    optionsFrench: ["12", "14", "16", "18"],
+                    correctAnswer: 1,
+                    explanation: "Following the pattern, 6 + 8 = 14.",
+                    explanationFrench: "En suivant le modèle, 6 + 8 = 14.",
+                    difficulty: Difficulty.medium.rawValue,
+                    subType: QuantitativeSubType.numberAnalogies.rawValue,
+                    language: .english,
+                    level: level
+                ))
+            case .nonVerbal:
+                questions.append(Question(
+                    type: .nonVerbal,
+                    stem: "Which figure comes next in the pattern?",
+                    stemFrench: "Quelle figure vient ensuite dans le modèle?",
+                    options: ["Circle", "Square", "Triangle", "Star"],
+                    optionsFrench: ["Cercle", "Carré", "Triangle", "Étoile"],
+                    correctAnswer: 2,
+                    explanation: "The pattern follows geometric shapes in sequence.",
+                    explanationFrench: "Le modèle suit les formes géométriques en séquence.",
+                    difficulty: Difficulty.medium.rawValue,
+                    subType: NonVerbalSubType.figureSeries.rawValue,
+                    language: .english,
+                    level: level
+                ))
+            }
+        }
+        
+        return questions
     }
     
     func getPracticeQuestions(
@@ -90,25 +177,53 @@ class QuestionDataManager: ObservableObject {
     
     private func generateHardcodedQuestions() -> [Question] {
         var questions: [Question] = []
+        print("🐛 DEBUG: Starting hardcoded question generation...")
         
         // Generate questions for all CCAT levels
         for level in CCATLevel.allCases {
+            print("🐛 DEBUG: Generating questions for level: \(level)")
+            
             // Generate Verbal Questions for each level
-            questions.append(contentsOf: generateVerbalAnalogies(for: level))
-            questions.append(contentsOf: generateSentenceCompletion(for: level))
-            questions.append(contentsOf: generateVerbalClassification(for: level))
+            let verbalAnalogies = generateVerbalAnalogies(for: level)
+            let sentenceCompletion = generateSentenceCompletion(for: level)
+            let verbalClassification = generateVerbalClassification(for: level)
+            
+            print("🐛 DEBUG: Level \(level) - Verbal Analogies: \(verbalAnalogies.count)")
+            print("🐛 DEBUG: Level \(level) - Sentence Completion: \(sentenceCompletion.count)")
+            print("🐛 DEBUG: Level \(level) - Verbal Classification: \(verbalClassification.count)")
+            
+            questions.append(contentsOf: verbalAnalogies)
+            questions.append(contentsOf: sentenceCompletion)
+            questions.append(contentsOf: verbalClassification)
             
             // Generate Quantitative Questions for each level
-            questions.append(contentsOf: generateNumberAnalogies(for: level))
-            questions.append(contentsOf: generateQuantitativeAnalogies(for: level))
-            questions.append(contentsOf: generateEquationBuilding(for: level))
+            let numberAnalogies = generateNumberAnalogies(for: level)
+            let quantitativeAnalogies = generateQuantitativeAnalogies(for: level)
+            let equationBuilding = generateEquationBuilding(for: level)
+            
+            print("🐛 DEBUG: Level \(level) - Number Analogies: \(numberAnalogies.count)")
+            print("🐛 DEBUG: Level \(level) - Quantitative Analogies: \(quantitativeAnalogies.count)")
+            print("🐛 DEBUG: Level \(level) - Equation Building: \(equationBuilding.count)")
+            
+            questions.append(contentsOf: numberAnalogies)
+            questions.append(contentsOf: quantitativeAnalogies)
+            questions.append(contentsOf: equationBuilding)
             
             // Generate Non-Verbal Questions for each level
-            questions.append(contentsOf: generateFigureMatrices(for: level))
-            questions.append(contentsOf: generateFigureClassification(for: level))
-            questions.append(contentsOf: generateFigureSeries(for: level))
+            let figureMatrices = generateFigureMatrices(for: level)
+            let figureClassification = generateFigureClassification(for: level)
+            let figureSeries = generateFigureSeries(for: level)
+            
+            print("🐛 DEBUG: Level \(level) - Figure Matrices: \(figureMatrices.count)")
+            print("🐛 DEBUG: Level \(level) - Figure Classification: \(figureClassification.count)")
+            print("🐛 DEBUG: Level \(level) - Figure Series: \(figureSeries.count)")
+            
+            questions.append(contentsOf: figureMatrices)
+            questions.append(contentsOf: figureClassification)
+            questions.append(contentsOf: figureSeries)
         }
         
+        print("🐛 DEBUG: Generated total questions: \(questions.count)")
         return questions
     }
 
