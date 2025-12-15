@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/question.dart';
 import '../data/question_data_manager.dart';
+import '../controllers/settings_controller.dart';
 import 'test_session_screen.dart';
 
 class PracticeScreen extends StatefulWidget {
@@ -11,8 +12,16 @@ class PracticeScreen extends StatefulWidget {
 }
 
 class _PracticeScreenState extends State<PracticeScreen> {
-  CCATLevel _selectedLevel = CCATLevel.level12;
-  Language _selectedLanguage = Language.english;
+  late CCATLevel _selectedLevel;
+  late Language _selectedLanguage;
+
+  @override
+  void initState() {
+    super.initState();
+    final settings = SettingsController();
+    _selectedLevel = settings.defaultLevel;
+    _selectedLanguage = settings.language;
+  }
 
   @override
   Widget build(BuildContext context) {

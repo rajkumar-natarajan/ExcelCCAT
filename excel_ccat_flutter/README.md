@@ -15,6 +15,10 @@ A cross-platform Flutter application for CCAT (Canadian Cognitive Abilities Test
     *   **Standard Practice**: 50 questions, 30 minutes.
     *   **Full Mock Test**: 176 questions, 90 minutes.
 *   **Progress Tracking**: Detailed analytics of performance by question type.
+*   **Settings & Customization**:
+    *   **Theme**: Canadian-inspired Red & White theme with Dark Mode support.
+    *   **Language**: Toggle between English and French.
+    *   **Difficulty**: Adjustable Grade Levels (K-12).
 *   **Bilingual Support**: English and French (Structure ready).
 
 ## Getting Started

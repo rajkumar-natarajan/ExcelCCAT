@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'models/question.dart';
 import 'data/question_data_manager.dart';
+import 'controllers/settings_controller.dart';
 import 'screens/dashboard_screen.dart';
 import 'screens/practice_screen.dart';
 import 'screens/progress_screen.dart';
@@ -18,24 +19,38 @@ class ExcelCCATApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'ExcelCCAT',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF6366F1), // Indigo
-          brightness: Brightness.light,
-        ),
-      ),
-      darkTheme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF6366F1),
-          brightness: Brightness.dark,
-        ),
-      ),
-      home: const HomePage(),
+    return AnimatedBuilder(
+      animation: SettingsController(),
+      builder: (context, child) {
+        return MaterialApp(
+          title: 'ExcelCCAT',
+          debugShowCheckedModeBanner: false,
+          themeMode: SettingsController().themeMode,
+          theme: ThemeData(
+            useMaterial3: true,
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color(0xFFC8102E), // Canadian Red
+              brightness: Brightness.light,
+            ),
+            appBarTheme: const AppBarTheme(
+              centerTitle: true,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          darkTheme: ThemeData(
+            useMaterial3: true,
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color(0xFFC8102E), // Canadian Red
+              brightness: Brightness.dark,
+            ),
+            appBarTheme: const AppBarTheme(
+              centerTitle: true,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          home: const HomePage(),
+        );
+      },
     );
   }
 }
