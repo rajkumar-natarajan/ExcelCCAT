@@ -1,10 +1,25 @@
 # ExcelCCAT - Bilingual CCAT-7 Level 12 Prep App
 
 ## Overview
-ExcelCCAT is a comprehensive iOS application designed for CCAT-7 Level 12 test preparation with full bilingual support (English/French). The app provides offline functionality, deterministic mock tests, progress analytics, and adaptive learning features. **Now fully functional with modern SwiftUI design and comprehensive test coverage!**
+ExcelCCAT is a comprehensive cross-platform application designed for CCAT-7 test preparation with full bilingual support (English/French). The app provides offline functionality, deterministic mock tests, progress analytics, and adaptive learning features. **Now available on iOS (SwiftUI) and Android/Web (Flutter)!**
 
 ## ✅ Latest Updates (December 15, 2025)
-### 🎨 Modern UI Redesign
+### 📱 Cross-Platform Support (Flutter)
+- **New Flutter App** - Complete port of the iOS app to Flutter for Android and Web support
+- **Unified Design System** - Material 3 design adapted to match the modern iOS look and feel
+- **Feature Parity** - All core features (Practice, Mock Tests, Progress, Settings) implemented
+- **Responsive Layout** - Optimized for mobile (iOS/Android) and desktop web
+
+### 📚 Expanded Question Database
+- **Multi-Level Support** - Added comprehensive support for all CCAT levels:
+  - **Level K** (Kindergarten)
+  - **Level 10** (Grades 2-3)
+  - **Level 11** (Grades 4-5)
+  - **Level 12** (Grades 6+)
+- **New Question Types** - Added specific question patterns for lower grades (Oral Vocabulary, Relational Concepts)
+- **Expanded Content** - 50+ questions per level with accurate difficulty scaling
+
+### 🎨 Modern UI Redesign (iOS)
 - **Glassmorphism Design** - Modern glass-effect cards with blur backgrounds
 - **Updated Color Palette** - Fresh, modern colors with indigo, cyan, and rose accents
 - **Enhanced Typography** - SF Pro Display with better hierarchy and readability
@@ -18,8 +33,9 @@ ExcelCCAT is a comprehensive iOS application designed for CCAT-7 Level 12 test p
 - **Resolved Signal 9 Crashes** - Memory optimization and data structure simplification
 
 ### 🧪 Comprehensive Testing
-- **Unit Tests** - 5 comprehensive unit tests covering QuestionDataManager, TestSessionViewModel, AppViewModel, UserProgress, and Question model
-- **UI Tests** - 4 UI tests covering app launch, navigation, full mock test flow, and settings
+- **Flutter Integration Tests** - Full workflow testing for the new cross-platform app
+- **iOS Unit Tests** - 26 comprehensive unit tests covering QuestionDataManager, TestSessionViewModel, AppViewModel, UserProgress, and Question model
+- **iOS UI Tests** - 4 UI tests covering app launch, navigation, full mock test flow, and settings
 - **Debug Logging** - Added comprehensive logging throughout question flow for easier debugging
 - **All Tests Passing** - 100% test pass rate with detailed coverage
 
