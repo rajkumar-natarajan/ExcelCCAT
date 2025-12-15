@@ -1,9 +1,29 @@
 # ExcelCCAT - Bilingual CCAT-7 Level 12 Prep App
 
 ## Overview
-ExcelCCAT is a comprehensive iOS application designed for CCAT-7 Level 12 test preparation with full bilingual support (English/French). The app provides offline functionality, deterministic mock tests, progress analytics, and adaptive learning features. **Now fully functional with all compilation errors resolved!**
+ExcelCCAT is a comprehensive iOS application designed for CCAT-7 Level 12 test preparation with full bilingual support (English/French). The app provides offline functionality, deterministic mock tests, progress analytics, and adaptive learning features. **Now fully functional with modern SwiftUI design and comprehensive test coverage!**
 
-## ✅ Latest Updates (September 30, 2025)
+## ✅ Latest Updates (December 15, 2025)
+### 🎨 Modern UI Redesign
+- **Glassmorphism Design** - Modern glass-effect cards with blur backgrounds
+- **Updated Color Palette** - Fresh, modern colors with indigo, cyan, and rose accents
+- **Enhanced Typography** - SF Pro Display with better hierarchy and readability
+- **Smooth Animations** - Spring animations with haptic feedback
+- **Dark Mode Optimization** - Improved contrast and visibility in dark mode
+
+### 🐛 Critical Bug Fixes
+- **Fixed "Question 0 of 0" Bug** - Resolved timing issue with test session initialization using `hasActiveSession` state flag
+- **Simplified QuestionDataManager** - Reduced from 1280 to ~770 lines while maintaining 540 questions (180 per level × 3 levels)
+- **Fixed Duplicate Return Statements** - Corrected `getConfiguredQuestions()` method in QuestionDataManager
+- **Resolved Signal 9 Crashes** - Memory optimization and data structure simplification
+
+### 🧪 Comprehensive Testing
+- **Unit Tests** - 5 comprehensive unit tests covering QuestionDataManager, TestSessionViewModel, AppViewModel, UserProgress, and Question model
+- **UI Tests** - 4 UI tests covering app launch, navigation, full mock test flow, and settings
+- **Debug Logging** - Added comprehensive logging throughout question flow for easier debugging
+- **All Tests Passing** - 100% test pass rate with detailed coverage
+
+### Previous Updates (September 30, 2025)
 - **Major SettingsView Enhancement** - Completely redesigned settings interface with user profile section
 - **User Profile Dashboard** - Added progress summary with total questions, accuracy, and streak tracking
 - **Enhanced UI Components** - New FeatureRow component and improved About/Privacy views
@@ -11,10 +31,6 @@ ExcelCCAT is a comprehensive iOS application designed for CCAT-7 Level 12 test p
 - **Theme System Expansion** - Added Theme enum with light/dark/system options
 - **Weekly Goal Management** - Enhanced goal setting with improved slider interface
 - **Improved Navigation** - Streamlined settings sections with better organization
-- **Fixed all compilation errors** - App now builds successfully with zero warnings
-- **Enhanced type safety** - Improved enum conversions and parameter handling
-- **Expanded settings system** - Added font size and accessibility options
-- **Added utility components** - New AppIconGenerator and IconRenderer utilities
 
 ## Features
 
