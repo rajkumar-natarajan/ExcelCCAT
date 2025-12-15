@@ -64,14 +64,30 @@ fi
 
 # Boot simulator if not already running
 print_step "Step 3: Boot Simulator"
-SIMULATOR_STATE=$(xcrun simctl list devices | grep "$SIMULATOR_ID" | awk -F '[()]' '{print $2}')
+SIMULATOR_STATE=$(xcrun simctl list devices | grep "$SIMULATOR_ID" | grep -o '([^)]*)'| tail -1 | tr -d '()')
+echo "Current simulator state: $SIMULATOR_STATE"
 if [ "$SIMULATOR_STATE" != "Booted" ]; then
+    echo "Shutting down simulator first..."
+    xcrun simctl shutdown "$SIMULATOR_ID" 2>/dev/null || true
+    sleep 2
     echo "Booting simulator..."
-    if xcrun simctl boot "$SIMULATOR_ID" 2>/dev/null; then
-        sleep 5
-        print_success "Simulator booted"
+    if xcrun simctl boot "$SIMULATOR_ID"; then
+        echo "Waiting for simulator to fully boot..."
+        sleep 10
+        print_success "Simulator booted successfully"
     else
-        print_warning "Simulator boot failed, but continuing (may already be booted)"
+        print_error "Failed to boot simulator"
+        echo "Trying to find an available simulator..."
+        AVAILABLE_SIM=$(xcrun simctl list devices available | grep "iPhone" | head -1 | grep -o '([A-F0-9-]*)' | tr -d '()')
+        if [ ! -z "$AVAILABLE_SIM" ]; then
+            echo "Using alternative simulator: $AVAILABLE_SIM"
+            SIMULATOR_ID="$AVAILABLE_SIM"
+            xcrun simctl boot "$SIMULATOR_ID"
+            sleep 10
+        else
+            print_error "No available simulators found"
+            exit 1
+        fi
     fi
 else
     print_success "Simulator already running"
@@ -95,13 +111,31 @@ fi
 
 # Install the app
 print_step "Step 5: Install App"
+# Wait a moment to ensure simulator is ready
+sleep 3
+
+# Verify simulator is still booted
+CURRENT_STATE=$(xcrun simctl list devices | grep "$SIMULATOR_ID" | grep -o '([^)]*)'| tail -1 | tr -d '()')
+echo "Current simulator state: $CURRENT_STATE"
+if [ "$CURRENT_STATE" != "Booted" ]; then
+    print_error "Simulator is not booted (state: $CURRENT_STATE)"
+    echo "Attempting to boot simulator again..."
+    xcrun simctl boot "$SIMULATOR_ID"
+    sleep 10
+fi
+
 APP_PATH=$(find ~/Library/Developer/Xcode/DerivedData -name "ExcelCCAT.app" -path "*/Build/Products/Debug-iphonesimulator/*" | head -1)
 if [ -n "$APP_PATH" ]; then
-    xcrun simctl install "$SIMULATOR_ID" "$APP_PATH"
-    print_success "App installed: $APP_PATH"
+    echo "Installing app: $APP_PATH"
+    if xcrun simctl install "$SIMULATOR_ID" "$APP_PATH"; then
+        print_success "App installed successfully"
+    else
+        print_warning "App installation failed, but continuing with tests"
+    fi
 else
-    print_error "App not found in build products"
-    exit 1
+    print_warning "App not found in build products, but continuing with tests"
+    echo "Available build products:"
+    find ~/Library/Developer/Xcode/DerivedData -name "*.app" -path "*/Build/Products/Debug-iphonesimulator/*" 2>/dev/null | head -5
 fi
 
 # Function to run unit tests

@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @Environment(AppViewModel.self) private var appViewModel
     @State private var testSessionViewModel: TestSessionViewModel?
+    @State private var hasActiveSession: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -17,7 +18,7 @@ struct ContentView: View {
                 if appViewModel.showingOnboarding {
                     OnboardingView()
                 } else if appViewModel.isTestInProgress {
-                    if let sessionVM = testSessionViewModel {
+                    if hasActiveSession, let sessionVM = testSessionViewModel {
                         TestSessionView()
                             .environment(sessionVM)
                     } else {
@@ -39,31 +40,41 @@ struct ContentView: View {
             .animation(.easeInOut(duration: 0.3), value: appViewModel.showingResults)
         }
         .onAppear {
-            setupAppViewModel()
+            // Try to resume any existing session
+            appViewModel.resumeSession()
         }
         .onChange(of: appViewModel.isTestInProgress) { oldValue, newValue in
-            if newValue && testSessionViewModel == nil {
+            print("🎯 onChange: isTestInProgress changed from \(oldValue) to \(newValue)")
+            if newValue {
+                // Always set up a new session when test starts
                 setupTestSession()
-            } else if !newValue {
+            } else {
+                // Reset when test ends
                 testSessionViewModel = nil
+                hasActiveSession = false
             }
         }
     }
     
-    private func setupAppViewModel() {
-        if testSessionViewModel == nil {
-            testSessionViewModel = TestSessionViewModel(appViewModel: appViewModel)
-        }
-        
-        // Try to resume any existing session
-        appViewModel.resumeSession()
-    }
-    
     private func setupTestSession() {
+        print("🎯 ContentView.setupTestSession() called")
+        print("🎯 appViewModel.currentTestSession exists: \(appViewModel.currentTestSession != nil)")
+        
         if let session = appViewModel.currentTestSession {
+            print("🎯 Session has \(session.questions.count) questions")
+            print("🎯 Session type: \(session.sessionType)")
+            
             let sessionVM = TestSessionViewModel(appViewModel: appViewModel)
             sessionVM.startSession(session)
             testSessionViewModel = sessionVM
+            hasActiveSession = true
+            
+            print("🎯 testSessionViewModel created and session started")
+            print("🎯 sessionVM.totalQuestions: \(sessionVM.totalQuestions)")
+            print("🎯 hasActiveSession set to true")
+        } else {
+            print("🚨 ERROR: No currentTestSession available!")
+            hasActiveSession = false
         }
     }
 }

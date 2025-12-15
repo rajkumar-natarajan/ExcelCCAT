@@ -462,8 +462,14 @@ struct HomeView: View {
     }
     
     private func startFullMock() {
+        print("🔥 BUTTON DEBUG: Full Mock button clicked!")
+        print("🔥 BUTTON DEBUG: Current language: \(appViewModel.currentLanguage)")
+        print("🔥 BUTTON DEBUG: Current test configuration before click: \(appViewModel.currentTestConfiguration)")
+        
         appViewModel.playHapticFeedback(.selection)
         appViewModel.startFullMockTest(language: appViewModel.currentLanguage)
+        
+        print("🔥 BUTTON DEBUG: startFullMockTest called successfully")
     }
 }
 

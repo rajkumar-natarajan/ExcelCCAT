@@ -108,10 +108,19 @@ class AppViewModel {
     }
     
     func setTestType(_ testType: TDSBTestType) {
+        print("🔥 SETTYPE DEBUG: Setting test type to: \(testType)")
+        print("🔥 SETTYPE DEBUG: Current selectedCCATLevel: \(selectedCCATLevel)")
+        
         currentTestConfiguration = TestConfiguration(
             testType: testType,
             level: selectedCCATLevel
         )
+        
+        print("🔥 SETTYPE DEBUG: New configuration created:")
+        print("🔥 SETTYPE DEBUG: - Test type: \(currentTestConfiguration.testType)")
+        print("🔥 SETTYPE DEBUG: - Level: \(currentTestConfiguration.level)")
+        print("🔥 SETTYPE DEBUG: - Question count: \(currentTestConfiguration.questionCount)")
+        print("🔥 SETTYPE DEBUG: - Time limit: \(currentTestConfiguration.timeLimit)")
     }
     
     func updateCustomTestParameters(questionCount: Int, timeLimit: Int, isTimedSession: Bool) {
@@ -156,15 +165,29 @@ class AppViewModel {
     
     // MARK: - Test Session Management
     func startConfiguredTest(language: Language = .english) {
+        print("🔥 CRITICAL DEBUG: Starting configured test")
+        print("🔥 CRITICAL DEBUG: Configuration: \(currentTestConfiguration)")
+        print("🔥 CRITICAL DEBUG: Level: \(currentTestConfiguration.level)")
+        print("🔥 CRITICAL DEBUG: Question Count: \(currentTestConfiguration.questionCount)")
+        
         let questions = QuestionDataManager.shared.getConfiguredQuestions(
             configuration: currentTestConfiguration,
             language: language
         )
-        let shuffledQuestions = questions.shuffled()
         
+        print("🔥 CRITICAL DEBUG: Received \(questions.count) questions from QuestionDataManager")
+        
+        if questions.isEmpty {
+            print("🔥 CRITICAL ERROR: No questions received! This will cause 'Question 0 of 0'")
+        } else {
+            print("🔥 CRITICAL SUCCESS: Questions received successfully")
+        }
+        
+        let shuffledQuestions = questions.shuffled()
+
         let timeInSeconds = currentTestConfiguration.isTimedSession ? 
             TimeInterval(currentTestConfiguration.timeLimit * 60) : 0
-        
+
         currentTestSession = TestSession(
             questions: shuffledQuestions,
             sessionType: .fullMock,
@@ -177,8 +200,17 @@ class AppViewModel {
     }
     
     func startFullMockTest(language: Language = .english) {
+        print("🔥 FULLMOCK DEBUG: Starting Full Mock Test")
+        print("🔥 FULLMOCK DEBUG: Current language: \(language)")
+        
         // Set to full mock configuration
         setTestType(.fullMock)
+        
+        print("🔥 FULLMOCK DEBUG: After setTestType, currentTestConfiguration: \(currentTestConfiguration)")
+        print("🔥 FULLMOCK DEBUG: Question count: \(currentTestConfiguration.questionCount)")
+        print("🔥 FULLMOCK DEBUG: Test type: \(currentTestConfiguration.testType)")
+        print("🔥 FULLMOCK DEBUG: Level: \(currentTestConfiguration.level)")
+        
         startConfiguredTest(language: language)
     }
     

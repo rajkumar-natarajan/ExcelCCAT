@@ -113,6 +113,16 @@ struct TestSessionView: View {
                 Text(String(format: NSLocalizedString("question_number", comment: "Question %d of %d"), sessionViewModel.questionNumber, sessionViewModel.totalQuestions))
                     .font(AppTheme.Typography.callout)
                     .foregroundColor(colorScheme == .dark ? AppTheme.Colors.darkText.opacity(0.7) : AppTheme.Colors.softGray.opacity(0.7))
+                    .onAppear {
+                        print("🚨 TESTVIEW DEBUG: Question number: \(sessionViewModel.questionNumber)")
+                        print("🚨 TESTVIEW DEBUG: Total questions: \(sessionViewModel.totalQuestions)")
+                        if let session = sessionViewModel.currentSession {
+                            print("🚨 TESTVIEW DEBUG: Session questions count: \(session.questions.count)")
+                            print("🚨 TESTVIEW DEBUG: Session type: \(session.sessionType)")
+                        } else {
+                            print("🚨 TESTVIEW DEBUG: NO CURRENT SESSION!")
+                        }
+                    }
                 
                 Spacer()
                 
