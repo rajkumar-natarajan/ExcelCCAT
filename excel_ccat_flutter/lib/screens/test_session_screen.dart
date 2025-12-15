@@ -169,6 +169,24 @@ class _TestSessionScreenState extends State<TestSessionScreen> {
                 children: [
                   _buildQuestionHeader(question),
                   const SizedBox(height: 24),
+                  if (question.imageAsset != null) ...[
+                    Center(
+                      child: Image.asset(
+                        question.imageAsset!,
+                        height: 200,
+                        fit: BoxFit.contain,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const SizedBox(
+                            height: 100,
+                            child: Center(
+                              child: Icon(Icons.image_not_supported, size: 48, color: Colors.grey),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                  ],
                   Text(
                     question.getStem(widget.language),
                     style: Theme.of(context).textTheme.headlineSmall,

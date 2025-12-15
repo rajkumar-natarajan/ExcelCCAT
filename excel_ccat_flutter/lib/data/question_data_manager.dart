@@ -348,18 +348,102 @@ class QuestionDataManager {
     return questions;
   }
 
-  // MARK: - Non-Verbal Questions Generation (Placeholders)
+  // MARK: - Non-Verbal Questions Generation (Text-based representations)
 
   List<Question> _createFigureMatrices(CCATLevel level) {
-    return List.generate(5, (i) => _createGenericQuestion(QuestionType.nonVerbal, i, level));
+    final difficulty = _getDifficultyForLevel(level);
+    List<Question> questions = [];
+    
+    final matrices = [
+      ('Shape Pattern: Circle -> Sphere. Square -> ?', ['Cube', 'Triangle', 'Line', 'Point'], 0),
+      ('Color Pattern: Red -> Pink. Blue -> ?', ['Sky Blue', 'Green', 'Purple', 'Orange'], 0),
+      ('Size Pattern: Big -> Small. Tall -> ?', ['Short', 'Wide', 'Fat', 'Long'], 0),
+      ('Direction: Up -> Down. Left -> ?', ['Right', 'Center', 'North', 'South'], 0),
+      ('Texture: Rough -> Smooth. Hard -> ?', ['Soft', 'Solid', 'Rock', 'Stone'], 0),
+    ];
+
+    for (var i = 0; i < matrices.length; i++) {
+      final (stem, options, correct) = matrices[i];
+      questions.add(Question(
+        id: '${level.value}_nonverbal_matrices_$i',
+        type: QuestionType.nonVerbal,
+        subType: NonVerbalSubType.figureMatrices.value,
+        stem: stem,
+        stemFrench: '$stem (FR)',
+        options: options,
+        optionsFrench: options,
+        correctAnswer: correct,
+        explanation: 'The correct answer is ${options[correct]}.',
+        explanationFrench: 'La bonne réponse est ${options[correct]}.',
+        difficulty: difficulty,
+        level: level,
+      ));
+    }
+    return questions;
   }
 
   List<Question> _createFigureClassification(CCATLevel level) {
-    return List.generate(5, (i) => _createGenericQuestion(QuestionType.nonVerbal, i + 5, level));
+    final difficulty = _getDifficultyForLevel(level);
+    List<Question> questions = [];
+    
+    final items = [
+      ('Which shape is different?', ['Circle', 'Square', 'Triangle', 'Rectangle'], 0), // Circle has no corners
+      ('Which object is different?', ['Ball', 'Box', 'Dice', 'Brick'], 0), // Ball is round
+      ('Which direction is different?', ['North', 'South', 'East', 'Up'], 3), // Up is vertical
+      ('Which line is different?', ['Straight', 'Curved', 'Zigzag', 'Dotted'], 3), // Dotted is not continuous
+      ('Which symmetry is different?', ['H', 'A', 'M', 'P'], 3), // P has no vertical symmetry
+    ];
+
+    for (var i = 0; i < items.length; i++) {
+      final (stem, options, correct) = items[i];
+      questions.add(Question(
+        id: '${level.value}_nonverbal_class_$i',
+        type: QuestionType.nonVerbal,
+        subType: NonVerbalSubType.figureClassification.value,
+        stem: stem,
+        stemFrench: '$stem (FR)',
+        options: options,
+        optionsFrench: options,
+        correctAnswer: correct,
+        explanation: 'The correct answer is ${options[correct]}.',
+        explanationFrench: 'La bonne réponse est ${options[correct]}.',
+        difficulty: difficulty,
+        level: level,
+      ));
+    }
+    return questions;
   }
 
   List<Question> _createFigureSeries(CCATLevel level) {
-    return List.generate(5, (i) => _createGenericQuestion(QuestionType.nonVerbal, i + 10, level));
+    final difficulty = _getDifficultyForLevel(level);
+    List<Question> questions = [];
+    
+    final series = [
+      ('Sequence: | , || , ||| , ?', ['||||', '||', '|', 'V'], 0),
+      ('Sequence: O , OO , OOO , ?', ['OOOO', 'O', '0', '8'], 0),
+      ('Sequence: A , C , E , ?', ['G', 'F', 'H', 'I'], 0),
+      ('Sequence: 12:00 , 12:15 , 12:30 , ?', ['12:45', '12:40', '1:00', '12:35'], 0),
+      ('Sequence: North , East , South , ?', ['West', 'North', 'Up', 'Down'], 0),
+    ];
+
+    for (var i = 0; i < series.length; i++) {
+      final (stem, options, correct) = series[i];
+      questions.add(Question(
+        id: '${level.value}_nonverbal_series_$i',
+        type: QuestionType.nonVerbal,
+        subType: NonVerbalSubType.figureSeries.value,
+        stem: stem,
+        stemFrench: '$stem (FR)',
+        options: options,
+        optionsFrench: options,
+        correctAnswer: correct,
+        explanation: 'The correct answer is ${options[correct]}.',
+        explanationFrench: 'La bonne réponse est ${options[correct]}.',
+        difficulty: difficulty,
+        level: level,
+      ));
+    }
+    return questions;
   }
 
   Difficulty _getDifficultyForLevel(CCATLevel level) {

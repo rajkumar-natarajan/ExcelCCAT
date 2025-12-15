@@ -27,7 +27,6 @@ class ExcelCCATApp extends StatelessWidget {
           seedColor: const Color(0xFF6366F1), // Indigo
           brightness: Brightness.light,
         ),
-        fontFamily: 'SF Pro Display',
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
@@ -35,7 +34,6 @@ class ExcelCCATApp extends StatelessWidget {
           seedColor: const Color(0xFF6366F1),
           brightness: Brightness.dark,
         ),
-        fontFamily: 'SF Pro Display',
       ),
       home: const HomePage(),
     );
