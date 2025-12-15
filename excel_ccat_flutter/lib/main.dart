@@ -34,7 +34,11 @@ class ExcelCCATApp extends StatelessWidget {
             ),
             appBarTheme: const AppBarTheme(
               centerTitle: true,
-              fontWeight: FontWeight.bold,
+              titleTextStyle: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Colors.black, // Default for light mode
+              ),
             ),
           ),
           darkTheme: ThemeData(
@@ -45,7 +49,11 @@ class ExcelCCATApp extends StatelessWidget {
             ),
             appBarTheme: const AppBarTheme(
               centerTitle: true,
-              fontWeight: FontWeight.bold,
+              titleTextStyle: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Colors.white, // Default for dark mode
+              ),
             ),
           ),
           home: const HomePage(),

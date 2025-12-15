@@ -13,7 +13,7 @@ class DashboardScreen extends StatelessWidget {
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.maple, color: Colors.red), // Maple Leaf Icon
+            const Text('🍁', style: TextStyle(fontSize: 24)), // Maple Leaf Emoji
             const SizedBox(width: 8),
             Text(
               'ExcelCCAT',
@@ -112,7 +112,7 @@ class DashboardScreen extends StatelessWidget {
               style: FilledButton.styleFrom(
                 backgroundColor: Colors.white,
                 foregroundColor: const Color(0xFFC8102E),
-                fontWeight: FontWeight.bold,
+                textStyle: const TextStyle(fontWeight: FontWeight.bold),
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               ),
             ),

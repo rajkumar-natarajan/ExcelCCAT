@@ -5,6 +5,21 @@ All notable changes to the ExcelCCAT project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Flutter Migration] - 2025-10-02 🍁 **UI & SETTINGS UPDATE**
+
+### ✅ Added - UI Modernization
+- **Canadian Theme**: Implemented a new `ThemeData` using Canadian Red (`#C8102E`) as the seed color.
+- **Dashboard Redesign**: Added a gradient welcome card and Maple Leaf iconography.
+- **Settings Module**: Created `SettingsController` to manage:
+    - **Theme Mode**: System, Light, Dark.
+    - **Language**: English, French.
+    - **Grade Level**: K, 1-2, 3-4, 5-8, 9-12.
+
+### ✅ Fixed - Logic & State
+- **Question Logic**: Implemented text-based logic for non-verbal questions to ensure playability without assets.
+- **State Management**: Centralized app state using `ChangeNotifier` for settings persistence.
+- **Build Fixes**: Resolved `AppBarTheme` and `Icon` errors in `main.dart` and `dashboard_screen.dart`.
+
 ## [1.0.1] - 2025-09-30 🎯 **MAJOR STABILITY RELEASE**
 
 ### ✅ Fixed - Compilation & Build Issues
