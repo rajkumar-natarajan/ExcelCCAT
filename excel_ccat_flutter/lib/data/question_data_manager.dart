@@ -242,14 +242,29 @@ class QuestionDataManager {
       ('2 : 4 :: 3 : ?', ['5', '6', '7', '8'], 1),
       ('1 : 2 :: 5 : ?', ['8', '9', '10', '11'], 2),
       ('3 : 9 :: 4 : ?', ['12', '14', '16', '18'], 2),
+      ('4 : 8 :: 6 : ?', ['10', '12', '14', '16'], 1),
+      ('5 : 10 :: 7 : ?', ['12', '13', '14', '15'], 2),
+      ('2 : 6 :: 4 : ?', ['10', '12', '14', '8'], 1),
+      ('1 : 3 :: 2 : ?', ['4', '5', '6', '7'], 2),
+      ('3 : 6 :: 5 : ?', ['8', '9', '10', '11'], 2),
     ] : level == CCATLevel.level11 ? [
       ('5 : 25 :: 6 : ?', ['30', '36', '42', '48'], 1),
       ('8 : 64 :: 9 : ?', ['72', '81', '90', '99'], 1),
       ('2 : 8 :: 3 : ?', ['18', '24', '27', '30'], 2),
+      ('4 : 16 :: 5 : ?', ['20', '25', '30', '35'], 1),
+      ('3 : 12 :: 4 : ?', ['14', '16', '18', '20'], 1),
+      ('6 : 36 :: 7 : ?', ['42', '49', '56', '63'], 1),
+      ('7 : 49 :: 8 : ?', ['56', '64', '72', '80'], 1),
+      ('10 : 100 :: 11 : ?', ['110', '111', '121', '132'], 2),
     ] : [
       ('3 : 27 :: 4 : ?', ['64', '48', '36', '16'], 0),
       ('2 : 16 :: 3 : ?', ['81', '72', '64', '54'], 0),
       ('5 : 125 :: 4 : ?', ['64', '80', '100', '120'], 0),
+      ('2 : 32 :: 3 : ?', ['243', '81', '27', '9'], 0),
+      ('4 : 256 :: 3 : ?', ['81', '64', '27', '9'], 0),
+      ('6 : 216 :: 5 : ?', ['125', '100', '75', '50'], 0),
+      ('7 : 343 :: 4 : ?', ['64', '48', '32', '16'], 0),
+      ('2 : 64 :: 3 : ?', ['729', '243', '81', '27'], 0),
     ];
 
     for (var i = 0; i < analogies.length; i++) {
@@ -277,17 +292,32 @@ class QuestionDataManager {
     List<Question> questions = [];
     
     final relations = level == CCATLevel.level10 ? [
-      ('Which is greater?', ['5 + 3', '4 + 2', 'Equal', 'Cannot tell'], 0),
-      ('Which is less?', ['10 - 2', '5 + 4', 'Equal', 'Cannot tell'], 0),
-      ('Which is greater?', ['2 x 3', '3 + 3', 'Equal', 'Cannot tell'], 2),
+      ('Which is greater? A: 5 + 3, B: 4 + 2', ['A', 'B', 'Equal', 'Cannot tell'], 0),
+      ('Which is less? A: 10 - 2, B: 5 + 4', ['A', 'B', 'Equal', 'Cannot tell'], 0),
+      ('Compare: A: 2 x 3, B: 3 + 3', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 2),
+      ('Which is greater? A: 4 x 2, B: 3 x 3', ['A', 'B', 'Equal', 'Cannot tell'], 1),
+      ('Compare: A: 15 - 5, B: 2 x 5', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 2),
+      ('Which is less? A: 6 + 6, B: 4 x 4', ['A', 'B', 'Equal', 'Cannot tell'], 0),
+      ('Compare: A: 20 ÷ 4, B: 10 ÷ 2', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 2),
+      ('Which is greater? A: 7 + 8, B: 5 x 3', ['A', 'B', 'Equal', 'Cannot tell'], 2),
     ] : level == CCATLevel.level11 ? [
-      ('Which is greater?', ['1/2 of 10', '1/3 of 12', 'Equal', 'Cannot tell'], 0),
-      ('Which is less?', ['0.5', '0.05', 'Equal', 'Cannot tell'], 1),
-      ('Which is greater?', ['3 squared', '2 cubed', 'Equal', 'Cannot tell'], 0),
+      ('Which is greater? A: 1/2 of 10, B: 1/3 of 12', ['A', 'B', 'Equal', 'Cannot tell'], 0),
+      ('Which is less? A: 0.5, B: 0.05', ['A', 'B', 'Equal', 'Cannot tell'], 1),
+      ('Compare: A: 3 squared, B: 2 cubed', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 0),
+      ('Which is greater? A: 2/3 of 9, B: 3/4 of 8', ['A', 'B', 'Equal', 'Cannot tell'], 2),
+      ('Compare: A: 0.25, B: 1/4', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 2),
+      ('Which is less? A: 4 squared, B: 3 cubed', ['A', 'B', 'Equal', 'Cannot tell'], 0),
+      ('Compare: A: 15%, B: 0.15', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 2),
+      ('Which is greater? A: 5/8, B: 7/12', ['A', 'B', 'Equal', 'Cannot tell'], 0),
     ] : [
-      ('Which is greater?', ['sqrt(144)', '12', 'Equal', 'Cannot tell'], 2),
-      ('Which is less?', ['-5', '-10', 'Equal', 'Cannot tell'], 1),
-      ('Which is greater?', ['2^4', '4^2', 'Equal', 'Cannot tell'], 2),
+      ('Compare: A: sqrt(144), B: 12', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 2),
+      ('Which is less? A: -5, B: -10', ['A', 'B', 'Equal', 'Cannot tell'], 1),
+      ('Compare: A: 2^4, B: 4^2', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 2),
+      ('Which is greater? A: π, B: 3.14', ['A', 'B', 'Equal', 'Cannot tell'], 0),
+      ('Compare: A: sqrt(2), B: 1.5', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 1),
+      ('Which is less? A: 3^3, B: 2^5', ['A', 'B', 'Equal', 'Cannot tell'], 0),
+      ('Compare: A: log₁₀(100), B: 2', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 2),
+      ('Which is greater? A: |-7|, B: |5|', ['A', 'B', 'Equal', 'Cannot tell'], 0),
     ];
 
     for (var i = 0; i < relations.length; i++) {
@@ -318,14 +348,29 @@ class QuestionDataManager {
       ('2, 4, 6, 8, ?', ['9', '10', '11', '12'], 1),
       ('10, 9, 8, 7, ?', ['6', '5', '4', '3'], 0),
       ('5, 10, 15, 20, ?', ['22', '24', '25', '30'], 2),
+      ('3, 6, 9, 12, ?', ['13', '14', '15', '16'], 2),
+      ('1, 3, 5, 7, ?', ['8', '9', '10', '11'], 1),
+      ('20, 18, 16, 14, ?', ['10', '11', '12', '13'], 2),
+      ('4, 8, 12, 16, ?', ['18', '19', '20', '22'], 2),
+      ('100, 90, 80, 70, ?', ['50', '55', '60', '65'], 2),
     ] : level == CCATLevel.level11 ? [
       ('1, 4, 9, 16, ?', ['20', '24', '25', '30'], 2),
       ('2, 6, 12, 20, ?', ['28', '30', '32', '36'], 1),
       ('1, 1, 2, 3, 5, ?', ['7', '8', '9', '10'], 1),
+      ('2, 4, 8, 16, ?', ['24', '28', '32', '36'], 2),
+      ('1, 2, 4, 7, 11, ?', ['14', '15', '16', '17'], 2),
+      ('3, 5, 8, 12, 17, ?', ['21', '22', '23', '24'], 2),
+      ('1, 3, 6, 10, 15, ?', ['19', '20', '21', '22'], 2),
+      ('2, 3, 5, 8, 12, ?', ['15', '16', '17', '18'], 2),
     ] : [
       ('2, 3, 5, 7, 11, ?', ['12', '13', '14', '15'], 1),
       ('1, 8, 27, 64, ?', ['100', '125', '150', '200'], 1),
       ('3, 6, 12, 24, ?', ['36', '40', '48', '50'], 2),
+      ('1, 4, 27, 256, ?', ['625', '1024', '2048', '3125'], 3),
+      ('2, 6, 18, 54, ?', ['108', '126', '162', '180'], 2),
+      ('1, 2, 6, 24, 120, ?', ['240', '480', '600', '720'], 3),
+      ('1, 1, 2, 3, 5, 8, 13, ?', ['18', '20', '21', '24'], 2),
+      ('1, 2, 4, 8, 16, 32, ?', ['48', '56', '64', '72'], 2),
     ];
 
     for (var i = 0; i < series.length; i++) {

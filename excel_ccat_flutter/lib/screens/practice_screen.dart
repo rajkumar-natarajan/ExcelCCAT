@@ -14,6 +14,7 @@ class PracticeScreen extends StatefulWidget {
 class _PracticeScreenState extends State<PracticeScreen> {
   late CCATLevel _selectedLevel;
   late Language _selectedLanguage;
+  Set<QuestionType> _selectedTypes = {QuestionType.verbal, QuestionType.quantitative, QuestionType.nonVerbal};
 
   @override
   void initState() {
@@ -119,6 +120,36 @@ class _PracticeScreenState extends State<PracticeScreen> {
                 }
               },
             ),
+            const SizedBox(height: 16),
+            Text(
+              'Question Types',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+            ),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: QuestionType.values.map((type) {
+                final isSelected = _selectedTypes.contains(type);
+                return FilterChip(
+                  label: Text(type.displayName),
+                  selected: isSelected,
+                  onSelected: (selected) {
+                    setState(() {
+                      if (selected) {
+                        _selectedTypes.add(type);
+                      } else {
+                        if (_selectedTypes.length > 1) {
+                          _selectedTypes.remove(type);
+                        }
+                      }
+                    });
+                  },
+                );
+              }).toList(),
+            ),
           ],
         ),
       ),
@@ -180,6 +211,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
     final config = TestConfiguration(
       testType: type,
       level: _selectedLevel,
+      selectedTypes: _selectedTypes.toList(),
     );
 
     final questions = QuestionDataManager().getConfiguredQuestions(

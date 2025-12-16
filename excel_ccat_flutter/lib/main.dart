@@ -7,6 +7,7 @@ import 'screens/dashboard_screen.dart';
 import 'screens/practice_screen.dart';
 import 'screens/progress_screen.dart';
 import 'screens/settings_screen.dart';
+import 'screens/study_guide_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -85,6 +86,7 @@ class _HomePageState extends State<HomePage> {
         });
       }),
       const PracticeScreen(),
+      const StudyGuideScreen(),
       const ProgressScreen(),
       const SettingsScreen(),
     ];
@@ -111,6 +113,11 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.school_outlined),
             selectedIcon: Icon(Icons.school),
             label: 'Practice',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.menu_book_outlined),
+            selectedIcon: Icon(Icons.menu_book),
+            label: 'Guide',
           ),
           NavigationDestination(
             icon: Icon(Icons.bar_chart_outlined),

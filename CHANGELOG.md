@@ -5,7 +5,29 @@ All notable changes to the ExcelCCAT project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Flutter Migration] - 2025-10-02 🍁 **UI & SETTINGS UPDATE**
+## [Flutter 1.1.0] - 2025-12-16 📚 **STUDY GUIDE & QUESTION FIXES**
+
+### ✅ Added - Study Guide
+- **Comprehensive Study Guide**: New "Guide" tab in bottom navigation with test-taking strategies.
+- **Verbal Battery Tips**: Strategies for Analogies, Sentence Completion, and Classification questions.
+- **Quantitative Battery Tips**: Strategies for Number Analogies, Series, and Relations questions.
+- **Non-Verbal Battery Tips**: Strategies for Figure Matrices, Classification, and Series questions.
+- **General Test-Taking Tips**: Time management, elimination, and review strategies with examples.
+
+### ✅ Fixed - Question Categorization
+- **Question Type Filter**: Added filter chips in Practice screen to select Verbal, Quantitative, or Non-Verbal.
+- **Proper Filtering**: Questions are now correctly filtered by selected types before test starts.
+- **No More Mixed Types**: Fixed bug where non-verbal questions appeared in verbal-only tests.
+
+### ✅ Added - Expanded Question Bank
+- **Number Analogies**: Expanded from 3 to 8 questions per level (24 total).
+- **Number Series**: Expanded from 3 to 8 questions per level (24 total).
+- **Quantitative Relations**: Expanded from 3 to 8 questions per level with clearer formatting (24 total).
+- **Better Question Stems**: Improved question wording for clarity (e.g., "A: 5+3, B: 4+2" format).
+
+---
+
+## [Flutter 1.0.0] - 2025-10-02 🍁 **UI & SETTINGS UPDATE**
 
 ### ✅ Added - UI Modernization
 - **Canadian Theme**: Implemented a new `ThemeData` using Canadian Red (`#C8102E`) as the seed color.
