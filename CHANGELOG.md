@@ -5,6 +5,24 @@ All notable changes to the ExcelCCAT project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Flutter 1.3.0] - 2025-12-16 🧹 **PROJECT CLEANUP**
+
+### ✅ Removed - Swift/Native iOS Code
+- **Removed Swift App**: Deleted ExcelCCAT/, ExcelCCAT.xcodeproj/, ExcelCCATTests/, ExcelCCATUITests/.
+- **Removed Swift Tests**: Deleted Tests/, TestResults/, question_manager_test.swift.
+- **Removed Outdated Docs**: Deleted DEVELOPMENT.md, ISSUE_RESOLUTION_SUMMARY.md, RELEASE_NOTES.md, TECHNICAL_DOCUMENTATION.md, TESTING_PERFORMANCE_ANALYSIS.md, USER_GUIDE.md.
+
+### ✅ Updated - Documentation
+- **New README**: Complete rewrite focused on Flutter app only.
+- **Project Structure**: Updated to reflect Flutter-only codebase.
+- **Screenshots Folder**: Added placeholder for app screenshots.
+
+### ✅ Simplified - Repository
+- **Single Framework**: Now Flutter-only for easier maintenance.
+- **Cross-Platform**: iOS, Android, Web, and macOS all from single codebase.
+
+---
+
 ## [Flutter 1.2.0] - 2025-12-16 🧠 **SMART LEARNING FEATURES**
 
 ### ✅ Added - Smart Learning Controller
