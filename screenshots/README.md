@@ -1,27 +1,52 @@
-# Screenshots
+# ExcelCCAT Screenshots
 
-Add app screenshots here with the following names:
+This folder contains screenshots of the ExcelCCAT app for documentation and App Store submission.
 
-- `home.png` - Home/Dashboard screen
-- `practice.png` - Practice configuration screen  
-- `guide.png` - Study Guide screen
-- `test.png` - Test session screen
-- `results.png` - Test results screen
-- `progress.png` - Progress tracking screen
-- `settings.png` - Settings screen
+## Current Screenshots
+
+| Screenshot | Description |
+|------------|-------------|
+| `dashboard.png` | Main dashboard with gamification stats and quick actions |
+
+## Required App Store Screenshots
+
+For App Store submission, you need screenshots in these sizes:
+
+### iPhone
+- 6.7" (iPhone 15 Pro Max, 14 Pro Max): 1290 x 2796 pixels
+- 6.5" (iPhone 14 Plus, 13 Pro Max): 1284 x 2778 pixels
+- 5.5" (iPhone 8 Plus): 1242 x 2208 pixels
+
+### iPad
+- 12.9" iPad Pro: 2048 x 2732 pixels
+- 11" iPad Pro: 1668 x 2388 pixels
 
 ## How to Capture Screenshots
 
-### macOS
-1. Run the app: `cd excel_ccat_flutter && flutter run -d macos`
-2. Press `Cmd + Shift + 4` and drag to select the app window
-3. Save to this folder with appropriate name
+### Using Simulator
+```bash
+# Capture from specific simulator
+xcrun simctl io <device-id> screenshot filename.png
 
-### iOS Simulator
-1. Run the app: `flutter run -d ios`
-2. Press `Cmd + S` in Simulator to save screenshot
-3. Move to this folder with appropriate name
+# Example for iPhone 17 Pro
+xcrun simctl io FA6A3D7F-1B58-436A-AEFF-1F05FB0BF1CD screenshot screenshot.png
+```
 
-### Recommended Size
-- Width: 390px (iPhone 14 Pro width)
-- Format: PNG
+### Screenshot Guidelines
+
+1. **Dashboard** - Show XP, level, streak, and daily challenge
+2. **Practice Setup** - Display test configuration options
+3. **Test Session** - Active question with timer
+4. **Results** - Score breakdown and statistics
+5. **Achievements** - Badges and progress
+6. **Progress** - Analytics charts and trends
+7. **Settings** - Customization options
+
+## App Icon
+
+The app icon features:
+- Canadian red gradient background (#D52B1E)
+- White maple leaf symbol
+- Clean, professional design
+
+Located in: `excel_ccat_flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/`
