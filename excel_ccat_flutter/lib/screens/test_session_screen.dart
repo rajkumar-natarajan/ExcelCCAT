@@ -86,8 +86,9 @@ class _TestSessionScreenState extends State<TestSessionScreen> {
       ));
     }
 
-    // Record answers in SmartLearningController
-    _smartLearning.recordTestSession(widget.questions, userAnswers);
+    // Record answers in SmartLearningController with timing
+    final totalTimeSeconds = DateTime.now().difference(_startTime).inSeconds;
+    _smartLearning.recordTestSessionWithTime(widget.questions, userAnswers, totalTimeSeconds);
 
     final result = TestResult(
       id: DateTime.now().millisecondsSinceEpoch.toString(),

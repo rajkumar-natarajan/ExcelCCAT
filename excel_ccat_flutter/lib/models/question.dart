@@ -16,7 +16,9 @@ enum QuestionType {
 enum VerbalSubType {
   analogies('analogies', 'Verbal Analogies'),
   sentenceCompletion('sentence_completion', 'Sentence Completion'),
-  classification('classification', 'Verbal Classification');
+  classification('classification', 'Verbal Classification'),
+  synonyms('synonyms', 'Synonyms'),
+  antonyms('antonyms', 'Antonyms');
 
   final String value;
   final String displayName;

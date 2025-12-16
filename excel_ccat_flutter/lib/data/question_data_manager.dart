@@ -64,6 +64,8 @@ class QuestionDataManager {
     questions.addAll(_createVerbalAnalogies(level));
     questions.addAll(_createSentenceCompletion(level));
     questions.addAll(_createVerbalClassification(level));
+    questions.addAll(_createSynonyms(level));
+    questions.addAll(_createAntonyms(level));
     
     // Quantitative
     questions.addAll(_createNumberAnalogies(level));
@@ -122,18 +124,27 @@ class QuestionDataManager {
       ('Sun is to day as moon is to:', ['night', 'star', 'sky', 'cloud'], 0),
       ('Hand is to glove as foot is to:', ['sock', 'shoe', 'leg', 'toe'], 1),
       ('Bird is to fly as fish is to:', ['swim', 'walk', 'run', 'jump'], 0),
+      ('Apple is to fruit as carrot is to:', ['vegetable', 'orange', 'food', 'plant'], 0),
+      ('Ear is to hear as eye is to:', ['see', 'blink', 'cry', 'close'], 0),
+      ('Pen is to write as brush is to:', ['paint', 'clean', 'sweep', 'draw'], 0),
     ] : level == CCATLevel.level11 ? [
       ('Author is to book as composer is to:', ['song', 'instrument', 'concert', 'band'], 0),
       ('Library is to books as museum is to:', ['artifacts', 'tickets', 'guides', 'visitors'], 0),
       ('Chef is to kitchen as pilot is to:', ['cockpit', 'plane', 'airport', 'sky'], 0),
       ('Brush is to paint as pen is to:', ['ink', 'paper', 'write', 'letter'], 0),
       ('Doctor is to patient as teacher is to:', ['student', 'school', 'book', 'class'], 0),
+      ('Thermometer is to temperature as scale is to:', ['weight', 'height', 'length', 'time'], 0),
+      ('Seed is to plant as egg is to:', ['bird', 'chicken', 'nest', 'shell'], 0),
+      ('Clock is to time as compass is to:', ['direction', 'north', 'map', 'travel'], 0),
     ] : [
       ('Ephemeral is to permanent as volatile is to:', ['stable', 'explosive', 'liquid', 'gas'], 0),
       ('Meticulous is to careless as frugal is to:', ['wasteful', 'careful', 'poor', 'rich'], 0),
       ('Archipelago is to islands as constellation is to:', ['stars', 'planets', 'galaxies', 'moons'], 0),
       ('Taciturn is to talkative as somber is to:', ['cheerful', 'dark', 'serious', 'quiet'], 0),
       ('Chronometer is to time as barometer is to:', ['pressure', 'temperature', 'distance', 'speed'], 0),
+      ('Plaintiff is to defendant as prosecutor is to:', ['accused', 'judge', 'lawyer', 'jury'], 0),
+      ('Prologue is to epilogue as dawn is to:', ['dusk', 'morning', 'night', 'noon'], 0),
+      ('Catalyst is to reaction as stimulus is to:', ['response', 'chemical', 'change', 'speed'], 0),
     ];
 
     for (var i = 0; i < analogies.length; i++) {
@@ -148,6 +159,112 @@ class QuestionDataManager {
         optionsFrench: options,
         correctAnswer: correct,
         explanation: 'The correct answer is ${options[correct]}.',
+        explanationFrench: 'La bonne réponse est ${options[correct]}.',
+        difficulty: difficulty,
+        level: level,
+      ));
+    }
+    return questions;
+  }
+
+  List<Question> _createSynonyms(CCATLevel level) {
+    final difficulty = _getDifficultyForLevel(level);
+    List<Question> questions = [];
+    
+    final synonyms = level == CCATLevel.level10 ? [
+      ('Which word means the same as HAPPY?', ['joyful', 'angry', 'tired', 'scared'], 0),
+      ('Which word means the same as BIG?', ['large', 'small', 'tiny', 'thin'], 0),
+      ('Which word means the same as FAST?', ['quick', 'slow', 'lazy', 'late'], 0),
+      ('Which word means the same as COLD?', ['chilly', 'hot', 'warm', 'bright'], 0),
+      ('Which word means the same as NICE?', ['kind', 'mean', 'ugly', 'loud'], 0),
+      ('Which word means the same as SMART?', ['clever', 'dumb', 'slow', 'weak'], 0),
+      ('Which word means the same as QUIET?', ['silent', 'loud', 'noisy', 'busy'], 0),
+      ('Which word means the same as LITTLE?', ['small', 'huge', 'giant', 'tall'], 0),
+    ] : level == CCATLevel.level11 ? [
+      ('Which word means the same as ABUNDANT?', ['plentiful', 'scarce', 'empty', 'rare'], 0),
+      ('Which word means the same as BRAVE?', ['courageous', 'fearful', 'timid', 'weak'], 0),
+      ('Which word means the same as ASSIST?', ['help', 'hinder', 'stop', 'leave'], 0),
+      ('Which word means the same as ANCIENT?', ['old', 'new', 'modern', 'recent'], 0),
+      ('Which word means the same as CONCEAL?', ['hide', 'reveal', 'show', 'expose'], 0),
+      ('Which word means the same as DEPART?', ['leave', 'arrive', 'stay', 'remain'], 0),
+      ('Which word means the same as EXHAUSTED?', ['tired', 'energetic', 'lively', 'rested'], 0),
+      ('Which word means the same as FORTUNATE?', ['lucky', 'unlucky', 'poor', 'sad'], 0),
+    ] : [
+      ('Which word means the same as UBIQUITOUS?', ['omnipresent', 'rare', 'scarce', 'limited'], 0),
+      ('Which word means the same as EPHEMERAL?', ['transient', 'permanent', 'lasting', 'enduring'], 0),
+      ('Which word means the same as BENEVOLENT?', ['kind', 'malicious', 'cruel', 'harsh'], 0),
+      ('Which word means the same as CACOPHONY?', ['discord', 'harmony', 'melody', 'rhythm'], 0),
+      ('Which word means the same as ARDUOUS?', ['difficult', 'easy', 'simple', 'effortless'], 0),
+      ('Which word means the same as AMELIORATE?', ['improve', 'worsen', 'destroy', 'neglect'], 0),
+      ('Which word means the same as COGENT?', ['convincing', 'weak', 'unclear', 'confusing'], 0),
+      ('Which word means the same as DILATORY?', ['slow', 'prompt', 'quick', 'hasty'], 0),
+    ];
+
+    for (var i = 0; i < synonyms.length; i++) {
+      final (stem, options, correct) = synonyms[i];
+      questions.add(Question(
+        id: '${level.value}_verbal_synonyms_$i',
+        type: QuestionType.verbal,
+        subType: VerbalSubType.synonyms.value,
+        stem: stem,
+        stemFrench: '$stem (FR)',
+        options: options,
+        optionsFrench: options,
+        correctAnswer: correct,
+        explanation: 'The correct answer is ${options[correct]}, which means the same as the given word.',
+        explanationFrench: 'La bonne réponse est ${options[correct]}.',
+        difficulty: difficulty,
+        level: level,
+      ));
+    }
+    return questions;
+  }
+
+  List<Question> _createAntonyms(CCATLevel level) {
+    final difficulty = _getDifficultyForLevel(level);
+    List<Question> questions = [];
+    
+    final antonyms = level == CCATLevel.level10 ? [
+      ('Which word means the OPPOSITE of HAPPY?', ['sad', 'glad', 'joyful', 'excited'], 0),
+      ('Which word means the OPPOSITE of BIG?', ['small', 'large', 'huge', 'giant'], 0),
+      ('Which word means the OPPOSITE of HOT?', ['cold', 'warm', 'burning', 'heated'], 0),
+      ('Which word means the OPPOSITE of FAST?', ['slow', 'quick', 'rapid', 'speedy'], 0),
+      ('Which word means the OPPOSITE of UP?', ['down', 'high', 'above', 'over'], 0),
+      ('Which word means the OPPOSITE of OPEN?', ['closed', 'wide', 'ajar', 'unlocked'], 0),
+      ('Which word means the OPPOSITE of LIGHT?', ['dark', 'bright', 'sunny', 'clear'], 0),
+      ('Which word means the OPPOSITE of LOUD?', ['quiet', 'noisy', 'booming', 'blaring'], 0),
+    ] : level == CCATLevel.level11 ? [
+      ('Which word means the OPPOSITE of ANCIENT?', ['modern', 'old', 'antique', 'aged'], 0),
+      ('Which word means the OPPOSITE of EXPAND?', ['contract', 'grow', 'enlarge', 'spread'], 0),
+      ('Which word means the OPPOSITE of VICTORY?', ['defeat', 'triumph', 'success', 'win'], 0),
+      ('Which word means the OPPOSITE of GENEROUS?', ['stingy', 'giving', 'kind', 'liberal'], 0),
+      ('Which word means the OPPOSITE of BRAVE?', ['cowardly', 'heroic', 'bold', 'daring'], 0),
+      ('Which word means the OPPOSITE of ACCEPT?', ['reject', 'receive', 'take', 'welcome'], 0),
+      ('Which word means the OPPOSITE of ARTIFICIAL?', ['natural', 'fake', 'synthetic', 'man-made'], 0),
+      ('Which word means the OPPOSITE of SHALLOW?', ['deep', 'surface', 'light', 'thin'], 0),
+    ] : [
+      ('Which word means the OPPOSITE of BENEVOLENT?', ['malevolent', 'kind', 'generous', 'charitable'], 0),
+      ('Which word means the OPPOSITE of EPHEMERAL?', ['permanent', 'brief', 'fleeting', 'temporary'], 0),
+      ('Which word means the OPPOSITE of VERBOSE?', ['concise', 'wordy', 'lengthy', 'prolonged'], 0),
+      ('Which word means the OPPOSITE of PRUDENT?', ['reckless', 'wise', 'careful', 'cautious'], 0),
+      ('Which word means the OPPOSITE of ENIGMATIC?', ['obvious', 'mysterious', 'puzzling', 'cryptic'], 0),
+      ('Which word means the OPPOSITE of LOQUACIOUS?', ['taciturn', 'talkative', 'chatty', 'garrulous'], 0),
+      ('Which word means the OPPOSITE of METICULOUS?', ['careless', 'precise', 'thorough', 'detailed'], 0),
+      ('Which word means the OPPOSITE of AFFLUENT?', ['impoverished', 'wealthy', 'rich', 'prosperous'], 0),
+    ];
+
+    for (var i = 0; i < antonyms.length; i++) {
+      final (stem, options, correct) = antonyms[i];
+      questions.add(Question(
+        id: '${level.value}_verbal_antonyms_$i',
+        type: QuestionType.verbal,
+        subType: VerbalSubType.antonyms.value,
+        stem: stem,
+        stemFrench: '$stem (FR)',
+        options: options,
+        optionsFrench: options,
+        correctAnswer: correct,
+        explanation: 'The correct answer is ${options[correct]}, which means the opposite of the given word.',
         explanationFrench: 'La bonne réponse est ${options[correct]}.',
         difficulty: difficulty,
         level: level,

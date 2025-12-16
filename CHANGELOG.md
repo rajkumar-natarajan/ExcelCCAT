@@ -5,6 +5,40 @@ All notable changes to the ExcelCCAT project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Flutter 1.4.0] - 2025-12-16 📊 **ENHANCED ANALYTICS & CONTENT**
+
+### ✅ Added - Time Analytics
+- **Time Per Question Tracking**: Records time spent on each question subtype.
+- **Average Time by Category**: Shows average solving time for Verbal, Quantitative, Non-Verbal.
+- **Time Stats Storage**: Persists fastest/slowest times in SharedPreferences.
+- **Time Stats Tab**: New tab in Progress screen showing detailed timing analytics.
+
+### ✅ Added - Test History & Trends
+- **Test Session Recording**: Stores completed test sessions with date, score, timing.
+- **Weekly Accuracy Trend**: Bar chart showing accuracy improvement over weeks.
+- **Daily Practice Count**: Visual chart of practice sessions per day (last 7 days).
+- **Recent Sessions List**: View last 10 test sessions with scores and duration.
+- **Trend Analysis**: Calculates weekly averages for performance tracking.
+
+### ✅ Added - Progress Screen Redesign
+- **Three-Tab Layout**: Overview, Trends, Time Stats tabs for organized analytics.
+- **Visual Charts**: Simple bar charts for accuracy trends and daily activity.
+- **Empty States**: Helpful messages when no data is available yet.
+- **Session History**: Detailed list of recent test sessions.
+
+### ✅ Added - Expanded Verbal Content
+- **Synonyms Questions**: 8 new questions per level (24 total).
+- **Antonyms Questions**: 8 new questions per level (24 total).
+- **Expanded Analogies**: 8 questions per level (up from 5).
+- **Study Guide Updates**: Added Synonyms and Antonyms sections with tips.
+
+### ✅ Added - New Verbal Subtypes
+- **VerbalSubType.synonyms**: Find words with similar meanings.
+- **VerbalSubType.antonyms**: Find words with opposite meanings.
+- **Question Bank Growth**: 48 new verbal questions added.
+
+---
+
 ## [Flutter 1.3.0] - 2025-12-16 🧹 **PROJECT CLEANUP**
 
 ### ✅ Removed - Swift/Native iOS Code
