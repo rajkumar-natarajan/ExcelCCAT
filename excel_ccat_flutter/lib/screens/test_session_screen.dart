@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../models/question.dart';
+import '../controllers/smart_learning_controller.dart';
 import 'results_screen.dart';
 
 class TestSessionScreen extends StatefulWidget {
@@ -27,6 +28,7 @@ class _TestSessionScreenState extends State<TestSessionScreen> {
   int _secondsRemaining = 0;
   DateTime _startTime = DateTime.now();
   DateTime _questionStartTime = DateTime.now();
+  final SmartLearningController _smartLearning = SmartLearningController();
 
   @override
   void initState() {
@@ -83,6 +85,9 @@ class _TestSessionScreenState extends State<TestSessionScreen> {
         timeTaken: Duration(seconds: _timeSpent[question.id] ?? 0),
       ));
     }
+
+    // Record answers in SmartLearningController
+    _smartLearning.recordTestSession(widget.questions, userAnswers);
 
     final result = TestResult(
       id: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -148,6 +153,23 @@ class _TestSessionScreenState extends State<TestSessionScreen> {
           child: LinearProgressIndicator(value: progress),
         ),
         actions: [
+          // Bookmark button
+          IconButton(
+            onPressed: () {
+              setState(() {
+                _smartLearning.toggleBookmark(question.id);
+              });
+            },
+            icon: Icon(
+              _smartLearning.isBookmarked(question.id)
+                  ? Icons.bookmark
+                  : Icons.bookmark_border,
+              color: _smartLearning.isBookmarked(question.id)
+                  ? Theme.of(context).colorScheme.primary
+                  : null,
+            ),
+            tooltip: 'Bookmark question',
+          ),
           Center(
             child: Padding(
               padding: const EdgeInsets.only(right: 16),

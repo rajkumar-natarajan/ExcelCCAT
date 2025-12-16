@@ -5,6 +5,40 @@ All notable changes to the ExcelCCAT project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Flutter 1.2.0] - 2025-12-16 🧠 **SMART LEARNING FEATURES**
+
+### ✅ Added - Smart Learning Controller
+- **SmartLearningController**: New singleton controller for intelligent learning features.
+- **Performance Tracking**: Records accuracy per question subtype (Synonyms, Number Analogies, etc.).
+- **Weak Area Detection**: Identifies subtypes with <70% accuracy after 3+ attempts.
+- **Spaced Repetition**: Tracks incorrect answers with timestamps for scheduled review.
+- **Mastery Tracking**: Marks questions as mastered after consecutive correct answers.
+
+### ✅ Added - Bookmark Feature
+- **Bookmark Button**: Added to test session screen (app bar) for bookmarking questions.
+- **Persistent Storage**: Bookmarks saved to SharedPreferences for persistence across sessions.
+- **Bookmark Count**: Displayed in Practice screen and Progress screen.
+
+### ✅ Added - Smart Practice Mode
+- **Smart Practice Card**: New card in Practice screen with learning statistics.
+- **Weak Areas Button**: Start practice focusing on subtypes you struggle with.
+- **Bookmarks Button**: Practice only your bookmarked questions.
+- **Question Prioritization**: Review questions and weak areas prioritized first.
+- **Adaptive Session Length**: Smart practice uses 15 questions with 2 min per question.
+
+### ✅ Enhanced - Progress Screen
+- **Smart Learning Status**: New card showing weak area count and questions due for review.
+- **Dynamic Accuracy**: Category progress bars now show real accuracy data from practice.
+- **Weak Areas Section**: Lists specific subtypes needing improvement with practice button.
+- **Mastery Count**: Shows total number of mastered questions.
+
+### ✅ Technical
+- **SharedPreferences Dependency**: Added for persistent data storage.
+- **Singleton Pattern**: SmartLearningController uses factory constructor for global access.
+- **JSON Serialization**: Performance stats serialized for storage.
+
+---
+
 ## [Flutter 1.1.0] - 2025-12-16 📚 **STUDY GUIDE & QUESTION FIXES**
 
 ### ✅ Added - Study Guide

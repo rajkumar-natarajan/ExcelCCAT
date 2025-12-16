@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/question.dart';
 import '../data/question_data_manager.dart';
 import '../controllers/settings_controller.dart';
+import '../controllers/smart_learning_controller.dart';
 import 'test_session_screen.dart';
 
 class PracticeScreen extends StatefulWidget {
@@ -15,6 +16,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
   late CCATLevel _selectedLevel;
   late Language _selectedLanguage;
   Set<QuestionType> _selectedTypes = {QuestionType.verbal, QuestionType.quantitative, QuestionType.nonVerbal};
+  final SmartLearningController _smartLearning = SmartLearningController();
 
   @override
   void initState() {
@@ -34,6 +36,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
         padding: const EdgeInsets.all(16),
         children: [
           _buildConfigurationCard(),
+          const SizedBox(height: 16),
+          _buildSmartPracticeCard(),
           const SizedBox(height: 24),
           Text(
             'Select Test Type',
@@ -224,6 +228,195 @@ class _PracticeScreenState extends State<PracticeScreen> {
       MaterialPageRoute(
         builder: (context) => TestSessionScreen(
           configuration: config,
+          questions: questions,
+          language: _selectedLanguage,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSmartPracticeCard() {
+    final summary = _smartLearning.getSummary();
+    final hasData = summary.totalQuestionsAttempted > 0;
+    
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(16),
+            color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.5),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.psychology,
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 28,
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Smart Practice',
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                      Text(
+                        'Focus on your weak areas',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (!hasData)
+                  const Text(
+                    'Complete some practice tests to unlock smart practice features!',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  )
+                else ...[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _buildSmartStat(
+                        Icons.warning_amber,
+                        Colors.orange,
+                        '${summary.weakAreaCount}',
+                        'Weak Areas',
+                      ),
+                      _buildSmartStat(
+                        Icons.replay,
+                        Colors.blue,
+                        '${summary.reviewDueCount}',
+                        'Due Review',
+                      ),
+                      _buildSmartStat(
+                        Icons.bookmark,
+                        Theme.of(context).colorScheme.primary,
+                        '${summary.bookmarkCount}',
+                        'Bookmarked',
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                ],
+                Row(
+                  children: [
+                    Expanded(
+                      child: FilledButton.icon(
+                        onPressed: hasData ? () => _startSmartPractice(focusWeakAreas: true) : null,
+                        icon: const Icon(Icons.gps_fixed),
+                        label: const Text('Weak Areas'),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        onPressed: summary.bookmarkCount > 0 ? () => _startSmartPractice(bookmarksOnly: true) : null,
+                        icon: const Icon(Icons.bookmark),
+                        label: const Text('Bookmarks'),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSmartStat(IconData icon, Color color, String value, String label) {
+    return Column(
+      children: [
+        Icon(icon, color: color, size: 28),
+        const SizedBox(height: 4),
+        Text(
+          value,
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+        ),
+        Text(
+          label,
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+      ],
+    );
+  }
+
+  void _startSmartPractice({bool focusWeakAreas = false, bool bookmarksOnly = false}) {
+    final config = TestConfiguration(
+      testType: TestType.standardPractice,
+      level: _selectedLevel,
+      selectedTypes: _selectedTypes.toList(),
+    );
+
+    // Get base questions
+    var questions = QuestionDataManager().getConfiguredQuestions(
+      config,
+      _selectedLanguage,
+    );
+
+    // Filter for bookmarked questions if requested
+    if (bookmarksOnly) {
+      final bookmarkIds = _smartLearning.bookmarkedQuestionIds;
+      questions = questions.where((q) => bookmarkIds.contains(q.id)).toList();
+      
+      if (questions.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('No bookmarked questions available')),
+        );
+        return;
+      }
+    } else if (focusWeakAreas) {
+      // Prioritize based on weak areas and review
+      questions = _smartLearning.prioritizeQuestions(
+        questions,
+        includeReviewQuestions: true,
+        focusWeakAreas: true,
+        excludeMastered: true,
+      );
+    }
+
+    // Take up to 15 questions for smart practice
+    if (questions.length > 15) {
+      questions = questions.take(15).toList();
+    }
+
+    if (questions.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('No questions available for this criteria')),
+      );
+      return;
+    }
+
+    final smartConfig = TestConfiguration(
+      testType: TestType.standardPractice,
+      level: _selectedLevel,
+      selectedTypes: _selectedTypes.toList(),
+      questionCount: questions.length,
+      timeInMinutes: questions.length * 2, // 2 min per question
+    );
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TestSessionScreen(
+          configuration: smartConfig,
           questions: questions,
           language: _selectedLanguage,
         ),
