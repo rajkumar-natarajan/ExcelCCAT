@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Question Logic**: Implemented text-based logic for non-verbal questions to ensure playability without assets.
 - **State Management**: Centralized app state using `ChangeNotifier` for settings persistence.
 - **Build Fixes**: Resolved `AppBarTheme` and `Icon` errors in `main.dart` and `dashboard_screen.dart`.
+- **Answer Review**: Added per-question review screen with correctness, user choice, correct answer, and explanations.
 
 ## [1.0.1] - 2025-09-30 🎯 **MAJOR STABILITY RELEASE**
 

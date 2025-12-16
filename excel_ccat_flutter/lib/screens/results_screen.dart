@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import '../models/question.dart';
+import 'review_screen.dart';
 
 class ResultsScreen extends StatelessWidget {
   final TestResult result;
+  final List<Question> questions;
 
-  const ResultsScreen({super.key, required this.result});
+  const ResultsScreen({
+    super.key,
+    required this.result,
+    required this.questions,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +31,22 @@ class ResultsScreen extends StatelessWidget {
           const SizedBox(height: 16),
           _buildBreakdownList(context),
           const SizedBox(height: 24),
+          OutlinedButton.icon(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ReviewScreen(
+                    questions: questions,
+                    result: result,
+                  ),
+                ),
+              );
+            },
+            icon: const Icon(Icons.assignment_turned_in),
+            label: const Text('Review Answers'),
+          ),
+          const SizedBox(height: 16),
           FilledButton(
             onPressed: () {
               Navigator.of(context).popUntil((route) => route.isFirst);

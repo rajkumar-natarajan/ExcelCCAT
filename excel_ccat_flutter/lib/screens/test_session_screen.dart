@@ -99,7 +99,10 @@ class _TestSessionScreenState extends State<TestSessionScreen> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => ResultsScreen(result: result),
+        builder: (context) => ResultsScreen(
+          result: result,
+          questions: widget.questions,
+        ),
       ),
     );
   }

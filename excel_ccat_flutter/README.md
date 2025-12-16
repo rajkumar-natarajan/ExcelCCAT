@@ -19,6 +19,7 @@ A cross-platform Flutter application for CCAT (Canadian Cognitive Abilities Test
     *   **Theme**: Canadian-inspired Red & White theme with Dark Mode support.
     *   **Language**: Toggle between English and French.
     *   **Difficulty**: Adjustable Grade Levels (K-12).
+*   **Review Answers**: Post-test review shows each question with your choice, the correct answer, and explanations.
 *   **Bilingual Support**: English and French (Structure ready).
 
 ## Getting Started
