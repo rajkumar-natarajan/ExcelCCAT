@@ -3,6 +3,7 @@ import '../models/question.dart';
 import '../data/question_data_manager.dart';
 import '../controllers/settings_controller.dart';
 import '../controllers/smart_learning_controller.dart';
+import '../widgets/canadian_theme.dart';
 import 'test_session_screen.dart';
 
 class PracticeScreen extends StatefulWidget {
@@ -32,12 +33,13 @@ class _PracticeScreenState extends State<PracticeScreen> {
       appBar: AppBar(
         title: const Text('Practice'),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          _buildConfigurationCard(),
-          const SizedBox(height: 16),
-          _buildSmartPracticeCard(),
+      body: CanadianBackground(
+        child: ListView(
+          padding: const EdgeInsets.all(16),
+          children: [
+            _buildConfigurationCard(),
+            const SizedBox(height: 16),
+            _buildSmartPracticeCard(),
           const SizedBox(height: 24),
           Text(
             'Select Test Type',
@@ -65,6 +67,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
             Colors.purple,
           ),
         ],
+      ),
       ),
     );
   }

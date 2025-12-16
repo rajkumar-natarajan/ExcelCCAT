@@ -5,7 +5,67 @@ All notable changes to the ExcelCCAT project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Flutter 1.4.0] - 2025-12-16 📊 **ENHANCED ANALYTICS & CONTENT**
+## [1.5.0] - 2025-12-16 🎮 **GAMIFICATION & APP STORE READY**
+
+### ✅ Added - Gamification System
+- **GamificationController**: New controller managing XP, levels, points, streaks, and achievements.
+- **XP & Level System**: Earn XP for correct answers and test completion, level up as you progress.
+- **Points System**: 10 base points per correct answer with streak multipliers (up to +20 for 10+ streak).
+- **Answer Streaks**: Track consecutive correct answers with bonus rewards.
+- **Daily Streaks**: Track consecutive practice days with 3, 7, and 30-day achievements.
+
+### ✅ Added - Achievement System (22 Badges)
+- **Answer Milestones**: First Steps, Getting Started, Knowledge Seeker, Scholar, Master Mind (1-500 correct).
+- **Answer Streaks**: On Fire, Hot Streak, Unstoppable, Legend (3-20 in a row).
+- **Daily Streaks**: Consistent, Dedicated, Committed (3-30 days).
+- **Tests Completed**: Test Taker, Test Pro, Test Master (1-50 tests).
+- **Perfect Scores**: Perfect Score badge for 100% on any test.
+- **Level Milestones**: Rising Star, Expert, Champion (levels 5, 10, 25).
+- **XP Milestones**: XP Hunter, XP Master, XP Legend (1K-10K XP).
+- **Rarity System**: Common, Uncommon, Rare, Epic, Legendary badges.
+
+### ✅ Added - Achievements Screen
+- **Stats Tab**: Level card with XP progress bar, points display, answer streak, daily streak.
+- **Badges Tab**: All 22 achievements showing locked/unlocked status, rarity colors, and rewards.
+- **Quick Summary**: Total XP, level title, achievements count.
+
+### ✅ Added - Dashboard Gamification
+- **Gamification Card**: Shows Level, Daily Streak, Points, and XP progress bar.
+- **Daily Challenges**: Three daily goals (5 questions, 3-streak, full test) with progress tracking.
+- **Achievements Button**: Quick access in app bar and action grid.
+
+### ✅ Added - Reward Integration
+- **Test Session Rewards**: XP/points awarded for each correct answer during tests.
+- **Completion Bonus**: Extra XP for finishing tests with accuracy and speed bonuses.
+- **Results Screen Rewards**: Shows points earned, XP gained, and level-up celebration.
+- **Level Up Banner**: Animated celebration when reaching new level.
+
+### ✅ Added - App Store Preparation
+- **APP_STORE_GUIDE.md**: Comprehensive guide for App Store submission.
+- **App Description**: Full description with keywords for App Store.
+- **Privacy Policy Template**: Ready-to-use privacy policy content.
+- **Screenshot Requirements**: Detailed specifications for all device sizes.
+- **Icon Requirements**: All required sizes documented.
+
+### ✅ Updated - Canadian Theme
+- **CanadianColors**: Expanded color palette with Canadian Red variations.
+- **CanadianBackground**: Subtle maple leaf pattern backgrounds.
+- **CanadianQuestionCard**: Themed question cards with red accents.
+- **MapleDivider**: Decorative divider with maple leaf.
+
+### ✅ Updated - Branding
+- **Removed "Flutter" mentions**: App no longer references Flutter framework.
+- **Version**: Updated to 1.5.0 for App Store release.
+- **Bundle Settings**: Prepared for com.yourcompany.excelccat bundle ID.
+
+### ✅ Updated - Documentation
+- **README.md**: Complete rewrite with all features documented.
+- **CHANGELOG.md**: Comprehensive version history.
+- **Project Structure**: Updated to reflect all new files.
+
+---
+
+## [1.4.0] - 2025-12-16 📊 **ENHANCED ANALYTICS & CONTENT**
 
 ### ✅ Added - Time Analytics
 - **Time Per Question Tracking**: Records time spent on each question subtype.
@@ -39,7 +99,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Flutter 1.3.0] - 2025-12-16 🧹 **PROJECT CLEANUP**
+## [1.3.0] - 2025-12-16 🧹 **PROJECT CLEANUP**
 
 ### ✅ Removed - Swift/Native iOS Code
 - **Removed Swift App**: Deleted ExcelCCAT/, ExcelCCAT.xcodeproj/, ExcelCCATTests/, ExcelCCATUITests/.

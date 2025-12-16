@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:excel_ccat_flutter/main.dart';
-import 'package:excel_ccat_flutter/data/question_data_manager.dart';
-import 'package:excel_ccat_flutter/models/question.dart';
+import 'package:excel_ccat/main.dart';
+import 'package:excel_ccat/data/question_data_manager.dart';
+import 'package:excel_ccat/models/question.dart';
 
 void main() {
   setUpAll(() async {

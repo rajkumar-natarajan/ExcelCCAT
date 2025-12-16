@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../controllers/gamification_controller.dart';
+import '../widgets/canadian_theme.dart';
 import 'achievements_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -35,7 +36,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text('🍁', style: TextStyle(fontSize: 24)), // Maple Leaf Emoji
+            const Text('🍁', style: TextStyle(fontSize: 24)), // Maple Leaf
             const SizedBox(width: 8),
             Text(
               'ExcelCCAT',
@@ -60,31 +61,33 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          _buildGamificationCard(context),
-          const SizedBox(height: 16),
-          _buildWelcomeCard(context),
-          const SizedBox(height: 24),
-          Text(
-            'Quick Actions',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-          ),
-          const SizedBox(height: 16),
-          _buildQuickActionGrid(context),
-          const SizedBox(height: 24),
-          Text(
-            'Daily Challenges',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-          ),
-          const SizedBox(height: 16),
-          _buildDailyChallenges(context),
-        ],
+      body: CanadianBackground(
+        child: ListView(
+          padding: const EdgeInsets.all(16),
+          children: [
+            _buildGamificationCard(context),
+            const SizedBox(height: 16),
+            _buildWelcomeCard(context),
+            const SizedBox(height: 24),
+            Text(
+              'Quick Actions',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+            const SizedBox(height: 16),
+            _buildQuickActionGrid(context),
+            const SizedBox(height: 24),
+            Text(
+              'Daily Challenges',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+            const SizedBox(height: 16),
+            _buildDailyChallenges(context),
+          ],
+        ),
       ),
     );
   }

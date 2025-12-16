@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/question.dart';
 import '../controllers/smart_learning_controller.dart';
 import '../controllers/gamification_controller.dart';
+import '../widgets/canadian_theme.dart';
 import 'results_screen.dart';
 
 class TestSessionScreen extends StatefulWidget {
@@ -212,46 +213,54 @@ class _TestSessionScreenState extends State<TestSessionScreen> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildQuestionHeader(question),
-                  const SizedBox(height: 24),
-                  if (question.imageAsset != null) ...[
-                    Center(
-                      child: Image.asset(
-                        question.imageAsset!,
-                        height: 200,
-                        fit: BoxFit.contain,
-                        errorBuilder: (context, error, stackTrace) {
-                          return const SizedBox(
-                            height: 100,
-                            child: Center(
-                              child: Icon(Icons.image_not_supported, size: 48, color: Colors.grey),
-                            ),
-                          );
-                        },
+      body: CanadianBackground(
+        showMapleLeaves: false,
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildQuestionHeader(question),
+                    const SizedBox(height: 24),
+                    if (question.imageAsset != null) ...[
+                      Center(
+                        child: Image.asset(
+                          question.imageAsset!,
+                          height: 200,
+                          fit: BoxFit.contain,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const SizedBox(
+                              height: 100,
+                              child: Center(
+                                child: Icon(Icons.image_not_supported, size: 48, color: Colors.grey),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                    ],
+                    CanadianQuestionCard(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Text(
+                          question.getStem(widget.language),
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 32),
+                    _buildOptions(question),
                   ],
-                  Text(
-                    question.getStem(widget.language),
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  const SizedBox(height: 32),
-                  _buildOptions(question),
-                ],
               ),
             ),
           ),
           _buildBottomBar(),
         ],
+      ),
       ),
     );
   }

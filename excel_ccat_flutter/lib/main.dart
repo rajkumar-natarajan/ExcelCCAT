@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'models/question.dart';
 import 'data/question_data_manager.dart';
 import 'controllers/settings_controller.dart';
 import 'controllers/smart_learning_controller.dart';
@@ -10,9 +9,17 @@ import 'screens/practice_screen.dart';
 import 'screens/progress_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/study_guide_screen.dart';
+import 'widgets/canadian_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
+  // Set system UI overlay style for Canadian theme
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark,
+  ));
+  
   await QuestionDataManager().initialize();
   await SmartLearningController().initialize();
   await GamificationController().initialize();
@@ -34,31 +41,114 @@ class ExcelCCATApp extends StatelessWidget {
           theme: ThemeData(
             useMaterial3: true,
             colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color(0xFFC8102E), // Canadian Red
+              seedColor: CanadianColors.red,
               brightness: Brightness.light,
             ),
-            appBarTheme: const AppBarTheme(
+            scaffoldBackgroundColor: CanadianColors.cream,
+            appBarTheme: AppBarTheme(
               centerTitle: true,
-              titleTextStyle: TextStyle(
+              backgroundColor: CanadianColors.cream,
+              surfaceTintColor: Colors.transparent,
+              elevation: 0,
+              titleTextStyle: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
-                color: Colors.black, // Default for light mode
+                color: Color(0xFF1A1A1A),
               ),
+              iconTheme: const IconThemeData(color: CanadianColors.red),
+            ),
+            cardTheme: CardThemeData(
+              elevation: 2,
+              shadowColor: CanadianColors.red.withAlpha(30),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+            ),
+            filledButtonTheme: FilledButtonThemeData(
+              style: FilledButton.styleFrom(
+                backgroundColor: CanadianColors.red,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+            navigationBarTheme: NavigationBarThemeData(
+              backgroundColor: Colors.white,
+              indicatorColor: CanadianColors.red.withAlpha(30),
+              labelTextStyle: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.selected)) {
+                  return const TextStyle(
+                    color: CanadianColors.red,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  );
+                }
+                return const TextStyle(fontSize: 12);
+              }),
+              iconTheme: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.selected)) {
+                  return const IconThemeData(color: CanadianColors.red);
+                }
+                return const IconThemeData(color: Colors.grey);
+              }),
             ),
           ),
           darkTheme: ThemeData(
             useMaterial3: true,
             colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color(0xFFC8102E), // Canadian Red
+              seedColor: CanadianColors.red,
               brightness: Brightness.dark,
             ),
+            scaffoldBackgroundColor: const Color(0xFF1A1A2E),
             appBarTheme: const AppBarTheme(
               centerTitle: true,
+              backgroundColor: Color(0xFF1A1A2E),
+              surfaceTintColor: Colors.transparent,
+              elevation: 0,
               titleTextStyle: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
-                color: Colors.white, // Default for dark mode
+                color: Colors.white,
               ),
+              iconTheme: IconThemeData(color: CanadianColors.redLight),
+            ),
+            cardTheme: CardThemeData(
+              elevation: 4,
+              color: const Color(0xFF2A2A3E),
+              shadowColor: Colors.black.withAlpha(50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+            ),
+            filledButtonTheme: FilledButtonThemeData(
+              style: FilledButton.styleFrom(
+                backgroundColor: CanadianColors.red,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+            navigationBarTheme: NavigationBarThemeData(
+              backgroundColor: const Color(0xFF2A2A3E),
+              indicatorColor: CanadianColors.red.withAlpha(50),
+              labelTextStyle: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.selected)) {
+                  return const TextStyle(
+                    color: CanadianColors.redLight,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  );
+                }
+                return const TextStyle(fontSize: 12, color: Colors.grey);
+              }),
+              iconTheme: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.selected)) {
+                  return const IconThemeData(color: CanadianColors.redLight);
+                }
+                return const IconThemeData(color: Colors.grey);
+              }),
             ),
           ),
           home: const HomePage(),
