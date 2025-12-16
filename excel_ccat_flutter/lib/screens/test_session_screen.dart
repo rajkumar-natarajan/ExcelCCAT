@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import '../models/question.dart';
 import '../controllers/smart_learning_controller.dart';
+import '../controllers/gamification_controller.dart';
 import 'results_screen.dart';
 
 class TestSessionScreen extends StatefulWidget {
@@ -29,6 +30,11 @@ class _TestSessionScreenState extends State<TestSessionScreen> {
   DateTime _startTime = DateTime.now();
   DateTime _questionStartTime = DateTime.now();
   final SmartLearningController _smartLearning = SmartLearningController();
+  final GamificationController _gamification = GamificationController();
+  
+  // Track gamification rewards to show
+  int _totalPointsEarned = 0;
+  int _totalXPEarned = 0;
 
   @override
   void initState() {
@@ -84,11 +90,28 @@ class _TestSessionScreenState extends State<TestSessionScreen> {
         isCorrect: isCorrect,
         timeTaken: Duration(seconds: _timeSpent[question.id] ?? 0),
       ));
+      
+      // Award gamification points for each answer
+      final reward = _gamification.recordAnswer(
+        isCorrect: isCorrect,
+        questionType: question.type.toString(),
+      );
+      _totalPointsEarned += reward.pointsEarned;
+      _totalXPEarned += reward.xpEarned;
     }
 
     // Record answers in SmartLearningController with timing
     final totalTimeSeconds = DateTime.now().difference(_startTime).inSeconds;
     _smartLearning.recordTestSessionWithTime(widget.questions, userAnswers, totalTimeSeconds);
+    
+    // Award test completion bonus
+    final completionReward = _gamification.recordTestCompletion(
+      totalQuestions: widget.questions.length,
+      correctAnswers: correctCount,
+      totalTimeSeconds: totalTimeSeconds,
+    );
+    _totalPointsEarned += completionReward.pointsEarned;
+    _totalXPEarned += completionReward.xpEarned;
 
     final result = TestResult(
       id: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -108,6 +131,10 @@ class _TestSessionScreenState extends State<TestSessionScreen> {
         builder: (context) => ResultsScreen(
           result: result,
           questions: widget.questions,
+          pointsEarned: _totalPointsEarned,
+          xpEarned: _totalXPEarned,
+          leveledUp: completionReward.leveledUp,
+          newLevel: completionReward.newLevel,
         ),
       ),
     );

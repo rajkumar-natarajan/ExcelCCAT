@@ -4,6 +4,7 @@ import 'models/question.dart';
 import 'data/question_data_manager.dart';
 import 'controllers/settings_controller.dart';
 import 'controllers/smart_learning_controller.dart';
+import 'controllers/gamification_controller.dart';
 import 'screens/dashboard_screen.dart';
 import 'screens/practice_screen.dart';
 import 'screens/progress_screen.dart';
@@ -14,6 +15,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await QuestionDataManager().initialize();
   await SmartLearningController().initialize();
+  await GamificationController().initialize();
   runApp(const ExcelCCATApp());
 }
 

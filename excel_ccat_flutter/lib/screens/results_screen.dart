@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 import '../models/question.dart';
+import '../controllers/gamification_controller.dart';
 import 'review_screen.dart';
 
 class ResultsScreen extends StatelessWidget {
   final TestResult result;
   final List<Question> questions;
+  final int pointsEarned;
+  final int xpEarned;
+  final bool leveledUp;
+  final int? newLevel;
 
   const ResultsScreen({
     super.key,
     required this.result,
     required this.questions,
+    this.pointsEarned = 0,
+    this.xpEarned = 0,
+    this.leveledUp = false,
+    this.newLevel,
   });
 
   @override
@@ -22,7 +31,12 @@ class ResultsScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          if (leveledUp) _buildLevelUpBanner(context),
           _buildScoreCard(context),
+          if (pointsEarned > 0 || xpEarned > 0) ...[
+            const SizedBox(height: 16),
+            _buildRewardsCard(context),
+          ],
           const SizedBox(height: 24),
           Text(
             'Performance Breakdown',
@@ -55,6 +69,112 @@ class ResultsScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildLevelUpBanner(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.purple.shade400, Colors.blue.shade400],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        children: [
+          const Text('🎉', style: TextStyle(fontSize: 40)),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'LEVEL UP!',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+                Text(
+                  'You reached Level ${newLevel ?? GamificationController().currentLevel}!',
+                  style: const TextStyle(color: Colors.white70),
+                ),
+              ],
+            ),
+          ),
+          const Text('⭐', style: TextStyle(fontSize: 40)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRewardsCard(BuildContext context) {
+    return Card(
+      color: Colors.amber.shade50,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _buildRewardItem(
+              context,
+              '💰',
+              '+$pointsEarned',
+              'Points',
+              Colors.amber.shade700,
+            ),
+            Container(
+              width: 1,
+              height: 40,
+              color: Colors.amber.shade200,
+            ),
+            _buildRewardItem(
+              context,
+              '⚡',
+              '+$xpEarned',
+              'XP',
+              Colors.blue,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRewardItem(
+    BuildContext context,
+    String emoji,
+    String value,
+    String label,
+    Color color,
+  ) {
+    return Column(
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(emoji, style: const TextStyle(fontSize: 24)),
+            const SizedBox(width: 8),
+            Text(
+              value,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: color,
+              ),
+            ),
+          ],
+        ),
+        Text(
+          label,
+          style: TextStyle(color: color.withAlpha(180)),
+        ),
+      ],
     );
   }
 
