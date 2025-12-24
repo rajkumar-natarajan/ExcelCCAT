@@ -5,6 +5,13 @@ All notable changes to the ExcelCCAT project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.2] - 2025-12-24 🐛 **BUG FIX**
+
+### 🐛 Fixed - Dark Mode Settings
+- **Theme Initialization**: Fixed issue where dark mode was enabled by default but the settings toggle showed it as disabled.
+- **Consistent Theme State**: App now defaults to light mode and the settings switch correctly reflects the current theme state.
+- **Added `isDarkMode` getter**: Cleaner API for checking dark mode status.
+
 ## [1.5.1] - 2025-12-24 🐛 **BUG FIX**
 
 ### 🐛 Fixed - Quick Actions Navigation

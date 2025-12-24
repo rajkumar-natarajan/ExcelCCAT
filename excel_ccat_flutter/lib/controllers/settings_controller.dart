@@ -6,11 +6,12 @@ class SettingsController with ChangeNotifier {
   factory SettingsController() => _instance;
   SettingsController._internal();
 
-  ThemeMode _themeMode = ThemeMode.system;
+  ThemeMode _themeMode = ThemeMode.light;
   Language _language = Language.english;
   CCATLevel _defaultLevel = CCATLevel.level12;
 
   ThemeMode get themeMode => _themeMode;
+  bool get isDarkMode => _themeMode == ThemeMode.dark;
   Language get language => _language;
   CCATLevel get defaultLevel => _defaultLevel;
 

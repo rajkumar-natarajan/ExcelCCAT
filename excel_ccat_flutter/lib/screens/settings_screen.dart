@@ -34,7 +34,7 @@ class SettingsScreen extends StatelessWidget {
               SwitchListTile(
                 secondary: const Icon(Icons.dark_mode),
                 title: const Text('Dark Mode'),
-                value: controller.themeMode == ThemeMode.dark,
+                value: controller.isDarkMode,
                 onChanged: (value) => controller.toggleTheme(value),
               ),
               SwitchListTile(
