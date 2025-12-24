@@ -7,7 +7,9 @@ import '../widgets/canadian_theme.dart';
 import 'test_session_screen.dart';
 
 class PracticeScreen extends StatefulWidget {
-  const PracticeScreen({super.key});
+  final QuestionType? initialCategory;
+
+  const PracticeScreen({super.key, this.initialCategory});
 
   @override
   State<PracticeScreen> createState() => _PracticeScreenState();
@@ -16,7 +18,7 @@ class PracticeScreen extends StatefulWidget {
 class _PracticeScreenState extends State<PracticeScreen> {
   late CCATLevel _selectedLevel;
   late Language _selectedLanguage;
-  Set<QuestionType> _selectedTypes = {QuestionType.verbal, QuestionType.quantitative, QuestionType.nonVerbal};
+  late Set<QuestionType> _selectedTypes;
   final SmartLearningController _smartLearning = SmartLearningController();
 
   @override
@@ -25,6 +27,12 @@ class _PracticeScreenState extends State<PracticeScreen> {
     final settings = SettingsController();
     _selectedLevel = settings.defaultLevel;
     _selectedLanguage = settings.language;
+    // If a category is passed, pre-select only that category
+    if (widget.initialCategory != null) {
+      _selectedTypes = {widget.initialCategory!};
+    } else {
+      _selectedTypes = {QuestionType.verbal, QuestionType.quantitative, QuestionType.nonVerbal};
+    }
   }
 
   @override

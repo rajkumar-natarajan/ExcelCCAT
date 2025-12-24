@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import '../controllers/gamification_controller.dart';
+import '../models/question.dart';
 import '../widgets/canadian_theme.dart';
 import 'achievements_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
-  final Function(int) onNavigate;
+  final Function(int, {QuestionType? category}) onNavigate;
 
   const DashboardScreen({super.key, required this.onNavigate});
 
@@ -420,21 +421,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
           'Verbal',
           Icons.chat_bubble_outline,
           Colors.blue,
-          () => widget.onNavigate(1),
+          () => widget.onNavigate(1, category: QuestionType.verbal),
         ),
         _buildActionCard(
           context,
           'Quantitative',
           Icons.calculate_outlined,
           Colors.green,
-          () => widget.onNavigate(1),
+          () => widget.onNavigate(1, category: QuestionType.quantitative),
         ),
         _buildActionCard(
           context,
           'Non-Verbal',
           Icons.grid_view,
           Colors.orange,
-          () => widget.onNavigate(1),
+          () => widget.onNavigate(1, category: QuestionType.nonVerbal),
         ),
         _buildActionCard(
           context,

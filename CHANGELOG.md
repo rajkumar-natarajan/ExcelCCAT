@@ -5,6 +5,13 @@ All notable changes to the ExcelCCAT project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.1] - 2025-12-24 🐛 **BUG FIX**
+
+### 🐛 Fixed - Quick Actions Navigation
+- **Quick Actions**: Fixed issue where tapping Verbal, Quantitative, or Non-Verbal quick action buttons always navigated to the Practice screen without pre-selecting the category.
+- **Category Pre-selection**: Quick actions now correctly pre-select the corresponding question type (Verbal, Quantitative, or Non-Verbal) when navigating to the Practice screen.
+- **Improved UX**: Users can now quickly start practicing a specific category directly from the dashboard.
+
 ## [1.5.0] - 2025-12-16 🎮 **GAMIFICATION & APP STORE READY**
 
 ### ✅ Added - Gamification System

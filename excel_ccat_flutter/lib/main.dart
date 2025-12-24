@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'data/question_data_manager.dart';
+import 'models/question.dart';
 import 'controllers/settings_controller.dart';
 import 'controllers/smart_learning_controller.dart';
 import 'controllers/gamification_controller.dart';
@@ -167,23 +168,26 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+  QuestionType? _practiceCategory;
 
-  late final List<Widget> _screens;
+  List<Widget> get _screens => [
+    DashboardScreen(onNavigate: (index, {QuestionType? category}) {
+      setState(() {
+        _selectedIndex = index;
+        if (index == 1) {
+          _practiceCategory = category;
+        }
+      });
+    }),
+    PracticeScreen(initialCategory: _practiceCategory),
+    const StudyGuideScreen(),
+    const ProgressScreen(),
+    const SettingsScreen(),
+  ];
 
   @override
   void initState() {
     super.initState();
-    _screens = [
-      DashboardScreen(onNavigate: (index) {
-        setState(() {
-          _selectedIndex = index;
-        });
-      }),
-      const PracticeScreen(),
-      const StudyGuideScreen(),
-      const ProgressScreen(),
-      const SettingsScreen(),
-    ];
   }
 
   @override
