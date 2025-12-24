@@ -9,11 +9,13 @@ class SettingsController with ChangeNotifier {
   ThemeMode _themeMode = ThemeMode.light;
   Language _language = Language.english;
   CCATLevel _defaultLevel = CCATLevel.level12;
+  bool _notificationsEnabled = true;
 
   ThemeMode get themeMode => _themeMode;
   bool get isDarkMode => _themeMode == ThemeMode.dark;
   Language get language => _language;
   CCATLevel get defaultLevel => _defaultLevel;
+  bool get notificationsEnabled => _notificationsEnabled;
 
   void toggleTheme(bool isDark) {
     _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
@@ -27,6 +29,11 @@ class SettingsController with ChangeNotifier {
 
   void setLevel(CCATLevel level) {
     _defaultLevel = level;
+    notifyListeners();
+  }
+
+  void toggleNotifications(bool enabled) {
+    _notificationsEnabled = enabled;
     notifyListeners();
   }
 }
