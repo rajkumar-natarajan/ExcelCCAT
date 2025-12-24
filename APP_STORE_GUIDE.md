@@ -9,12 +9,11 @@ A comprehensive guide to launching ExcelCCAT on the Apple App Store.
 1. [Pre-Launch Checklist](#pre-launch-checklist)
 2. [App Store Connect Setup](#app-store-connect-setup)
 3. [App Information](#app-information)
-4. [Screenshots Requirements](#screenshots-requirements)
-5. [App Icon Requirements](#app-icon-requirements)
-6. [Build & Archive](#build--archive)
-7. [Privacy Policy](#privacy-policy)
-8. [App Review Guidelines](#app-review-guidelines)
-9. [Post-Launch](#post-launch)
+4. [App Icon Requirements](#app-icon-requirements)
+5. [Build & Archive](#build--archive)
+6. [Privacy Policy](#privacy-policy)
+7. [App Review Guidelines](#app-review-guidelines)
+8. [Post-Launch](#post-launch)
 
 ---
 
@@ -157,48 +156,6 @@ https://github.com/rajkumar-natarajan/ExcelCCAT/issues
 ```
 https://github.com/rajkumar-natarajan/ExcelCCAT
 ```
-
----
-
-## Screenshots Requirements
-
-### Required Sizes
-
-| Device | Size (pixels) | Required |
-|--------|---------------|----------|
-| iPhone 6.7" (15 Pro Max) | 1290 x 2796 | ✅ Yes |
-| iPhone 6.5" (14 Plus) | 1284 x 2778 | ✅ Yes |
-| iPhone 5.5" (8 Plus) | 1242 x 2208 | Optional |
-| iPad Pro 12.9" | 2048 x 2732 | If supporting iPad |
-
-### Screenshot Content (6-10 screenshots)
-
-1. **Home Screen** - Dashboard with gamification stats
-2. **Practice Selection** - Test mode options
-3. **Question Screen** - Active test question
-4. **Achievements** - Badge collection screen
-5. **Progress Analytics** - Charts and stats
-6. **Study Guide** - Tips and strategies
-7. **Results Screen** - Test completion with rewards
-8. **Dark Mode** - Same screens in dark theme
-
-### Taking Screenshots
-
-```bash
-# Run on iPhone 15 Pro Max simulator
-xcrun simctl boot "iPhone 15 Pro Max"
-flutter run -d "iPhone 15 Pro Max"
-
-# Take screenshot
-xcrun simctl io booted screenshot screenshot_name.png
-```
-
-### Screenshot Tips
-- Use real content, not placeholder data
-- Show actual questions and progress
-- Highlight gamification features (XP, achievements)
-- Include both light and dark mode
-- No status bar time showing "9:41" is Apple's preference
 
 ---
 
