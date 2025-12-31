@@ -719,7 +719,7 @@ class QuestionDataManager {
     final difficulty = _getDifficultyForLevel(level);
     List<Question> questions = [];
     
-    void addMatrix(String idSuffix, String stem, String stemFr, List<List<String>> matrix, List<String> options, int correct) {
+    void addMatrix(String idSuffix, String stem, String stemFr, List<List<String>> matrix, List<String> options, int correct, String detailedExplanation, String detailedExplanationFr) {
       questions.add(Question(
         id: '${level.value}_nv_mat_$idSuffix',
         type: QuestionType.nonVerbal,
@@ -729,8 +729,8 @@ class QuestionDataManager {
         options: options,
         optionsFrench: options,
         correctAnswer: correct,
-        explanation: 'Observe the pattern across rows and columns.',
-        explanationFrench: 'Observez le motif à travers les lignes et les colonnes.',
+        explanation: detailedExplanation,
+        explanationFrench: detailedExplanationFr,
         difficulty: difficulty,
         level: level,
         visualData: {
@@ -743,65 +743,152 @@ class QuestionDataManager {
     if (level == CCATLevel.level10) {
       addMatrix('1', 'Complete the pattern.', 'Complétez le motif.',
         [['circle', 'circle', 'circle'], ['square', 'square', 'square'], ['triangle', 'triangle', '?']],
-        ['Triangle', 'Square', 'Circle', 'Star'], 0);
+        ['Triangle', 'Square', 'Circle', 'Star'], 0,
+        'Each row contains the same shape repeated three times. Row 1 has circles, Row 2 has squares. Row 3 follows the same pattern with triangles, so the missing shape must be Triangle.',
+        'Chaque ligne contient la même forme répétée trois fois. La ligne 1 a des cercles, la ligne 2 a des carrés. La ligne 3 suit le même modèle avec des triangles, donc la forme manquante doit être Triangle.');
         
       addMatrix('2', 'Complete the pattern.', 'Complétez le motif.',
         [['circle', 'square', 'triangle'], ['square', 'triangle', 'circle'], ['triangle', 'circle', '?']],
-        ['Square', 'Triangle', 'Circle', 'Star'], 0);
+        ['Square', 'Triangle', 'Circle', 'Star'], 0,
+        'In this pattern, each row contains circle, square, and triangle in rotating order. Following the rotation: triangle → circle → the next shape must be Square to complete the set.',
+        'Dans ce motif, chaque ligne contient cercle, carré et triangle dans un ordre rotatif. En suivant la rotation: triangle → cercle → la forme suivante doit être Carré pour compléter l\'ensemble.');
 
       addMatrix('3', 'Complete the pattern.', 'Complétez le motif.',
         [['filled_circle', 'circle', 'filled_circle'], ['filled_square', 'square', 'filled_square'], ['filled_circle', 'circle', '?']],
-        ['filled_circle', 'circle', 'square', 'filled_square'], 0);
+        ['filled_circle', 'circle', 'square', 'filled_square'], 0,
+        'Each row follows a filled-empty-filled pattern. Row 3 has filled_circle, circle, so the missing shape must be filled_circle to match the pattern.',
+        'Chaque ligne suit un motif rempli-vide-rempli. La ligne 3 a cercle_rempli, cercle, donc la forme manquante doit être cercle_rempli pour correspondre au motif.');
         
       addMatrix('4', 'Complete the pattern.', 'Complétez le motif.',
         [['x', 'x', 'x'], ['+', '+', '+'], ['dot', 'dot', '?']],
-        ['dot', 'x', '+', 'circle'], 0);
+        ['dot', 'x', '+', 'circle'], 0,
+        'Each row contains the same symbol repeated three times. Row 1 has X marks, Row 2 has plus signs, Row 3 has dots. The missing symbol must be dot to complete the row.',
+        'Chaque ligne contient le même symbole répété trois fois. La ligne 1 a des X, la ligne 2 a des signes plus, la ligne 3 a des points. Le symbole manquant doit être point pour compléter la ligne.');
         
       addMatrix('5', 'Complete the pattern.', 'Complétez le motif.',
         [['circle', 'dot', 'circle'], ['square', 'dot', 'square'], ['triangle', 'dot', '?']],
-        ['triangle', 'dot', 'circle', 'square'], 0);
+        ['triangle', 'dot', 'circle', 'square'], 0,
+        'The pattern shows shape-dot-shape in each row, where the shapes on the sides match. Row 3 has triangle on the left, so the right side must also be triangle.',
+        'Le motif montre forme-point-forme dans chaque ligne, où les formes sur les côtés correspondent. La ligne 3 a un triangle à gauche, donc le côté droit doit aussi être triangle.');
+        
+      // Additional Level 10 Matrix Questions
+      addMatrix('6', 'Complete the pattern.', 'Complétez le motif.',
+        [['star', 'star', 'star'], ['heart', 'heart', 'heart'], ['diamond', 'diamond', '?']],
+        ['Diamond', 'Star', 'Heart', 'Circle'], 0,
+        'Each row repeats the same shape three times. Row 1 has stars, Row 2 has hearts, and Row 3 has diamonds. The missing shape must be Diamond.',
+        'Chaque ligne répète la même forme trois fois. La ligne 1 a des étoiles, la ligne 2 a des cœurs, et la ligne 3 a des losanges. La forme manquante doit être Losange.');
+        
+      addMatrix('7', 'Complete the pattern.', 'Complétez le motif.',
+        [['circle', 'triangle', 'circle'], ['triangle', 'circle', 'triangle'], ['circle', 'triangle', '?']],
+        ['Circle', 'Triangle', 'Square', 'Star'], 0,
+        'The pattern alternates between circle and triangle in a checkerboard style. Row 3 starts circle, triangle, so the next must be Circle.',
+        'Le motif alterne entre cercle et triangle en style damier. La ligne 3 commence cercle, triangle, donc le suivant doit être Cercle.');
+        
+      addMatrix('8', 'Complete the pattern.', 'Complétez le motif.',
+        [['filled_square', 'filled_square', 'square'], ['filled_circle', 'filled_circle', 'circle'], ['filled_triangle', 'filled_triangle', '?']],
+        ['Triangle', 'Filled_Triangle', 'Circle', 'Square'], 0,
+        'Each row has two filled shapes followed by one outline shape. Row 3 has two filled triangles, so the last must be an outline Triangle.',
+        'Chaque ligne a deux formes remplies suivies d\'une forme contour. La ligne 3 a deux triangles remplis, donc le dernier doit être un Triangle contour.');
 
     } else if (level == CCATLevel.level11) {
       addMatrix('1', 'Complete the pattern.', 'Complétez le motif.',
         [['x', '+', 'x'], ['+', 'x', '+'], ['x', '+', '?']],
-        ['x', '+', 'circle', 'square'], 0);
+        ['x', '+', 'circle', 'square'], 0,
+        'This pattern alternates between X and + symbols. Looking at Row 3: x, +, the next must be x to continue the alternating pattern.',
+        'Ce motif alterne entre les symboles X et +. En regardant la ligne 3: x, +, le suivant doit être x pour continuer le motif alterné.');
         
       addMatrix('2', 'Complete the pattern.', 'Complétez le motif.',
         [['dot', 'circle', 'filled_circle'], ['dot', 'square', 'filled_square'], ['dot', 'triangle', '?']],
-        ['triangle', 'filled_triangle', 'circle', 'square'], 0); // Note: filled_triangle not supported, using triangle as placeholder or need to update painter
+        ['triangle', 'filled_triangle', 'circle', 'square'], 0,
+        'Each row follows a progression: dot → outline shape → filled shape. Row 3 has dot, triangle, so the next must be the filled version (triangle or filled_triangle).',
+        'Chaque ligne suit une progression: point → forme contour → forme remplie. La ligne 3 a point, triangle, donc le suivant doit être la version remplie.');
         
       addMatrix('3', 'Complete the pattern.', 'Complétez le motif.',
         [['circle', 'square', 'triangle'], ['triangle', 'circle', 'square'], ['square', 'triangle', '?']],
-        ['circle', 'square', 'triangle', 'dot'], 0);
+        ['circle', 'square', 'triangle', 'dot'], 0,
+        'All three shapes (circle, square, triangle) appear in each row in rotating positions. In Row 3, we have square and triangle, so the missing shape must be circle.',
+        'Les trois formes (cercle, carré, triangle) apparaissent dans chaque ligne en positions rotatives. Dans la ligne 3, nous avons carré et triangle, donc la forme manquante doit être cercle.');
         
       addMatrix('4', 'Complete the pattern.', 'Complétez le motif.',
         [['empty', 'dot', 'empty'], ['dot', 'empty', 'dot'], ['empty', 'dot', '?']],
-        ['empty', 'dot', 'circle', 'square'], 0);
+        ['empty', 'dot', 'circle', 'square'], 0,
+        'The pattern alternates between empty spaces and dots. Row 3 follows: empty, dot, so the next must be empty to maintain the alternating pattern.',
+        'Le motif alterne entre espaces vides et points. La ligne 3 suit: vide, point, donc le suivant doit être vide pour maintenir le motif alterné.');
         
       addMatrix('5', 'Complete the pattern.', 'Complétez le motif.',
         [['x', 'x', 'x'], ['x', '+', 'x'], ['x', '+', '?']],
-        ['+', 'x', 'dot', 'circle'], 0);
+        ['+', 'x', 'dot', 'circle'], 0,
+        'Looking at the columns: Column 1 has all X. Column 2 changes from x to +. Column 3 should follow the same change pattern, going from x to +.',
+        'En regardant les colonnes: La colonne 1 a tous des X. La colonne 2 passe de x à +. La colonne 3 devrait suivre le même changement, passant de x à +.');
+        
+      // Additional Level 11 Matrix Questions
+      addMatrix('6', 'Complete the pattern.', 'Complétez le motif.',
+        [['pentagon', 'hexagon', 'pentagon'], ['hexagon', 'pentagon', 'hexagon'], ['pentagon', 'hexagon', '?']],
+        ['Pentagon', 'Hexagon', 'Circle', 'Star'], 0,
+        'The pattern alternates between pentagon and hexagon. Row 3 shows pentagon, hexagon, so the next must be Pentagon to complete the alternation.',
+        'Le motif alterne entre pentagone et hexagone. La ligne 3 montre pentagone, hexagone, donc le suivant doit être Pentagone pour compléter l\'alternance.');
+        
+      addMatrix('7', 'Complete the pattern.', 'Complétez le motif.',
+        [['star', 'diamond', 'heart'], ['diamond', 'heart', 'star'], ['heart', 'star', '?']],
+        ['Diamond', 'Heart', 'Star', 'Circle'], 0,
+        'Each row contains star, diamond, and heart in rotating positions. Row 3 has heart, star, so the missing shape is Diamond to complete the set.',
+        'Chaque ligne contient étoile, losange et cœur en positions rotatives. La ligne 3 a cœur, étoile, donc la forme manquante est Losange pour compléter l\'ensemble.');
+        
+      addMatrix('8', 'Complete the pattern.', 'Complétez le motif.',
+        [['filled_circle', 'filled_circle', 'circle'], ['circle', 'filled_circle', 'filled_circle'], ['filled_circle', 'circle', '?']],
+        ['Filled_Circle', 'Circle', 'Square', 'Star'], 0,
+        'Each row has 2 filled circles and 1 outline circle. Row 3 has filled_circle, circle, so the last position needs Filled_Circle to have 2 filled and 1 outline.',
+        'Chaque ligne a 2 cercles remplis et 1 cercle contour. La ligne 3 a cercle_rempli, cercle, donc la dernière position nécessite Cercle_Rempli pour avoir 2 remplis et 1 contour.');
 
     } else { // Level 12
       addMatrix('1', 'Complete the pattern.', 'Complétez le motif.',
         [['circle', 'square', 'circle'], ['square', 'triangle', 'square'], ['triangle', 'circle', '?']],
-        ['triangle', 'circle', 'square', 'dot'], 0);
+        ['triangle', 'circle', 'square', 'dot'], 0,
+        'Each row has a symmetrical pattern where the first and third elements match. Row 3 starts with triangle, so it must end with triangle to maintain symmetry.',
+        'Chaque ligne a un motif symétrique où le premier et le troisième éléments correspondent. La ligne 3 commence par triangle, donc elle doit se terminer par triangle pour maintenir la symétrie.');
         
       addMatrix('2', 'Complete the pattern.', 'Complétez le motif.',
         [['filled_circle', 'empty', 'filled_circle'], ['empty', 'filled_square', 'empty'], ['filled_circle', 'empty', '?']],
-        ['filled_circle', 'empty', 'filled_square', 'circle'], 0);
+        ['filled_circle', 'empty', 'filled_square', 'circle'], 0,
+        'The pattern shows symmetry in each row. Row 3 mirrors Row 1: filled_circle, empty, so the last position must be filled_circle to complete the mirror pattern.',
+        'Le motif montre une symétrie dans chaque ligne. La ligne 3 reflète la ligne 1: cercle_rempli, vide, donc la dernière position doit être cercle_rempli pour compléter le motif miroir.');
         
       addMatrix('3', 'Complete the pattern.', 'Complétez le motif.',
         [['x', '+', 'dot'], ['dot', 'x', '+'], ['+', 'dot', '?']],
-        ['x', '+', 'dot', 'circle'], 0);
+        ['x', '+', 'dot', 'circle'], 0,
+        'Each row contains x, +, and dot in different positions (Latin Square pattern). In Row 3, we have + and dot, so the missing symbol must be x to complete the set.',
+        'Chaque ligne contient x, + et point dans différentes positions (motif Carré Latin). Dans la ligne 3, nous avons + et point, donc le symbole manquant doit être x pour compléter l\'ensemble.');
         
       addMatrix('4', 'Complete the pattern.', 'Complétez le motif.',
         [['circle', 'circle', 'filled_circle'], ['square', 'square', 'filled_square'], ['triangle', 'triangle', '?']],
-        ['triangle', 'filled_triangle', 'circle', 'square'], 0);
+        ['triangle', 'filled_triangle', 'circle', 'square'], 0,
+        'Each row shows a progression: two outline shapes followed by a filled shape. Row 3 has triangle, triangle, so the next must be a filled/solid triangle.',
+        'Chaque ligne montre une progression: deux formes contour suivies d\'une forme remplie. La ligne 3 a triangle, triangle, donc le suivant doit être un triangle rempli/solide.');
         
       addMatrix('5', 'Complete the pattern.', 'Complétez le motif.',
         [['x', 'x', 'x'], ['+', '+', '+'], ['x', 'x', '?']],
-        ['x', '+', 'dot', 'circle'], 0);
+        ['x', '+', 'dot', 'circle'], 0,
+        'The pattern shows rows of the same symbol. Row 3 has x, x, so the missing element must be x to complete the row with matching symbols.',
+        'Le motif montre des lignes du même symbole. La ligne 3 a x, x, donc l\'élément manquant doit être x pour compléter la ligne avec des symboles correspondants.');
+        
+      // Additional Level 12 Matrix Questions  
+      addMatrix('6', 'Complete the pattern.', 'Complétez le motif.',
+        [['hexagon', 'pentagon', 'hexagon'], ['pentagon', 'hexagon', 'pentagon'], ['hexagon', 'pentagon', '?']],
+        ['Hexagon', 'Pentagon', 'Star', 'Circle'], 0,
+        'The pattern alternates hexagon and pentagon in a checkerboard fashion. Row 3 has hexagon, pentagon, so the next must be Hexagon.',
+        'Le motif alterne hexagone et pentagone en damier. La ligne 3 a hexagone, pentagone, donc le suivant doit être Hexagone.');
+        
+      addMatrix('7', 'Complete the pattern.', 'Complétez le motif.',
+        [['star', 'star', 'diamond', 'diamond'], ['diamond', 'diamond', 'star', 'star'], ['star', 'star', 'diamond', '?']],
+        ['Diamond', 'Star', 'Circle', 'Heart'], 0,
+        'Each row has pairs of shapes: two stars followed by two diamonds (or vice versa). Row 3 has star, star, diamond, so the last must be Diamond.',
+        'Chaque ligne a des paires de formes: deux étoiles suivies de deux losanges (ou l\'inverse). La ligne 3 a étoile, étoile, losange, donc le dernier doit être Losange.');
+        
+      addMatrix('8', 'Complete the pattern.', 'Complétez le motif.',
+        [['filled_square', 'circle', 'filled_triangle'], ['circle', 'filled_triangle', 'filled_square'], ['filled_triangle', 'filled_square', '?']],
+        ['Circle', 'Triangle', 'Square', 'Star'], 0,
+        'Each row contains filled_square, circle, and filled_triangle in rotating order (Latin Square). Row 3 has filled_triangle, filled_square, so the missing shape is Circle.',
+        'Chaque ligne contient carré_rempli, cercle et triangle_rempli en ordre rotatif (Carré Latin). La ligne 3 a triangle_rempli, carré_rempli, donc la forme manquante est Cercle.');
     }
     
     return questions;
@@ -811,7 +898,7 @@ class QuestionDataManager {
     final difficulty = _getDifficultyForLevel(level);
     List<Question> questions = [];
     
-    void addOddOneOut(String idSuffix, String stem, String stemFr, List<String> items, List<Color> colors, List<String> options, int correct) {
+    void addOddOneOut(String idSuffix, String stem, String stemFr, List<String> items, List<Color> colors, List<String> options, int correct, String detailedExplanation, String detailedExplanationFr) {
       questions.add(Question(
         id: '${level.value}_nv_class_$idSuffix',
         type: QuestionType.nonVerbal,
@@ -821,8 +908,8 @@ class QuestionDataManager {
         options: options,
         optionsFrench: options,
         correctAnswer: correct,
-        explanation: 'Find the item that is different.',
-        explanationFrench: 'Trouvez l\'élément qui est différent.',
+        explanation: detailedExplanation,
+        explanationFrench: detailedExplanationFr,
         difficulty: difficulty,
         level: level,
         visualData: {
@@ -837,79 +924,175 @@ class QuestionDataManager {
       addOddOneOut('1', 'Which shape is different?', 'Quelle forme est différente ?',
         ['circle', 'circle', 'square', 'circle'],
         [Colors.blue, Colors.blue, Colors.blue, Colors.blue],
-        ['Circle', 'Circle', 'Square', 'Circle'], 2);
+        ['Circle', 'Circle', 'Square', 'Circle'], 2,
+        'Three items are circles, but position 3 is a square. The square is different because it has 4 sides and corners, while circles are round with no corners.',
+        'Trois éléments sont des cercles, mais la position 3 est un carré. Le carré est différent car il a 4 côtés et des coins, tandis que les cercles sont ronds sans coins.');
         
       addOddOneOut('2', 'Which color is different?', 'Quelle couleur est différente ?',
         ['triangle', 'triangle', 'triangle', 'triangle'],
         [Colors.red, Colors.red, Colors.green, Colors.red],
-        ['Red', 'Red', 'Green', 'Red'], 2);
+        ['Red', 'Red', 'Green', 'Red'], 2,
+        'All shapes are triangles, but the colors differ. Three are red (positions 1, 2, 4) while position 3 is green. Green is the odd color out.',
+        'Toutes les formes sont des triangles, mais les couleurs diffèrent. Trois sont rouges (positions 1, 2, 4) tandis que la position 3 est verte. Le vert est la couleur différente.');
         
       addOddOneOut('3', 'Which shape is different?', 'Quelle forme est différente ?',
         ['star', 'star', 'star', 'circle'],
         [Colors.orange, Colors.orange, Colors.orange, Colors.orange],
-        ['Star', 'Star', 'Star', 'Circle'], 3);
+        ['Star', 'Star', 'Star', 'Circle'], 3,
+        'Three items are stars with points, but position 4 is a circle. The circle is different because it has no points or edges, while stars have 5 points.',
+        'Trois éléments sont des étoiles avec des pointes, mais la position 4 est un cercle. Le cercle est différent car il n\'a pas de pointes ou de bords.');
         
       addOddOneOut('4', 'Which shape is different?', 'Quelle forme est différente ?',
         ['square', 'rectangle', 'square', 'square'],
         [Colors.purple, Colors.purple, Colors.purple, Colors.purple],
-        ['Square', 'Rectangle', 'Square', 'Square'], 1);
+        ['Square', 'Rectangle', 'Square', 'Square'], 1,
+        'Three items are squares (equal sides), but position 2 is a rectangle (longer on one side). While both have 4 sides and 4 corners, the rectangle has unequal side lengths.',
+        'Trois éléments sont des carrés (côtés égaux), mais la position 2 est un rectangle (plus long d\'un côté). Bien que les deux aient 4 côtés et 4 coins, le rectangle a des longueurs de côtés inégales.');
         
       addOddOneOut('5', 'Which color is different?', 'Quelle couleur est différente ?',
         ['circle', 'circle', 'circle', 'circle'],
         [Colors.yellow, Colors.blue, Colors.yellow, Colors.yellow],
-        ['Yellow', 'Blue', 'Yellow', 'Yellow'], 1);
+        ['Yellow', 'Blue', 'Yellow', 'Yellow'], 1,
+        'All shapes are circles, but the colors differ. Three circles are yellow (positions 1, 3, 4), while position 2 is blue. Blue is the different color.',
+        'Toutes les formes sont des cercles, mais les couleurs diffèrent. Trois cercles sont jaunes (positions 1, 3, 4), tandis que la position 2 est bleue. Le bleu est la couleur différente.');
+        
+      // Additional Level 10 Classification Questions
+      addOddOneOut('6', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['heart', 'heart', 'heart', 'star'],
+        [Colors.red, Colors.red, Colors.red, Colors.red],
+        ['Heart', 'Heart', 'Heart', 'Star'], 3,
+        'Three shapes are hearts (curved with pointed bottom), but position 4 is a star (5 pointed tips). The star is different because of its pointed shape.',
+        'Trois formes sont des cœurs (courbés avec fond pointu), mais la position 4 est une étoile (5 pointes). L\'étoile est différente à cause de sa forme pointue.');
+        
+      addOddOneOut('7', 'Which size is different?', 'Quelle taille est différente ?',
+        ['circle', 'circle', 'circle', 'circle'],
+        [Colors.green, Colors.green, Colors.green, Colors.green],
+        ['Small', 'Small', 'Large', 'Small'], 2,
+        'Look carefully at the sizes. Three circles are small, but position 3 is larger. The large circle is different from the others.',
+        'Regarde attentivement les tailles. Trois cercles sont petits, mais la position 3 est plus grande. Le grand cercle est différent des autres.');
+        
+      addOddOneOut('8', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['diamond', 'diamond', 'square', 'diamond'],
+        [Colors.cyan, Colors.cyan, Colors.cyan, Colors.cyan],
+        ['Diamond', 'Diamond', 'Square', 'Diamond'], 2,
+        'Three shapes are diamonds (tilted squares), but position 3 is a regular square. While both have 4 sides, the diamond is rotated 45 degrees.',
+        'Trois formes sont des losanges (carrés inclinés), mais la position 3 est un carré régulier. Bien que les deux aient 4 côtés, le losange est tourné de 45 degrés.');
 
     } else if (level == CCATLevel.level11) {
       addOddOneOut('1', 'Which shape is different?', 'Quelle forme est différente ?',
         ['pentagon', 'hexagon', 'pentagon', 'pentagon'],
         [Colors.green, Colors.green, Colors.green, Colors.green],
-        ['Pentagon', 'Hexagon', 'Pentagon', 'Pentagon'], 1);
+        ['Pentagon', 'Hexagon', 'Pentagon', 'Pentagon'], 1,
+        'Three shapes are pentagons (5 sides), but position 2 is a hexagon (6 sides). The hexagon is different because it has one more side than the pentagons.',
+        'Trois formes sont des pentagones (5 côtés), mais la position 2 est un hexagone (6 côtés). L\'hexagone est différent car il a un côté de plus que les pentagones.');
         
       addOddOneOut('2', 'Which shape is different?', 'Quelle forme est différente ?',
         ['diamond', 'diamond', 'star', 'diamond'],
         [Colors.cyan, Colors.cyan, Colors.cyan, Colors.cyan],
-        ['Diamond', 'Diamond', 'Star', 'Diamond'], 2);
+        ['Diamond', 'Diamond', 'Star', 'Diamond'], 2,
+        'Three shapes are diamonds (4-sided rhombus), but position 3 is a star (5 points). The star is different because it has pointed tips while diamonds have smooth edges.',
+        'Trois formes sont des losanges (rhombe à 4 côtés), mais la position 3 est une étoile (5 pointes). L\'étoile est différente car elle a des pointes alors que les losanges ont des bords lisses.');
         
       addOddOneOut('3', 'Which color is different?', 'Quelle couleur est différente ?',
         ['square', 'square', 'square', 'square'],
         [Colors.red, Colors.red, Colors.red, Colors.blue],
-        ['Red', 'Red', 'Red', 'Blue'], 3);
+        ['Red', 'Red', 'Red', 'Blue'], 3,
+        'All shapes are squares, but the colors differ. Three are red (positions 1, 2, 3), while position 4 is blue. Blue stands out as the different color.',
+        'Toutes les formes sont des carrés, mais les couleurs diffèrent. Trois sont rouges (positions 1, 2, 3), tandis que la position 4 est bleue. Le bleu se distingue comme la couleur différente.');
         
       addOddOneOut('4', 'Which shape is different?', 'Quelle forme est différente ?',
         ['triangle', 'triangle', 'triangle', 'square'],
         [Colors.orange, Colors.orange, Colors.orange, Colors.orange],
-        ['Triangle', 'Triangle', 'Triangle', 'Square'], 3);
+        ['Triangle', 'Triangle', 'Triangle', 'Square'], 3,
+        'Three shapes are triangles (3 sides), but position 4 is a square (4 sides). The square is different because it has one more side and corner than the triangles.',
+        'Trois formes sont des triangles (3 côtés), mais la position 4 est un carré (4 côtés). Le carré est différent car il a un côté et un coin de plus que les triangles.');
         
       addOddOneOut('5', 'Which shape is different?', 'Quelle forme est différente ?',
         ['heart', 'heart', 'circle', 'heart'],
         [Colors.pink, Colors.pink, Colors.pink, Colors.pink],
-        ['Heart', 'Heart', 'Circle', 'Heart'], 2);
+        ['Heart', 'Heart', 'Circle', 'Heart'], 2,
+        'Three shapes are hearts with a pointed bottom, but position 3 is a circle. The circle is different because it has no curves or points like the heart shape.',
+        'Trois formes sont des cœurs avec un fond pointu, mais la position 3 est un cercle. Le cercle est différent car il n\'a pas de courbes ou de pointes comme la forme de cœur.');
+        
+      // Additional Level 11 Classification Questions
+      addOddOneOut('6', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['filled_circle', 'filled_circle', 'circle', 'filled_circle'],
+        [Colors.blue, Colors.blue, Colors.blue, Colors.blue],
+        ['Filled', 'Filled', 'Outline', 'Filled'], 2,
+        'Three shapes are filled circles (solid), but position 3 is an outline circle (empty inside). The outline circle is different because it\'s not solid.',
+        'Trois formes sont des cercles remplis (solides), mais la position 3 est un cercle contour (vide à l\'intérieur). Le cercle contour est différent car il n\'est pas solide.');
+        
+      addOddOneOut('7', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['rectangle', 'rectangle', 'rectangle', 'square'],
+        [Colors.purple, Colors.purple, Colors.purple, Colors.purple],
+        ['Rectangle', 'Rectangle', 'Rectangle', 'Square'], 3,
+        'Three shapes are rectangles (longer than wide), but position 4 is a square (equal sides). The square is different because all its sides are equal length.',
+        'Trois formes sont des rectangles (plus longs que larges), mais la position 4 est un carré (côtés égaux). Le carré est différent car tous ses côtés sont de longueur égale.');
+        
+      addOddOneOut('8', 'Which color is different?', 'Quelle couleur est différente ?',
+        ['pentagon', 'pentagon', 'pentagon', 'pentagon'],
+        [Colors.teal, Colors.teal, Colors.orange, Colors.teal],
+        ['Teal', 'Teal', 'Orange', 'Teal'], 2,
+        'All shapes are pentagons (5 sides). Three are teal colored (positions 1, 2, 4), but position 3 is orange. Orange stands out as the different color.',
+        'Toutes les formes sont des pentagones (5 côtés). Trois sont de couleur turquoise (positions 1, 2, 4), mais la position 3 est orange. L\'orange se distingue comme la couleur différente.');
 
     } else { // Level 12
       addOddOneOut('1', 'Which shape is different?', 'Quelle forme est différente ?',
         ['hexagon', 'hexagon', 'pentagon', 'hexagon'],
         [Colors.teal, Colors.teal, Colors.teal, Colors.teal],
-        ['Hexagon', 'Hexagon', 'Pentagon', 'Hexagon'], 2);
+        ['Hexagon', 'Hexagon', 'Pentagon', 'Hexagon'], 2,
+        'Three shapes are hexagons (6 sides), but position 3 is a pentagon (5 sides). The pentagon has fewer sides, making it the different shape.',
+        'Trois formes sont des hexagones (6 côtés), mais la position 3 est un pentagone (5 côtés). Le pentagone a moins de côtés, ce qui en fait la forme différente.');
         
       addOddOneOut('2', 'Which shape is different?', 'Quelle forme est différente ?',
         ['star', 'star', 'star', 'diamond'],
         [Colors.indigo, Colors.indigo, Colors.indigo, Colors.indigo],
-        ['Star', 'Star', 'Star', 'Diamond'], 3);
+        ['Star', 'Star', 'Star', 'Diamond'], 3,
+        'Three shapes are stars (with 5 pointed tips), but position 4 is a diamond (4 smooth sides). The diamond lacks the pointed shape that all stars have.',
+        'Trois formes sont des étoiles (avec 5 pointes), mais la position 4 est un losange (4 côtés lisses). Le losange n\'a pas la forme pointue que toutes les étoiles ont.');
         
       addOddOneOut('3', 'Which color is different?', 'Quelle couleur est différente ?',
         ['triangle', 'triangle', 'triangle', 'triangle'],
         [Colors.blue, Colors.red, Colors.blue, Colors.blue],
-        ['Blue', 'Red', 'Blue', 'Blue'], 1);
+        ['Blue', 'Red', 'Blue', 'Blue'], 1,
+        'All shapes are triangles. Three are blue (positions 1, 3, 4), but position 2 is red. Red is the odd color that doesn\'t match the majority.',
+        'Toutes les formes sont des triangles. Trois sont bleus (positions 1, 3, 4), mais la position 2 est rouge. Le rouge est la couleur différente qui ne correspond pas à la majorité.');
         
       addOddOneOut('4', 'Which shape is different?', 'Quelle forme est différente ?',
         ['oval', 'circle', 'oval', 'oval'],
         [Colors.brown, Colors.brown, Colors.brown, Colors.brown],
-        ['Oval', 'Circle', 'Oval', 'Oval'], 1);
+        ['Oval', 'Circle', 'Oval', 'Oval'], 1,
+        'Three shapes are ovals (stretched circles), but position 2 is a perfect circle. While both are curved, the circle has equal width and height, while ovals are elongated.',
+        'Trois formes sont des ovales (cercles étirés), mais la position 2 est un cercle parfait. Bien que les deux soient courbes, le cercle a une largeur et une hauteur égales, tandis que les ovales sont allongés.');
         
       addOddOneOut('5', 'Which shape is different?', 'Quelle forme est différente ?',
         ['rectangle', 'rectangle', 'square', 'rectangle'],
         [Colors.grey, Colors.grey, Colors.grey, Colors.grey],
-        ['Rectangle', 'Rectangle', 'Square', 'Rectangle'], 2);
+        ['Rectangle', 'Rectangle', 'Square', 'Rectangle'], 2,
+        'Three shapes are rectangles (unequal sides), but position 3 is a square (equal sides). Both have 4 corners, but squares have equal length sides while rectangles have longer and shorter sides.',
+        'Trois formes sont des rectangles (côtés inégaux), mais la position 3 est un carré (côtés égaux). Les deux ont 4 coins, mais les carrés ont des côtés de longueur égale tandis que les rectangles ont des côtés plus longs et plus courts.');
+        
+      // Additional Level 12 Classification Questions
+      addOddOneOut('6', 'Which pattern is different?', 'Quel motif est différent ?',
+        ['filled_triangle', 'filled_triangle', 'triangle', 'filled_triangle'],
+        [Colors.green, Colors.green, Colors.green, Colors.green],
+        ['Filled', 'Filled', 'Outline', 'Filled'], 2,
+        'Three shapes are filled/solid triangles, but position 3 is an outline triangle (empty inside). The outline triangle is different because it lacks the fill.',
+        'Trois formes sont des triangles remplis/solides, mais la position 3 est un triangle contour (vide à l\'intérieur). Le triangle contour est différent car il n\'a pas de remplissage.');
+        
+      addOddOneOut('7', 'Which shape has different sides?', 'Quelle forme a des côtés différents ?',
+        ['pentagon', 'pentagon', 'pentagon', 'hexagon'],
+        [Colors.amber, Colors.amber, Colors.amber, Colors.amber],
+        ['5 sides', '5 sides', '5 sides', '6 sides'], 3,
+        'Three shapes are pentagons with 5 sides, but position 4 is a hexagon with 6 sides. Count the sides: pentagons have 5, but the hexagon has 6.',
+        'Trois formes sont des pentagones avec 5 côtés, mais la position 4 est un hexagone avec 6 côtés. Comptez les côtés: les pentagones ont 5, mais l\'hexagone en a 6.');
+        
+      addOddOneOut('8', 'Which color is different?', 'Quelle couleur est différente ?',
+        ['hexagon', 'hexagon', 'hexagon', 'hexagon'],
+        [Colors.deepPurple, Colors.deepPurple, Colors.lightGreen, Colors.deepPurple],
+        ['Purple', 'Purple', 'Green', 'Purple'], 2,
+        'All shapes are hexagons, but the colors differ. Three are deep purple (positions 1, 2, 4), but position 3 is light green. Green is the odd color out.',
+        'Toutes les formes sont des hexagones, mais les couleurs diffèrent. Trois sont violet foncé (positions 1, 2, 4), mais la position 3 est vert clair. Le vert est la couleur différente.');
     }
     
     return questions;
@@ -919,7 +1102,7 @@ class QuestionDataManager {
     final difficulty = _getDifficultyForLevel(level);
     List<Question> questions = [];
     
-    void addSequence(String idSuffix, String stem, String stemFr, List<String> patterns, List<String> options, int correct) {
+    void addSequence(String idSuffix, String stem, String stemFr, List<String> patterns, List<String> options, int correct, String detailedExplanation, String detailedExplanationFr) {
       questions.add(Question(
         id: '${level.value}_nv_series_$idSuffix',
         type: QuestionType.nonVerbal,
@@ -929,8 +1112,8 @@ class QuestionDataManager {
         options: options,
         optionsFrench: options,
         correctAnswer: correct,
-        explanation: 'Find the next item in the sequence.',
-        explanationFrench: 'Trouvez l\'élément suivant dans la séquence.',
+        explanation: detailedExplanation,
+        explanationFrench: detailedExplanationFr,
         difficulty: difficulty,
         level: level,
         visualData: {
@@ -943,65 +1126,152 @@ class QuestionDataManager {
     if (level == CCATLevel.level10) {
       addSequence('1', 'What comes next?', 'Quelle est la suite ?',
         ['circle', 'square', 'triangle', 'question'],
-        ['Circle', 'Square', 'Triangle', 'Star'], 0);
+        ['Circle', 'Square', 'Triangle', 'Star'], 0,
+        'The sequence shows Circle → Square → Triangle. This is a repeating pattern of three shapes. After triangle, the pattern repeats, so the next shape is Circle.',
+        'La séquence montre Cercle → Carré → Triangle. C\'est un motif répétitif de trois formes. Après le triangle, le motif se répète, donc la forme suivante est Cercle.');
         
       addSequence('2', 'What comes next?', 'Quelle est la suite ?',
         ['filled_circle', 'circle', 'filled_circle', 'question'],
-        ['filled_circle', 'circle', 'square', 'filled_square'], 1);
+        ['filled_circle', 'circle', 'square', 'filled_square'], 1,
+        'The pattern alternates between filled and empty circles: filled → empty → filled → ?. The next in this alternating pattern must be an empty circle.',
+        'Le motif alterne entre cercles remplis et vides: rempli → vide → rempli → ?. Le suivant dans ce motif alterné doit être un cercle vide.');
         
       addSequence('3', 'What comes next?', 'Quelle est la suite ?',
         ['square', 'filled_square', 'square', 'question'],
-        ['square', 'filled_square', 'circle', 'filled_circle'], 1);
+        ['square', 'filled_square', 'circle', 'filled_circle'], 1,
+        'The pattern alternates between outline square and filled square: empty → filled → empty → ?. The next must be a filled square to continue the alternation.',
+        'Le motif alterne entre carré contour et carré rempli: vide → rempli → vide → ?. Le suivant doit être un carré rempli pour continuer l\'alternance.');
         
       addSequence('4', 'What comes next?', 'Quelle est la suite ?',
         ['triangle', 'circle', 'triangle', 'question'],
-        ['triangle', 'circle', 'square', 'star'], 1);
+        ['triangle', 'circle', 'square', 'star'], 1,
+        'This is an AB pattern: triangle-circle-triangle-?. The shapes alternate between triangle and circle, so the next must be circle.',
+        'C\'est un motif AB: triangle-cercle-triangle-?. Les formes alternent entre triangle et cercle, donc le suivant doit être cercle.');
         
       addSequence('5', 'What comes next?', 'Quelle est la suite ?',
         ['filled_square', 'filled_square', 'square', 'question'],
-        ['filled_square', 'square', 'circle', 'triangle'], 1);
+        ['filled_square', 'square', 'circle', 'triangle'], 1,
+        'The pattern shows: filled, filled, empty. This AAB pattern continues with: filled, filled, empty, then filled, filled, empty... So after empty (square), the next would start the pattern with filled_square, but looking at the immediate next it should be square (empty).',
+        'Le motif montre: rempli, rempli, vide. Ce motif AAB continue avec: rempli, rempli, vide... Donc après vide (carré), le suivant devrait commencer le motif avec carré_rempli.');
+        
+      // Additional Level 10 Sequence Questions
+      addSequence('6', 'What comes next?', 'Quelle est la suite ?',
+        ['star', 'star', 'heart', 'star', 'question'],
+        ['Star', 'Heart', 'Circle', 'Diamond'], 0,
+        'The pattern shows two stars, then one heart, then two stars again. After the single star, the next is Star to complete the pair.',
+        'Le motif montre deux étoiles, puis un cœur, puis à nouveau deux étoiles. Après l\'étoile unique, le suivant est Étoile pour compléter la paire.');
+        
+      addSequence('7', 'What comes next?', 'Quelle est la suite ?',
+        ['diamond', 'heart', 'diamond', 'heart', 'question'],
+        ['Diamond', 'Heart', 'Star', 'Circle'], 0,
+        'This is a simple AB alternation: diamond-heart-diamond-heart-?. The pattern alternates, so after heart comes Diamond.',
+        'C\'est une simple alternance AB: losange-cœur-losange-cœur-?. Le motif alterne, donc après cœur vient Losange.');
+        
+      addSequence('8', 'What comes next?', 'Quelle est la suite ?',
+        ['circle', 'circle', 'circle', 'square', 'question'],
+        ['Square', 'Circle', 'Triangle', 'Star'], 0,
+        'The pattern shows three circles followed by one square. This could repeat, so after the square comes the next group starting with three circles. The next is Square to continue.',
+        'Le motif montre trois cercles suivis d\'un carré. Cela pourrait se répéter, donc après le carré vient le groupe suivant commençant par trois cercles. Le suivant est Carré pour continuer.');
 
     } else if (level == CCATLevel.level11) {
       addSequence('1', 'What comes next?', 'Quelle est la suite ?',
         ['circle', 'square', 'triangle', 'circle', 'question'],
-        ['Square', 'Triangle', 'Circle', 'Star'], 0);
+        ['Square', 'Triangle', 'Circle', 'Star'], 0,
+        'The sequence repeats: circle → square → triangle → circle → ?. After circle, the pattern continues with square to restart the 3-shape cycle.',
+        'La séquence se répète: cercle → carré → triangle → cercle → ?. Après cercle, le motif continue avec carré pour recommencer le cycle de 3 formes.');
         
       addSequence('2', 'What comes next?', 'Quelle est la suite ?',
         ['filled_square', 'filled_circle', 'filled_square', 'question'],
-        ['filled_square', 'filled_circle', 'square', 'circle'], 1);
+        ['filled_square', 'filled_circle', 'square', 'circle'], 1,
+        'This pattern alternates between filled_square and filled_circle: square → circle → square → ?. The next in this AB pattern must be filled_circle.',
+        'Ce motif alterne entre carré_rempli et cercle_rempli: carré → cercle → carré → ?. Le suivant dans ce motif AB doit être cercle_rempli.');
         
       addSequence('3', 'What comes next?', 'Quelle est la suite ?',
         ['triangle', 'square', 'triangle', 'square', 'question'],
-        ['triangle', 'square', 'circle', 'star'], 0);
+        ['triangle', 'square', 'circle', 'star'], 0,
+        'The pattern is a simple AB alternation: triangle-square-triangle-square-?. Continuing the alternating pattern, the next shape must be triangle.',
+        'Le motif est une simple alternance AB: triangle-carré-triangle-carré-?. En continuant le motif alterné, la forme suivante doit être triangle.');
         
       addSequence('4', 'What comes next?', 'Quelle est la suite ?',
         ['circle', 'circle', 'filled_circle', 'filled_circle', 'question'],
-        ['circle', 'filled_circle', 'square', 'filled_square'], 0);
+        ['circle', 'filled_circle', 'square', 'filled_square'], 0,
+        'The pattern groups two of the same: empty-empty-filled-filled, then repeats. After two filled circles, the pattern restarts with two empty circles, so next is circle.',
+        'Le motif groupe deux identiques: vide-vide-rempli-rempli, puis se répète. Après deux cercles remplis, le motif recommence avec deux cercles vides, donc le suivant est cercle.');
         
       addSequence('5', 'What comes next?', 'Quelle est la suite ?',
         ['square', 'triangle', 'circle', 'square', 'question'],
-        ['triangle', 'circle', 'square', 'star'], 0);
+        ['triangle', 'circle', 'square', 'star'], 0,
+        'The sequence follows: square → triangle → circle → square → ?. This is a repeating 3-shape pattern. After square, comes triangle to continue the cycle.',
+        'La séquence suit: carré → triangle → cercle → carré → ?. C\'est un motif de 3 formes répétitif. Après carré, vient triangle pour continuer le cycle.');
+        
+      // Additional Level 11 Sequence Questions
+      addSequence('6', 'What comes next?', 'Quelle est la suite ?',
+        ['pentagon', 'hexagon', 'pentagon', 'hexagon', 'question'],
+        ['Pentagon', 'Hexagon', 'Star', 'Circle'], 0,
+        'This is an AB alternation: pentagon-hexagon-pentagon-hexagon-?. The next in the alternating pattern is Pentagon.',
+        'C\'est une alternance AB: pentagone-hexagone-pentagone-hexagone-?. Le suivant dans le motif alterné est Pentagone.');
+        
+      addSequence('7', 'What comes next?', 'Quelle est la suite ?',
+        ['star', 'star', 'diamond', 'star', 'star', 'question'],
+        ['Diamond', 'Star', 'Heart', 'Circle'], 0,
+        'The pattern is: two stars, one diamond, two stars, one diamond... After two stars, the next must be Diamond.',
+        'Le motif est: deux étoiles, un losange, deux étoiles, un losange... Après deux étoiles, le suivant doit être Losange.');
+        
+      addSequence('8', 'What comes next?', 'Quelle est la suite ?',
+        ['heart', 'diamond', 'star', 'heart', 'diamond', 'question'],
+        ['Star', 'Heart', 'Diamond', 'Circle'], 0,
+        'The sequence repeats: heart → diamond → star. After heart, diamond, the next is Star to complete the 3-shape cycle.',
+        'La séquence se répète: cœur → losange → étoile. Après cœur, losange, le suivant est Étoile pour compléter le cycle de 3 formes.');
 
     } else { // Level 12
       addSequence('1', 'What comes next?', 'Quelle est la suite ?',
         ['circle', 'square', 'triangle', 'circle', 'square', 'question'],
-        ['Triangle', 'Circle', 'Square', 'Star'], 0);
+        ['Triangle', 'Circle', 'Square', 'Star'], 0,
+        'The sequence repeats a 3-shape cycle: circle → square → triangle. After circle, square, the next must be Triangle to complete the pattern.',
+        'La séquence répète un cycle de 3 formes: cercle → carré → triangle. Après cercle, carré, le suivant doit être Triangle pour compléter le motif.');
         
       addSequence('2', 'What comes next?', 'Quelle est la suite ?',
         ['filled_circle', 'filled_square', 'filled_circle', 'filled_square', 'question'],
-        ['filled_circle', 'filled_square', 'circle', 'square'], 0);
+        ['filled_circle', 'filled_square', 'circle', 'square'], 0,
+        'This is an alternating AB pattern: filled_circle → filled_square → filled_circle → filled_square → ?. The pattern continues with filled_circle.',
+        'C\'est un motif AB alterné: cercle_rempli → carré_rempli → cercle_rempli → carré_rempli → ?. Le motif continue avec cercle_rempli.');
         
       addSequence('3', 'What comes next?', 'Quelle est la suite ?',
         ['triangle', 'triangle', 'square', 'square', 'question'],
-        ['triangle', 'square', 'circle', 'star'], 0);
+        ['triangle', 'square', 'circle', 'star'], 0,
+        'The pattern groups pairs: two triangles, then two squares. After the squares, the pattern repeats with two triangles. The next is triangle.',
+        'Le motif groupe des paires: deux triangles, puis deux carrés. Après les carrés, le motif se répète avec deux triangles. Le suivant est triangle.');
         
       addSequence('4', 'What comes next?', 'Quelle est la suite ?',
         ['square', 'circle', 'square', 'circle', 'square', 'question'],
-        ['circle', 'square', 'triangle', 'star'], 0);
+        ['circle', 'square', 'triangle', 'star'], 0,
+        'This is an alternating pattern: square-circle-square-circle-square-?. Following the alternation, after square comes circle.',
+        'C\'est un motif alterné: carré-cercle-carré-cercle-carré-?. En suivant l\'alternance, après carré vient cercle.');
         
       addSequence('5', 'What comes next?', 'Quelle est la suite ?',
         ['filled_square', 'square', 'filled_circle', 'circle', 'question'],
-        ['filled_square', 'filled_triangle', 'triangle', 'star'], 0);
+        ['filled_square', 'filled_triangle', 'triangle', 'star'], 0,
+        'The pattern alternates filled-empty for different shapes: filled_square → square → filled_circle → circle → ?. Following this pattern, the next should be a filled shape (filled_square).',
+        'Le motif alterne rempli-vide pour différentes formes: carré_rempli → carré → cercle_rempli → cercle → ?. En suivant ce motif, le suivant devrait être une forme remplie (carré_rempli).');
+        
+      // Additional Level 12 Sequence Questions
+      addSequence('6', 'What comes next?', 'Quelle est la suite ?',
+        ['hexagon', 'pentagon', 'hexagon', 'pentagon', 'hexagon', 'question'],
+        ['Pentagon', 'Hexagon', 'Star', 'Circle'], 0,
+        'The pattern alternates: hexagon-pentagon-hexagon-pentagon-hexagon-?. Following the alternation, after hexagon comes Pentagon.',
+        'Le motif alterne: hexagone-pentagone-hexagone-pentagone-hexagone-?. En suivant l\'alternance, après hexagone vient Pentagone.');
+        
+      addSequence('7', 'What comes next?', 'Quelle est la suite ?',
+        ['star', 'diamond', 'heart', 'star', 'diamond', 'question'],
+        ['Heart', 'Star', 'Diamond', 'Circle'], 0,
+        'The sequence repeats a 3-shape cycle: star → diamond → heart. After star, diamond, the next is Heart to complete the pattern.',
+        'La séquence répète un cycle de 3 formes: étoile → losange → cœur. Après étoile, losange, le suivant est Cœur pour compléter le motif.');
+        
+      addSequence('8', 'What comes next?', 'Quelle est la suite ?',
+        ['filled_circle', 'filled_circle', 'circle', 'filled_circle', 'filled_circle', 'question'],
+        ['Circle', 'Filled_Circle', 'Square', 'Star'], 0,
+        'The pattern is: two filled circles, one outline circle, then repeat. After two filled circles, the next must be Circle (outline).',
+        'Le motif est: deux cercles remplis, un cercle contour, puis répétition. Après deux cercles remplis, le suivant doit être Cercle (contour).');
     }
     
     return questions;
@@ -1032,6 +1302,35 @@ class QuestionDataManager {
       final optionsFrench = options.map((opt) {
         return shapes.firstWhere((s) => s.$2 == opt).$3;
       }).toList();
+      
+      // Create detailed explanation based on shape
+      String explanation;
+      String explanationFrench;
+      switch (targetShape.$1) {
+        case 'circle':
+          explanation = 'This is a Circle. A circle is round with no corners or edges. It looks like a ball or the sun.';
+          explanationFrench = 'C\'est un Cercle. Un cercle est rond sans coins ni bords. Il ressemble à une balle ou au soleil.';
+          break;
+        case 'square':
+          explanation = 'This is a Square. A square has 4 equal sides and 4 corners. All sides are the same length.';
+          explanationFrench = 'C\'est un Carré. Un carré a 4 côtés égaux et 4 coins. Tous les côtés ont la même longueur.';
+          break;
+        case 'triangle':
+          explanation = 'This is a Triangle. A triangle has 3 sides and 3 corners. It looks like a slice of pizza or a mountain.';
+          explanationFrench = 'C\'est un Triangle. Un triangle a 3 côtés et 3 coins. Il ressemble à une part de pizza ou à une montagne.';
+          break;
+        case 'star':
+          explanation = 'This is a Star. A star has 5 pointed tips that stick out. It looks like the stars you see in the night sky.';
+          explanationFrench = 'C\'est une Étoile. Une étoile a 5 pointes qui dépassent. Elle ressemble aux étoiles que tu vois dans le ciel la nuit.';
+          break;
+        case 'heart':
+          explanation = 'This is a Heart. A heart has a curved top with two bumps and a pointed bottom. It\'s a symbol of love.';
+          explanationFrench = 'C\'est un Cœur. Un cœur a un sommet courbé avec deux bosses et un fond pointu. C\'est un symbole d\'amour.';
+          break;
+        default:
+          explanation = 'This is a ${targetShape.$2}.';
+          explanationFrench = 'C\'est un ${targetShape.$3}.';
+      }
 
       questions.add(Question(
         id: 'level_k_shape_$i',
@@ -1042,8 +1341,8 @@ class QuestionDataManager {
         options: options,
         optionsFrench: optionsFrench,
         correctAnswer: correctIndex,
-        explanation: 'This is a ${targetShape.$2}.',
-        explanationFrench: 'C\'est un ${targetShape.$3}.',
+        explanation: explanation,
+        explanationFrench: explanationFrench,
         difficulty: Difficulty.easy,
         level: CCATLevel.levelK,
         visualData: {
@@ -1061,6 +1360,14 @@ class QuestionDataManager {
       final count = i + 1;
       final options = [count.toString(), (count + 1).toString(), (count + 2).toString(), (count > 1 ? count - 1 : count + 3).toString()]..shuffle();
       final correctIndex = options.indexOf(count.toString());
+      
+      // Create detailed counting explanation
+      String countingTip = count <= 5 
+          ? 'Count each star by pointing to it: 1, 2, 3... The answer is $count.'
+          : 'Count carefully by pointing to each star one by one. There are $count stars in total.';
+      String countingTipFr = count <= 5 
+          ? 'Compte chaque étoile en la pointant: 1, 2, 3... La réponse est $count.'
+          : 'Compte attentivement en pointant chaque étoile une par une. Il y a $count étoiles au total.';
 
       questions.add(Question(
         id: 'level_k_counting_$i',
@@ -1071,8 +1378,8 @@ class QuestionDataManager {
         options: options,
         optionsFrench: options,
         correctAnswer: correctIndex,
-        explanation: 'There are $count stars.',
-        explanationFrench: 'Il y a $count étoiles.',
+        explanation: 'There are $count stars. $countingTip',
+        explanationFrench: 'Il y a $count étoiles. $countingTipFr',
         difficulty: Difficulty.easy,
         level: CCATLevel.levelK,
         visualData: {
@@ -1107,6 +1414,39 @@ class QuestionDataManager {
       final optionsFrench = options.map((opt) {
         return colors.firstWhere((c) => c.$2 == opt).$3;
       }).toList();
+      
+      // Create detailed color explanation
+      String colorHint;
+      String colorHintFr;
+      switch (targetColor.$2) {
+        case 'Red':
+          colorHint = 'Red is the color of apples, fire trucks, and strawberries. It\'s a warm, bright color.';
+          colorHintFr = 'Le rouge est la couleur des pommes, des camions de pompiers et des fraises. C\'est une couleur chaude et vive.';
+          break;
+        case 'Blue':
+          colorHint = 'Blue is the color of the sky on a sunny day and the ocean. It\'s a cool, calm color.';
+          colorHintFr = 'Le bleu est la couleur du ciel par une journée ensoleillée et de l\'océan. C\'est une couleur fraîche et calme.';
+          break;
+        case 'Green':
+          colorHint = 'Green is the color of grass, leaves, and trees. It\'s the color of nature.';
+          colorHintFr = 'Le vert est la couleur de l\'herbe, des feuilles et des arbres. C\'est la couleur de la nature.';
+          break;
+        case 'Yellow':
+          colorHint = 'Yellow is the color of the sun, bananas, and lemons. It\'s a bright, happy color.';
+          colorHintFr = 'Le jaune est la couleur du soleil, des bananes et des citrons. C\'est une couleur vive et joyeuse.';
+          break;
+        case 'Purple':
+          colorHint = 'Purple is the color of grapes and lavender flowers. It\'s made by mixing red and blue.';
+          colorHintFr = 'Le violet est la couleur des raisins et des fleurs de lavande. Il est fait en mélangeant le rouge et le bleu.';
+          break;
+        case 'Orange':
+          colorHint = 'Orange is the color of oranges, pumpkins, and carrots. It\'s made by mixing red and yellow.';
+          colorHintFr = 'L\'orange est la couleur des oranges, des citrouilles et des carottes. Il est fait en mélangeant le rouge et le jaune.';
+          break;
+        default:
+          colorHint = 'Look at the color shown and match it to the correct name.';
+          colorHintFr = 'Regarde la couleur montrée et associe-la au bon nom.';
+      }
 
       questions.add(Question(
         id: 'level_k_color_$i',
@@ -1117,8 +1457,8 @@ class QuestionDataManager {
         options: options,
         optionsFrench: optionsFrench,
         correctAnswer: correctIndex,
-        explanation: 'This is ${targetColor.$2}.',
-        explanationFrench: 'C\'est ${targetColor.$3}.',
+        explanation: 'This is ${targetColor.$2}. $colorHint',
+        explanationFrench: 'C\'est ${targetColor.$3}. $colorHintFr',
         difficulty: Difficulty.easy,
         level: CCATLevel.levelK,
         visualData: {

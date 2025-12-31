@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/question.dart';
+import '../widgets/visual_question_widgets.dart';
 
 class ReviewScreen extends StatelessWidget {
   final List<Question> questions;
@@ -90,6 +91,11 @@ class ReviewScreen extends StatelessWidget {
                       fit: BoxFit.contain,
                       errorBuilder: (context, error, stackTrace) =>
                           const SizedBox.shrink(),
+                    ),
+                  ] else if (question.visualData != null) ...[
+                    const SizedBox(height: 12),
+                    Center(
+                      child: _buildVisualQuestion(question.visualData!),
                     ),
                   ],
                   const SizedBox(height: 16),
@@ -215,6 +221,45 @@ class ReviewScreen extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget _buildVisualQuestion(Map<String, dynamic> visualData) {
+    final typeStr = visualData['type'] as String? ?? 'shapePattern';
+    final data = visualData['data'] as Map<String, dynamic>? ?? visualData;
+    
+    // Convert color int values to Color objects
+    Map<String, dynamic> processedData = Map.from(data);
+    
+    // Handle colors stored as int values
+    if (processedData.containsKey('colors')) {
+      final colorsList = processedData['colors'] as List<dynamic>?;
+      if (colorsList != null && colorsList.isNotEmpty && colorsList.first is int) {
+        processedData['colors'] = colorsList.map((c) => Color(c as int)).toList();
+      }
+    }
+    if (processedData.containsKey('color')) {
+      final colorVal = processedData['color'];
+      if (colorVal is int) {
+        processedData['color'] = Color(colorVal);
+      }
+    }
+    
+    // Handle icon stored as int code point
+    if (processedData.containsKey('icon') && processedData['icon'] is int) {
+      processedData['icon'] = IconData(processedData['icon'] as int, fontFamily: 'MaterialIcons');
+    }
+
+    final type = VisualQuestionType.values.firstWhere(
+      (e) => e.toString().split('.').last == typeStr,
+      orElse: () => VisualQuestionType.shapePattern,
+    );
+
+    return VisualQuestionDisplay(
+      questionData: VisualQuestionData(
+        type: type,
+        data: processedData,
       ),
     );
   }

@@ -245,15 +245,7 @@ class _TestSessionScreenState extends State<TestSessionScreen> {
                       const SizedBox(height: 24),
                     ] else if (question.visualData != null) ...[
                       Center(
-                        child: VisualQuestionDisplay(
-                          questionData: VisualQuestionData(
-                            type: VisualQuestionType.values.firstWhere(
-                              (e) => e.toString().split('.').last == question.visualData!['type'],
-                              orElse: () => VisualQuestionType.shapePattern,
-                            ),
-                            data: question.visualData!,
-                          ),
-                        ),
+                        child: _buildVisualQuestion(question.visualData!),
                       ),
                       const SizedBox(height: 24),
                     ],
@@ -437,5 +429,44 @@ class _TestSessionScreenState extends State<TestSessionScreen> {
     final minutes = seconds ~/ 60;
     final remainingSeconds = seconds % 60;
     return '$minutes:${remainingSeconds.toString().padLeft(2, '0')}';
+  }
+
+  Widget _buildVisualQuestion(Map<String, dynamic> visualData) {
+    final typeStr = visualData['type'] as String? ?? 'shapePattern';
+    final data = visualData['data'] as Map<String, dynamic>? ?? visualData;
+    
+    // Convert color int values to Color objects
+    Map<String, dynamic> processedData = Map.from(data);
+    
+    // Handle colors stored as int values
+    if (processedData.containsKey('colors')) {
+      final colorsList = processedData['colors'] as List<dynamic>?;
+      if (colorsList != null && colorsList.isNotEmpty && colorsList.first is int) {
+        processedData['colors'] = colorsList.map((c) => Color(c as int)).toList();
+      }
+    }
+    if (processedData.containsKey('color')) {
+      final colorVal = processedData['color'];
+      if (colorVal is int) {
+        processedData['color'] = Color(colorVal);
+      }
+    }
+    
+    // Handle icon stored as int code point
+    if (processedData.containsKey('icon') && processedData['icon'] is int) {
+      processedData['icon'] = IconData(processedData['icon'] as int, fontFamily: 'MaterialIcons');
+    }
+
+    final type = VisualQuestionType.values.firstWhere(
+      (e) => e.toString().split('.').last == typeStr,
+      orElse: () => VisualQuestionType.shapePattern,
+    );
+
+    return VisualQuestionDisplay(
+      questionData: VisualQuestionData(
+        type: type,
+        data: processedData,
+      ),
+    );
   }
 }
