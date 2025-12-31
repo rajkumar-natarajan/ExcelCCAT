@@ -5,6 +5,15 @@ All notable changes to the ExcelCCAT project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 2025-12-31 🎨 **VISUAL QUESTIONS UPDATE**
+
+### ✅ Added - Visual Questions for Levels 10-12
+- **Programmatic Visuals**: Replaced text-based descriptions with actual visual renderings for Non-Verbal reasoning questions.
+- **Matrix Patterns**: Added 3x3 grid pattern completion questions for Levels 10-12.
+- **Odd One Out**: Added visual classification questions where users identify the different shape or color.
+- **Sequence Patterns**: Added visual series questions to predict the next item in a sequence.
+- **Enhanced UI**: Updated test session to render visual widgets directly and display shape-based answer options.
+
 ## [1.5.2] - 2025-12-24 🐛 **BUG FIX**
 
 ### 🐛 Fixed - Dark Mode Settings

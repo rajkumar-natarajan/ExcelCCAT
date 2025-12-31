@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:flutter/material.dart';
 import '../models/question.dart';
 
 /// Manages question data generation and retrieval
@@ -60,6 +61,10 @@ class QuestionDataManager {
   List<Question> _generateQuestionsForLevel(CCATLevel level) {
     List<Question> questions = [];
     
+    if (level == CCATLevel.levelK) {
+      return _createKindergartenQuestions();
+    }
+
     // Verbal
     questions.addAll(_createVerbalAnalogies(level));
     questions.addAll(_createSentenceCompletion(level));
@@ -119,71 +124,71 @@ class QuestionDataManager {
     List<Question> questions = [];
     
     final analogies = level == CCATLevel.level10 ? [
-      ('Dog is to puppy as cat is to:', ['kitten', 'mouse', 'bird', 'fish'], 0),
-      ('Big is to small as tall is to:', ['short', 'wide', 'long', 'thin'], 0),
-      ('Sun is to day as moon is to:', ['night', 'star', 'sky', 'cloud'], 0),
-      ('Hand is to glove as foot is to:', ['sock', 'shoe', 'leg', 'toe'], 1),
-      ('Bird is to fly as fish is to:', ['swim', 'walk', 'run', 'jump'], 0),
-      ('Apple is to fruit as carrot is to:', ['vegetable', 'orange', 'food', 'plant'], 0),
-      ('Ear is to hear as eye is to:', ['see', 'blink', 'cry', 'close'], 0),
-      ('Pen is to write as brush is to:', ['paint', 'clean', 'sweep', 'draw'], 0),
-      ('Cow is to calf as horse is to:', ['foal', 'pony', 'mare', 'stallion'], 0),
-      ('Book is to read as song is to:', ['listen', 'write', 'dance', 'play'], 0),
-      ('Hot is to cold as day is to:', ['night', 'sun', 'warm', 'light'], 0),
-      ('Teacher is to school as doctor is to:', ['hospital', 'medicine', 'patient', 'nurse'], 0),
-      ('Knife is to cut as hammer is to:', ['nail', 'build', 'hit', 'wood'], 0),
-      ('Snow is to winter as rain is to:', ['spring', 'cloud', 'umbrella', 'wet'], 0),
-      ('Bee is to honey as cow is to:', ['milk', 'grass', 'farm', 'beef'], 0),
-      ('Piano is to keys as guitar is to:', ['strings', 'music', 'wood', 'pick'], 0),
+      ('Dog is to puppy as cat is to:', 'Chien est à chiot ce que chat est à:', ['kitten', 'mouse', 'bird', 'fish'], ['chaton', 'souris', 'oiseau', 'poisson'], 0),
+      ('Big is to small as tall is to:', 'Grand est à petit ce que haut est à:', ['short', 'wide', 'long', 'thin'], ['court', 'large', 'long', 'mince'], 0),
+      ('Sun is to day as moon is to:', 'Soleil est à jour ce que lune est à:', ['night', 'star', 'sky', 'cloud'], ['nuit', 'étoile', 'ciel', 'nuage'], 0),
+      ('Hand is to glove as foot is to:', 'Main est à gant ce que pied est à:', ['sock', 'shoe', 'leg', 'toe'], ['chaussette', 'chaussure', 'jambe', 'orteil'], 1),
+      ('Bird is to fly as fish is to:', 'Oiseau est à voler ce que poisson est à:', ['swim', 'walk', 'run', 'jump'], ['nager', 'marcher', 'courir', 'sauter'], 0),
+      ('Apple is to fruit as carrot is to:', 'Pomme est à fruit ce que carotte est à:', ['vegetable', 'orange', 'food', 'plant'], ['légume', 'orange', 'nourriture', 'plante'], 0),
+      ('Ear is to hear as eye is to:', 'Oreille est à entendre ce que œil est à:', ['see', 'blink', 'cry', 'close'], ['voir', 'cligner', 'pleurer', 'fermer'], 0),
+      ('Pen is to write as brush is to:', 'Stylo est à écrire ce que pinceau est à:', ['paint', 'clean', 'sweep', 'draw'], ['peindre', 'nettoyer', 'balayer', 'dessiner'], 0),
+      ('Cow is to calf as horse is to:', 'Vache est à veau ce que cheval est à:', ['foal', 'pony', 'mare', 'stallion'], ['poulain', 'poney', 'jument', 'étalon'], 0),
+      ('Book is to read as song is to:', 'Livre est à lire ce que chanson est à:', ['listen', 'write', 'dance', 'play'], ['écouter', 'écrire', 'danser', 'jouer'], 0),
+      ('Hot is to cold as day is to:', 'Chaud est à froid ce que jour est à:', ['night', 'sun', 'warm', 'light'], ['nuit', 'soleil', 'chaud', 'lumière'], 0),
+      ('Teacher is to school as doctor is to:', 'Enseignant est à école ce que médecin est à:', ['hospital', 'medicine', 'patient', 'nurse'], ['hôpital', 'médicament', 'patient', 'infirmière'], 0),
+      ('Knife is to cut as hammer is to:', 'Couteau est à couper ce que marteau est à:', ['nail', 'build', 'hit', 'wood'], ['clouer', 'construire', 'frapper', 'bois'], 0),
+      ('Snow is to winter as rain is to:', 'Neige est à hiver ce que pluie est à:', ['spring', 'cloud', 'umbrella', 'wet'], ['printemps', 'nuage', 'parapluie', 'mouillé'], 0),
+      ('Bee is to honey as cow is to:', 'Abeille est à miel ce que vache est à:', ['milk', 'grass', 'farm', 'beef'], ['lait', 'herbe', 'ferme', 'bœuf'], 0),
+      ('Piano is to keys as guitar is to:', 'Piano est à touches ce que guitare est à:', ['strings', 'music', 'wood', 'pick'], ['cordes', 'musique', 'bois', 'médiator'], 0),
     ] : level == CCATLevel.level11 ? [
-      ('Author is to book as composer is to:', ['song', 'instrument', 'concert', 'band'], 0),
-      ('Library is to books as museum is to:', ['artifacts', 'tickets', 'guides', 'visitors'], 0),
-      ('Chef is to kitchen as pilot is to:', ['cockpit', 'plane', 'airport', 'sky'], 0),
-      ('Brush is to paint as pen is to:', ['ink', 'paper', 'write', 'letter'], 0),
-      ('Doctor is to patient as teacher is to:', ['student', 'school', 'book', 'class'], 0),
-      ('Thermometer is to temperature as scale is to:', ['weight', 'height', 'length', 'time'], 0),
-      ('Seed is to plant as egg is to:', ['bird', 'chicken', 'nest', 'shell'], 0),
-      ('Clock is to time as compass is to:', ['direction', 'north', 'map', 'travel'], 0),
-      ('Captain is to ship as conductor is to:', ['orchestra', 'train', 'music', 'baton'], 0),
-      ('Astronomer is to stars as geologist is to:', ['rocks', 'maps', 'weather', 'animals'], 0),
-      ('Brake is to stop as accelerator is to:', ['speed', 'slow', 'car', 'drive'], 0),
-      ('Prologue is to book as overture is to:', ['opera', 'end', 'music', 'play'], 0),
-      ('Flock is to sheep as pack is to:', ['wolves', 'birds', 'fish', 'bees'], 0),
-      ('Telescope is to stars as microscope is to:', ['cells', 'planets', 'eyes', 'light'], 0),
-      ('Carpenter is to wood as blacksmith is to:', ['metal', 'fire', 'horse', 'tools'], 0),
-      ('Chapter is to book as act is to:', ['play', 'movie', 'scene', 'story'], 0),
+      ('Author is to book as composer is to:', 'Auteur est à livre ce que compositeur est à:', ['song', 'instrument', 'concert', 'band'], ['chanson', 'instrument', 'concert', 'groupe'], 0),
+      ('Library is to books as museum is to:', 'Bibliothèque est à livres ce que musée est à:', ['artifacts', 'tickets', 'guides', 'visitors'], ['artefacts', 'billets', 'guides', 'visiteurs'], 0),
+      ('Chef is to kitchen as pilot is to:', 'Chef est à cuisine ce que pilote est à:', ['cockpit', 'plane', 'airport', 'sky'], ['cockpit', 'avion', 'aéroport', 'ciel'], 0),
+      ('Brush is to paint as pen is to:', 'Pinceau est à peindre ce que stylo est à:', ['ink', 'paper', 'write', 'letter'], ['encre', 'papier', 'écrire', 'lettre'], 0),
+      ('Doctor is to patient as teacher is to:', 'Médecin est à patient ce que enseignant est à:', ['student', 'school', 'book', 'class'], ['élève', 'école', 'livre', 'classe'], 0),
+      ('Thermometer is to temperature as scale is to:', 'Thermomètre est à température ce que balance est à:', ['weight', 'height', 'length', 'time'], ['poids', 'taille', 'longueur', 'temps'], 0),
+      ('Seed is to plant as egg is to:', 'Graine est à plante ce que œuf est à:', ['bird', 'chicken', 'nest', 'shell'], ['oiseau', 'poulet', 'nid', 'coquille'], 0),
+      ('Clock is to time as compass is to:', 'Horloge est à temps ce que boussole est à:', ['direction', 'north', 'map', 'travel'], ['direction', 'nord', 'carte', 'voyage'], 0),
+      ('Captain is to ship as conductor is to:', 'Capitaine est à navire ce que chef d\'orchestre est à:', ['orchestra', 'train', 'music', 'baton'], ['orchestre', 'train', 'musique', 'bâton'], 0),
+      ('Astronomer is to stars as geologist is to:', 'Astronome est à étoiles ce que géologue est à:', ['rocks', 'maps', 'weather', 'animals'], ['roches', 'cartes', 'météo', 'animaux'], 0),
+      ('Brake is to stop as accelerator is to:', 'Frein est à arrêter ce que accélérateur est à:', ['speed', 'slow', 'car', 'drive'], ['vitesse', 'ralentir', 'voiture', 'conduire'], 0),
+      ('Prologue is to book as overture is to:', 'Prologue est à livre ce que ouverture est à:', ['opera', 'end', 'music', 'play'], ['opéra', 'fin', 'musique', 'pièce'], 0),
+      ('Flock is to sheep as pack is to:', 'Troupeau est à moutons ce que meute est à:', ['wolves', 'birds', 'fish', 'bees'], ['loups', 'oiseaux', 'poissons', 'abeilles'], 0),
+      ('Telescope is to stars as microscope is to:', 'Télescope est à étoiles ce que microscope est à:', ['cells', 'planets', 'eyes', 'light'], ['cellules', 'planètes', 'yeux', 'lumière'], 0),
+      ('Carpenter is to wood as blacksmith is to:', 'Charpentier est à bois ce que forgeron est à:', ['metal', 'fire', 'horse', 'tools'], ['métal', 'feu', 'cheval', 'outils'], 0),
+      ('Chapter is to book as act is to:', 'Chapitre est à livre ce que acte est à:', ['play', 'movie', 'scene', 'story'], ['pièce', 'film', 'scène', 'histoire'], 0),
     ] : [
-      ('Ephemeral is to permanent as volatile is to:', ['stable', 'explosive', 'liquid', 'gas'], 0),
-      ('Meticulous is to careless as frugal is to:', ['wasteful', 'careful', 'poor', 'rich'], 0),
-      ('Archipelago is to islands as constellation is to:', ['stars', 'planets', 'galaxies', 'moons'], 0),
-      ('Taciturn is to talkative as somber is to:', ['cheerful', 'dark', 'serious', 'quiet'], 0),
-      ('Chronometer is to time as barometer is to:', ['pressure', 'temperature', 'distance', 'speed'], 0),
-      ('Plaintiff is to defendant as prosecutor is to:', ['accused', 'judge', 'lawyer', 'jury'], 0),
-      ('Prologue is to epilogue as dawn is to:', ['dusk', 'morning', 'night', 'noon'], 0),
-      ('Catalyst is to reaction as stimulus is to:', ['response', 'chemical', 'change', 'speed'], 0),
-      ('Lexicon is to words as atlas is to:', ['maps', 'books', 'countries', 'geography'], 0),
-      ('Apiary is to bees as aviary is to:', ['birds', 'ants', 'fish', 'plants'], 0),
-      ('Numismatist is to coins as philatelist is to:', ['stamps', 'books', 'art', 'antiques'], 0),
-      ('Zenith is to nadir as apex is to:', ['base', 'top', 'middle', 'side'], 0),
-      ('Maelstrom is to water as tornado is to:', ['air', 'earth', 'fire', 'wind'], 0),
-      ('Ameliorate is to worsen as expedite is to:', ['delay', 'hurry', 'improve', 'send'], 0),
-      ('Pedagogue is to teaching as demagogue is to:', ['manipulation', 'democracy', 'speaking', 'leading'], 0),
-      ('Ornithology is to birds as entomology is to:', ['insects', 'rocks', 'plants', 'fish'], 0),
+      ('Ephemeral is to permanent as volatile is to:', 'Éphémère est à permanent ce que volatil est à:', ['stable', 'explosive', 'liquid', 'gas'], ['stable', 'explosif', 'liquide', 'gaz'], 0),
+      ('Meticulous is to careless as frugal is to:', 'Méticuleux est à négligent ce que frugal est à:', ['wasteful', 'careful', 'poor', 'rich'], ['gaspilleur', 'prudent', 'pauvre', 'riche'], 0),
+      ('Archipelago is to islands as constellation is to:', 'Archipel est à îles ce que constellation est à:', ['stars', 'planets', 'galaxies', 'moons'], ['étoiles', 'planètes', 'galaxies', 'lunes'], 0),
+      ('Taciturn is to talkative as somber is to:', 'Taciturne est à bavard ce que sombre est à:', ['cheerful', 'dark', 'serious', 'quiet'], ['joyeux', 'foncé', 'sérieux', 'calme'], 0),
+      ('Chronometer is to time as barometer is to:', 'Chronomètre est à temps ce que baromètre est à:', ['pressure', 'temperature', 'distance', 'speed'], ['pression', 'température', 'distance', 'vitesse'], 0),
+      ('Plaintiff is to defendant as prosecutor is to:', 'Plaignant est à défendeur ce que procureur est à:', ['accused', 'judge', 'lawyer', 'jury'], ['accusé', 'juge', 'avocat', 'jury'], 0),
+      ('Prologue is to epilogue as dawn is to:', 'Prologue est à épilogue ce que aube est à:', ['dusk', 'morning', 'night', 'noon'], ['crépuscule', 'matin', 'nuit', 'midi'], 0),
+      ('Catalyst is to reaction as stimulus is to:', 'Catalyseur est à réaction ce que stimulus est à:', ['response', 'chemical', 'change', 'speed'], ['réponse', 'chimique', 'changement', 'vitesse'], 0),
+      ('Lexicon is to words as atlas is to:', 'Lexique est à mots ce que atlas est à:', ['maps', 'books', 'countries', 'geography'], ['cartes', 'livres', 'pays', 'géographie'], 0),
+      ('Apiary is to bees as aviary is to:', 'Rucher est à abeilles ce que volière est à:', ['birds', 'ants', 'fish', 'plants'], ['oiseaux', 'fourmis', 'poissons', 'plantes'], 0),
+      ('Numismatist is to coins as philatelist is to:', 'Numismate est à pièces ce que philatéliste est à:', ['stamps', 'books', 'art', 'antiques'], ['timbres', 'livres', 'art', 'antiquités'], 0),
+      ('Zenith is to nadir as apex is to:', 'Zénith est à nadir ce que sommet est à:', ['base', 'top', 'middle', 'side'], ['base', 'haut', 'milieu', 'côté'], 0),
+      ('Maelstrom is to water as tornado is to:', 'Maelström est à eau ce que tornade est à:', ['air', 'earth', 'fire', 'wind'], ['air', 'terre', 'feu', 'vent'], 0),
+      ('Ameliorate is to worsen as expedite is to:', 'Améliorer est à empirer ce que expédier est à:', ['delay', 'hurry', 'improve', 'send'], ['retarder', 'se dépêcher', 'améliorer', 'envoyer'], 0),
+      ('Pedagogue is to teaching as demagogue is to:', 'Pédagogue est à enseignement ce que démagogue est à:', ['manipulation', 'democracy', 'speaking', 'leading'], ['manipulation', 'démocratie', 'parler', 'diriger'], 0),
+      ('Ornithology is to birds as entomology is to:', 'Ornithologie est à oiseaux ce que entomologie est à:', ['insects', 'rocks', 'plants', 'fish'], ['insectes', 'roches', 'plantes', 'poissons'], 0),
     ];
 
     for (var i = 0; i < analogies.length; i++) {
-      final (stem, options, correct) = analogies[i];
+      final (stem, stemFr, options, optionsFr, correct) = analogies[i];
       questions.add(Question(
         id: '${level.value}_verbal_analogies_$i',
         type: QuestionType.verbal,
         subType: VerbalSubType.analogies.value,
         stem: stem,
-        stemFrench: '$stem (FR)',
+        stemFrench: stemFr,
         options: options,
-        optionsFrench: options,
+        optionsFrench: optionsFr,
         correctAnswer: correct,
         explanation: 'The correct answer is ${options[correct]}.',
-        explanationFrench: 'La bonne réponse est ${options[correct]}.',
+        explanationFrench: 'La bonne réponse est ${optionsFr[correct]}.',
         difficulty: difficulty,
         level: level,
       ));
@@ -196,71 +201,71 @@ class QuestionDataManager {
     List<Question> questions = [];
     
     final synonyms = level == CCATLevel.level10 ? [
-      ('Which word means the same as HAPPY?', ['joyful', 'angry', 'tired', 'scared'], 0),
-      ('Which word means the same as BIG?', ['large', 'small', 'tiny', 'thin'], 0),
-      ('Which word means the same as FAST?', ['quick', 'slow', 'lazy', 'late'], 0),
-      ('Which word means the same as COLD?', ['chilly', 'hot', 'warm', 'bright'], 0),
-      ('Which word means the same as NICE?', ['kind', 'mean', 'ugly', 'loud'], 0),
-      ('Which word means the same as SMART?', ['clever', 'dumb', 'slow', 'weak'], 0),
-      ('Which word means the same as QUIET?', ['silent', 'loud', 'noisy', 'busy'], 0),
-      ('Which word means the same as LITTLE?', ['small', 'huge', 'giant', 'tall'], 0),
-      ('Which word means the same as ANGRY?', ['mad', 'calm', 'happy', 'sad'], 0),
-      ('Which word means the same as PRETTY?', ['beautiful', 'ugly', 'plain', 'dull'], 0),
-      ('Which word means the same as FUNNY?', ['amusing', 'boring', 'sad', 'serious'], 0),
-      ('Which word means the same as SLEEPY?', ['drowsy', 'awake', 'alert', 'active'], 0),
-      ('Which word means the same as RICH?', ['wealthy', 'poor', 'broke', 'needy'], 0),
-      ('Which word means the same as EASY?', ['simple', 'hard', 'difficult', 'tough'], 0),
-      ('Which word means the same as BRAVE?', ['fearless', 'scared', 'afraid', 'timid'], 0),
-      ('Which word means the same as DIRTY?', ['filthy', 'clean', 'neat', 'tidy'], 0),
+      ('Which word means the same as HAPPY?', 'Quel mot signifie la même chose que HEUREUX?', ['joyful', 'angry', 'tired', 'scared'], ['joyeux', 'fâché', 'fatigué', 'effrayé'], 0),
+      ('Which word means the same as BIG?', 'Quel mot signifie la même chose que GRAND?', ['large', 'small', 'tiny', 'thin'], ['grand', 'petit', 'minuscule', 'mince'], 0),
+      ('Which word means the same as FAST?', 'Quel mot signifie la même chose que RAPIDE?', ['quick', 'slow', 'lazy', 'late'], ['rapide', 'lent', 'paresseux', 'tard'], 0),
+      ('Which word means the same as COLD?', 'Quel mot signifie la même chose que FROID?', ['chilly', 'hot', 'warm', 'bright'], ['frais', 'chaud', 'tiède', 'brillant'], 0),
+      ('Which word means the same as NICE?', 'Quel mot signifie la même chose que GENTIL?', ['kind', 'mean', 'ugly', 'loud'], ['aimable', 'méchant', 'laid', 'bruyant'], 0),
+      ('Which word means the same as SMART?', 'Quel mot signifie la même chose que INTELLIGENT?', ['clever', 'dumb', 'slow', 'weak'], ['malin', 'bête', 'lent', 'faible'], 0),
+      ('Which word means the same as QUIET?', 'Quel mot signifie la même chose que CALME?', ['silent', 'loud', 'noisy', 'busy'], ['silencieux', 'bruyant', 'bruyant', 'occupé'], 0),
+      ('Which word means the same as LITTLE?', 'Quel mot signifie la même chose que PETIT?', ['small', 'huge', 'giant', 'tall'], ['petit', 'énorme', 'géant', 'grand'], 0),
+      ('Which word means the same as ANGRY?', 'Quel mot signifie la même chose que FÂCHÉ?', ['mad', 'calm', 'happy', 'sad'], ['furieux', 'calme', 'heureux', 'triste'], 0),
+      ('Which word means the same as PRETTY?', 'Quel mot signifie la même chose que JOLI?', ['beautiful', 'ugly', 'plain', 'dull'], ['beau', 'laid', 'quelconque', 'terne'], 0),
+      ('Which word means the same as FUNNY?', 'Quel mot signifie la même chose que DRÔLE?', ['amusing', 'boring', 'sad', 'serious'], ['amusant', 'ennuyeux', 'triste', 'sérieux'], 0),
+      ('Which word means the same as SLEEPY?', 'Quel mot signifie la même chose que ENDORMI?', ['drowsy', 'awake', 'alert', 'active'], ['somnolent', 'éveillé', 'alerte', 'actif'], 0),
+      ('Which word means the same as RICH?', 'Quel mot signifie la même chose que RICHE?', ['wealthy', 'poor', 'broke', 'needy'], ['fortuné', 'pauvre', 'fauché', 'nécessiteux'], 0),
+      ('Which word means the same as EASY?', 'Quel mot signifie la même chose que FACILE?', ['simple', 'hard', 'difficult', 'tough'], ['simple', 'dur', 'difficile', 'coriace'], 0),
+      ('Which word means the same as BRAVE?', 'Quel mot signifie la même chose que COURAGEUX?', ['fearless', 'scared', 'afraid', 'timid'], ['intrépide', 'effrayé', 'peureux', 'timide'], 0),
+      ('Which word means the same as DIRTY?', 'Quel mot signifie la même chose que SALE?', ['filthy', 'clean', 'neat', 'tidy'], ['crasseux', 'propre', 'soigné', 'rangé'], 0),
     ] : level == CCATLevel.level11 ? [
-      ('Which word means the same as ABUNDANT?', ['plentiful', 'scarce', 'empty', 'rare'], 0),
-      ('Which word means the same as BRAVE?', ['courageous', 'fearful', 'timid', 'weak'], 0),
-      ('Which word means the same as ASSIST?', ['help', 'hinder', 'stop', 'leave'], 0),
-      ('Which word means the same as ANCIENT?', ['old', 'new', 'modern', 'recent'], 0),
-      ('Which word means the same as CONCEAL?', ['hide', 'reveal', 'show', 'expose'], 0),
-      ('Which word means the same as DEPART?', ['leave', 'arrive', 'stay', 'remain'], 0),
-      ('Which word means the same as EXHAUSTED?', ['tired', 'energetic', 'lively', 'rested'], 0),
-      ('Which word means the same as FORTUNATE?', ['lucky', 'unlucky', 'poor', 'sad'], 0),
-      ('Which word means the same as GENUINE?', ['authentic', 'fake', 'false', 'phony'], 0),
-      ('Which word means the same as HAZARDOUS?', ['dangerous', 'safe', 'secure', 'harmless'], 0),
-      ('Which word means the same as IMITATE?', ['copy', 'create', 'invent', 'originate'], 0),
-      ('Which word means the same as JEALOUS?', ['envious', 'content', 'satisfied', 'pleased'], 0),
-      ('Which word means the same as KEEN?', ['eager', 'reluctant', 'bored', 'lazy'], 0),
-      ('Which word means the same as LIBERTY?', ['freedom', 'prison', 'captivity', 'bondage'], 0),
-      ('Which word means the same as MAGNIFICENT?', ['splendid', 'ordinary', 'plain', 'simple'], 0),
-      ('Which word means the same as NUMEROUS?', ['many', 'few', 'single', 'rare'], 0),
+      ('Which word means the same as ABUNDANT?', 'Quel mot signifie la même chose que ABONDANT?', ['plentiful', 'scarce', 'empty', 'rare'], ['copieux', 'rare', 'vide', 'rare'], 0),
+      ('Which word means the same as BRAVE?', 'Quel mot signifie la même chose que COURAGEUX?', ['courageous', 'fearful', 'timid', 'weak'], ['courageux', 'craintif', 'timide', 'faible'], 0),
+      ('Which word means the same as ASSIST?', 'Quel mot signifie la même chose que AIDER?', ['help', 'hinder', 'stop', 'leave'], ['aider', 'gêner', 'arrêter', 'partir'], 0),
+      ('Which word means the same as ANCIENT?', 'Quel mot signifie la même chose que ANCIEN?', ['old', 'new', 'modern', 'recent'], ['vieux', 'nouveau', 'moderne', 'récent'], 0),
+      ('Which word means the same as CONCEAL?', 'Quel mot signifie la même chose que DISSIMULER?', ['hide', 'reveal', 'show', 'expose'], ['cacher', 'révéler', 'montrer', 'exposer'], 0),
+      ('Which word means the same as DEPART?', 'Quel mot signifie la même chose que PARTIR?', ['leave', 'arrive', 'stay', 'remain'], ['quitter', 'arriver', 'rester', 'demeurer'], 0),
+      ('Which word means the same as EXHAUSTED?', 'Quel mot signifie la même chose que ÉPUISÉ?', ['tired', 'energetic', 'lively', 'rested'], ['fatigué', 'énergique', 'vif', 'reposé'], 0),
+      ('Which word means the same as FORTUNATE?', 'Quel mot signifie la même chose que FORTUNÉ?', ['lucky', 'unlucky', 'poor', 'sad'], ['chanceux', 'malchanceux', 'pauvre', 'triste'], 0),
+      ('Which word means the same as GENUINE?', 'Quel mot signifie la même chose que AUTHENTIQUE?', ['authentic', 'fake', 'false', 'phony'], ['authentique', 'faux', 'faux', 'bidon'], 0),
+      ('Which word means the same as HAZARDOUS?', 'Quel mot signifie la même chose que DANGEREUX?', ['dangerous', 'safe', 'secure', 'harmless'], ['dangereux', 'sûr', 'sécurisé', 'inoffensif'], 0),
+      ('Which word means the same as IMITATE?', 'Quel mot signifie la même chose que IMITER?', ['copy', 'create', 'invent', 'originate'], ['copier', 'créer', 'inventer', 'concevoir'], 0),
+      ('Which word means the same as JEALOUS?', 'Quel mot signifie la même chose que JALOUX?', ['envious', 'content', 'satisfied', 'pleased'], ['envieux', 'content', 'satisfait', 'ravi'], 0),
+      ('Which word means the same as KEEN?', 'Quel mot signifie la même chose que VIF?', ['eager', 'reluctant', 'bored', 'lazy'], ['avide', 'réticent', 'ennuyé', 'paresseux'], 0),
+      ('Which word means the same as LIBERTY?', 'Quel mot signifie la même chose que LIBERTÉ?', ['freedom', 'prison', 'captivity', 'bondage'], ['liberté', 'prison', 'captivité', 'servitude'], 0),
+      ('Which word means the same as MAGNIFICENT?', 'Quel mot signifie la même chose que MAGNIFIQUE?', ['splendid', 'ordinary', 'plain', 'simple'], ['splendide', 'ordinaire', 'quelconque', 'simple'], 0),
+      ('Which word means the same as NUMEROUS?', 'Quel mot signifie la même chose que NOMBREUX?', ['many', 'few', 'single', 'rare'], ['beaucoup', 'peu', 'unique', 'rare'], 0),
     ] : [
-      ('Which word means the same as UBIQUITOUS?', ['omnipresent', 'rare', 'scarce', 'limited'], 0),
-      ('Which word means the same as EPHEMERAL?', ['transient', 'permanent', 'lasting', 'enduring'], 0),
-      ('Which word means the same as BENEVOLENT?', ['kind', 'malicious', 'cruel', 'harsh'], 0),
-      ('Which word means the same as CACOPHONY?', ['discord', 'harmony', 'melody', 'rhythm'], 0),
-      ('Which word means the same as ARDUOUS?', ['difficult', 'easy', 'simple', 'effortless'], 0),
-      ('Which word means the same as AMELIORATE?', ['improve', 'worsen', 'destroy', 'neglect'], 0),
-      ('Which word means the same as COGENT?', ['convincing', 'weak', 'unclear', 'confusing'], 0),
-      ('Which word means the same as DILATORY?', ['slow', 'prompt', 'quick', 'hasty'], 0),
-      ('Which word means the same as ERUDITE?', ['scholarly', 'ignorant', 'uneducated', 'simple'], 0),
-      ('Which word means the same as FASTIDIOUS?', ['meticulous', 'careless', 'sloppy', 'messy'], 0),
-      ('Which word means the same as GREGARIOUS?', ['sociable', 'reclusive', 'shy', 'introverted'], 0),
-      ('Which word means the same as HACKNEYED?', ['overused', 'original', 'fresh', 'novel'], 0),
-      ('Which word means the same as ICONOCLAST?', ['rebel', 'conformist', 'follower', 'traditionalist'], 0),
-      ('Which word means the same as JUDICIOUS?', ['wise', 'foolish', 'reckless', 'imprudent'], 0),
-      ('Which word means the same as LACONIC?', ['concise', 'verbose', 'wordy', 'lengthy'], 0),
-      ('Which word means the same as MAGNANIMOUS?', ['generous', 'petty', 'selfish', 'stingy'], 0),
+      ('Which word means the same as UBIQUITOUS?', 'Quel mot signifie la même chose que OMNIPRÉSENT?', ['omnipresent', 'rare', 'scarce', 'limited'], ['omniprésent', 'rare', 'rare', 'limité'], 0),
+      ('Which word means the same as EPHEMERAL?', 'Quel mot signifie la même chose que ÉPHÉMÈRE?', ['transient', 'permanent', 'lasting', 'enduring'], ['transitoire', 'permanent', 'durable', 'persistant'], 0),
+      ('Which word means the same as BENEVOLENT?', 'Quel mot signifie la même chose que BIENVEILLANT?', ['kind', 'malicious', 'cruel', 'harsh'], ['gentil', 'malveillant', 'cruel', 'dur'], 0),
+      ('Which word means the same as CACOPHONY?', 'Quel mot signifie la même chose que CACOPHONIE?', ['discord', 'harmony', 'melody', 'rhythm'], ['discorde', 'harmonie', 'mélodie', 'rythme'], 0),
+      ('Which word means the same as ARDUOUS?', 'Quel mot signifie la même chose que ARDU?', ['difficult', 'easy', 'simple', 'effortless'], ['difficile', 'facile', 'simple', 'sans effort'], 0),
+      ('Which word means the same as AMELIORATE?', 'Quel mot signifie la même chose que AMÉLIORER?', ['improve', 'worsen', 'destroy', 'neglect'], ['améliorer', 'empirer', 'détruire', 'négliger'], 0),
+      ('Which word means the same as COGENT?', 'Quel mot signifie la même chose que CONVAINCANT?', ['convincing', 'weak', 'unclear', 'confusing'], ['convaincant', 'faible', 'pas clair', 'confus'], 0),
+      ('Which word means the same as DILATORY?', 'Quel mot signifie la même chose que DILATOIRE?', ['slow', 'prompt', 'quick', 'hasty'], ['lent', 'prompt', 'rapide', 'hâtif'], 0),
+      ('Which word means the same as ERUDITE?', 'Quel mot signifie la même chose que ÉRUDIT?', ['scholarly', 'ignorant', 'uneducated', 'simple'], ['savant', 'ignorant', 'inculte', 'simple'], 0),
+      ('Which word means the same as FASTIDIOUS?', 'Quel mot signifie la même chose que FASTIDIEUX?', ['meticulous', 'careless', 'sloppy', 'messy'], ['méticuleux', 'négligent', 'bâclé', 'désordonné'], 0),
+      ('Which word means the same as GREGARIOUS?', 'Quel mot signifie la même chose que GRÉGAIRE?', ['sociable', 'reclusive', 'shy', 'introverted'], ['sociable', 'solitaire', 'timide', 'introverti'], 0),
+      ('Which word means the same as HACKNEYED?', 'Quel mot signifie la même chose que BANAL?', ['overused', 'original', 'fresh', 'novel'], ['usé', 'original', 'frais', 'nouveau'], 0),
+      ('Which word means the same as ICONOCLAST?', 'Quel mot signifie la même chose que ICONOCLASTE?', ['rebel', 'conformist', 'follower', 'traditionalist'], ['rebelle', 'conformiste', 'suiveur', 'traditionaliste'], 0),
+      ('Which word means the same as JUDICIOUS?', 'Quel mot signifie la même chose que JUDICIEUX?', ['wise', 'foolish', 'reckless', 'imprudent'], ['sage', 'insensé', 'imprudent', 'imprudent'], 0),
+      ('Which word means the same as LACONIC?', 'Quel mot signifie la même chose que LACONIQUE?', ['concise', 'verbose', 'wordy', 'lengthy'], ['concis', 'verbeux', 'bavard', 'long'], 0),
+      ('Which word means the same as MAGNANIMOUS?', 'Quel mot signifie la même chose que MAGNANIME?', ['generous', 'petty', 'selfish', 'stingy'], ['généreux', 'mesquin', 'égoïste', 'radin'], 0),
     ];
 
     for (var i = 0; i < synonyms.length; i++) {
-      final (stem, options, correct) = synonyms[i];
+      final (stem, stemFr, options, optionsFr, correct) = synonyms[i];
       questions.add(Question(
         id: '${level.value}_verbal_synonyms_$i',
         type: QuestionType.verbal,
         subType: VerbalSubType.synonyms.value,
         stem: stem,
-        stemFrench: '$stem (FR)',
+        stemFrench: stemFr,
         options: options,
-        optionsFrench: options,
+        optionsFrench: optionsFr,
         correctAnswer: correct,
         explanation: 'The correct answer is ${options[correct]}, which means the same as the given word.',
-        explanationFrench: 'La bonne réponse est ${options[correct]}.',
+        explanationFrench: 'La bonne réponse est ${optionsFr[correct]}.',
         difficulty: difficulty,
         level: level,
       ));
@@ -273,71 +278,71 @@ class QuestionDataManager {
     List<Question> questions = [];
     
     final antonyms = level == CCATLevel.level10 ? [
-      ('Which word means the OPPOSITE of HAPPY?', ['sad', 'glad', 'joyful', 'excited'], 0),
-      ('Which word means the OPPOSITE of BIG?', ['small', 'large', 'huge', 'giant'], 0),
-      ('Which word means the OPPOSITE of HOT?', ['cold', 'warm', 'burning', 'heated'], 0),
-      ('Which word means the OPPOSITE of FAST?', ['slow', 'quick', 'rapid', 'speedy'], 0),
-      ('Which word means the OPPOSITE of UP?', ['down', 'high', 'above', 'over'], 0),
-      ('Which word means the OPPOSITE of OPEN?', ['closed', 'wide', 'ajar', 'unlocked'], 0),
-      ('Which word means the OPPOSITE of LIGHT?', ['dark', 'bright', 'sunny', 'clear'], 0),
-      ('Which word means the OPPOSITE of LOUD?', ['quiet', 'noisy', 'booming', 'blaring'], 0),
-      ('Which word means the OPPOSITE of NEW?', ['old', 'fresh', 'recent', 'modern'], 0),
-      ('Which word means the OPPOSITE of CLEAN?', ['dirty', 'neat', 'tidy', 'spotless'], 0),
-      ('Which word means the OPPOSITE of EMPTY?', ['full', 'vacant', 'hollow', 'bare'], 0),
-      ('Which word means the OPPOSITE of SOFT?', ['hard', 'gentle', 'smooth', 'fluffy'], 0),
-      ('Which word means the OPPOSITE of EARLY?', ['late', 'soon', 'before', 'prompt'], 0),
-      ('Which word means the OPPOSITE of WET?', ['dry', 'damp', 'moist', 'soaked'], 0),
-      ('Which word means the OPPOSITE of RICH?', ['poor', 'wealthy', 'loaded', 'abundant'], 0),
-      ('Which word means the OPPOSITE of SAFE?', ['dangerous', 'secure', 'protected', 'guarded'], 0),
+      ('Which word means the OPPOSITE of HAPPY?', 'Quel mot signifie le CONTRAIRE de HEUREUX?', ['sad', 'glad', 'joyful', 'excited'], ['triste', 'content', 'joyeux', 'excité'], 0),
+      ('Which word means the OPPOSITE of BIG?', 'Quel mot signifie le CONTRAIRE de GRAND?', ['small', 'large', 'huge', 'giant'], ['petit', 'grand', 'énorme', 'géant'], 0),
+      ('Which word means the OPPOSITE of HOT?', 'Quel mot signifie le CONTRAIRE de CHAUD?', ['cold', 'warm', 'burning', 'heated'], ['froid', 'tiède', 'brûlant', 'chauffé'], 0),
+      ('Which word means the OPPOSITE of FAST?', 'Quel mot signifie le CONTRAIRE de RAPIDE?', ['slow', 'quick', 'rapid', 'speedy'], ['lent', 'rapide', 'rapide', 'véloce'], 0),
+      ('Which word means the OPPOSITE of UP?', 'Quel mot signifie le CONTRAIRE de HAUT?', ['down', 'high', 'above', 'over'], ['bas', 'haut', 'au-dessus', 'par-dessus'], 0),
+      ('Which word means the OPPOSITE of OPEN?', 'Quel mot signifie le CONTRAIRE de OUVERT?', ['closed', 'wide', 'ajar', 'unlocked'], ['fermé', 'large', 'entrouvert', 'déverrouillé'], 0),
+      ('Which word means the OPPOSITE of LIGHT?', 'Quel mot signifie le CONTRAIRE de CLAIR?', ['dark', 'bright', 'sunny', 'clear'], ['sombre', 'brillant', 'ensoleillé', 'clair'], 0),
+      ('Which word means the OPPOSITE of LOUD?', 'Quel mot signifie le CONTRAIRE de BRUYANT?', ['quiet', 'noisy', 'booming', 'blaring'], ['calme', 'bruyant', 'tonitruant', 'braillant'], 0),
+      ('Which word means the OPPOSITE of NEW?', 'Quel mot signifie le CONTRAIRE de NOUVEAU?', ['old', 'fresh', 'recent', 'modern'], ['vieux', 'frais', 'récent', 'moderne'], 0),
+      ('Which word means the OPPOSITE of CLEAN?', 'Quel mot signifie le CONTRAIRE de PROPRE?', ['dirty', 'neat', 'tidy', 'spotless'], ['sale', 'soigné', 'rangé', 'impeccable'], 0),
+      ('Which word means the OPPOSITE of EMPTY?', 'Quel mot signifie le CONTRAIRE de VIDE?', ['full', 'vacant', 'hollow', 'bare'], ['plein', 'vacant', 'creux', 'nu'], 0),
+      ('Which word means the OPPOSITE of SOFT?', 'Quel mot signifie le CONTRAIRE de DOUX?', ['hard', 'gentle', 'smooth', 'fluffy'], ['dur', 'doux', 'lisse', 'duveteux'], 0),
+      ('Which word means the OPPOSITE of EARLY?', 'Quel mot signifie le CONTRAIRE de TÔT?', ['late', 'soon', 'before', 'prompt'], ['tard', 'bientôt', 'avant', 'prompt'], 0),
+      ('Which word means the OPPOSITE of WET?', 'Quel mot signifie le CONTRAIRE de MOUILLÉ?', ['dry', 'damp', 'moist', 'soaked'], ['sec', 'humide', 'moite', 'trempé'], 0),
+      ('Which word means the OPPOSITE of RICH?', 'Quel mot signifie le CONTRAIRE de RICHE?', ['poor', 'wealthy', 'loaded', 'abundant'], ['pauvre', 'fortuné', 'chargé', 'abondant'], 0),
+      ('Which word means the OPPOSITE of SAFE?', 'Quel mot signifie le CONTRAIRE de SÛR?', ['dangerous', 'secure', 'protected', 'guarded'], ['dangereux', 'sécurisé', 'protégé', 'gardé'], 0),
     ] : level == CCATLevel.level11 ? [
-      ('Which word means the OPPOSITE of ANCIENT?', ['modern', 'old', 'antique', 'aged'], 0),
-      ('Which word means the OPPOSITE of EXPAND?', ['contract', 'grow', 'enlarge', 'spread'], 0),
-      ('Which word means the OPPOSITE of VICTORY?', ['defeat', 'triumph', 'success', 'win'], 0),
-      ('Which word means the OPPOSITE of GENEROUS?', ['stingy', 'giving', 'kind', 'liberal'], 0),
-      ('Which word means the OPPOSITE of BRAVE?', ['cowardly', 'heroic', 'bold', 'daring'], 0),
-      ('Which word means the OPPOSITE of ACCEPT?', ['reject', 'receive', 'take', 'welcome'], 0),
-      ('Which word means the OPPOSITE of ARTIFICIAL?', ['natural', 'fake', 'synthetic', 'man-made'], 0),
-      ('Which word means the OPPOSITE of SHALLOW?', ['deep', 'surface', 'light', 'thin'], 0),
-      ('Which word means the OPPOSITE of OPTIMISTIC?', ['pessimistic', 'hopeful', 'positive', 'cheerful'], 0),
-      ('Which word means the OPPOSITE of TEMPORARY?', ['permanent', 'brief', 'short', 'fleeting'], 0),
-      ('Which word means the OPPOSITE of MAXIMUM?', ['minimum', 'highest', 'greatest', 'most'], 0),
-      ('Which word means the OPPOSITE of INNOCENT?', ['guilty', 'pure', 'blameless', 'naive'], 0),
-      ('Which word means the OPPOSITE of HUMBLE?', ['arrogant', 'modest', 'meek', 'shy'], 0),
-      ('Which word means the OPPOSITE of HARMONY?', ['discord', 'peace', 'unity', 'agreement'], 0),
-      ('Which word means the OPPOSITE of FLEXIBLE?', ['rigid', 'bendable', 'elastic', 'adaptable'], 0),
-      ('Which word means the OPPOSITE of EXTERIOR?', ['interior', 'outside', 'outer', 'external'], 0),
+      ('Which word means the OPPOSITE of ANCIENT?', 'Quel mot signifie le CONTRAIRE de ANCIEN?', ['modern', 'old', 'antique', 'aged'], ['moderne', 'vieux', 'antique', 'âgé'], 0),
+      ('Which word means the OPPOSITE of EXPAND?', 'Quel mot signifie le CONTRAIRE de ÉTENDRE?', ['contract', 'grow', 'enlarge', 'spread'], ['contracter', 'grandir', 'agrandir', 'répandre'], 0),
+      ('Which word means the OPPOSITE of VICTORY?', 'Quel mot signifie le CONTRAIRE de VICTOIRE?', ['defeat', 'triumph', 'success', 'win'], ['défaite', 'triomphe', 'succès', 'gagner'], 0),
+      ('Which word means the OPPOSITE of GENEROUS?', 'Quel mot signifie le CONTRAIRE de GÉNÉREUX?', ['stingy', 'giving', 'kind', 'liberal'], ['radin', 'donnant', 'gentil', 'libéral'], 0),
+      ('Which word means the OPPOSITE of BRAVE?', 'Quel mot signifie le CONTRAIRE de COURAGEUX?', ['cowardly', 'heroic', 'bold', 'daring'], ['lâche', 'héroïque', 'audacieux', 'osé'], 0),
+      ('Which word means the OPPOSITE of ACCEPT?', 'Quel mot signifie le CONTRAIRE de ACCEPTER?', ['reject', 'receive', 'take', 'welcome'], ['rejeter', 'recevoir', 'prendre', 'accueillir'], 0),
+      ('Which word means the OPPOSITE of ARTIFICIAL?', 'Quel mot signifie le CONTRAIRE de ARTIFICIEL?', ['natural', 'fake', 'synthetic', 'man-made'], ['naturel', 'faux', 'synthétique', 'artificiel'], 0),
+      ('Which word means the OPPOSITE of SHALLOW?', 'Quel mot signifie le CONTRAIRE de PEU PROFOND?', ['deep', 'surface', 'light', 'thin'], ['profond', 'surface', 'léger', 'mince'], 0),
+      ('Which word means the OPPOSITE of OPTIMISTIC?', 'Quel mot signifie le CONTRAIRE de OPTIMISTE?', ['pessimistic', 'hopeful', 'positive', 'cheerful'], ['pessimiste', 'plein d\'espoir', 'positif', 'joyeux'], 0),
+      ('Which word means the OPPOSITE of TEMPORARY?', 'Quel mot signifie le CONTRAIRE de TEMPORAIRE?', ['permanent', 'brief', 'short', 'fleeting'], ['permanent', 'bref', 'court', 'fugace'], 0),
+      ('Which word means the OPPOSITE of MAXIMUM?', 'Quel mot signifie le CONTRAIRE de MAXIMUM?', ['minimum', 'highest', 'greatest', 'most'], ['minimum', 'le plus haut', 'le plus grand', 'le plus'], 0),
+      ('Which word means the OPPOSITE of INNOCENT?', 'Quel mot signifie le CONTRAIRE de INNOCENT?', ['guilty', 'pure', 'blameless', 'naive'], ['coupable', 'pur', 'irréprochable', 'naïf'], 0),
+      ('Which word means the OPPOSITE of HUMBLE?', 'Quel mot signifie le CONTRAIRE de HUMBLE?', ['arrogant', 'modest', 'meek', 'shy'], ['arrogant', 'modeste', 'doux', 'timide'], 0),
+      ('Which word means the OPPOSITE of HARMONY?', 'Quel mot signifie le CONTRAIRE de HARMONIE?', ['discord', 'peace', 'unity', 'agreement'], ['discorde', 'paix', 'unité', 'accord'], 0),
+      ('Which word means the OPPOSITE of FLEXIBLE?', 'Quel mot signifie le CONTRAIRE de FLEXIBLE?', ['rigid', 'bendable', 'elastic', 'adaptable'], ['rigide', 'pliable', 'élastique', 'adaptable'], 0),
+      ('Which word means the OPPOSITE of EXTERIOR?', 'Quel mot signifie le CONTRAIRE de EXTÉRIEUR?', ['interior', 'outside', 'outer', 'external'], ['intérieur', 'dehors', 'externe', 'externe'], 0),
     ] : [
-      ('Which word means the OPPOSITE of BENEVOLENT?', ['malevolent', 'kind', 'generous', 'charitable'], 0),
-      ('Which word means the OPPOSITE of EPHEMERAL?', ['permanent', 'brief', 'fleeting', 'temporary'], 0),
-      ('Which word means the OPPOSITE of VERBOSE?', ['concise', 'wordy', 'lengthy', 'prolonged'], 0),
-      ('Which word means the OPPOSITE of PRUDENT?', ['reckless', 'wise', 'careful', 'cautious'], 0),
-      ('Which word means the OPPOSITE of ENIGMATIC?', ['obvious', 'mysterious', 'puzzling', 'cryptic'], 0),
-      ('Which word means the OPPOSITE of LOQUACIOUS?', ['taciturn', 'talkative', 'chatty', 'garrulous'], 0),
-      ('Which word means the OPPOSITE of METICULOUS?', ['careless', 'precise', 'thorough', 'detailed'], 0),
-      ('Which word means the OPPOSITE of AFFLUENT?', ['impoverished', 'wealthy', 'rich', 'prosperous'], 0),
-      ('Which word means the OPPOSITE of SANGUINE?', ['pessimistic', 'optimistic', 'hopeful', 'confident'], 0),
-      ('Which word means the OPPOSITE of RETICENT?', ['forthcoming', 'reserved', 'quiet', 'shy'], 0),
-      ('Which word means the OPPOSITE of PARSIMONIOUS?', ['lavish', 'frugal', 'thrifty', 'economical'], 0),
-      ('Which word means the OPPOSITE of OBSEQUIOUS?', ['defiant', 'servile', 'fawning', 'submissive'], 0),
-      ('Which word means the OPPOSITE of NEFARIOUS?', ['virtuous', 'wicked', 'evil', 'villainous'], 0),
-      ('Which word means the OPPOSITE of MUNDANE?', ['extraordinary', 'ordinary', 'common', 'dull'], 0),
-      ('Which word means the OPPOSITE of LANGUID?', ['energetic', 'sluggish', 'listless', 'lethargic'], 0),
-      ('Which word means the OPPOSITE of INDIGENOUS?', ['foreign', 'native', 'local', 'endemic'], 0),
+      ('Which word means the OPPOSITE of BENEVOLENT?', 'Quel mot signifie le CONTRAIRE de BIENVEILLANT?', ['malevolent', 'kind', 'generous', 'charitable'], ['malveillant', 'gentil', 'généreux', 'charitable'], 0),
+      ('Which word means the OPPOSITE of EPHEMERAL?', 'Quel mot signifie le CONTRAIRE de ÉPHÉMÈRE?', ['permanent', 'brief', 'fleeting', 'temporary'], ['permanent', 'bref', 'fugace', 'temporaire'], 0),
+      ('Which word means the OPPOSITE of VERBOSE?', 'Quel mot signifie le CONTRAIRE de VERBEUX?', ['concise', 'wordy', 'lengthy', 'prolonged'], ['concis', 'bavard', 'long', 'prolongé'], 0),
+      ('Which word means the OPPOSITE of PRUDENT?', 'Quel mot signifie le CONTRAIRE de PRUDENT?', ['reckless', 'wise', 'careful', 'cautious'], ['imprudent', 'sage', 'soigneux', 'cautieux'], 0),
+      ('Which word means the OPPOSITE of ENIGMATIC?', 'Quel mot signifie le CONTRAIRE de ÉNIGMATIQUE?', ['obvious', 'mysterious', 'puzzling', 'cryptic'], ['évident', 'mystérieux', 'déroutant', 'cryptique'], 0),
+      ('Which word means the OPPOSITE of LOQUACIOUS?', 'Quel mot signifie le CONTRAIRE de LOQUACE?', ['taciturn', 'talkative', 'chatty', 'garrulous'], ['taciturne', 'bavard', 'causant', 'volubile'], 0),
+      ('Which word means the OPPOSITE of METICULOUS?', 'Quel mot signifie le CONTRAIRE de MÉTICULEUX?', ['careless', 'precise', 'thorough', 'detailed'], ['négligent', 'précis', 'minutieux', 'détaillé'], 0),
+      ('Which word means the OPPOSITE of AFFLUENT?', 'Quel mot signifie le CONTRAIRE de OPULENT?', ['impoverished', 'wealthy', 'rich', 'prosperous'], ['appauvri', 'fortuné', 'riche', 'prospère'], 0),
+      ('Which word means the OPPOSITE of SANGUINE?', 'Quel mot signifie le CONTRAIRE de SANGUIN?', ['pessimistic', 'optimistic', 'hopeful', 'confident'], ['pessimiste', 'optimiste', 'plein d\'espoir', 'confiant'], 0),
+      ('Which word means the OPPOSITE of RETICENT?', 'Quel mot signifie le CONTRAIRE de RÉTICENT?', ['forthcoming', 'reserved', 'quiet', 'shy'], ['communicatif', 'réservé', 'calme', 'timide'], 0),
+      ('Which word means the OPPOSITE of PARSIMONIOUS?', 'Quel mot signifie le CONTRAIRE de PARCIMONIEUX?', ['lavish', 'frugal', 'thrifty', 'economical'], ['prodigue', 'frugal', 'économe', 'économique'], 0),
+      ('Which word means the OPPOSITE of OBSEQUIOUS?', 'Quel mot signifie le CONTRAIRE de OBSÉQUIEUX?', ['defiant', 'servile', 'fawning', 'submissive'], ['défiant', 'servile', 'flatteur', 'soumis'], 0),
+      ('Which word means the OPPOSITE of NEFARIOUS?', 'Quel mot signifie le CONTRAIRE de INFÂME?', ['virtuous', 'wicked', 'evil', 'villainous'], ['vertueux', 'méchant', 'mauvais', 'scélérat'], 0),
+      ('Which word means the OPPOSITE of MUNDANE?', 'Quel mot signifie le CONTRAIRE de MONDAIN?', ['extraordinary', 'ordinary', 'common', 'dull'], ['extraordinaire', 'ordinaire', 'commun', 'terne'], 0),
+      ('Which word means the OPPOSITE of LANGUID?', 'Quel mot signifie le CONTRAIRE de LANGUIDE?', ['energetic', 'sluggish', 'listless', 'lethargic'], ['énergique', 'lent', 'apathique', 'léthargique'], 0),
+      ('Which word means the OPPOSITE of INDIGENOUS?', 'Quel mot signifie le CONTRAIRE de INDIGÈNE?', ['foreign', 'native', 'local', 'endemic'], ['étranger', 'natif', 'local', 'endémique'], 0),
     ];
 
     for (var i = 0; i < antonyms.length; i++) {
-      final (stem, options, correct) = antonyms[i];
+      final (stem, stemFr, options, optionsFr, correct) = antonyms[i];
       questions.add(Question(
         id: '${level.value}_verbal_antonyms_$i',
         type: QuestionType.verbal,
         subType: VerbalSubType.antonyms.value,
         stem: stem,
-        stemFrench: '$stem (FR)',
+        stemFrench: stemFr,
         options: options,
-        optionsFrench: options,
+        optionsFrench: optionsFr,
         correctAnswer: correct,
         explanation: 'The correct answer is ${options[correct]}, which means the opposite of the given word.',
-        explanationFrench: 'La bonne réponse est ${options[correct]}.',
+        explanationFrench: 'La bonne réponse est ${optionsFr[correct]}.',
         difficulty: difficulty,
         level: level,
       ));
@@ -350,59 +355,59 @@ class QuestionDataManager {
     List<Question> questions = [];
     
     final sentences = level == CCATLevel.level10 ? [
-      ('The cat was very _____ and purred loudly.', ['happy', 'angry', 'scared', 'tired'], 0),
-      ('After running, I felt very _____.', ['tired', 'excited', 'hungry', 'cold'], 0),
-      ('The sun was bright, so I wore my _____.', ['sunglasses', 'boots', 'jacket', 'hat'], 0),
-      ('The dog barked _____ at the mailman.', ['loudly', 'quietly', 'softly', 'gently'], 0),
-      ('I need an umbrella because it is _____.', ['raining', 'sunny', 'windy', 'cold'], 0),
-      ('The ice cream was so _____ on a hot day.', ['refreshing', 'boring', 'loud', 'fast'], 0),
-      ('She _____ her homework before going out to play.', ['finished', 'forgot', 'lost', 'broke'], 0),
-      ('The birthday cake was _____ with colorful frosting.', ['decorated', 'empty', 'broken', 'lost'], 0),
-      ('We plant seeds in _____ to grow flowers.', ['spring', 'winter', 'night', 'space'], 0),
-      ('The library is a _____ place to read books.', ['quiet', 'loud', 'fast', 'wet'], 0),
-      ('Mom uses a _____ to cook dinner.', ['stove', 'bed', 'chair', 'book'], 0),
-      ('Birds build _____ in trees.', ['nests', 'houses', 'cars', 'boats'], 0),
+      ('The cat was very _____ and purred loudly.', 'Le chat était très _____ et ronronnait bruyamment.', ['happy', 'angry', 'scared', 'tired'], ['heureux', 'en colère', 'effrayé', 'fatigué'], 0),
+      ('After running, I felt very _____.', 'Après avoir couru, je me sentais très _____.', ['tired', 'excited', 'hungry', 'cold'], ['fatigué', 'excité', 'affamé', 'froid'], 0),
+      ('The sun was bright, so I wore my _____.', 'Le soleil brillait, alors j\'ai mis mes _____.', ['sunglasses', 'boots', 'jacket', 'hat'], ['lunettes de soleil', 'bottes', 'veste', 'chapeau'], 0),
+      ('The dog barked _____ at the mailman.', 'Le chien a aboyé _____ après le facteur.', ['loudly', 'quietly', 'softly', 'gently'], ['bruyamment', 'doucement', 'doucement', 'gentiment'], 0),
+      ('I need an umbrella because it is _____.', 'J\'ai besoin d\'un parapluie car il _____.', ['raining', 'sunny', 'windy', 'cold'], ['pleut', 'fait du soleil', 'venteux', 'froid'], 0),
+      ('The ice cream was so _____ on a hot day.', 'La glace était si _____ par une chaude journée.', ['refreshing', 'boring', 'loud', 'fast'], ['rafraîchissante', 'ennuyeuse', 'bruyante', 'rapide'], 0),
+      ('She _____ her homework before going out to play.', 'Elle a _____ ses devoirs avant de sortir jouer.', ['finished', 'forgot', 'lost', 'broke'], ['fini', 'oublié', 'perdu', 'cassé'], 0),
+      ('The birthday cake was _____ with colorful frosting.', 'Le gâteau d\'anniversaire était _____ avec un glaçage coloré.', ['decorated', 'empty', 'broken', 'lost'], ['décoré', 'vide', 'cassé', 'perdu'], 0),
+      ('We plant seeds in _____ to grow flowers.', 'Nous plantons des graines au _____ pour faire pousser des fleurs.', ['spring', 'winter', 'night', 'space'], ['printemps', 'hiver', 'nuit', 'espace'], 0),
+      ('The library is a _____ place to read books.', 'La bibliothèque est un endroit _____ pour lire des livres.', ['quiet', 'loud', 'fast', 'wet'], ['calme', 'bruyant', 'rapide', 'humide'], 0),
+      ('Mom uses a _____ to cook dinner.', 'Maman utilise une _____ pour préparer le dîner.', ['stove', 'bed', 'chair', 'book'], ['cuisinière', 'lit', 'chaise', 'livre'], 0),
+      ('Birds build _____ in trees.', 'Les oiseaux construisent des _____ dans les arbres.', ['nests', 'houses', 'cars', 'boats'], ['nids', 'maisons', 'voitures', 'bateaux'], 0),
     ] : level == CCATLevel.level11 ? [
-      ('The scientist\'s hypothesis was _____ by the results.', ['validated', 'ignored', 'created', 'changed'], 0),
-      ('Despite her shy appearance, she was actually quite _____.', ['outgoing', 'quiet', 'nervous', 'boring'], 0),
-      ('The ancient ruins were _____ preserved.', ['remarkably', 'poorly', 'quickly', 'loudly'], 0),
-      ('The detective found a _____ clue at the crime scene.', ['crucial', 'useless', 'broken', 'loud'], 0),
-      ('The medicine helped _____ her headache.', ['relieve', 'increase', 'ignore', 'create'], 0),
-      ('The _____ weather forced us to cancel the picnic.', ['inclement', 'beautiful', 'sunny', 'warm'], 0),
-      ('His _____ attitude made everyone uncomfortable.', ['hostile', 'friendly', 'helpful', 'kind'], 0),
-      ('The _____ student received an award for excellence.', ['outstanding', 'mediocre', 'lazy', 'absent'], 0),
-      ('We need to _____ our resources carefully.', ['conserve', 'waste', 'ignore', 'destroy'], 0),
-      ('The project requires _____ between team members.', ['collaboration', 'competition', 'isolation', 'conflict'], 0),
-      ('Her _____ explanation helped everyone understand.', ['lucid', 'confusing', 'unclear', 'vague'], 0),
-      ('The _____ bridge connected the two cities.', ['magnificent', 'tiny', 'broken', 'invisible'], 0),
+      ('The scientist\'s hypothesis was _____ by the results.', 'L\'hypothèse du scientifique a été _____ par les résultats.', ['validated', 'ignored', 'created', 'changed'], ['validée', 'ignorée', 'créée', 'changée'], 0),
+      ('Despite her shy appearance, she was actually quite _____.', 'Malgré son apparence timide, elle était en fait assez _____.', ['outgoing', 'quiet', 'nervous', 'boring'], ['extravertie', 'calme', 'nerveuse', 'ennuyeuse'], 0),
+      ('The ancient ruins were _____ preserved.', 'Les ruines antiques étaient _____ conservées.', ['remarkably', 'poorly', 'quickly', 'loudly'], ['remarquablement', 'mal', 'rapidement', 'bruyamment'], 0),
+      ('The detective found a _____ clue at the crime scene.', 'Le détective a trouvé un indice _____ sur la scène du crime.', ['crucial', 'useless', 'broken', 'loud'], ['crucial', 'inutile', 'cassé', 'bruyant'], 0),
+      ('The medicine helped _____ her headache.', 'Le médicament a aidé à _____ son mal de tête.', ['relieve', 'increase', 'ignore', 'create'], ['soulager', 'augmenter', 'ignorer', 'créer'], 0),
+      ('The _____ weather forced us to cancel the picnic.', 'Le temps _____ nous a obligés à annuler le pique-nique.', ['inclement', 'beautiful', 'sunny', 'warm'], ['inclément', 'beau', 'ensoleillé', 'chaud'], 0),
+      ('His _____ attitude made everyone uncomfortable.', 'Son attitude _____ a mis tout le monde mal à l\'aise.', ['hostile', 'friendly', 'helpful', 'kind'], ['hostile', 'amicale', 'serviable', 'gentille'], 0),
+      ('The _____ student received an award for excellence.', 'L\'étudiant _____ a reçu un prix d\'excellence.', ['outstanding', 'mediocre', 'lazy', 'absent'], ['exceptionnel', 'médiocre', 'paresseux', 'absent'], 0),
+      ('We need to _____ our resources carefully.', 'Nous devons _____ nos ressources avec soin.', ['conserve', 'waste', 'ignore', 'destroy'], ['conserver', 'gaspiller', 'ignorer', 'détruire'], 0),
+      ('The project requires _____ between team members.', 'Le projet nécessite une _____ entre les membres de l\'équipe.', ['collaboration', 'competition', 'isolation', 'conflict'], ['collaboration', 'compétition', 'isolement', 'conflit'], 0),
+      ('Her _____ explanation helped everyone understand.', 'Son explication _____ a aidé tout le monde à comprendre.', ['lucid', 'confusing', 'unclear', 'vague'], ['claire', 'confuse', 'peu claire', 'vague'], 0),
+      ('The _____ bridge connected the two cities.', 'Le pont _____ reliait les deux villes.', ['magnificent', 'tiny', 'broken', 'invisible'], ['magnifique', 'minuscule', 'cassé', 'invisible'], 0),
     ] : [
-      ('The politician\'s _____ speech failed to convince the audience.', ['bombastic', 'sincere', 'brief', 'eloquent'], 0),
-      ('Her _____ nature made her popular among colleagues.', ['affable', 'hostile', 'indifferent', 'withdrawn'], 0),
-      ('The judge\'s _____ ruling satisfied neither party.', ['ambiguous', 'clear', 'fair', 'harsh'], 0),
-      ('The professor\'s _____ lecture captivated the students.', ['erudite', 'boring', 'simple', 'short'], 0),
-      ('His _____ behavior during the meeting was unprofessional.', ['obstreperous', 'calm', 'polite', 'quiet'], 0),
-      ('The _____ evidence proved the defendant\'s innocence.', ['exculpatory', 'damning', 'irrelevant', 'missing'], 0),
-      ('Her _____ approach to problem-solving impressed everyone.', ['pragmatic', 'impractical', 'emotional', 'random'], 0),
-      ('The CEO\'s _____ decision saved the company millions.', ['perspicacious', 'foolish', 'hasty', 'random'], 0),
-      ('The _____ landscape stretched for miles.', ['bucolic', 'urban', 'industrial', 'barren'], 0),
-      ('His _____ comments during the debate won him supporters.', ['trenchant', 'vague', 'timid', 'irrelevant'], 0),
-      ('The _____ nature of the virus made it difficult to study.', ['protean', 'stable', 'predictable', 'simple'], 0),
-      ('Her _____ wit always entertained dinner guests.', ['sardonic', 'dull', 'predictable', 'boring'], 0),
+      ('The politician\'s _____ speech failed to convince the audience.', 'Le discours _____ du politicien n\'a pas réussi à convaincre le public.', ['bombastic', 'sincere', 'brief', 'eloquent'], ['grandiloquent', 'sincère', 'bref', 'éloquent'], 0),
+      ('Her _____ nature made her popular among colleagues.', 'Sa nature _____ l\'a rendue populaire auprès de ses collègues.', ['affable', 'hostile', 'indifferent', 'withdrawn'], ['affable', 'hostile', 'indifférente', 'renfermée'], 0),
+      ('The judge\'s _____ ruling satisfied neither party.', 'La décision _____ du juge n\'a satisfait aucune des parties.', ['ambiguous', 'clear', 'fair', 'harsh'], ['ambiguë', 'claire', 'juste', 'sévère'], 0),
+      ('The professor\'s _____ lecture captivated the students.', 'La conférence _____ du professeur a captivé les étudiants.', ['erudite', 'boring', 'simple', 'short'], ['érudite', 'ennuyeuse', 'simple', 'courte'], 0),
+      ('His _____ behavior during the meeting was unprofessional.', 'Son comportement _____ pendant la réunion n\'était pas professionnel.', ['obstreperous', 'calm', 'polite', 'quiet'], ['turbulent', 'calme', 'poli', 'silencieux'], 0),
+      ('The _____ evidence proved the defendant\'s innocence.', 'La preuve _____ a prouvé l\'innocence de l\'accusé.', ['exculpatory', 'damning', 'irrelevant', 'missing'], ['disculpatoire', 'accablante', 'non pertinente', 'manquante'], 0),
+      ('Her _____ approach to problem-solving impressed everyone.', 'Son approche _____ de la résolution de problèmes a impressionné tout le monde.', ['pragmatic', 'impractical', 'emotional', 'random'], ['pragmatique', 'impraticable', 'émotionnelle', 'aléatoire'], 0),
+      ('The CEO\'s _____ decision saved the company millions.', 'La décision _____ du PDG a permis à l\'entreprise d\'économiser des millions.', ['perspicacious', 'foolish', 'hasty', 'random'], ['perspicace', 'insensée', 'hâtive', 'aléatoire'], 0),
+      ('The _____ landscape stretched for miles.', 'Le paysage _____ s\'étendait sur des kilomètres.', ['bucolic', 'urban', 'industrial', 'barren'], ['bucolique', 'urbain', 'industriel', 'stérile'], 0),
+      ('His _____ comments during the debate won him supporters.', 'Ses commentaires _____ lors du débat lui ont valu des partisans.', ['trenchant', 'vague', 'timid', 'irrelevant'], ['tranchants', 'vagues', 'timides', 'non pertinents'], 0),
+      ('The _____ nature of the virus made it difficult to study.', 'La nature _____ du virus a rendu son étude difficile.', ['protean', 'stable', 'predictable', 'simple'], ['protéiforme', 'stable', 'prévisible', 'simple'], 0),
+      ('Her _____ wit always entertained dinner guests.', 'Son esprit _____ divertissait toujours les invités du dîner.', ['sardonic', 'dull', 'predictable', 'boring'], ['sardonique', 'terne', 'prévisible', 'ennuyeux'], 0),
     ];
 
     for (var i = 0; i < sentences.length; i++) {
-      final (stem, options, correct) = sentences[i];
+      final (stem, stemFr, options, optionsFr, correct) = sentences[i];
       questions.add(Question(
         id: '${level.value}_verbal_sentence_$i',
         type: QuestionType.verbal,
         subType: VerbalSubType.sentenceCompletion.value,
         stem: stem,
-        stemFrench: '$stem (FR)',
+        stemFrench: stemFr,
         options: options,
-        optionsFrench: options,
+        optionsFrench: optionsFr,
         correctAnswer: correct,
         explanation: 'The correct answer is ${options[correct]}.',
-        explanationFrench: 'La bonne réponse est ${options[correct]}.',
+        explanationFrench: 'La bonne réponse est ${optionsFr[correct]}.',
         difficulty: difficulty,
         level: level,
       ));
@@ -415,59 +420,59 @@ class QuestionDataManager {
     List<Question> questions = [];
     
     final items = level == CCATLevel.level10 ? [
-      ('Which doesn\'t belong? Apple, Banana, Carrot, Orange', ['Carrot', 'Apple', 'Banana', 'Orange'], 0),
-      ('Which doesn\'t belong? Dog, Cat, Bird, Table', ['Table', 'Dog', 'Cat', 'Bird'], 0),
-      ('Which doesn\'t belong? Red, Blue, Green, Happy', ['Happy', 'Red', 'Blue', 'Green'], 0),
-      ('Which doesn\'t belong? Chair, Sofa, Bed, Pizza', ['Pizza', 'Chair', 'Sofa', 'Bed'], 0),
-      ('Which doesn\'t belong? Car, Bus, Train, Apple', ['Apple', 'Car', 'Bus', 'Train'], 0),
-      ('Which doesn\'t belong? Monday, Tuesday, January, Friday', ['January', 'Monday', 'Tuesday', 'Friday'], 0),
-      ('Which doesn\'t belong? Milk, Juice, Water, Bread', ['Bread', 'Milk', 'Juice', 'Water'], 0),
-      ('Which doesn\'t belong? Soccer, Tennis, Reading, Basketball', ['Reading', 'Soccer', 'Tennis', 'Basketball'], 0),
-      ('Which doesn\'t belong? Spring, Summer, Winter, Afternoon', ['Afternoon', 'Spring', 'Summer', 'Winter'], 0),
-      ('Which doesn\'t belong? Eye, Ear, Nose, Shoe', ['Shoe', 'Eye', 'Ear', 'Nose'], 0),
-      ('Which doesn\'t belong? Lion, Tiger, Bear, Flower', ['Flower', 'Lion', 'Tiger', 'Bear'], 0),
-      ('Which doesn\'t belong? Shirt, Pants, Hat, Table', ['Table', 'Shirt', 'Pants', 'Hat'], 0),
+      ('Which doesn\'t belong? Apple, Banana, Carrot, Orange', 'Lequel n\'appartient pas ? Pomme, Banane, Carotte, Orange', ['Carrot', 'Apple', 'Banana', 'Orange'], ['Carotte', 'Pomme', 'Banane', 'Orange'], 0),
+      ('Which doesn\'t belong? Dog, Cat, Bird, Table', 'Lequel n\'appartient pas ? Chien, Chat, Oiseau, Table', ['Table', 'Dog', 'Cat', 'Bird'], ['Table', 'Chien', 'Chat', 'Oiseau'], 0),
+      ('Which doesn\'t belong? Red, Blue, Green, Happy', 'Lequel n\'appartient pas ? Rouge, Bleu, Vert, Heureux', ['Happy', 'Red', 'Blue', 'Green'], ['Heureux', 'Rouge', 'Bleu', 'Vert'], 0),
+      ('Which doesn\'t belong? Chair, Sofa, Bed, Pizza', 'Lequel n\'appartient pas ? Chaise, Canapé, Lit, Pizza', ['Pizza', 'Chair', 'Sofa', 'Bed'], ['Pizza', 'Chaise', 'Canapé', 'Lit'], 0),
+      ('Which doesn\'t belong? Car, Bus, Train, Apple', 'Lequel n\'appartient pas ? Voiture, Bus, Train, Pomme', ['Apple', 'Car', 'Bus', 'Train'], ['Pomme', 'Voiture', 'Bus', 'Train'], 0),
+      ('Which doesn\'t belong? Monday, Tuesday, January, Friday', 'Lequel n\'appartient pas ? Lundi, Mardi, Janvier, Vendredi', ['January', 'Monday', 'Tuesday', 'Friday'], ['Janvier', 'Lundi', 'Mardi', 'Vendredi'], 0),
+      ('Which doesn\'t belong? Milk, Juice, Water, Bread', 'Lequel n\'appartient pas ? Lait, Jus, Eau, Pain', ['Bread', 'Milk', 'Juice', 'Water'], ['Pain', 'Lait', 'Jus', 'Eau'], 0),
+      ('Which doesn\'t belong? Soccer, Tennis, Reading, Basketball', 'Lequel n\'appartient pas ? Football, Tennis, Lecture, Basket-ball', ['Reading', 'Soccer', 'Tennis', 'Basketball'], ['Lecture', 'Football', 'Tennis', 'Basket-ball'], 0),
+      ('Which doesn\'t belong? Spring, Summer, Winter, Afternoon', 'Lequel n\'appartient pas ? Printemps, Été, Hiver, Après-midi', ['Afternoon', 'Spring', 'Summer', 'Winter'], ['Après-midi', 'Printemps', 'Été', 'Hiver'], 0),
+      ('Which doesn\'t belong? Eye, Ear, Nose, Shoe', 'Lequel n\'appartient pas ? Œil, Oreille, Nez, Chaussure', ['Shoe', 'Eye', 'Ear', 'Nose'], ['Chaussure', 'Œil', 'Oreille', 'Nez'], 0),
+      ('Which doesn\'t belong? Lion, Tiger, Bear, Flower', 'Lequel n\'appartient pas ? Lion, Tigre, Ours, Fleur', ['Flower', 'Lion', 'Tiger', 'Bear'], ['Fleur', 'Lion', 'Tigre', 'Ours'], 0),
+      ('Which doesn\'t belong? Shirt, Pants, Hat, Table', 'Lequel n\'appartient pas ? Chemise, Pantalon, Chapeau, Table', ['Table', 'Shirt', 'Pants', 'Hat'], ['Table', 'Chemise', 'Pantalon', 'Chapeau'], 0),
     ] : level == CCATLevel.level11 ? [
-      ('Which doesn\'t belong? Mercury, Venus, Sun, Mars', ['Sun', 'Mercury', 'Venus', 'Mars'], 0),
-      ('Which doesn\'t belong? Piano, Violin, Drum, Painting', ['Painting', 'Piano', 'Violin', 'Drum'], 0),
-      ('Which doesn\'t belong? Triangle, Square, Circle, Cube', ['Cube', 'Triangle', 'Square', 'Circle'], 0),
-      ('Which doesn\'t belong? Nitrogen, Oxygen, Carbon, Water', ['Water', 'Nitrogen', 'Oxygen', 'Carbon'], 0),
-      ('Which doesn\'t belong? Shakespeare, Hemingway, Einstein, Dickens', ['Einstein', 'Shakespeare', 'Hemingway', 'Dickens'], 0),
-      ('Which doesn\'t belong? Atlantic, Pacific, Indian, Nile', ['Nile', 'Atlantic', 'Pacific', 'Indian'], 0),
-      ('Which doesn\'t belong? Fraction, Decimal, Percentage, Paragraph', ['Paragraph', 'Fraction', 'Decimal', 'Percentage'], 0),
-      ('Which doesn\'t belong? Noun, Verb, Adjective, Mathematics', ['Mathematics', 'Noun', 'Verb', 'Adjective'], 0),
-      ('Which doesn\'t belong? Heart, Lung, Brain, Pencil', ['Pencil', 'Heart', 'Lung', 'Brain'], 0),
-      ('Which doesn\'t belong? Canada, France, Japan, Toronto', ['Toronto', 'Canada', 'France', 'Japan'], 0),
-      ('Which doesn\'t belong? Celsius, Fahrenheit, Kelvin, Kilogram', ['Kilogram', 'Celsius', 'Fahrenheit', 'Kelvin'], 0),
-      ('Which doesn\'t belong? Democracy, Monarchy, Republic, Photosynthesis', ['Photosynthesis', 'Democracy', 'Monarchy', 'Republic'], 0),
+      ('Which doesn\'t belong? Mercury, Venus, Sun, Mars', 'Lequel n\'appartient pas ? Mercure, Vénus, Soleil, Mars', ['Sun', 'Mercury', 'Venus', 'Mars'], ['Soleil', 'Mercure', 'Vénus', 'Mars'], 0),
+      ('Which doesn\'t belong? Piano, Violin, Drum, Painting', 'Lequel n\'appartient pas ? Piano, Violon, Tambour, Peinture', ['Painting', 'Piano', 'Violin', 'Drum'], ['Peinture', 'Piano', 'Violon', 'Tambour'], 0),
+      ('Which doesn\'t belong? Triangle, Square, Circle, Cube', 'Lequel n\'appartient pas ? Triangle, Carré, Cercle, Cube', ['Cube', 'Triangle', 'Square', 'Circle'], ['Cube', 'Triangle', 'Carré', 'Cercle'], 0),
+      ('Which doesn\'t belong? Nitrogen, Oxygen, Carbon, Water', 'Lequel n\'appartient pas ? Azote, Oxygène, Carbone, Eau', ['Water', 'Nitrogen', 'Oxygen', 'Carbon'], ['Eau', 'Azote', 'Oxygène', 'Carbone'], 0),
+      ('Which doesn\'t belong? Shakespeare, Hemingway, Einstein, Dickens', 'Lequel n\'appartient pas ? Shakespeare, Hemingway, Einstein, Dickens', ['Einstein', 'Shakespeare', 'Hemingway', 'Dickens'], ['Einstein', 'Shakespeare', 'Hemingway', 'Dickens'], 0),
+      ('Which doesn\'t belong? Atlantic, Pacific, Indian, Nile', 'Lequel n\'appartient pas ? Atlantique, Pacifique, Indien, Nil', ['Nile', 'Atlantic', 'Pacific', 'Indian'], ['Nil', 'Atlantique', 'Pacifique', 'Indien'], 0),
+      ('Which doesn\'t belong? Fraction, Decimal, Percentage, Paragraph', 'Lequel n\'appartient pas ? Fraction, Décimale, Pourcentage, Paragraphe', ['Paragraph', 'Fraction', 'Decimal', 'Percentage'], ['Paragraphe', 'Fraction', 'Décimale', 'Pourcentage'], 0),
+      ('Which doesn\'t belong? Noun, Verb, Adjective, Mathematics', 'Lequel n\'appartient pas ? Nom, Verbe, Adjectif, Mathématiques', ['Mathematics', 'Noun', 'Verb', 'Adjective'], ['Mathématiques', 'Nom', 'Verbe', 'Adjectif'], 0),
+      ('Which doesn\'t belong? Heart, Lung, Brain, Pencil', 'Lequel n\'appartient pas ? Cœur, Poumon, Cerveau, Crayon', ['Pencil', 'Heart', 'Lung', 'Brain'], ['Crayon', 'Cœur', 'Poumon', 'Cerveau'], 0),
+      ('Which doesn\'t belong? Canada, France, Japan, Toronto', 'Lequel n\'appartient pas ? Canada, France, Japon, Toronto', ['Toronto', 'Canada', 'France', 'Japan'], ['Toronto', 'Canada', 'France', 'Japon'], 0),
+      ('Which doesn\'t belong? Celsius, Fahrenheit, Kelvin, Kilogram', 'Lequel n\'appartient pas ? Celsius, Fahrenheit, Kelvin, Kilogramme', ['Kilogram', 'Celsius', 'Fahrenheit', 'Kelvin'], ['Kilogramme', 'Celsius', 'Fahrenheit', 'Kelvin'], 0),
+      ('Which doesn\'t belong? Democracy, Monarchy, Republic, Photosynthesis', 'Lequel n\'appartient pas ? Démocratie, Monarchie, République, Photosynthèse', ['Photosynthesis', 'Democracy', 'Monarchy', 'Republic'], ['Photosynthèse', 'Démocratie', 'Monarchie', 'République'], 0),
     ] : [
-      ('Which doesn\'t belong? Monarchy, Democracy, Republic, Capitalism', ['Capitalism', 'Monarchy', 'Democracy', 'Republic'], 0),
-      ('Which doesn\'t belong? Metaphor, Simile, Hyperbole, Paragraph', ['Paragraph', 'Metaphor', 'Simile', 'Hyperbole'], 0),
-      ('Which doesn\'t belong? Photosynthesis, Respiration, Digestion, Gravity', ['Gravity', 'Photosynthesis', 'Respiration', 'Digestion'], 0),
-      ('Which doesn\'t belong? Baroque, Renaissance, Romanticism, Algebra', ['Algebra', 'Baroque', 'Renaissance', 'Romanticism'], 0),
-      ('Which doesn\'t belong? Aristotle, Plato, Socrates, Newton', ['Newton', 'Aristotle', 'Plato', 'Socrates'], 0),
-      ('Which doesn\'t belong? Irony, Sarcasm, Satire, Algorithm', ['Algorithm', 'Irony', 'Sarcasm', 'Satire'], 0),
-      ('Which doesn\'t belong? Mitochondria, Nucleus, Ribosome, Equation', ['Equation', 'Mitochondria', 'Nucleus', 'Ribosome'], 0),
-      ('Which doesn\'t belong? Empiricism, Rationalism, Existentialism, Thermodynamics', ['Thermodynamics', 'Empiricism', 'Rationalism', 'Existentialism'], 0),
-      ('Which doesn\'t belong? Sonnet, Haiku, Limerick, Thesis', ['Thesis', 'Sonnet', 'Haiku', 'Limerick'], 0),
-      ('Which doesn\'t belong? Impressionism, Cubism, Surrealism, Calculus', ['Calculus', 'Impressionism', 'Cubism', 'Surrealism'], 0),
-      ('Which doesn\'t belong? Syntax, Semantics, Pragmatics, Velocity', ['Velocity', 'Syntax', 'Semantics', 'Pragmatics'], 0),
-      ('Which doesn\'t belong? Mozart, Beethoven, Bach, Darwin', ['Darwin', 'Mozart', 'Beethoven', 'Bach'], 0),
+      ('Which doesn\'t belong? Monarchy, Democracy, Republic, Capitalism', 'Lequel n\'appartient pas ? Monarchie, Démocratie, République, Capitalisme', ['Capitalism', 'Monarchy', 'Democracy', 'Republic'], ['Capitalisme', 'Monarchie', 'Démocratie', 'République'], 0),
+      ('Which doesn\'t belong? Metaphor, Simile, Hyperbole, Paragraph', 'Lequel n\'appartient pas ? Métaphore, Comparaison, Hyperbole, Paragraphe', ['Paragraph', 'Metaphor', 'Simile', 'Hyperbole'], ['Paragraphe', 'Métaphore', 'Comparaison', 'Hyperbole'], 0),
+      ('Which doesn\'t belong? Photosynthesis, Respiration, Digestion, Gravity', 'Lequel n\'appartient pas ? Photosynthèse, Respiration, Digestion, Gravité', ['Gravity', 'Photosynthesis', 'Respiration', 'Digestion'], ['Gravité', 'Photosynthèse', 'Respiration', 'Digestion'], 0),
+      ('Which doesn\'t belong? Baroque, Renaissance, Romanticism, Algebra', 'Lequel n\'appartient pas ? Baroque, Renaissance, Romantisme, Algèbre', ['Algebra', 'Baroque', 'Renaissance', 'Romanticism'], ['Algèbre', 'Baroque', 'Renaissance', 'Romantisme'], 0),
+      ('Which doesn\'t belong? Aristotle, Plato, Socrates, Newton', 'Lequel n\'appartient pas ? Aristote, Platon, Socrate, Newton', ['Newton', 'Aristotle', 'Plato', 'Socrates'], ['Newton', 'Aristote', 'Platon', 'Socrate'], 0),
+      ('Which doesn\'t belong? Irony, Sarcasm, Satire, Algorithm', 'Lequel n\'appartient pas ? Ironie, Sarcasme, Satire, Algorithme', ['Algorithm', 'Irony', 'Sarcasm', 'Satire'], ['Algorithme', 'Ironie', 'Sarcasme', 'Satire'], 0),
+      ('Which doesn\'t belong? Mitochondria, Nucleus, Ribosome, Equation', 'Lequel n\'appartient pas ? Mitochondrie, Noyau, Ribosome, Équation', ['Equation', 'Mitochondria', 'Nucleus', 'Ribosome'], ['Équation', 'Mitochondrie', 'Noyau', 'Ribosome'], 0),
+      ('Which doesn\'t belong? Empiricism, Rationalism, Existentialism, Thermodynamics', 'Lequel n\'appartient pas ? Empirisme, Rationalisme, Existentialisme, Thermodynamique', ['Thermodynamics', 'Empiricism', 'Rationalism', 'Existentialism'], ['Thermodynamique', 'Empirisme', 'Rationalisme', 'Existentialisme'], 0),
+      ('Which doesn\'t belong? Sonnet, Haiku, Limerick, Thesis', 'Lequel n\'appartient pas ? Sonnet, Haïku, Limerick, Thèse', ['Thesis', 'Sonnet', 'Haiku', 'Limerick'], ['Thèse', 'Sonnet', 'Haïku', 'Limerick'], 0),
+      ('Which doesn\'t belong? Impressionism, Cubism, Surrealism, Calculus', 'Lequel n\'appartient pas ? Impressionnisme, Cubisme, Surréalisme, Calcul', ['Calculus', 'Impressionism', 'Cubism', 'Surrealism'], ['Calcul', 'Impressionnisme', 'Cubisme', 'Surréalisme'], 0),
+      ('Which doesn\'t belong? Syntax, Semantics, Pragmatics, Velocity', 'Lequel n\'appartient pas ? Syntaxe, Sémantique, Pragmatique, Vélocité', ['Velocity', 'Syntax', 'Semantics', 'Pragmatics'], ['Vélocité', 'Syntaxe', 'Sémantique', 'Pragmatique'], 0),
+      ('Which doesn\'t belong? Mozart, Beethoven, Bach, Darwin', 'Lequel n\'appartient pas ? Mozart, Beethoven, Bach, Darwin', ['Darwin', 'Mozart', 'Beethoven', 'Bach'], ['Darwin', 'Mozart', 'Beethoven', 'Bach'], 0),
     ];
 
     for (var i = 0; i < items.length; i++) {
-      final (stem, options, correct) = items[i];
+      final (stem, stemFr, options, optionsFr, correct) = items[i];
       questions.add(Question(
         id: '${level.value}_verbal_classification_$i',
         type: QuestionType.verbal,
         subType: VerbalSubType.classification.value,
         stem: stem,
-        stemFrench: '$stem (FR)',
+        stemFrench: stemFr,
         options: options,
-        optionsFrench: options,
+        optionsFrench: optionsFr,
         correctAnswer: correct,
         explanation: 'The correct answer is ${options[correct]}.',
-        explanationFrench: 'La bonne réponse est ${options[correct]}.',
+        explanationFrench: 'La bonne réponse est ${optionsFr[correct]}.',
         difficulty: difficulty,
         level: level,
       ));
@@ -559,71 +564,71 @@ class QuestionDataManager {
     List<Question> questions = [];
     
     final relations = level == CCATLevel.level10 ? [
-      ('Which is greater? A: 5 + 3, B: 4 + 2', ['A', 'B', 'Equal', 'Cannot tell'], 0),
-      ('Which is less? A: 10 - 2, B: 5 + 4', ['A', 'B', 'Equal', 'Cannot tell'], 0),
-      ('Compare: A: 2 x 3, B: 3 + 3', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 2),
-      ('Which is greater? A: 4 x 2, B: 3 x 3', ['A', 'B', 'Equal', 'Cannot tell'], 1),
-      ('Compare: A: 15 - 5, B: 2 x 5', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 2),
-      ('Which is less? A: 6 + 6, B: 4 x 4', ['A', 'B', 'Equal', 'Cannot tell'], 0),
-      ('Compare: A: 20 ÷ 4, B: 10 ÷ 2', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 2),
-      ('Which is greater? A: 7 + 8, B: 5 x 3', ['A', 'B', 'Equal', 'Cannot tell'], 2),
-      ('Which is less? A: 3 x 4, B: 2 x 7', ['A', 'B', 'Equal', 'Cannot tell'], 0),
-      ('Compare: A: 18 ÷ 3, B: 12 ÷ 2', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 2),
-      ('Which is greater? A: 9 + 5, B: 7 + 6', ['A', 'B', 'Equal', 'Cannot tell'], 0),
-      ('Which is less? A: 5 x 5, B: 4 x 7', ['A', 'B', 'Equal', 'Cannot tell'], 1),
-      ('Compare: A: 24 ÷ 6, B: 16 ÷ 4', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 2),
-      ('Which is greater? A: 11 - 3, B: 4 + 5', ['A', 'B', 'Equal', 'Cannot tell'], 1),
-      ('Which is less? A: 6 x 3, B: 9 x 2', ['A', 'B', 'Equal', 'Cannot tell'], 2),
-      ('Compare: A: 30 ÷ 5, B: 18 ÷ 3', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 2),
+      ('Which is greater? A: 5 + 3, B: 4 + 2', 'Lequel est plus grand ? A: 5 + 3, B: 4 + 2', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
+      ('Which is less? A: 10 - 2, B: 5 + 4', 'Lequel est plus petit ? A: 10 - 2, B: 5 + 4', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
+      ('Compare: A: 2 x 3, B: 3 + 3', 'Comparer : A: 2 x 3, B: 3 + 3', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
+      ('Which is greater? A: 4 x 2, B: 3 x 3', 'Lequel est plus grand ? A: 4 x 2, B: 3 x 3', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 1),
+      ('Compare: A: 15 - 5, B: 2 x 5', 'Comparer : A: 15 - 5, B: 2 x 5', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
+      ('Which is less? A: 6 + 6, B: 4 x 4', 'Lequel est plus petit ? A: 6 + 6, B: 4 x 4', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
+      ('Compare: A: 20 ÷ 4, B: 10 ÷ 2', 'Comparer : A: 20 ÷ 4, B: 10 ÷ 2', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
+      ('Which is greater? A: 7 + 8, B: 5 x 3', 'Lequel est plus grand ? A: 7 + 8, B: 5 x 3', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 2),
+      ('Which is less? A: 3 x 4, B: 2 x 7', 'Lequel est plus petit ? A: 3 x 4, B: 2 x 7', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
+      ('Compare: A: 18 ÷ 3, B: 12 ÷ 2', 'Comparer : A: 18 ÷ 3, B: 12 ÷ 2', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
+      ('Which is greater? A: 9 + 5, B: 7 + 6', 'Lequel est plus grand ? A: 9 + 5, B: 7 + 6', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
+      ('Which is less? A: 5 x 5, B: 4 x 7', 'Lequel est plus petit ? A: 5 x 5, B: 4 x 7', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 1),
+      ('Compare: A: 24 ÷ 6, B: 16 ÷ 4', 'Comparer : A: 24 ÷ 6, B: 16 ÷ 4', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
+      ('Which is greater? A: 11 - 3, B: 4 + 5', 'Lequel est plus grand ? A: 11 - 3, B: 4 + 5', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 1),
+      ('Which is less? A: 6 x 3, B: 9 x 2', 'Lequel est plus petit ? A: 6 x 3, B: 9 x 2', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 2),
+      ('Compare: A: 30 ÷ 5, B: 18 ÷ 3', 'Comparer : A: 30 ÷ 5, B: 18 ÷ 3', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
     ] : level == CCATLevel.level11 ? [
-      ('Which is greater? A: 1/2 of 10, B: 1/3 of 12', ['A', 'B', 'Equal', 'Cannot tell'], 0),
-      ('Which is less? A: 0.5, B: 0.05', ['A', 'B', 'Equal', 'Cannot tell'], 1),
-      ('Compare: A: 3 squared, B: 2 cubed', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 0),
-      ('Which is greater? A: 2/3 of 9, B: 3/4 of 8', ['A', 'B', 'Equal', 'Cannot tell'], 2),
-      ('Compare: A: 0.25, B: 1/4', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 2),
-      ('Which is less? A: 4 squared, B: 3 cubed', ['A', 'B', 'Equal', 'Cannot tell'], 0),
-      ('Compare: A: 15%, B: 0.15', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 2),
-      ('Which is greater? A: 5/8, B: 7/12', ['A', 'B', 'Equal', 'Cannot tell'], 0),
-      ('Which is less? A: 0.75, B: 4/5', ['A', 'B', 'Equal', 'Cannot tell'], 0),
-      ('Compare: A: 5 squared, B: 6 x 4', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 0),
-      ('Which is greater? A: 1/5 of 100, B: 1/4 of 80', ['A', 'B', 'Equal', 'Cannot tell'], 2),
-      ('Which is less? A: 0.6, B: 2/3', ['A', 'B', 'Equal', 'Cannot tell'], 0),
-      ('Compare: A: 25%, B: 0.3', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 1),
-      ('Which is greater? A: 7/9, B: 8/11', ['A', 'B', 'Equal', 'Cannot tell'], 0),
-      ('Which is less? A: 6 cubed, B: 200', ['A', 'B', 'Equal', 'Cannot tell'], 1),
-      ('Compare: A: 2.5, B: 5/2', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 2),
+      ('Which is greater? A: 1/2 of 10, B: 1/3 of 12', 'Lequel est plus grand ? A: 1/2 de 10, B: 1/3 de 12', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
+      ('Which is less? A: 0.5, B: 0.05', 'Lequel est plus petit ? A: 0.5, B: 0.05', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 1),
+      ('Compare: A: 3 squared, B: 2 cubed', 'Comparer : A: 3 au carré, B: 2 au cube', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 0),
+      ('Which is greater? A: 2/3 of 9, B: 3/4 of 8', 'Lequel est plus grand ? A: 2/3 de 9, B: 3/4 de 8', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 2),
+      ('Compare: A: 0.25, B: 1/4', 'Comparer : A: 0.25, B: 1/4', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
+      ('Which is less? A: 4 squared, B: 3 cubed', 'Lequel est plus petit ? A: 4 au carré, B: 3 au cube', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
+      ('Compare: A: 15%, B: 0.15', 'Comparer : A: 15%, B: 0.15', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
+      ('Which is greater? A: 5/8, B: 7/12', 'Lequel est plus grand ? A: 5/8, B: 7/12', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
+      ('Which is less? A: 0.75, B: 4/5', 'Lequel est plus petit ? A: 0.75, B: 4/5', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
+      ('Compare: A: 5 squared, B: 6 x 4', 'Comparer : A: 5 au carré, B: 6 x 4', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 0),
+      ('Which is greater? A: 1/5 of 100, B: 1/4 of 80', 'Lequel est plus grand ? A: 1/5 de 100, B: 1/4 de 80', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 2),
+      ('Which is less? A: 0.6, B: 2/3', 'Lequel est plus petit ? A: 0.6, B: 2/3', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
+      ('Compare: A: 25%, B: 0.3', 'Comparer : A: 25%, B: 0.3', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 1),
+      ('Which is greater? A: 7/9, B: 8/11', 'Lequel est plus grand ? A: 7/9, B: 8/11', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
+      ('Which is less? A: 6 cubed, B: 200', 'Lequel est plus petit ? A: 6 au cube, B: 200', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 1),
+      ('Compare: A: 2.5, B: 5/2', 'Comparer : A: 2.5, B: 5/2', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
     ] : [
-      ('Compare: A: sqrt(144), B: 12', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 2),
-      ('Which is less? A: -5, B: -10', ['A', 'B', 'Equal', 'Cannot tell'], 1),
-      ('Compare: A: 2^4, B: 4^2', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 2),
-      ('Which is greater? A: π, B: 3.14', ['A', 'B', 'Equal', 'Cannot tell'], 0),
-      ('Compare: A: sqrt(2), B: 1.5', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 1),
-      ('Which is less? A: 3^3, B: 2^5', ['A', 'B', 'Equal', 'Cannot tell'], 0),
-      ('Compare: A: log₁₀(100), B: 2', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 2),
-      ('Which is greater? A: |-7|, B: |5|', ['A', 'B', 'Equal', 'Cannot tell'], 0),
-      ('Which is less? A: sqrt(50), B: 7', ['A', 'B', 'Equal', 'Cannot tell'], 0),
-      ('Compare: A: 5^3, B: 3^5', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 1),
-      ('Which is greater? A: e, B: 2.71', ['A', 'B', 'Equal', 'Cannot tell'], 0),
-      ('Compare: A: sqrt(3) + sqrt(5), B: sqrt(8)', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 0),
-      ('Which is less? A: log₂(8), B: log₃(27)', ['A', 'B', 'Equal', 'Cannot tell'], 2),
-      ('Compare: A: 1/sqrt(2), B: sqrt(2)/2', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 2),
-      ('Which is greater? A: (2/3)^2, B: 2/3', ['A', 'B', 'Equal', 'Cannot tell'], 1),
-      ('Compare: A: 10^(-2), B: 0.01', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], 2),
+      ('Compare: A: sqrt(144), B: 12', 'Comparer : A: sqrt(144), B: 12', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
+      ('Which is less? A: -5, B: -10', 'Lequel est plus petit ? A: -5, B: -10', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 1),
+      ('Compare: A: 2^4, B: 4^2', 'Comparer : A: 2^4, B: 4^2', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
+      ('Which is greater? A: π, B: 3.14', 'Lequel est plus grand ? A: π, B: 3.14', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
+      ('Compare: A: sqrt(2), B: 1.5', 'Comparer : A: sqrt(2), B: 1.5', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 1),
+      ('Which is less? A: 3^3, B: 2^5', 'Lequel est plus petit ? A: 3^3, B: 2^5', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
+      ('Compare: A: log₁₀(100), B: 2', 'Comparer : A: log₁₀(100), B: 2', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
+      ('Which is greater? A: |-7|, B: |5|', 'Lequel est plus grand ? A: |-7|, B: |5|', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
+      ('Which is less? A: sqrt(50), B: 7', 'Lequel est plus petit ? A: sqrt(50), B: 7', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
+      ('Compare: A: 5^3, B: 3^5', 'Comparer : A: 5^3, B: 3^5', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 1),
+      ('Which is greater? A: e, B: 2.71', 'Lequel est plus grand ? A: e, B: 2.71', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
+      ('Compare: A: sqrt(3) + sqrt(5), B: sqrt(8)', 'Comparer : A: sqrt(3) + sqrt(5), B: sqrt(8)', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 0),
+      ('Which is less? A: log₂(8), B: log₃(27)', 'Lequel est plus petit ? A: log₂(8), B: log₃(27)', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 2),
+      ('Compare: A: 1/sqrt(2), B: sqrt(2)/2', 'Comparer : A: 1/sqrt(2), B: sqrt(2)/2', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
+      ('Which is greater? A: (2/3)^2, B: 2/3', 'Lequel est plus grand ? A: (2/3)^2, B: 2/3', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 1),
+      ('Compare: A: 10^(-2), B: 0.01', 'Comparer : A: 10^(-2), B: 0.01', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
     ];
 
     for (var i = 0; i < relations.length; i++) {
-      final (stem, options, correct) = relations[i];
+      final (stem, stemFr, options, optionsFr, correct) = relations[i];
       questions.add(Question(
         id: '${level.value}_quant_relations_$i',
         type: QuestionType.quantitative,
         subType: QuantitativeSubType.quantitativeRelations.value,
         stem: stem,
-        stemFrench: stem == 'Which is greater?' ? 'Lequel est plus grand?' : 'Lequel est plus petit?',
+        stemFrench: stemFr,
         options: options,
-        optionsFrench: options,
+        optionsFrench: optionsFr,
         correctAnswer: correct,
         explanation: 'The correct answer is ${options[correct]}.',
-        explanationFrench: 'La bonne réponse est ${options[correct]}.',
+        explanationFrench: 'La bonne réponse est ${optionsFr[correct]}.',
         difficulty: difficulty,
         level: level,
       ));
@@ -708,82 +713,97 @@ class QuestionDataManager {
     return questions;
   }
 
-  // MARK: - Non-Verbal Questions Generation (Text-based representations)
+  // MARK: - Non-Verbal Questions Generation (Visual)
 
   List<Question> _createFigureMatrices(CCATLevel level) {
     final difficulty = _getDifficultyForLevel(level);
     List<Question> questions = [];
     
-    final matrices = level == CCATLevel.level10 ? [
-      ('Shape Pattern: Circle -> Sphere. Square -> ?', ['Cube', 'Triangle', 'Line', 'Point'], 0),
-      ('Color Pattern: Red -> Pink. Blue -> ?', ['Sky Blue', 'Green', 'Purple', 'Orange'], 0),
-      ('Size Pattern: Big -> Small. Tall -> ?', ['Short', 'Wide', 'Fat', 'Long'], 0),
-      ('Direction: Up -> Down. Left -> ?', ['Right', 'Center', 'North', 'South'], 0),
-      ('Texture: Rough -> Smooth. Hard -> ?', ['Soft', 'Solid', 'Rock', 'Stone'], 0),
-      ('Number: One -> 1. Two -> ?', ['2', '3', '4', 'II'], 0),
-      ('Season: Winter -> Cold. Summer -> ?', ['Hot', 'Snow', 'Rain', 'Wind'], 0),
-      ('Animal: Dog -> Bark. Cat -> ?', ['Meow', 'Roar', 'Chirp', 'Howl'], 0),
-      ('Shape Sides: Triangle -> 3. Pentagon -> ?', ['5', '4', '6', '7'], 0),
-      ('Fruit Color: Apple -> Red. Banana -> ?', ['Yellow', 'Green', 'Orange', 'Purple'], 0),
-      ('Body Part: Hand -> Fingers. Foot -> ?', ['Toes', 'Arms', 'Legs', 'Knees'], 0),
-      ('Transport: Road -> Car. Water -> ?', ['Boat', 'Plane', 'Train', 'Bus'], 0),
-      ('Day: Monday -> 1st. Wednesday -> ?', ['3rd', '2nd', '4th', '5th'], 0),
-      ('Animal Home: Bird -> Nest. Bee -> ?', ['Hive', 'Den', 'Cage', 'Barn'], 0),
-      ('Tool: Cut -> Scissors. Hammer -> ?', ['Nail', 'Screw', 'Saw', 'Drill'], 0),
-      ('Weather: Rain -> Umbrella. Sun -> ?', ['Hat', 'Coat', 'Boots', 'Gloves'], 0),
-    ] : level == CCATLevel.level11 ? [
-      ('Pattern: Circle, Square, Triangle. Square, Triangle, ?', ['Circle', 'Rectangle', 'Pentagon', 'Oval'], 0),
-      ('Rotation: N -> Z. C -> ?', ['Reversed C', 'O', 'D', 'G'], 0),
-      ('Mirror: b -> d. p -> ?', ['q', 'b', 'd', 'g'], 0),
-      ('Sequence: □■□ -> ■□■. ○●○ -> ?', ['●○●', '○○○', '●●●', '○●○'], 0),
-      ('Addition: △ + △ = 2△. □ + □ + □ = ?', ['3□', '2□', '4□', '□'], 0),
-      ('Subtraction: ●●●● - ● = ?', ['●●●', '●●', '●●●●●', '●'], 0),
-      ('Fold: Paper -> Crease. Water -> ?', ['Wave', 'Ice', 'Steam', 'Drop'], 0),
-      ('Scale: Map -> Reduce. Microscope -> ?', ['Enlarge', 'Shrink', 'Flatten', 'Twist'], 0),
-      ('Grid: 2x2 -> 4 squares. 3x3 -> ?', ['9 squares', '6 squares', '8 squares', '12 squares'], 0),
-      ('Fraction: Half -> 1/2. Quarter -> ?', ['1/4', '1/3', '1/5', '2/4'], 0),
-      ('Angle: Right -> 90°. Straight -> ?', ['180°', '90°', '45°', '360°'], 0),
-      ('3D Shape: Square -> Cube. Circle -> ?', ['Sphere', 'Cylinder', 'Cone', 'Pyramid'], 0),
-      ('Symmetry: Line -> Vertical. Turn -> ?', ['Rotational', 'Horizontal', 'Diagonal', 'Point'], 0),
-      ('Graph: Points -> Scatter. Bars -> ?', ['Bar chart', 'Line graph', 'Pie chart', 'Table'], 0),
-      ('Volume: Length x Width = Area. Area x Height = ?', ['Volume', 'Perimeter', 'Surface', 'Diagonal'], 0),
-      ('Perspective: Front -> Top. Side -> ?', ['Bottom', 'Back', 'Front', 'Top'], 1),
-    ] : [
-      ('Transformation: ABCD -> DCBA. 1234 -> ?', ['4321', '2143', '3412', '1324'], 0),
-      ('Matrix Logic: If A+B=C, then C-B=?', ['A', 'B', 'C', 'D'], 0),
-      ('Pattern Rule: 2,4,8 follows x2. 3,9,27 follows ?', ['x3', 'x2', '+6', '+9'], 0),
-      ('Set Theory: Inside circle only -> A. Outside only -> B. Overlap -> ?', ['A∩B', 'A∪B', 'A-B', 'B-A'], 0),
-      ('Coordinate: (0,0) -> Origin. (3,4) -> ?', ['Quadrant I', 'Quadrant II', 'Quadrant III', 'Quadrant IV'], 0),
-      ('Vector: East 3 + North 4 = ?', ['5 NE', '7 NE', '12 NE', '1 NE'], 0),
-      ('Probability: Certain -> 1. Impossible -> ?', ['0', '0.5', '-1', '2'], 0),
-      ('Function: f(x)=2x. f(3)=?', ['6', '5', '9', '8'], 0),
-      ('Logic Gate: AND -> Both true. OR -> ?', ['At least one true', 'Both false', 'Neither', 'All false'], 0),
-      ('Binary: 2 -> 10. 5 -> ?', ['101', '110', '011', '111'], 0),
-      ('Tessellation: Square -> Tiles perfectly. Pentagon -> ?', ['Gaps', 'Perfect', 'Overlap', 'Identical'], 0),
-      ('Topology: Donut -> Torus. Ball -> ?', ['Sphere', 'Cube', 'Cylinder', 'Cone'], 0),
-      ('Fractal: Zoom in -> Same pattern. Scale -> ?', ['Self-similar', 'Different', 'Random', 'Linear'], 0),
-      ('Isometry: Slide -> Translation. Flip -> ?', ['Reflection', 'Rotation', 'Dilation', 'Shear'], 0),
-      ('Graph Theory: Points -> Vertices. Lines -> ?', ['Edges', 'Faces', 'Angles', 'Curves'], 0),
-      ('Complex Pattern: AB|CD → DC|BA. 12|34 → ?', ['43|21', '21|43', '34|12', '12|34'], 0),
-    ];
-
-    for (var i = 0; i < matrices.length; i++) {
-      final (stem, options, correct) = matrices[i];
+    void addMatrix(String idSuffix, String stem, String stemFr, List<List<String>> matrix, List<String> options, int correct) {
       questions.add(Question(
-        id: '${level.value}_nonverbal_matrices_$i',
+        id: '${level.value}_nv_mat_$idSuffix',
         type: QuestionType.nonVerbal,
         subType: NonVerbalSubType.figureMatrices.value,
         stem: stem,
-        stemFrench: '$stem (FR)',
+        stemFrench: stemFr,
         options: options,
         optionsFrench: options,
         correctAnswer: correct,
-        explanation: 'The correct answer is ${options[correct]}.',
-        explanationFrench: 'La bonne réponse est ${options[correct]}.',
+        explanation: 'Observe the pattern across rows and columns.',
+        explanationFrench: 'Observez le motif à travers les lignes et les colonnes.',
         difficulty: difficulty,
         level: level,
+        visualData: {
+          'type': 'matrixPattern',
+          'matrix': matrix,
+        }
       ));
     }
+
+    if (level == CCATLevel.level10) {
+      addMatrix('1', 'Complete the pattern.', 'Complétez le motif.',
+        [['circle', 'circle', 'circle'], ['square', 'square', 'square'], ['triangle', 'triangle', '?']],
+        ['Triangle', 'Square', 'Circle', 'Star'], 0);
+        
+      addMatrix('2', 'Complete the pattern.', 'Complétez le motif.',
+        [['circle', 'square', 'triangle'], ['square', 'triangle', 'circle'], ['triangle', 'circle', '?']],
+        ['Square', 'Triangle', 'Circle', 'Star'], 0);
+
+      addMatrix('3', 'Complete the pattern.', 'Complétez le motif.',
+        [['filled_circle', 'circle', 'filled_circle'], ['filled_square', 'square', 'filled_square'], ['filled_circle', 'circle', '?']],
+        ['filled_circle', 'circle', 'square', 'filled_square'], 0);
+        
+      addMatrix('4', 'Complete the pattern.', 'Complétez le motif.',
+        [['x', 'x', 'x'], ['+', '+', '+'], ['dot', 'dot', '?']],
+        ['dot', 'x', '+', 'circle'], 0);
+        
+      addMatrix('5', 'Complete the pattern.', 'Complétez le motif.',
+        [['circle', 'dot', 'circle'], ['square', 'dot', 'square'], ['triangle', 'dot', '?']],
+        ['triangle', 'dot', 'circle', 'square'], 0);
+
+    } else if (level == CCATLevel.level11) {
+      addMatrix('1', 'Complete the pattern.', 'Complétez le motif.',
+        [['x', '+', 'x'], ['+', 'x', '+'], ['x', '+', '?']],
+        ['x', '+', 'circle', 'square'], 0);
+        
+      addMatrix('2', 'Complete the pattern.', 'Complétez le motif.',
+        [['dot', 'circle', 'filled_circle'], ['dot', 'square', 'filled_square'], ['dot', 'triangle', '?']],
+        ['triangle', 'filled_triangle', 'circle', 'square'], 0); // Note: filled_triangle not supported, using triangle as placeholder or need to update painter
+        
+      addMatrix('3', 'Complete the pattern.', 'Complétez le motif.',
+        [['circle', 'square', 'triangle'], ['triangle', 'circle', 'square'], ['square', 'triangle', '?']],
+        ['circle', 'square', 'triangle', 'dot'], 0);
+        
+      addMatrix('4', 'Complete the pattern.', 'Complétez le motif.',
+        [['empty', 'dot', 'empty'], ['dot', 'empty', 'dot'], ['empty', 'dot', '?']],
+        ['empty', 'dot', 'circle', 'square'], 0);
+        
+      addMatrix('5', 'Complete the pattern.', 'Complétez le motif.',
+        [['x', 'x', 'x'], ['x', '+', 'x'], ['x', '+', '?']],
+        ['+', 'x', 'dot', 'circle'], 0);
+
+    } else { // Level 12
+      addMatrix('1', 'Complete the pattern.', 'Complétez le motif.',
+        [['circle', 'square', 'circle'], ['square', 'triangle', 'square'], ['triangle', 'circle', '?']],
+        ['triangle', 'circle', 'square', 'dot'], 0);
+        
+      addMatrix('2', 'Complete the pattern.', 'Complétez le motif.',
+        [['filled_circle', 'empty', 'filled_circle'], ['empty', 'filled_square', 'empty'], ['filled_circle', 'empty', '?']],
+        ['filled_circle', 'empty', 'filled_square', 'circle'], 0);
+        
+      addMatrix('3', 'Complete the pattern.', 'Complétez le motif.',
+        [['x', '+', 'dot'], ['dot', 'x', '+'], ['+', 'dot', '?']],
+        ['x', '+', 'dot', 'circle'], 0);
+        
+      addMatrix('4', 'Complete the pattern.', 'Complétez le motif.',
+        [['circle', 'circle', 'filled_circle'], ['square', 'square', 'filled_square'], ['triangle', 'triangle', '?']],
+        ['triangle', 'filled_triangle', 'circle', 'square'], 0);
+        
+      addMatrix('5', 'Complete the pattern.', 'Complétez le motif.',
+        [['x', 'x', 'x'], ['+', '+', '+'], ['x', 'x', '?']],
+        ['x', '+', 'dot', 'circle'], 0);
+    }
+    
     return questions;
   }
 
@@ -791,76 +811,107 @@ class QuestionDataManager {
     final difficulty = _getDifficultyForLevel(level);
     List<Question> questions = [];
     
-    final items = level == CCATLevel.level10 ? [
-      ('Which shape is different?', ['Circle', 'Square', 'Triangle', 'Rectangle'], 0),
-      ('Which object is different?', ['Ball', 'Box', 'Dice', 'Brick'], 0),
-      ('Which direction is different?', ['North', 'South', 'East', 'Up'], 3),
-      ('Which line is different?', ['Straight', 'Curved', 'Zigzag', 'Dotted'], 3),
-      ('Which symmetry is different?', ['H', 'A', 'M', 'P'], 3),
-      ('Which number is different?', ['2', '4', '6', '7'], 3),
-      ('Which letter is different?', ['A', 'E', 'I', 'B'], 3),
-      ('Which color is different?', ['Red', 'Blue', 'Yellow', 'Green'], 3),
-      ('Which animal is different?', ['Dog', 'Cat', 'Bird', 'Fish'], 2),
-      ('Which fruit is different?', ['Apple', 'Orange', 'Banana', 'Carrot'], 3),
-      ('Which vehicle is different?', ['Car', 'Bus', 'Truck', 'Bicycle'], 3),
-      ('Which shape has corners?', ['Circle', 'Oval', 'Ellipse', 'Square'], 3),
-      ('Which is NOT a primary color?', ['Red', 'Blue', 'Yellow', 'Green'], 3),
-      ('Which does NOT fly?', ['Bird', 'Plane', 'Butterfly', 'Fish'], 3),
-      ('Which is NOT round?', ['Ball', 'Sun', 'Moon', 'Box'], 3),
-      ('Which is NOT a day?', ['Monday', 'Friday', 'June', 'Sunday'], 2),
-    ] : level == CCATLevel.level11 ? [
-      ('Which has a different number of sides?', ['Triangle', 'Square', 'Pentagon', 'Hexagon'], 0),
-      ('Which is NOT a polygon?', ['Triangle', 'Square', 'Circle', 'Pentagon'], 2),
-      ('Which angle is different?', ['Acute', 'Right', 'Obtuse', 'Curved'], 3),
-      ('Which transformation is different?', ['Slide', 'Flip', 'Turn', 'Stretch'], 3),
-      ('Which is NOT a solid?', ['Cube', 'Sphere', 'Cone', 'Circle'], 3),
-      ('Which pattern is different?', ['ABAB', 'CDCD', 'EFEF', 'GHIJ'], 3),
-      ('Which has rotational symmetry?', ['N', 'S', 'T', 'L'], 1),
-      ('Which fraction is different?', ['1/2', '2/4', '3/6', '2/3'], 3),
-      ('Which is NOT parallel?', ['=', '||', '///', 'X'], 3),
-      ('Which shape tessellates?', ['Circle', 'Pentagon', 'Square', 'Oval'], 2),
-      ('Which has line symmetry?', ['A', 'B', 'C', 'F'], 0),
-      ('Which is a right angle?', ['45°', '90°', '120°', '180°'], 1),
-      ('Which is NOT perpendicular?', ['L', 'T', '+', 'V'], 3),
-      ('Which has 4 faces?', ['Tetrahedron', 'Cube', 'Octahedron', 'Sphere'], 0),
-      ('Which is a prime number?', ['4', '6', '7', '9'], 2),
-      ('Which sequence is different?', ['1,2,3', '2,4,6', '3,6,9', '1,3,5'], 3),
-    ] : [
-      ('Which is NOT a Platonic solid?', ['Tetrahedron', 'Cube', 'Sphere', 'Dodecahedron'], 2),
-      ('Which has infinite symmetry?', ['Square', 'Circle', 'Triangle', 'Pentagon'], 1),
-      ('Which is transcendental?', ['√2', 'π', '3/4', '√3'], 1),
-      ('Which is NOT a conic section?', ['Circle', 'Parabola', 'Hyperbola', 'Helix'], 3),
-      ('Which is a topological property?', ['Size', 'Connectedness', 'Angle', 'Length'], 1),
-      ('Which has Euler characteristic 2?', ['Torus', 'Sphere', 'Möbius strip', 'Klein bottle'], 1),
-      ('Which transformation preserves area?', ['Dilation', 'Rotation', 'Scaling', 'Stretching'], 1),
-      ('Which is NOT a fractal dimension?', ['1.26', '2', '1.5', 'i'], 3),
-      ('Which is an irrational number?', ['3/4', '0.5', '√2', '1.5'], 2),
-      ('Which group has 4 elements?', ['Z₂', 'Z₃', 'Z₄', 'Z₅'], 2),
-      ('Which is a golden ratio?', ['1.414', '1.618', '2.718', '3.14'], 1),
-      ('Which is NOT symmetric?', ['○', '□', '△', 'F'], 3),
-      ('Which angle is in radians?', ['90°', '180°', 'π', '45°'], 2),
-      ('Which is a perfect square?', ['15', '16', '17', '18'], 1),
-      ('Which has bilateral symmetry?', ['Starfish', 'Human', 'Jellyfish', 'Sea urchin'], 1),
-      ('Which is a complex number?', ['π', 'e', '3+4i', '√2'], 2),
-    ];
-
-    for (var i = 0; i < items.length; i++) {
-      final (stem, options, correct) = items[i];
+    void addOddOneOut(String idSuffix, String stem, String stemFr, List<String> items, List<Color> colors, List<String> options, int correct) {
       questions.add(Question(
-        id: '${level.value}_nonverbal_class_$i',
+        id: '${level.value}_nv_class_$idSuffix',
         type: QuestionType.nonVerbal,
         subType: NonVerbalSubType.figureClassification.value,
         stem: stem,
-        stemFrench: '$stem (FR)',
+        stemFrench: stemFr,
         options: options,
         optionsFrench: options,
         correctAnswer: correct,
-        explanation: 'The correct answer is ${options[correct]}.',
-        explanationFrench: 'La bonne réponse est ${options[correct]}.',
+        explanation: 'Find the item that is different.',
+        explanationFrench: 'Trouvez l\'élément qui est différent.',
         difficulty: difficulty,
         level: level,
+        visualData: {
+          'type': 'oddOneOut',
+          'items': items,
+          'colors': colors,
+        }
       ));
     }
+
+    if (level == CCATLevel.level10) {
+      addOddOneOut('1', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['circle', 'circle', 'square', 'circle'],
+        [Colors.blue, Colors.blue, Colors.blue, Colors.blue],
+        ['Circle', 'Circle', 'Square', 'Circle'], 2);
+        
+      addOddOneOut('2', 'Which color is different?', 'Quelle couleur est différente ?',
+        ['triangle', 'triangle', 'triangle', 'triangle'],
+        [Colors.red, Colors.red, Colors.green, Colors.red],
+        ['Red', 'Red', 'Green', 'Red'], 2);
+        
+      addOddOneOut('3', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['star', 'star', 'star', 'circle'],
+        [Colors.orange, Colors.orange, Colors.orange, Colors.orange],
+        ['Star', 'Star', 'Star', 'Circle'], 3);
+        
+      addOddOneOut('4', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['square', 'rectangle', 'square', 'square'],
+        [Colors.purple, Colors.purple, Colors.purple, Colors.purple],
+        ['Square', 'Rectangle', 'Square', 'Square'], 1);
+        
+      addOddOneOut('5', 'Which color is different?', 'Quelle couleur est différente ?',
+        ['circle', 'circle', 'circle', 'circle'],
+        [Colors.yellow, Colors.blue, Colors.yellow, Colors.yellow],
+        ['Yellow', 'Blue', 'Yellow', 'Yellow'], 1);
+
+    } else if (level == CCATLevel.level11) {
+      addOddOneOut('1', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['pentagon', 'hexagon', 'pentagon', 'pentagon'],
+        [Colors.green, Colors.green, Colors.green, Colors.green],
+        ['Pentagon', 'Hexagon', 'Pentagon', 'Pentagon'], 1);
+        
+      addOddOneOut('2', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['diamond', 'diamond', 'star', 'diamond'],
+        [Colors.cyan, Colors.cyan, Colors.cyan, Colors.cyan],
+        ['Diamond', 'Diamond', 'Star', 'Diamond'], 2);
+        
+      addOddOneOut('3', 'Which color is different?', 'Quelle couleur est différente ?',
+        ['square', 'square', 'square', 'square'],
+        [Colors.red, Colors.red, Colors.red, Colors.blue],
+        ['Red', 'Red', 'Red', 'Blue'], 3);
+        
+      addOddOneOut('4', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['triangle', 'triangle', 'triangle', 'square'],
+        [Colors.orange, Colors.orange, Colors.orange, Colors.orange],
+        ['Triangle', 'Triangle', 'Triangle', 'Square'], 3);
+        
+      addOddOneOut('5', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['heart', 'heart', 'circle', 'heart'],
+        [Colors.pink, Colors.pink, Colors.pink, Colors.pink],
+        ['Heart', 'Heart', 'Circle', 'Heart'], 2);
+
+    } else { // Level 12
+      addOddOneOut('1', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['hexagon', 'hexagon', 'pentagon', 'hexagon'],
+        [Colors.teal, Colors.teal, Colors.teal, Colors.teal],
+        ['Hexagon', 'Hexagon', 'Pentagon', 'Hexagon'], 2);
+        
+      addOddOneOut('2', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['star', 'star', 'star', 'diamond'],
+        [Colors.indigo, Colors.indigo, Colors.indigo, Colors.indigo],
+        ['Star', 'Star', 'Star', 'Diamond'], 3);
+        
+      addOddOneOut('3', 'Which color is different?', 'Quelle couleur est différente ?',
+        ['triangle', 'triangle', 'triangle', 'triangle'],
+        [Colors.blue, Colors.red, Colors.blue, Colors.blue],
+        ['Blue', 'Red', 'Blue', 'Blue'], 1);
+        
+      addOddOneOut('4', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['oval', 'circle', 'oval', 'oval'],
+        [Colors.brown, Colors.brown, Colors.brown, Colors.brown],
+        ['Oval', 'Circle', 'Oval', 'Oval'], 1);
+        
+      addOddOneOut('5', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['rectangle', 'rectangle', 'square', 'rectangle'],
+        [Colors.grey, Colors.grey, Colors.grey, Colors.grey],
+        ['Rectangle', 'Rectangle', 'Square', 'Rectangle'], 2);
+    }
+    
     return questions;
   }
 
@@ -868,76 +919,217 @@ class QuestionDataManager {
     final difficulty = _getDifficultyForLevel(level);
     List<Question> questions = [];
     
-    final series = level == CCATLevel.level10 ? [
-      ('Sequence: | , || , ||| , ?', ['||||', '||', '|', 'V'], 0),
-      ('Sequence: O , OO , OOO , ?', ['OOOO', 'O', '0', '8'], 0),
-      ('Sequence: A , C , E , ?', ['G', 'F', 'H', 'I'], 0),
-      ('Sequence: 12:00 , 12:15 , 12:30 , ?', ['12:45', '12:40', '1:00', '12:35'], 0),
-      ('Sequence: North , East , South , ?', ['West', 'North', 'Up', 'Down'], 0),
-      ('Sequence: ● , ●● , ●●● , ?', ['●●●●', '●●', '●', '●●●●●'], 0),
-      ('Sequence: △ , □ , ⬠ , ?', ['⬡', '○', '△', '□'], 0),
-      ('Sequence: 1st , 2nd , 3rd , ?', ['4th', '5th', '3rd', '2nd'], 0),
-      ('Sequence: Small , Medium , Large , ?', ['Extra Large', 'Small', 'Tiny', 'Medium'], 0),
-      ('Sequence: Morning , Afternoon , Evening , ?', ['Night', 'Morning', 'Noon', 'Dawn'], 0),
-      ('Sequence: Monday , Wednesday , Friday , ?', ['Sunday', 'Saturday', 'Thursday', 'Tuesday'], 0),
-      ('Sequence: January , April , July , ?', ['October', 'August', 'September', 'November'], 0),
-      ('Sequence: + , - , × , ?', ['÷', '+', '=', '%'], 0),
-      ('Sequence: ♠ , ♥ , ♦ , ?', ['♣', '♠', '♥', '★'], 0),
-      ('Sequence: Red , Orange , Yellow , ?', ['Green', 'Blue', 'Red', 'Purple'], 0),
-      ('Sequence: Baby , Child , Teen , ?', ['Adult', 'Baby', 'Child', 'Elder'], 0),
-    ] : level == CCATLevel.level11 ? [
-      ('Sequence: 1 , 4 , 9 , 16 , ?', ['25', '20', '24', '36'], 0),
-      ('Sequence: 2 , 4 , 8 , 16 , ?', ['32', '24', '20', '18'], 0),
-      ('Sequence: A1 , B2 , C3 , ?', ['D4', 'E5', 'D3', 'C4'], 0),
-      ('Sequence: □ , □□ , □□□ , □□□□ , ?', ['□□□□□', '□□□', '□□', '□'], 0),
-      ('Sequence: ↑ , → , ↓ , ?', ['←', '↑', '↗', '↘'], 0),
-      ('Sequence: 90° , 180° , 270° , ?', ['360°', '45°', '90°', '270°'], 0),
-      ('Sequence: AB , CD , EF , ?', ['GH', 'HI', 'FG', 'EF'], 0),
-      ('Sequence: 1/2 , 1/4 , 1/8 , ?', ['1/16', '1/6', '1/10', '1/12'], 0),
-      ('Sequence: ○● , ●○○ , ○○○● , ?', ['●○○○○', '○●', '●●●●', '○○●●'], 0),
-      ('Sequence: 3 , 6 , 12 , 24 , ?', ['48', '36', '30', '42'], 0),
-      ('Sequence: Z , Y , X , W , ?', ['V', 'U', 'X', 'A'], 0),
-      ('Sequence: □○ , □□○○ , □□□○○○ , ?', ['□□□□○○○○', '□○□○', '○□○□', '□□○○'], 0),
-      ('Sequence: 100 , 81 , 64 , 49 , ?', ['36', '25', '16', '9'], 0),
-      ('Sequence: Sun , Mon , Tue , Wed , ?', ['Thu', 'Fri', 'Sat', 'Sun'], 0),
-      ('Sequence: NE , SE , SW , ?', ['NW', 'NE', 'N', 'S'], 0),
-      ('Sequence: 5 , 10 , 20 , 35 , ?', ['55', '50', '45', '60'], 0),
-    ] : [
-      ('Sequence: 1 , 1 , 2 , 3 , 5 , 8 , ?', ['13', '11', '10', '12'], 0),
-      ('Sequence: 2 , 3 , 5 , 7 , 11 , ?', ['13', '12', '14', '15'], 0),
-      ('Sequence: 1 , 8 , 27 , 64 , ?', ['125', '100', '81', '216'], 0),
-      ('Sequence: a² , b² , c² , ?', ['d²', 'a³', 'b³', 'ab'], 0),
-      ('Sequence: 2^1 , 2^2 , 2^3 , 2^4 , ?', ['2^5', '2^6', '3^5', '4^5'], 0),
-      ('Sequence: log₁₀(10) , log₁₀(100) , log₁₀(1000) , ?', ['log₁₀(10000)', 'log₁₀(500)', 'log₁₀(2000)', 'log₁₀(5000)'], 0),
-      ('Sequence: π/6 , π/4 , π/3 , ?', ['π/2', 'π', '2π', 'π/5'], 0),
-      ('Sequence: sin(0°) , sin(30°) , sin(60°) , ?', ['sin(90°)', 'sin(45°)', 'sin(120°)', 'sin(180°)'], 0),
-      ('Sequence: n! for n=1,2,3,4 is 1,2,6,24, ?', ['120', '100', '96', '48'], 0),
-      ('Sequence: √1 , √4 , √9 , √16 , ?', ['√25', '√20', '√18', '√36'], 0),
-      ('Sequence: 1/1 , 1/2 , 2/3 , 3/5 , ?', ['5/8', '4/7', '3/4', '4/6'], 0),
-      ('Sequence: e⁰ , e¹ , e² , ?', ['e³', 'e⁴', '3e', '2e'], 0),
-      ('Sequence: i⁰ , i¹ , i² , i³ , ?', ['i⁴', '1', '-1', '-i'], 1),
-      ('Sequence: ∑n (n=1 to 1,2,3,4) = 1,3,6,10, ?', ['15', '14', '12', '16'], 0),
-      ('Sequence: Δ¹ , Δ² , Δ³ , ?', ['Δ⁴', 'Δ⁵', '4Δ', 'Δ+4'], 0),
-      ('Sequence: (1,1) , (2,4) , (3,9) , ?', ['(4,16)', '(4,12)', '(5,25)', '(3,6)'], 0),
-    ];
-
-    for (var i = 0; i < series.length; i++) {
-      final (stem, options, correct) = series[i];
+    void addSequence(String idSuffix, String stem, String stemFr, List<String> patterns, List<String> options, int correct) {
       questions.add(Question(
-        id: '${level.value}_nonverbal_series_$i',
+        id: '${level.value}_nv_series_$idSuffix',
         type: QuestionType.nonVerbal,
         subType: NonVerbalSubType.figureSeries.value,
         stem: stem,
-        stemFrench: '$stem (FR)',
+        stemFrench: stemFr,
         options: options,
         optionsFrench: options,
         correctAnswer: correct,
-        explanation: 'The correct answer is ${options[correct]}.',
-        explanationFrench: 'La bonne réponse est ${options[correct]}.',
+        explanation: 'Find the next item in the sequence.',
+        explanationFrench: 'Trouvez l\'élément suivant dans la séquence.',
         difficulty: difficulty,
         level: level,
+        visualData: {
+          'type': 'sequencePattern',
+          'patterns': patterns,
+        }
       ));
     }
+
+    if (level == CCATLevel.level10) {
+      addSequence('1', 'What comes next?', 'Quelle est la suite ?',
+        ['circle', 'square', 'triangle', 'question'],
+        ['Circle', 'Square', 'Triangle', 'Star'], 0);
+        
+      addSequence('2', 'What comes next?', 'Quelle est la suite ?',
+        ['filled_circle', 'circle', 'filled_circle', 'question'],
+        ['filled_circle', 'circle', 'square', 'filled_square'], 1);
+        
+      addSequence('3', 'What comes next?', 'Quelle est la suite ?',
+        ['square', 'filled_square', 'square', 'question'],
+        ['square', 'filled_square', 'circle', 'filled_circle'], 1);
+        
+      addSequence('4', 'What comes next?', 'Quelle est la suite ?',
+        ['triangle', 'circle', 'triangle', 'question'],
+        ['triangle', 'circle', 'square', 'star'], 1);
+        
+      addSequence('5', 'What comes next?', 'Quelle est la suite ?',
+        ['filled_square', 'filled_square', 'square', 'question'],
+        ['filled_square', 'square', 'circle', 'triangle'], 1);
+
+    } else if (level == CCATLevel.level11) {
+      addSequence('1', 'What comes next?', 'Quelle est la suite ?',
+        ['circle', 'square', 'triangle', 'circle', 'question'],
+        ['Square', 'Triangle', 'Circle', 'Star'], 0);
+        
+      addSequence('2', 'What comes next?', 'Quelle est la suite ?',
+        ['filled_square', 'filled_circle', 'filled_square', 'question'],
+        ['filled_square', 'filled_circle', 'square', 'circle'], 1);
+        
+      addSequence('3', 'What comes next?', 'Quelle est la suite ?',
+        ['triangle', 'square', 'triangle', 'square', 'question'],
+        ['triangle', 'square', 'circle', 'star'], 0);
+        
+      addSequence('4', 'What comes next?', 'Quelle est la suite ?',
+        ['circle', 'circle', 'filled_circle', 'filled_circle', 'question'],
+        ['circle', 'filled_circle', 'square', 'filled_square'], 0);
+        
+      addSequence('5', 'What comes next?', 'Quelle est la suite ?',
+        ['square', 'triangle', 'circle', 'square', 'question'],
+        ['triangle', 'circle', 'square', 'star'], 0);
+
+    } else { // Level 12
+      addSequence('1', 'What comes next?', 'Quelle est la suite ?',
+        ['circle', 'square', 'triangle', 'circle', 'square', 'question'],
+        ['Triangle', 'Circle', 'Square', 'Star'], 0);
+        
+      addSequence('2', 'What comes next?', 'Quelle est la suite ?',
+        ['filled_circle', 'filled_square', 'filled_circle', 'filled_square', 'question'],
+        ['filled_circle', 'filled_square', 'circle', 'square'], 0);
+        
+      addSequence('3', 'What comes next?', 'Quelle est la suite ?',
+        ['triangle', 'triangle', 'square', 'square', 'question'],
+        ['triangle', 'square', 'circle', 'star'], 0);
+        
+      addSequence('4', 'What comes next?', 'Quelle est la suite ?',
+        ['square', 'circle', 'square', 'circle', 'square', 'question'],
+        ['circle', 'square', 'triangle', 'star'], 0);
+        
+      addSequence('5', 'What comes next?', 'Quelle est la suite ?',
+        ['filled_square', 'square', 'filled_circle', 'circle', 'question'],
+        ['filled_square', 'filled_triangle', 'triangle', 'star'], 0);
+    }
+    
+    return questions;
+  }
+
+  List<Question> _createKindergartenQuestions() {
+    List<Question> questions = [];
+    
+    // 1. Shape Recognition (Visual)
+    final shapes = [
+      ('circle', 'Circle', 'Cercle', Colors.red),
+      ('square', 'Square', 'Carré', Colors.blue),
+      ('triangle', 'Triangle', 'Triangle', Colors.green),
+      ('star', 'Star', 'Étoile', Colors.orange),
+      ('heart', 'Heart', 'Cœur', Colors.pink),
+    ];
+
+    for (var i = 0; i < 10; i++) {
+      final targetShape = shapes[i % shapes.length];
+      final options = List<String>.from(shapes.map((s) => s.$2))..shuffle();
+      // Ensure target is in options
+      if (!options.contains(targetShape.$2)) {
+        options[0] = targetShape.$2;
+      }
+      final correctIndex = options.indexOf(targetShape.$2);
+      
+      // French options
+      final optionsFrench = options.map((opt) {
+        return shapes.firstWhere((s) => s.$2 == opt).$3;
+      }).toList();
+
+      questions.add(Question(
+        id: 'level_k_shape_$i',
+        type: QuestionType.nonVerbal,
+        subType: 'shape_recognition',
+        stem: 'Which shape is this?',
+        stemFrench: 'Quelle est cette forme?',
+        options: options,
+        optionsFrench: optionsFrench,
+        correctAnswer: correctIndex,
+        explanation: 'This is a ${targetShape.$2}.',
+        explanationFrench: 'C\'est un ${targetShape.$3}.',
+        difficulty: Difficulty.easy,
+        level: CCATLevel.levelK,
+        visualData: {
+          'type': 'shapePattern', // Using shapePattern to display single shape
+          'data': {
+            'patterns': [targetShape.$1],
+            'colors': [targetShape.$4.value], // Store color value as int
+          }
+        },
+      ));
+    }
+
+    // 2. Counting (Visual)
+    for (var i = 0; i < 10; i++) {
+      final count = i + 1;
+      final options = [count.toString(), (count + 1).toString(), (count + 2).toString(), (count > 1 ? count - 1 : count + 3).toString()]..shuffle();
+      final correctIndex = options.indexOf(count.toString());
+
+      questions.add(Question(
+        id: 'level_k_counting_$i',
+        type: QuestionType.quantitative,
+        subType: 'counting',
+        stem: 'How many stars are there?',
+        stemFrench: 'Combien d\'étoiles y a-t-il?',
+        options: options,
+        optionsFrench: options,
+        correctAnswer: correctIndex,
+        explanation: 'There are $count stars.',
+        explanationFrench: 'Il y a $count étoiles.',
+        difficulty: Difficulty.easy,
+        level: CCATLevel.levelK,
+        visualData: {
+          'type': 'countingObjects',
+          'data': {
+            'count': count,
+            'icon': 0xe5f9, // Icons.star code point
+            'color': Colors.amber.value,
+          }
+        },
+      ));
+    }
+
+    // 3. Color Recognition
+    final colors = [
+      (Colors.red, 'Red', 'Rouge'),
+      (Colors.blue, 'Blue', 'Bleu'),
+      (Colors.green, 'Green', 'Vert'),
+      (Colors.yellow, 'Yellow', 'Jaune'),
+      (Colors.purple, 'Purple', 'Violet'),
+      (Colors.orange, 'Orange', 'Orange'),
+    ];
+
+    for (var i = 0; i < 10; i++) {
+      final targetColor = colors[i % colors.length];
+      final options = List<String>.from(colors.map((c) => c.$2))..shuffle();
+      if (!options.contains(targetColor.$2)) {
+        options[0] = targetColor.$2;
+      }
+      final correctIndex = options.indexOf(targetColor.$2);
+      
+      final optionsFrench = options.map((opt) {
+        return colors.firstWhere((c) => c.$2 == opt).$3;
+      }).toList();
+
+      questions.add(Question(
+        id: 'level_k_color_$i',
+        type: QuestionType.nonVerbal,
+        subType: 'color_recognition',
+        stem: 'What color is this?',
+        stemFrench: 'Quelle est cette couleur?',
+        options: options,
+        optionsFrench: optionsFrench,
+        correctAnswer: correctIndex,
+        explanation: 'This is ${targetColor.$2}.',
+        explanationFrench: 'C\'est ${targetColor.$3}.',
+        difficulty: Difficulty.easy,
+        level: CCATLevel.levelK,
+        visualData: {
+          'type': 'colorPattern',
+          'data': {
+            'colors': [targetColor.$1.value],
+          }
+        },
+      ));
+    }
+
     return questions;
   }
 

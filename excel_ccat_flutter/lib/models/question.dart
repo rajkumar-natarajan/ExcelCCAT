@@ -113,6 +113,7 @@ class Question {
   final Difficulty difficulty;
   final CCATLevel level;
   final String? imageAsset; // For non-verbal questions with figures
+  final Map<String, dynamic>? visualData; // For programmatic visual questions
 
   Question({
     required this.id,
@@ -128,6 +129,7 @@ class Question {
     required this.difficulty,
     required this.level,
     this.imageAsset,
+    this.visualData,
   });
 
   String getStem(Language language) =>
@@ -153,6 +155,7 @@ class Question {
         'difficulty': difficulty.value,
         'level': level.value,
         'imageAsset': imageAsset,
+        'visualData': visualData,
       };
 
   factory Question.fromJson(Map<String, dynamic> json) {
@@ -178,6 +181,7 @@ class Question {
         (l) => l.value == json['level'],
         orElse: () => CCATLevel.level12,
       ),
+      visualData: json['visualData'],
       imageAsset: json['imageAsset'],
     );
   }

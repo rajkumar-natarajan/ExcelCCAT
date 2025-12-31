@@ -4,6 +4,7 @@ import '../models/question.dart';
 import '../controllers/smart_learning_controller.dart';
 import '../controllers/gamification_controller.dart';
 import '../widgets/canadian_theme.dart';
+import '../widgets/visual_question_widgets.dart';
 import 'results_screen.dart';
 
 class TestSessionScreen extends StatefulWidget {
@@ -242,6 +243,19 @@ class _TestSessionScreenState extends State<TestSessionScreen> {
                         ),
                       ),
                       const SizedBox(height: 24),
+                    ] else if (question.visualData != null) ...[
+                      Center(
+                        child: VisualQuestionDisplay(
+                          questionData: VisualQuestionData(
+                            type: VisualQuestionType.values.firstWhere(
+                              (e) => e.toString().split('.').last == question.visualData!['type'],
+                              orElse: () => VisualQuestionType.shapePattern,
+                            ),
+                            data: question.visualData!,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 24),
                     ],
                     CanadianQuestionCard(
                       child: Padding(
@@ -287,6 +301,28 @@ class _TestSessionScreenState extends State<TestSessionScreen> {
     return Column(
       children: List.generate(options.length, (index) {
         final isSelected = _answers[question.id] == index;
+        final optionText = options[index];
+        
+        // Check if option is a shape name (simple heuristic for visual questions)
+        final isShape = question.type == QuestionType.nonVerbal && 
+            ['circle', 'square', 'triangle', 'star', 'pentagon', 'hexagon', 'diamond', 'heart', 'oval', 'rectangle', 'filled_circle', 'filled_square']
+            .contains(optionText.toLowerCase());
+
+        if (isShape) {
+             return Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: ShapeAnswerOption(
+                    shapeType: optionText.toLowerCase().replaceAll('filled_', ''),
+                    filled: optionText.toLowerCase().startsWith('filled_'),
+                    isSelected: isSelected,
+                    onTap: () {
+                        setState(() {
+                          _answers[question.id] = index;
+                        });
+                    },
+                ),
+             );
+        }
         
         return Padding(
           padding: const EdgeInsets.only(bottom: 12),
