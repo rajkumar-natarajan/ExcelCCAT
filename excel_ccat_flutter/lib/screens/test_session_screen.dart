@@ -296,16 +296,20 @@ class _TestSessionScreenState extends State<TestSessionScreen> {
         final optionText = options[index];
         
         // Check if option is a shape name (simple heuristic for visual questions)
+        final lowerOption = optionText.toLowerCase();
+        final shapeNames = ['circle', 'square', 'triangle', 'star', 'pentagon', 'hexagon', 'diamond', 'heart', 'oval', 'rectangle', 
+            'filled_circle', 'filled_square', 'filled_triangle', 'filled_star', 'filled_pentagon', 'filled_hexagon', 'filled_diamond', 'filled_heart'];
         final isShape = question.type == QuestionType.nonVerbal && 
-            ['circle', 'square', 'triangle', 'star', 'pentagon', 'hexagon', 'diamond', 'heart', 'oval', 'rectangle', 'filled_circle', 'filled_square']
-            .contains(optionText.toLowerCase());
+            shapeNames.contains(lowerOption);
 
         if (isShape) {
+             final isFilled = lowerOption.startsWith('filled_');
+             final baseShape = isFilled ? lowerOption.replaceFirst('filled_', '') : lowerOption;
              return Padding(
                 padding: const EdgeInsets.only(bottom: 12),
                 child: ShapeAnswerOption(
-                    shapeType: optionText.toLowerCase().replaceAll('filled_', ''),
-                    filled: optionText.toLowerCase().startsWith('filled_'),
+                    shapeType: baseShape,
+                    filled: isFilled,
                     isSelected: isSelected,
                     onTap: () {
                         setState(() {

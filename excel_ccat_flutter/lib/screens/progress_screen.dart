@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../controllers/smart_learning_controller.dart';
+import '../controllers/settings_controller.dart';
+import '../data/question_data_manager.dart';
 import '../models/question.dart';
+import 'test_session_screen.dart';
 
 class ProgressScreen extends StatefulWidget {
   const ProgressScreen({super.key});
@@ -782,14 +785,64 @@ class _ProgressScreenState extends State<ProgressScreen> with SingleTickerProvid
               'Accuracy: ${stats?.accuracy.toStringAsFixed(1)}% (${stats?.correctAttempts}/${stats?.totalAttempts})',
             ),
             trailing: FilledButton.tonal(
-              onPressed: () {
-                // TODO: Navigate to practice with this subtype
-              },
+              onPressed: () => _startWeakAreaPractice(subtype),
               child: const Text('Practice'),
             ),
           ),
         );
       }).toList(),
+    );
+  }
+
+  void _startWeakAreaPractice(String subtype) {
+    final settings = SettingsController();
+    final config = TestConfiguration(
+      testType: TestType.standardPractice,
+      level: settings.defaultLevel,
+      selectedSubTypes: [subtype],
+      questionCount: 15,
+      timeInMinutes: 30,
+    );
+
+    // Get questions filtered by the weak subtype
+    var questions = QuestionDataManager().getConfiguredQuestions(
+      config,
+      settings.language,
+    );
+
+    // Filter specifically for this subtype
+    questions = questions.where((q) => q.subType == subtype).toList();
+
+    if (questions.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('No questions available for $subtype')),
+      );
+      return;
+    }
+
+    // Limit to 15 questions for focused practice
+    if (questions.length > 15) {
+      questions.shuffle();
+      questions = questions.take(15).toList();
+    }
+
+    final practiceConfig = TestConfiguration(
+      testType: TestType.standardPractice,
+      level: settings.defaultLevel,
+      selectedSubTypes: [subtype],
+      questionCount: questions.length,
+      timeInMinutes: questions.length * 2,
+    );
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TestSessionScreen(
+          configuration: practiceConfig,
+          questions: questions,
+          language: settings.language,
+        ),
+      ),
     );
   }
 

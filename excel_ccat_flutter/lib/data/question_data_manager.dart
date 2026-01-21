@@ -799,9 +799,9 @@ class QuestionDataManager {
         
       addMatrix('2', 'Complete the pattern.', 'Complétez le motif.',
         [['dot', 'circle', 'filled_circle'], ['dot', 'square', 'filled_square'], ['dot', 'triangle', '?']],
-        ['triangle', 'filled_triangle', 'circle', 'square'], 0,
-        'Each row follows a progression: dot → outline shape → filled shape. Row 3 has dot, triangle, so the next must be the filled version (triangle or filled_triangle).',
-        'Chaque ligne suit une progression: point → forme contour → forme remplie. La ligne 3 a point, triangle, donc le suivant doit être la version remplie.');
+        ['triangle', 'filled_triangle', 'circle', 'square'], 1,
+        'Each row follows a progression: dot → outline shape → filled shape. Row 3 has dot, triangle, so the next must be filled_triangle.',
+        'Chaque ligne suit une progression: point → forme contour → forme remplie. La ligne 3 a point, triangle, donc le suivant doit être triangle_rempli.');
         
       addMatrix('3', 'Complete the pattern.', 'Complétez le motif.',
         [['circle', 'square', 'triangle'], ['triangle', 'circle', 'square'], ['square', 'triangle', '?']],
@@ -861,7 +861,7 @@ class QuestionDataManager {
         
       addMatrix('4', 'Complete the pattern.', 'Complétez le motif.',
         [['circle', 'circle', 'filled_circle'], ['square', 'square', 'filled_square'], ['triangle', 'triangle', '?']],
-        ['triangle', 'filled_triangle', 'circle', 'square'], 0,
+        ['triangle', 'filled_triangle', 'circle', 'square'], 1,
         'Each row shows a progression: two outline shapes followed by a filled shape. Row 3 has triangle, triangle, so the next must be a filled/solid triangle.',
         'Chaque ligne montre une progression: deux formes contour suivies d\'une forme remplie. La ligne 3 a triangle, triangle, donc le suivant doit être un triangle rempli/solide.');
         
@@ -1466,6 +1466,47 @@ class QuestionDataManager {
           'data': {
             'colors': [targetColor.$1.value],
           }
+        },
+      ));
+    }
+
+    // 4. Simple Pattern Completion for Kindergarten
+    final simplePatterns = [
+      (['circle', 'circle', 'circle', 'question'], ['Circle', 'Square', 'Triangle', 'Star'], 0,
+        'All shapes in the row are circles. The pattern is: circle, circle, circle. What comes next? Circle!',
+        'Toutes les formes dans la rangée sont des cercles. Le motif est: cercle, cercle, cercle. Qu\'est-ce qui vient ensuite? Cercle!'),
+      (['square', 'square', 'square', 'question'], ['Circle', 'Square', 'Triangle', 'Star'], 1,
+        'All shapes in the row are squares. The pattern is: square, square, square. What comes next? Square!',
+        'Toutes les formes dans la rangée sont des carrés. Le motif est: carré, carré, carré. Qu\'est-ce qui vient ensuite? Carré!'),
+      (['triangle', 'triangle', 'triangle', 'question'], ['Circle', 'Square', 'Triangle', 'Star'], 2,
+        'All shapes in the row are triangles. The pattern is: triangle, triangle, triangle. What comes next? Triangle!',
+        'Toutes les formes dans la rangée sont des triangles. Le motif est: triangle, triangle, triangle. Qu\'est-ce qui vient ensuite? Triangle!'),
+      (['circle', 'square', 'circle', 'question'], ['Circle', 'Square', 'Triangle', 'Star'], 1,
+        'The pattern alternates: circle, square, circle. What comes next? It goes back to square!',
+        'Le motif alterne: cercle, carré, cercle. Qu\'est-ce qui vient ensuite? On revient au carré!'),
+      (['star', 'heart', 'star', 'question'], ['Star', 'Heart', 'Circle', 'Diamond'], 1,
+        'The pattern alternates: star, heart, star. What comes next? Heart!',
+        'Le motif alterne: étoile, cœur, étoile. Qu\'est-ce qui vient ensuite? Cœur!'),
+    ];
+
+    for (var i = 0; i < simplePatterns.length; i++) {
+      final (patterns, options, correct, explanation, explanationFr) = simplePatterns[i];
+      questions.add(Question(
+        id: 'level_k_pattern_$i',
+        type: QuestionType.nonVerbal,
+        subType: NonVerbalSubType.figureSeries.value,
+        stem: 'What comes next?',
+        stemFrench: 'Quelle est la suite?',
+        options: options,
+        optionsFrench: options,
+        correctAnswer: correct,
+        explanation: explanation,
+        explanationFrench: explanationFr,
+        difficulty: Difficulty.easy,
+        level: CCATLevel.levelK,
+        visualData: {
+          'type': 'sequencePattern',
+          'patterns': patterns,
         },
       ));
     }

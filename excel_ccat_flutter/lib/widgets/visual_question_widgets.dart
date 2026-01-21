@@ -246,6 +246,15 @@ class PatternSequencePainter extends CustomPainter {
           ..close();
         canvas.drawPath(path, paint);
         break;
+      case 'filled_triangle':
+        paint.style = PaintingStyle.fill;
+        final filledPath = Path()
+          ..moveTo(center.dx, center.dy - radius)
+          ..lineTo(center.dx + radius, center.dy + radius * 0.8)
+          ..lineTo(center.dx - radius, center.dy + radius * 0.8)
+          ..close();
+        canvas.drawPath(filledPath, paint);
+        break;
       case 'question':
         final textPainter = TextPainter(
           text: TextSpan(
@@ -400,6 +409,15 @@ class MatrixPatternPainter extends CustomPainter {
           ..lineTo(center.dx - radius * 0.8, center.dy + radius * 0.6)
           ..close();
         canvas.drawPath(path, paint);
+        break;
+      case 'filled_triangle':
+        final fillPaintTri = Paint()..color = Colors.black;
+        final filledTriPath = Path()
+          ..moveTo(center.dx, center.dy - radius * 0.8)
+          ..lineTo(center.dx + radius * 0.8, center.dy + radius * 0.6)
+          ..lineTo(center.dx - radius * 0.8, center.dy + radius * 0.6)
+          ..close();
+        canvas.drawPath(filledTriPath, fillPaintTri);
         break;
       case 'x':
         canvas.drawLine(
