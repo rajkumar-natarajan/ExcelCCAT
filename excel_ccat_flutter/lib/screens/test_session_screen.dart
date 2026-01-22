@@ -29,7 +29,7 @@ class _TestSessionScreenState extends State<TestSessionScreen> {
   final Map<String, int> _timeSpent = {}; // In seconds
   late Timer _timer;
   int _secondsRemaining = 0;
-  DateTime _startTime = DateTime.now();
+  final DateTime _startTime = DateTime.now();
   DateTime _questionStartTime = DateTime.now();
   final SmartLearningController _smartLearning = SmartLearningController();
   final GamificationController _gamification = GamificationController();
@@ -296,15 +296,42 @@ class _TestSessionScreenState extends State<TestSessionScreen> {
         final optionText = options[index];
         
         // Check if option is a shape name (simple heuristic for visual questions)
-        final lowerOption = optionText.toLowerCase();
-        final shapeNames = ['circle', 'square', 'triangle', 'star', 'pentagon', 'hexagon', 'diamond', 'heart', 'oval', 'rectangle', 
-            'filled_circle', 'filled_square', 'filled_triangle', 'filled_star', 'filled_pentagon', 'filled_hexagon', 'filled_diamond', 'filled_heart'];
+        final lowerOption = optionText.toLowerCase().trim();
+        // All possible shape names including filled variants, symbols, and special patterns
+        final shapeNames = [
+          'circle', 'square', 'triangle', 'star', 'pentagon', 'hexagon', 'diamond', 'heart', 'oval', 'rectangle',
+          'filled_circle', 'filled_square', 'filled_triangle', 'filled_star', 'filled_pentagon', 'filled_hexagon', 'filled_diamond', 'filled_heart',
+          'x', '+', 'dot', 'empty',
+        ];
         final isShape = question.type == QuestionType.nonVerbal && 
             shapeNames.contains(lowerOption);
 
         if (isShape) {
              final isFilled = lowerOption.startsWith('filled_');
              final baseShape = isFilled ? lowerOption.replaceFirst('filled_', '') : lowerOption;
+             // Handle special symbols
+             if (lowerOption == 'empty') {
+               return Padding(
+                 padding: const EdgeInsets.only(bottom: 12),
+                 child: _buildSymbolAnswerOption(
+                   symbol: 'empty',
+                   label: 'Empty',
+                   isSelected: isSelected,
+                   onTap: () => setState(() => _answers[question.id] = index),
+                 ),
+               );
+             }
+             if (lowerOption == 'x' || lowerOption == '+' || lowerOption == 'dot') {
+               return Padding(
+                 padding: const EdgeInsets.only(bottom: 12),
+                 child: _buildSymbolAnswerOption(
+                   symbol: lowerOption,
+                   label: lowerOption == 'x' ? 'X' : (lowerOption == '+' ? '+' : '•'),
+                   isSelected: isSelected,
+                   onTap: () => setState(() => _answers[question.id] = index),
+                 ),
+               );
+             }
              return Padding(
                 padding: const EdgeInsets.only(bottom: 12),
                 child: ShapeAnswerOption(
@@ -397,7 +424,7 @@ class _TestSessionScreenState extends State<TestSessionScreen> {
         color: Theme.of(context).colorScheme.surface,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, -5),
           ),
@@ -435,6 +462,39 @@ class _TestSessionScreenState extends State<TestSessionScreen> {
     return '$minutes:${remainingSeconds.toString().padLeft(2, '0')}';
   }
 
+  Widget _buildSymbolAnswerOption({
+    required String symbol,
+    required String label,
+    required bool isSelected,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: isSelected 
+              ? Theme.of(context).colorScheme.primaryContainer 
+              : Colors.white,
+          border: Border.all(
+            color: isSelected 
+                ? Theme.of(context).colorScheme.primary 
+                : Colors.grey.shade300,
+            width: isSelected ? 3 : 1,
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: SizedBox(
+          width: 50,
+          height: 50,
+          child: CustomPaint(
+            painter: _SymbolPainter(symbol: symbol),
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildVisualQuestion(Map<String, dynamic> visualData) {
     final typeStr = visualData['type'] as String? ?? 'shapePattern';
     final data = visualData['data'] as Map<String, dynamic>? ?? visualData;
@@ -442,11 +502,16 @@ class _TestSessionScreenState extends State<TestSessionScreen> {
     // Convert color int values to Color objects
     Map<String, dynamic> processedData = Map.from(data);
     
-    // Handle colors stored as int values
+    // Handle colors stored as int values or Color objects
     if (processedData.containsKey('colors')) {
       final colorsList = processedData['colors'] as List<dynamic>?;
-      if (colorsList != null && colorsList.isNotEmpty && colorsList.first is int) {
-        processedData['colors'] = colorsList.map((c) => Color(c as int)).toList();
+      if (colorsList != null && colorsList.isNotEmpty) {
+        if (colorsList.first is int) {
+          processedData['colors'] = colorsList.map((c) => Color(c as int)).toList();
+        } else if (colorsList.first is Color) {
+          // Already Color objects, ensure it's a proper list
+          processedData['colors'] = colorsList.cast<Color>().toList();
+        }
       }
     }
     if (processedData.containsKey('color')) {
@@ -454,6 +519,7 @@ class _TestSessionScreenState extends State<TestSessionScreen> {
       if (colorVal is int) {
         processedData['color'] = Color(colorVal);
       }
+      // If already a Color, leave it as is
     }
     
     // Handle icon stored as int code point
@@ -473,4 +539,62 @@ class _TestSessionScreenState extends State<TestSessionScreen> {
       ),
     );
   }
+}
+
+/// Custom painter for drawing symbols (x, +, dot, empty)
+class _SymbolPainter extends CustomPainter {
+  final String symbol;
+  
+  _SymbolPainter({required this.symbol});
+  
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.black
+      ..strokeWidth = 3
+      ..style = PaintingStyle.stroke;
+    
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = size.width * 0.35;
+    
+    switch (symbol.toLowerCase()) {
+      case 'x':
+        canvas.drawLine(
+          Offset(center.dx - radius, center.dy - radius),
+          Offset(center.dx + radius, center.dy + radius),
+          paint,
+        );
+        canvas.drawLine(
+          Offset(center.dx + radius, center.dy - radius),
+          Offset(center.dx - radius, center.dy + radius),
+          paint,
+        );
+        break;
+      case '+':
+        canvas.drawLine(
+          Offset(center.dx, center.dy - radius),
+          Offset(center.dx, center.dy + radius),
+          paint,
+        );
+        canvas.drawLine(
+          Offset(center.dx - radius, center.dy),
+          Offset(center.dx + radius, center.dy),
+          paint,
+        );
+        break;
+      case 'dot':
+        paint.style = PaintingStyle.fill;
+        canvas.drawCircle(center, radius * 0.3, paint);
+        break;
+      case 'empty':
+        // Draw an empty box with dashed border
+        paint.style = PaintingStyle.stroke;
+        final rect = Rect.fromCenter(center: center, width: radius * 1.8, height: radius * 1.8);
+        canvas.drawRect(rect, paint..color = Colors.grey.shade400);
+        break;
+    }
+  }
+  
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

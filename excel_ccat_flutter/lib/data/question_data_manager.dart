@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import '../models/question.dart';
 
@@ -140,6 +139,19 @@ class QuestionDataManager {
       ('Snow is to winter as rain is to:', 'Neige est à hiver ce que pluie est à:', ['spring', 'cloud', 'umbrella', 'wet'], ['printemps', 'nuage', 'parapluie', 'mouillé'], 0),
       ('Bee is to honey as cow is to:', 'Abeille est à miel ce que vache est à:', ['milk', 'grass', 'farm', 'beef'], ['lait', 'herbe', 'ferme', 'bœuf'], 0),
       ('Piano is to keys as guitar is to:', 'Piano est à touches ce que guitare est à:', ['strings', 'music', 'wood', 'pick'], ['cordes', 'musique', 'bois', 'médiator'], 0),
+      // Additional Level 10 verbal analogies
+      ('Hen is to chick as sheep is to:', 'Poule est à poussin ce que mouton est à:', ['lamb', 'wool', 'farm', 'goat'], ['agneau', 'laine', 'ferme', 'chèvre'], 0),
+      ('Pencil is to paper as chalk is to:', 'Crayon est à papier ce que craie est à:', ['blackboard', 'desk', 'school', 'eraser'], ['tableau', 'bureau', 'école', 'effaceur'], 0),
+      ('Nose is to smell as tongue is to:', 'Nez est à sentir ce que langue est à:', ['taste', 'lick', 'eat', 'speak'], ['goûter', 'lécher', 'manger', 'parler'], 0),
+      ('Car is to road as boat is to:', 'Voiture est à route ce que bateau est à:', ['water', 'sail', 'fish', 'dock'], ['eau', 'voile', 'poisson', 'quai'], 0),
+      ('King is to queen as prince is to:', 'Roi est à reine ce que prince est à:', ['princess', 'castle', 'crown', 'knight'], ['princesse', 'château', 'couronne', 'chevalier'], 0),
+      ('Bread is to baker as cake is to:', 'Pain est à boulanger ce que gâteau est à:', ['pastry chef', 'oven', 'sugar', 'birthday'], ['pâtissier', 'four', 'sucre', 'anniversaire'], 0),
+      ('Lamp is to light as heater is to:', 'Lampe est à lumière ce que radiateur est à:', ['heat', 'cold', 'room', 'winter'], ['chaleur', 'froid', 'chambre', 'hiver'], 0),
+      ('Spider is to web as bird is to:', 'Araignée est à toile ce que oiseau est à:', ['nest', 'sky', 'worm', 'feather'], ['nid', 'ciel', 'ver', 'plume'], 0),
+      ('Breakfast is to morning as dinner is to:', 'Petit-déjeuner est à matin ce que dîner est à:', ['evening', 'lunch', 'noon', 'food'], ['soir', 'déjeuner', 'midi', 'nourriture'], 0),
+      ('Lion is to roar as dog is to:', 'Lion est à rugir ce que chien est à:', ['bark', 'meow', 'hiss', 'chirp'], ['aboyer', 'miauler', 'siffler', 'gazouiller'], 0),
+      ('Wheel is to car as wing is to:', 'Roue est à voiture ce que aile est à:', ['plane', 'bird', 'fly', 'sky'], ['avion', 'oiseau', 'voler', 'ciel'], 0),
+      ('Clock is to wall as watch is to:', 'Horloge est à mur ce que montre est à:', ['wrist', 'time', 'hand', 'tick'], ['poignet', 'temps', 'main', 'tic-tac'], 0),
     ] : level == CCATLevel.level11 ? [
       ('Author is to book as composer is to:', 'Auteur est à livre ce que compositeur est à:', ['song', 'instrument', 'concert', 'band'], ['chanson', 'instrument', 'concert', 'groupe'], 0),
       ('Library is to books as museum is to:', 'Bibliothèque est à livres ce que musée est à:', ['artifacts', 'tickets', 'guides', 'visitors'], ['artefacts', 'billets', 'guides', 'visiteurs'], 0),
@@ -157,6 +169,19 @@ class QuestionDataManager {
       ('Telescope is to stars as microscope is to:', 'Télescope est à étoiles ce que microscope est à:', ['cells', 'planets', 'eyes', 'light'], ['cellules', 'planètes', 'yeux', 'lumière'], 0),
       ('Carpenter is to wood as blacksmith is to:', 'Charpentier est à bois ce que forgeron est à:', ['metal', 'fire', 'horse', 'tools'], ['métal', 'feu', 'cheval', 'outils'], 0),
       ('Chapter is to book as act is to:', 'Chapitre est à livre ce que acte est à:', ['play', 'movie', 'scene', 'story'], ['pièce', 'film', 'scène', 'histoire'], 0),
+      // Additional Level 11 verbal analogies
+      ('Poet is to poem as sculptor is to:', 'Poète est à poème ce que sculpteur est à:', ['statue', 'marble', 'chisel', 'gallery'], ['statue', 'marbre', 'ciseau', 'galerie'], 0),
+      ('Dentist is to teeth as optometrist is to:', 'Dentiste est à dents ce que optométriste est à:', ['eyes', 'glasses', 'vision', 'clinic'], ['yeux', 'lunettes', 'vision', 'clinique'], 0),
+      ('Referee is to game as judge is to:', 'Arbitre est à jeu ce que juge est à:', ['trial', 'law', 'lawyer', 'prison'], ['procès', 'loi', 'avocat', 'prison'], 0),
+      ('Anchor is to ship as root is to:', 'Ancre est à navire ce que racine est à:', ['tree', 'soil', 'leaf', 'branch'], ['arbre', 'sol', 'feuille', 'branche'], 0),
+      ('Envelope is to letter as frame is to:', 'Enveloppe est à lettre ce que cadre est à:', ['picture', 'wall', 'glass', 'art'], ['image', 'mur', 'verre', 'art'], 0),
+      ('Gills is to fish as lungs is to:', 'Branchies est à poisson ce que poumons est à:', ['mammal', 'air', 'breathe', 'oxygen'], ['mammifère', 'air', 'respirer', 'oxygène'], 0),
+      ('Rudder is to boat as steering wheel is to:', 'Gouvernail est à bateau ce que volant est à:', ['car', 'driver', 'road', 'tire'], ['voiture', 'conducteur', 'route', 'pneu'], 0),
+      ('Flour is to bread as grapes is to:', 'Farine est à pain ce que raisins est à:', ['wine', 'juice', 'jam', 'vineyard'], ['vin', 'jus', 'confiture', 'vignoble'], 0),
+      ('Playwright is to play as choreographer is to:', 'Dramaturge est à pièce ce que chorégraphe est à:', ['dance', 'stage', 'music', 'costume'], ['danse', 'scène', 'musique', 'costume'], 0),
+      ('Stethoscope is to doctor as gavel is to:', 'Stéthoscope est à médecin ce que maillet est à:', ['judge', 'auction', 'court', 'law'], ['juge', 'vente aux enchères', 'tribunal', 'loi'], 0),
+      ('Palette is to painter as keyboard is to:', 'Palette est à peintre ce que clavier est à:', ['programmer', 'computer', 'typing', 'screen'], ['programmeur', 'ordinateur', 'dactylographie', 'écran'], 0),
+      ('Herbivore is to plants as carnivore is to:', 'Herbivore est à plantes ce que carnivore est à:', ['meat', 'hunting', 'animals', 'teeth'], ['viande', 'chasse', 'animaux', 'dents'], 0),
     ] : [
       ('Ephemeral is to permanent as volatile is to:', 'Éphémère est à permanent ce que volatil est à:', ['stable', 'explosive', 'liquid', 'gas'], ['stable', 'explosif', 'liquide', 'gaz'], 0),
       ('Meticulous is to careless as frugal is to:', 'Méticuleux est à négligent ce que frugal est à:', ['wasteful', 'careful', 'poor', 'rich'], ['gaspilleur', 'prudent', 'pauvre', 'riche'], 0),
@@ -174,6 +199,19 @@ class QuestionDataManager {
       ('Ameliorate is to worsen as expedite is to:', 'Améliorer est à empirer ce que expédier est à:', ['delay', 'hurry', 'improve', 'send'], ['retarder', 'se dépêcher', 'améliorer', 'envoyer'], 0),
       ('Pedagogue is to teaching as demagogue is to:', 'Pédagogue est à enseignement ce que démagogue est à:', ['manipulation', 'democracy', 'speaking', 'leading'], ['manipulation', 'démocratie', 'parler', 'diriger'], 0),
       ('Ornithology is to birds as entomology is to:', 'Ornithologie est à oiseaux ce que entomologie est à:', ['insects', 'rocks', 'plants', 'fish'], ['insectes', 'roches', 'plantes', 'poissons'], 0),
+      // Additional Level 12 verbal analogies
+      ('Soporific is to sleepy as invigorating is to:', 'Soporifique est à endormi ce que revigorant est à:', ['energetic', 'tired', 'relaxed', 'calm'], ['énergique', 'fatigué', 'détendu', 'calme'], 0),
+      ('Acrophobia is to heights as claustrophobia is to:', 'Acrophobie est à hauteurs ce que claustrophobie est à:', ['enclosed spaces', 'open spaces', 'water', 'darkness'], ['espaces clos', 'espaces ouverts', 'eau', 'obscurité'], 0),
+      ('Cacophony is to sound as chaos is to:', 'Cacophonie est à son ce que chaos est à:', ['order', 'noise', 'mess', 'harmony'], ['ordre', 'bruit', 'désordre', 'harmonie'], 0),
+      ('Antidote is to poison as remedy is to:', 'Antidote est à poison ce que remède est à:', ['illness', 'medicine', 'cure', 'doctor'], ['maladie', 'médicament', 'guérison', 'médecin'], 0),
+      ('Neophyte is to experienced as novice is to:', 'Néophyte est à expérimenté ce que novice est à:', ['expert', 'beginner', 'skilled', 'amateur'], ['expert', 'débutant', 'qualifié', 'amateur'], 0),
+      ('Eulogy is to praise as diatribe is to:', 'Éloge est à louange ce que diatribe est à:', ['criticism', 'speech', 'writing', 'compliment'], ['critique', 'discours', 'écriture', 'compliment'], 0),
+      ('Misanthrope is to people as cynic is to:', 'Misanthrope est à gens ce que cynique est à:', ['sincerity', 'optimism', 'trust', 'hope'], ['sincérité', 'optimisme', 'confiance', 'espoir'], 0),
+      ('Vindicate is to blame as exonerate is to:', 'Justifier est à blâme ce que disculper est à:', ['guilt', 'innocence', 'crime', 'punishment'], ['culpabilité', 'innocence', 'crime', 'punition'], 0),
+      ('Philanthropy is to charity as avarice is to:', 'Philanthropie est à charité ce que avarice est à:', ['greed', 'generosity', 'wealth', 'poverty'], ['avidité', 'générosité', 'richesse', 'pauvreté'], 0),
+      ('Herbivore is to vegetation as piscivore is to:', 'Herbivore est à végétation ce que piscivore est à:', ['fish', 'birds', 'insects', 'mammals'], ['poisson', 'oiseaux', 'insectes', 'mammifères'], 0),
+      ('Diurnal is to day as nocturnal is to:', 'Diurne est à jour ce que nocturne est à:', ['night', 'morning', 'evening', 'afternoon'], ['nuit', 'matin', 'soir', 'après-midi'], 0),
+      ('Indigenous is to native as extraneous is to:', 'Indigène est à natif ce que étranger est à:', ['foreign', 'local', 'familiar', 'common'], ['étranger', 'local', 'familier', 'commun'], 0),
     ];
 
     for (var i = 0; i < analogies.length; i++) {
@@ -217,6 +255,15 @@ class QuestionDataManager {
       ('Which word means the same as EASY?', 'Quel mot signifie la même chose que FACILE?', ['simple', 'hard', 'difficult', 'tough'], ['simple', 'dur', 'difficile', 'coriace'], 0),
       ('Which word means the same as BRAVE?', 'Quel mot signifie la même chose que COURAGEUX?', ['fearless', 'scared', 'afraid', 'timid'], ['intrépide', 'effrayé', 'peureux', 'timide'], 0),
       ('Which word means the same as DIRTY?', 'Quel mot signifie la même chose que SALE?', ['filthy', 'clean', 'neat', 'tidy'], ['crasseux', 'propre', 'soigné', 'rangé'], 0),
+      // Additional Level 10 synonyms
+      ('Which word means the same as GLAD?', 'Quel mot signifie la même chose que CONTENT?', ['pleased', 'upset', 'worried', 'afraid'], ['ravi', 'contrarié', 'inquiet', 'effrayé'], 0),
+      ('Which word means the same as LOUD?', 'Quel mot signifie la même chose que FORT?', ['noisy', 'quiet', 'soft', 'gentle'], ['bruyant', 'calme', 'doux', 'gentil'], 0),
+      ('Which word means the same as SCARED?', 'Quel mot signifie la même chose que EFFRAYÉ?', ['afraid', 'brave', 'bold', 'calm'], ['peureux', 'courageux', 'audacieux', 'calme'], 0),
+      ('Which word means the same as STRONG?', 'Quel mot signifie la même chose que FORT?', ['powerful', 'weak', 'tiny', 'small'], ['puissant', 'faible', 'minuscule', 'petit'], 0),
+      ('Which word means the same as THIN?', 'Quel mot signifie la même chose que MINCE?', ['slim', 'fat', 'wide', 'thick'], ['mince', 'gros', 'large', 'épais'], 0),
+      ('Which word means the same as WET?', 'Quel mot signifie la même chose que MOUILLÉ?', ['damp', 'dry', 'warm', 'hot'], ['humide', 'sec', 'chaud', 'chaud'], 0),
+      ('Which word means the same as SHINY?', 'Quel mot signifie la même chose que BRILLANT?', ['bright', 'dull', 'dark', 'dim'], ['éclatant', 'terne', 'sombre', 'faible'], 0),
+      ('Which word means the same as HUNGRY?', 'Quel mot signifie la même chose que AFFAMÉ?', ['starving', 'full', 'satisfied', 'stuffed'], ['affamé', 'plein', 'satisfait', 'gavé'], 0),
     ] : level == CCATLevel.level11 ? [
       ('Which word means the same as ABUNDANT?', 'Quel mot signifie la même chose que ABONDANT?', ['plentiful', 'scarce', 'empty', 'rare'], ['copieux', 'rare', 'vide', 'rare'], 0),
       ('Which word means the same as BRAVE?', 'Quel mot signifie la même chose que COURAGEUX?', ['courageous', 'fearful', 'timid', 'weak'], ['courageux', 'craintif', 'timide', 'faible'], 0),
@@ -234,6 +281,15 @@ class QuestionDataManager {
       ('Which word means the same as LIBERTY?', 'Quel mot signifie la même chose que LIBERTÉ?', ['freedom', 'prison', 'captivity', 'bondage'], ['liberté', 'prison', 'captivité', 'servitude'], 0),
       ('Which word means the same as MAGNIFICENT?', 'Quel mot signifie la même chose que MAGNIFIQUE?', ['splendid', 'ordinary', 'plain', 'simple'], ['splendide', 'ordinaire', 'quelconque', 'simple'], 0),
       ('Which word means the same as NUMEROUS?', 'Quel mot signifie la même chose que NOMBREUX?', ['many', 'few', 'single', 'rare'], ['beaucoup', 'peu', 'unique', 'rare'], 0),
+      // Additional Level 11 synonyms
+      ('Which word means the same as OBTAIN?', 'Quel mot signifie la même chose que OBTENIR?', ['acquire', 'lose', 'give', 'reject'], ['acquérir', 'perdre', 'donner', 'rejeter'], 0),
+      ('Which word means the same as PECULIAR?', 'Quel mot signifie la même chose que PARTICULIER?', ['strange', 'normal', 'common', 'usual'], ['étrange', 'normal', 'commun', 'habituel'], 0),
+      ('Which word means the same as RAPID?', 'Quel mot signifie la même chose que RAPIDE?', ['swift', 'slow', 'gradual', 'steady'], ['rapide', 'lent', 'progressif', 'constant'], 0),
+      ('Which word means the same as SUFFICIENT?', 'Quel mot signifie la même chose que SUFFISANT?', ['adequate', 'lacking', 'scarce', 'limited'], ['adéquat', 'manquant', 'rare', 'limité'], 0),
+      ('Which word means the same as TRANQUIL?', 'Quel mot signifie la même chose que TRANQUILLE?', ['peaceful', 'noisy', 'chaotic', 'turbulent'], ['paisible', 'bruyant', 'chaotique', 'turbulent'], 0),
+      ('Which word means the same as URGENT?', 'Quel mot signifie la même chose que URGENT?', ['pressing', 'trivial', 'minor', 'casual'], ['pressant', 'trivial', 'mineur', 'décontracté'], 0),
+      ('Which word means the same as VANISH?', 'Quel mot signifie la même chose que DISPARAÎTRE?', ['disappear', 'appear', 'emerge', 'arrive'], ['disparaître', 'apparaître', 'émerger', 'arriver'], 0),
+      ('Which word means the same as WEARY?', 'Quel mot signifie la même chose que LAS?', ['fatigued', 'energetic', 'lively', 'refreshed'], ['fatigué', 'énergique', 'vif', 'rafraîchi'], 0),
     ] : [
       ('Which word means the same as UBIQUITOUS?', 'Quel mot signifie la même chose que OMNIPRÉSENT?', ['omnipresent', 'rare', 'scarce', 'limited'], ['omniprésent', 'rare', 'rare', 'limité'], 0),
       ('Which word means the same as EPHEMERAL?', 'Quel mot signifie la même chose que ÉPHÉMÈRE?', ['transient', 'permanent', 'lasting', 'enduring'], ['transitoire', 'permanent', 'durable', 'persistant'], 0),
@@ -251,6 +307,15 @@ class QuestionDataManager {
       ('Which word means the same as JUDICIOUS?', 'Quel mot signifie la même chose que JUDICIEUX?', ['wise', 'foolish', 'reckless', 'imprudent'], ['sage', 'insensé', 'imprudent', 'imprudent'], 0),
       ('Which word means the same as LACONIC?', 'Quel mot signifie la même chose que LACONIQUE?', ['concise', 'verbose', 'wordy', 'lengthy'], ['concis', 'verbeux', 'bavard', 'long'], 0),
       ('Which word means the same as MAGNANIMOUS?', 'Quel mot signifie la même chose que MAGNANIME?', ['generous', 'petty', 'selfish', 'stingy'], ['généreux', 'mesquin', 'égoïste', 'radin'], 0),
+      // Additional Level 12 synonyms
+      ('Which word means the same as NEFARIOUS?', 'Quel mot signifie la même chose que INFÂME?', ['wicked', 'noble', 'virtuous', 'kind'], ['méchant', 'noble', 'vertueux', 'gentil'], 0),
+      ('Which word means the same as OBSTINATE?', 'Quel mot signifie la même chose que OBSTINÉ?', ['stubborn', 'flexible', 'yielding', 'compliant'], ['têtu', 'flexible', 'docile', 'complaisant'], 0),
+      ('Which word means the same as PERFIDIOUS?', 'Quel mot signifie la même chose que PERFIDE?', ['treacherous', 'loyal', 'faithful', 'honest'], ['traître', 'loyal', 'fidèle', 'honnête'], 0),
+      ('Which word means the same as QUANDARY?', 'Quel mot signifie la même chose que DILEMME?', ['predicament', 'solution', 'certainty', 'clarity'], ['embarras', 'solution', 'certitude', 'clarté'], 0),
+      ('Which word means the same as RANCOROUS?', 'Quel mot signifie la même chose que RANCUNIER?', ['bitter', 'forgiving', 'kind', 'gentle'], ['amer', 'indulgent', 'gentil', 'doux'], 0),
+      ('Which word means the same as SAGACIOUS?', 'Quel mot signifie la même chose que SAGACE?', ['wise', 'foolish', 'ignorant', 'naive'], ['sage', 'insensé', 'ignorant', 'naïf'], 0),
+      ('Which word means the same as TREPIDATION?', 'Quel mot signifie la même chose que TRÉPIDATION?', ['fear', 'courage', 'confidence', 'calm'], ['peur', 'courage', 'confiance', 'calme'], 0),
+      ('Which word means the same as VICARIOUS?', 'Quel mot signifie la même chose que VICARIANT?', ['indirect', 'direct', 'personal', 'firsthand'], ['indirect', 'direct', 'personnel', 'vécu'], 0),
     ];
 
     for (var i = 0; i < synonyms.length; i++) {
@@ -294,6 +359,15 @@ class QuestionDataManager {
       ('Which word means the OPPOSITE of WET?', 'Quel mot signifie le CONTRAIRE de MOUILLÉ?', ['dry', 'damp', 'moist', 'soaked'], ['sec', 'humide', 'moite', 'trempé'], 0),
       ('Which word means the OPPOSITE of RICH?', 'Quel mot signifie le CONTRAIRE de RICHE?', ['poor', 'wealthy', 'loaded', 'abundant'], ['pauvre', 'fortuné', 'chargé', 'abondant'], 0),
       ('Which word means the OPPOSITE of SAFE?', 'Quel mot signifie le CONTRAIRE de SÛR?', ['dangerous', 'secure', 'protected', 'guarded'], ['dangereux', 'sécurisé', 'protégé', 'gardé'], 0),
+      // Additional Level 10 antonyms
+      ('Which word means the OPPOSITE of LONG?', 'Quel mot signifie le CONTRAIRE de LONG?', ['short', 'tall', 'wide', 'big'], ['court', 'grand', 'large', 'gros'], 0),
+      ('Which word means the OPPOSITE of WEAK?', 'Quel mot signifie le CONTRAIRE de FAIBLE?', ['strong', 'tiny', 'small', 'thin'], ['fort', 'minuscule', 'petit', 'mince'], 0),
+      ('Which word means the OPPOSITE of DARK?', 'Quel mot signifie le CONTRAIRE de SOMBRE?', ['bright', 'dim', 'dull', 'gray'], ['brillant', 'faible', 'terne', 'gris'], 0),
+      ('Which word means the OPPOSITE of UGLY?', 'Quel mot signifie le CONTRAIRE de LAID?', ['beautiful', 'plain', 'dull', 'boring'], ['beau', 'quelconque', 'terne', 'ennuyeux'], 0),
+      ('Which word means the OPPOSITE of LOSE?', 'Quel mot signifie le CONTRAIRE de PERDRE?', ['find', 'drop', 'miss', 'forget'], ['trouver', 'laisser tomber', 'manquer', 'oublier'], 0),
+      ('Which word means the OPPOSITE of PUSH?', 'Quel mot signifie le CONTRAIRE de POUSSER?', ['pull', 'press', 'shove', 'hit'], ['tirer', 'presser', 'bousculer', 'frapper'], 0),
+      ('Which word means the OPPOSITE of ABOVE?', 'Quel mot signifie le CONTRAIRE de AU-DESSUS?', ['below', 'over', 'high', 'top'], ['en dessous', 'par-dessus', 'haut', 'sommet'], 0),
+      ('Which word means the OPPOSITE of ASLEEP?', 'Quel mot signifie le CONTRAIRE de ENDORMI?', ['awake', 'tired', 'drowsy', 'sleepy'], ['éveillé', 'fatigué', 'somnolent', 'endormi'], 0),
     ] : level == CCATLevel.level11 ? [
       ('Which word means the OPPOSITE of ANCIENT?', 'Quel mot signifie le CONTRAIRE de ANCIEN?', ['modern', 'old', 'antique', 'aged'], ['moderne', 'vieux', 'antique', 'âgé'], 0),
       ('Which word means the OPPOSITE of EXPAND?', 'Quel mot signifie le CONTRAIRE de ÉTENDRE?', ['contract', 'grow', 'enlarge', 'spread'], ['contracter', 'grandir', 'agrandir', 'répandre'], 0),
@@ -311,6 +385,15 @@ class QuestionDataManager {
       ('Which word means the OPPOSITE of HARMONY?', 'Quel mot signifie le CONTRAIRE de HARMONIE?', ['discord', 'peace', 'unity', 'agreement'], ['discorde', 'paix', 'unité', 'accord'], 0),
       ('Which word means the OPPOSITE of FLEXIBLE?', 'Quel mot signifie le CONTRAIRE de FLEXIBLE?', ['rigid', 'bendable', 'elastic', 'adaptable'], ['rigide', 'pliable', 'élastique', 'adaptable'], 0),
       ('Which word means the OPPOSITE of EXTERIOR?', 'Quel mot signifie le CONTRAIRE de EXTÉRIEUR?', ['interior', 'outside', 'outer', 'external'], ['intérieur', 'dehors', 'externe', 'externe'], 0),
+      // Additional Level 11 antonyms
+      ('Which word means the OPPOSITE of ADVANCE?', 'Quel mot signifie le CONTRAIRE de AVANCER?', ['retreat', 'progress', 'move', 'proceed'], ['reculer', 'progresser', 'bouger', 'procéder'], 0),
+      ('Which word means the OPPOSITE of COMPLEX?', 'Quel mot signifie le CONTRAIRE de COMPLEXE?', ['simple', 'complicated', 'difficult', 'intricate'], ['simple', 'compliqué', 'difficile', 'complexe'], 0),
+      ('Which word means the OPPOSITE of DECREASE?', 'Quel mot signifie le CONTRAIRE de DIMINUER?', ['increase', 'reduce', 'lower', 'shrink'], ['augmenter', 'réduire', 'baisser', 'rétrécir'], 0),
+      ('Which word means the OPPOSITE of FRAGILE?', 'Quel mot signifie le CONTRAIRE de FRAGILE?', ['sturdy', 'delicate', 'weak', 'brittle'], ['robuste', 'délicat', 'faible', 'cassant'], 0),
+      ('Which word means the OPPOSITE of INCLUDE?', 'Quel mot signifie le CONTRAIRE de INCLURE?', ['exclude', 'contain', 'add', 'insert'], ['exclure', 'contenir', 'ajouter', 'insérer'], 0),
+      ('Which word means the OPPOSITE of MINOR?', 'Quel mot signifie le CONTRAIRE de MINEUR?', ['major', 'small', 'trivial', 'insignificant'], ['majeur', 'petit', 'trivial', 'insignifiant'], 0),
+      ('Which word means the OPPOSITE of SCARCE?', 'Quel mot signifie le CONTRAIRE de RARE?', ['abundant', 'limited', 'few', 'sparse'], ['abondant', 'limité', 'peu', 'clairsemé'], 0),
+      ('Which word means the OPPOSITE of UNITE?', 'Quel mot signifie le CONTRAIRE de UNIR?', ['divide', 'join', 'merge', 'combine'], ['diviser', 'joindre', 'fusionner', 'combiner'], 0),
     ] : [
       ('Which word means the OPPOSITE of BENEVOLENT?', 'Quel mot signifie le CONTRAIRE de BIENVEILLANT?', ['malevolent', 'kind', 'generous', 'charitable'], ['malveillant', 'gentil', 'généreux', 'charitable'], 0),
       ('Which word means the OPPOSITE of EPHEMERAL?', 'Quel mot signifie le CONTRAIRE de ÉPHÉMÈRE?', ['permanent', 'brief', 'fleeting', 'temporary'], ['permanent', 'bref', 'fugace', 'temporaire'], 0),
@@ -328,6 +411,15 @@ class QuestionDataManager {
       ('Which word means the OPPOSITE of MUNDANE?', 'Quel mot signifie le CONTRAIRE de MONDAIN?', ['extraordinary', 'ordinary', 'common', 'dull'], ['extraordinaire', 'ordinaire', 'commun', 'terne'], 0),
       ('Which word means the OPPOSITE of LANGUID?', 'Quel mot signifie le CONTRAIRE de LANGUIDE?', ['energetic', 'sluggish', 'listless', 'lethargic'], ['énergique', 'lent', 'apathique', 'léthargique'], 0),
       ('Which word means the OPPOSITE of INDIGENOUS?', 'Quel mot signifie le CONTRAIRE de INDIGÈNE?', ['foreign', 'native', 'local', 'endemic'], ['étranger', 'natif', 'local', 'endémique'], 0),
+      // Additional Level 12 antonyms
+      ('Which word means the OPPOSITE of ABATE?', 'Quel mot signifie le CONTRAIRE de DIMINUER?', ['intensify', 'reduce', 'decrease', 'subside'], ['intensifier', 'réduire', 'diminuer', 'se calmer'], 0),
+      ('Which word means the OPPOSITE of ACQUIESCE?', 'Quel mot signifie le CONTRAIRE de ACQUIESCER?', ['resist', 'agree', 'comply', 'accept'], ['résister', 'être d\'accord', 'se conformer', 'accepter'], 0),
+      ('Which word means the OPPOSITE of CANDID?', 'Quel mot signifie le CONTRAIRE de CANDIDE?', ['deceptive', 'honest', 'frank', 'sincere'], ['trompeur', 'honnête', 'franc', 'sincère'], 0),
+      ('Which word means the OPPOSITE of DISPARAGE?', 'Quel mot signifie le CONTRAIRE de DÉNIGRER?', ['praise', 'criticize', 'belittle', 'mock'], ['louer', 'critiquer', 'rabaisser', 'se moquer'], 0),
+      ('Which word means the OPPOSITE of ESOTERIC?', 'Quel mot signifie le CONTRAIRE de ÉSOTÉRIQUE?', ['common', 'arcane', 'obscure', 'cryptic'], ['commun', 'obscur', 'secret', 'cryptique'], 0),
+      ('Which word means the OPPOSITE of FERVENT?', 'Quel mot signifie le CONTRAIRE de FERVENT?', ['apathetic', 'passionate', 'ardent', 'zealous'], ['apathique', 'passionné', 'ardent', 'zélé'], 0),
+      ('Which word means the OPPOSITE of GRATUITOUS?', 'Quel mot signifie le CONTRAIRE de GRATUIT?', ['warranted', 'unnecessary', 'free', 'unearned'], ['justifié', 'inutile', 'gratuit', 'immérité'], 0),
+      ('Which word means the OPPOSITE of INTREPID?', 'Quel mot signifie le CONTRAIRE de INTRÉPIDE?', ['timid', 'fearless', 'brave', 'bold'], ['timide', 'intrépide', 'courageux', 'audacieux'], 0),
     ];
 
     for (var i = 0; i < antonyms.length; i++) {
@@ -367,6 +459,17 @@ class QuestionDataManager {
       ('The library is a _____ place to read books.', 'La bibliothèque est un endroit _____ pour lire des livres.', ['quiet', 'loud', 'fast', 'wet'], ['calme', 'bruyant', 'rapide', 'humide'], 0),
       ('Mom uses a _____ to cook dinner.', 'Maman utilise une _____ pour préparer le dîner.', ['stove', 'bed', 'chair', 'book'], ['cuisinière', 'lit', 'chaise', 'livre'], 0),
       ('Birds build _____ in trees.', 'Les oiseaux construisent des _____ dans les arbres.', ['nests', 'houses', 'cars', 'boats'], ['nids', 'maisons', 'voitures', 'bateaux'], 0),
+      // Additional Level 10 sentence completion
+      ('The rabbit hopped _____ across the field.', 'Le lapin a sautillé _____ à travers le champ.', ['quickly', 'slowly', 'sadly', 'loudly'], ['rapidement', 'lentement', 'tristement', 'bruyamment'], 0),
+      ('We wear _____ to keep our hands warm.', 'Nous portons des _____ pour garder nos mains au chaud.', ['gloves', 'shoes', 'hats', 'socks'], ['gants', 'chaussures', 'chapeaux', 'chaussettes'], 0),
+      ('The baby was _____ so mom gave her a bottle.', 'Le bébé était _____ alors maman lui a donné un biberon.', ['hungry', 'tired', 'happy', 'clean'], ['affamé', 'fatigué', 'heureux', 'propre'], 0),
+      ('We use _____ to cut paper.', 'Nous utilisons des _____ pour couper le papier.', ['scissors', 'pencils', 'crayons', 'rulers'], ['ciseaux', 'crayons', 'crayons de couleur', 'règles'], 0),
+      ('The flowers in the garden smell very _____.', 'Les fleurs dans le jardin sentent très _____.', ['sweet', 'loud', 'fast', 'heavy'], ['bon', 'fort', 'rapide', 'lourd'], 0),
+      ('We _____ our teeth every morning and night.', 'Nous nous _____ les dents chaque matin et soir.', ['brush', 'wash', 'cut', 'paint'], ['brossons', 'lavons', 'coupons', 'peignons'], 0),
+      ('The moon comes out at _____.', 'La lune sort la _____.', ['night', 'morning', 'noon', 'afternoon'], ['nuit', 'matin', 'midi', 'après-midi'], 0),
+      ('Fish live in the _____.', 'Les poissons vivent dans l\' _____.', ['water', 'sky', 'tree', 'ground'], ['eau', 'ciel', 'arbre', 'sol'], 0),
+      ('We use an _____ to erase mistakes.', 'Nous utilisons une _____ pour effacer les erreurs.', ['eraser', 'pencil', 'marker', 'crayon'], ['gomme', 'crayon', 'marqueur', 'crayon de couleur'], 0),
+      ('The _____ shines during the day.', 'Le _____ brille pendant la journée.', ['sun', 'moon', 'star', 'lamp'], ['soleil', 'lune', 'étoile', 'lampe'], 0),
     ] : level == CCATLevel.level11 ? [
       ('The scientist\'s hypothesis was _____ by the results.', 'L\'hypothèse du scientifique a été _____ par les résultats.', ['validated', 'ignored', 'created', 'changed'], ['validée', 'ignorée', 'créée', 'changée'], 0),
       ('Despite her shy appearance, she was actually quite _____.', 'Malgré son apparence timide, elle était en fait assez _____.', ['outgoing', 'quiet', 'nervous', 'boring'], ['extravertie', 'calme', 'nerveuse', 'ennuyeuse'], 0),
@@ -380,6 +483,17 @@ class QuestionDataManager {
       ('The project requires _____ between team members.', 'Le projet nécessite une _____ entre les membres de l\'équipe.', ['collaboration', 'competition', 'isolation', 'conflict'], ['collaboration', 'compétition', 'isolement', 'conflit'], 0),
       ('Her _____ explanation helped everyone understand.', 'Son explication _____ a aidé tout le monde à comprendre.', ['lucid', 'confusing', 'unclear', 'vague'], ['claire', 'confuse', 'peu claire', 'vague'], 0),
       ('The _____ bridge connected the two cities.', 'Le pont _____ reliait les deux villes.', ['magnificent', 'tiny', 'broken', 'invisible'], ['magnifique', 'minuscule', 'cassé', 'invisible'], 0),
+      // Additional Level 11 sentence completion
+      ('The _____ explorer discovered new territories.', 'L\'explorateur _____ a découvert de nouveaux territoires.', ['intrepid', 'timid', 'lazy', 'careless'], ['intrépide', 'timide', 'paresseux', 'négligent'], 0),
+      ('Her _____ performance earned a standing ovation.', 'Sa performance _____ a mérité une ovation debout.', ['stellar', 'mediocre', 'boring', 'average'], ['exceptionnelle', 'médiocre', 'ennuyeuse', 'moyenne'], 0),
+      ('The _____ evidence was crucial to the case.', 'La preuve _____ était cruciale pour l\'affaire.', ['compelling', 'weak', 'irrelevant', 'missing'], ['convaincante', 'faible', 'non pertinente', 'manquante'], 0),
+      ('The museum houses _____ artifacts from ancient civilizations.', 'Le musée abrite des artefacts _____ des civilisations anciennes.', ['priceless', 'worthless', 'modern', 'fake'], ['inestimables', 'sans valeur', 'modernes', 'faux'], 0),
+      ('The _____ negotiations finally led to an agreement.', 'Les négociations _____ ont finalement abouti à un accord.', ['prolonged', 'brief', 'failed', 'secret'], ['prolongées', 'brèves', 'échouées', 'secrètes'], 0),
+      ('His _____ knowledge of history impressed the professors.', 'Sa connaissance _____ de l\'histoire a impressionné les professeurs.', ['extensive', 'limited', 'basic', 'poor'], ['approfondie', 'limitée', 'basique', 'pauvre'], 0),
+      ('The _____ mountain peak was visible for miles.', 'Le sommet _____ de la montagne était visible sur des kilomètres.', ['majestic', 'tiny', 'hidden', 'flat'], ['majestueux', 'minuscule', 'caché', 'plat'], 0),
+      ('The _____ conditions made the experiment difficult.', 'Les conditions _____ ont rendu l\'expérience difficile.', ['adverse', 'ideal', 'perfect', 'favorable'], ['défavorables', 'idéales', 'parfaites', 'favorables'], 0),
+      ('Her _____ dedication to the cause inspired others.', 'Son dévouement _____ à la cause a inspiré les autres.', ['unwavering', 'weak', 'casual', 'temporary'], ['indéfectible', 'faible', 'occasionnel', 'temporaire'], 0),
+      ('The _____ solution solved the complex problem.', 'La solution _____ a résolu le problème complexe.', ['ingenious', 'simple', 'obvious', 'failed'], ['ingénieuse', 'simple', 'évidente', 'échouée'], 0),
     ] : [
       ('The politician\'s _____ speech failed to convince the audience.', 'Le discours _____ du politicien n\'a pas réussi à convaincre le public.', ['bombastic', 'sincere', 'brief', 'eloquent'], ['grandiloquent', 'sincère', 'bref', 'éloquent'], 0),
       ('Her _____ nature made her popular among colleagues.', 'Sa nature _____ l\'a rendue populaire auprès de ses collègues.', ['affable', 'hostile', 'indifferent', 'withdrawn'], ['affable', 'hostile', 'indifférente', 'renfermée'], 0),
@@ -393,6 +507,17 @@ class QuestionDataManager {
       ('His _____ comments during the debate won him supporters.', 'Ses commentaires _____ lors du débat lui ont valu des partisans.', ['trenchant', 'vague', 'timid', 'irrelevant'], ['tranchants', 'vagues', 'timides', 'non pertinents'], 0),
       ('The _____ nature of the virus made it difficult to study.', 'La nature _____ du virus a rendu son étude difficile.', ['protean', 'stable', 'predictable', 'simple'], ['protéiforme', 'stable', 'prévisible', 'simple'], 0),
       ('Her _____ wit always entertained dinner guests.', 'Son esprit _____ divertissait toujours les invités du dîner.', ['sardonic', 'dull', 'predictable', 'boring'], ['sardonique', 'terne', 'prévisible', 'ennuyeux'], 0),
+      // Additional Level 12 sentence completion
+      ('The _____ scholar published groundbreaking research.', 'L\'érudit _____ a publié des recherches révolutionnaires.', ['eminent', 'unknown', 'amateur', 'failed'], ['éminent', 'inconnu', 'amateur', 'échoué'], 0),
+      ('His _____ demeanor belied his inner turmoil.', 'Son comportement _____ démentait son trouble intérieur.', ['placid', 'agitated', 'nervous', 'frantic'], ['placide', 'agité', 'nerveux', 'frénétique'], 0),
+      ('The _____ orator swayed the crowd with her rhetoric.', 'L\'orateur _____ a influencé la foule avec sa rhétorique.', ['eloquent', 'inarticulate', 'timid', 'quiet'], ['éloquent', 'inarticuté', 'timide', 'calme'], 0),
+      ('The artist\'s _____ vision challenged conventional aesthetics.', 'La vision _____ de l\'artiste a défié l\'esthétique conventionnelle.', ['avant-garde', 'traditional', 'conservative', 'ordinary'], ['avant-gardiste', 'traditionnelle', 'conservatrice', 'ordinaire'], 0),
+      ('The _____ manuscript was finally decoded after decades.', 'Le manuscrit _____ a finalement été décodé après des décennies.', ['cryptic', 'clear', 'simple', 'readable'], ['cryptique', 'clair', 'simple', 'lisible'], 0),
+      ('Her _____ critique of the theory earned respect.', 'Sa critique _____ de la théorie a mérité le respect.', ['incisive', 'vague', 'superficial', 'mild'], ['incisive', 'vague', 'superficielle', 'légère'], 0),
+      ('The _____ consequences of climate change are alarming.', 'Les conséquences _____ du changement climatique sont alarmantes.', ['deleterious', 'beneficial', 'positive', 'negligible'], ['délétères', 'bénéfiques', 'positives', 'négligeables'], 0),
+      ('The philosopher\'s _____ arguments were difficult to refute.', 'Les arguments _____ du philosophe étaient difficiles à réfuter.', ['cogent', 'weak', 'flawed', 'vague'], ['convaincants', 'faibles', 'défectueux', 'vagues'], 0),
+      ('His _____ spending habits led to financial ruin.', 'Ses habitudes de dépenses _____ ont mené à la ruine financière.', ['profligate', 'frugal', 'careful', 'prudent'], ['dépensières', 'frugales', 'prudentes', 'réfléchies'], 0),
+      ('The _____ peace treaty ended centuries of conflict.', 'Le traité de paix _____ a mis fin à des siècles de conflit.', ['landmark', 'minor', 'failed', 'temporary'], ['historique', 'mineur', 'échoué', 'temporaire'], 0),
     ];
 
     for (var i = 0; i < sentences.length; i++) {
@@ -432,6 +557,17 @@ class QuestionDataManager {
       ('Which doesn\'t belong? Eye, Ear, Nose, Shoe', 'Lequel n\'appartient pas ? Œil, Oreille, Nez, Chaussure', ['Shoe', 'Eye', 'Ear', 'Nose'], ['Chaussure', 'Œil', 'Oreille', 'Nez'], 0),
       ('Which doesn\'t belong? Lion, Tiger, Bear, Flower', 'Lequel n\'appartient pas ? Lion, Tigre, Ours, Fleur', ['Flower', 'Lion', 'Tiger', 'Bear'], ['Fleur', 'Lion', 'Tigre', 'Ours'], 0),
       ('Which doesn\'t belong? Shirt, Pants, Hat, Table', 'Lequel n\'appartient pas ? Chemise, Pantalon, Chapeau, Table', ['Table', 'Shirt', 'Pants', 'Hat'], ['Table', 'Chemise', 'Pantalon', 'Chapeau'], 0),
+      // Additional Level 10 verbal classification
+      ('Which doesn\'t belong? Fork, Spoon, Knife, Book', 'Lequel n\'appartient pas ? Fourchette, Cuillère, Couteau, Livre', ['Book', 'Fork', 'Spoon', 'Knife'], ['Livre', 'Fourchette', 'Cuillère', 'Couteau'], 0),
+      ('Which doesn\'t belong? Cow, Horse, Pig, Tree', 'Lequel n\'appartient pas ? Vache, Cheval, Cochon, Arbre', ['Tree', 'Cow', 'Horse', 'Pig'], ['Arbre', 'Vache', 'Cheval', 'Cochon'], 0),
+      ('Which doesn\'t belong? Rose, Tulip, Daisy, River', 'Lequel n\'appartient pas ? Rose, Tulipe, Marguerite, Rivière', ['River', 'Rose', 'Tulip', 'Daisy'], ['Rivière', 'Rose', 'Tulipe', 'Marguerite'], 0),
+      ('Which doesn\'t belong? One, Two, Three, Blue', 'Lequel n\'appartient pas ? Un, Deux, Trois, Bleu', ['Blue', 'One', 'Two', 'Three'], ['Bleu', 'Un', 'Deux', 'Trois'], 0),
+      ('Which doesn\'t belong? Circle, Square, Triangle, Book', 'Lequel n\'appartient pas ? Cercle, Carré, Triangle, Livre', ['Book', 'Circle', 'Square', 'Triangle'], ['Livre', 'Cercle', 'Carré', 'Triangle'], 0),
+      ('Which doesn\'t belong? Piano, Guitar, Drum, Chair', 'Lequel n\'appartient pas ? Piano, Guitare, Tambour, Chaise', ['Chair', 'Piano', 'Guitar', 'Drum'], ['Chaise', 'Piano', 'Guitare', 'Tambour'], 0),
+      ('Which doesn\'t belong? Airplane, Helicopter, Boat, Kite', 'Lequel n\'appartient pas ? Avion, Hélicoptère, Bateau, Cerf-volant', ['Boat', 'Airplane', 'Helicopter', 'Kite'], ['Bateau', 'Avion', 'Hélicoptère', 'Cerf-volant'], 0),
+      ('Which doesn\'t belong? Doctor, Teacher, Nurse, Book', 'Lequel n\'appartient pas ? Médecin, Enseignant, Infirmière, Livre', ['Book', 'Doctor', 'Teacher', 'Nurse'], ['Livre', 'Médecin', 'Enseignant', 'Infirmière'], 0),
+      ('Which doesn\'t belong? Happy, Sad, Angry, Tree', 'Lequel n\'appartient pas ? Heureux, Triste, Fâché, Arbre', ['Tree', 'Happy', 'Sad', 'Angry'], ['Arbre', 'Heureux', 'Triste', 'Fâché'], 0),
+      ('Which doesn\'t belong? Breakfast, Lunch, Dinner, School', 'Lequel n\'appartient pas ? Petit-déjeuner, Déjeuner, Dîner, École', ['School', 'Breakfast', 'Lunch', 'Dinner'], ['École', 'Petit-déjeuner', 'Déjeuner', 'Dîner'], 0),
     ] : level == CCATLevel.level11 ? [
       ('Which doesn\'t belong? Mercury, Venus, Sun, Mars', 'Lequel n\'appartient pas ? Mercure, Vénus, Soleil, Mars', ['Sun', 'Mercury', 'Venus', 'Mars'], ['Soleil', 'Mercure', 'Vénus', 'Mars'], 0),
       ('Which doesn\'t belong? Piano, Violin, Drum, Painting', 'Lequel n\'appartient pas ? Piano, Violon, Tambour, Peinture', ['Painting', 'Piano', 'Violin', 'Drum'], ['Peinture', 'Piano', 'Violon', 'Tambour'], 0),
@@ -445,6 +581,17 @@ class QuestionDataManager {
       ('Which doesn\'t belong? Canada, France, Japan, Toronto', 'Lequel n\'appartient pas ? Canada, France, Japon, Toronto', ['Toronto', 'Canada', 'France', 'Japan'], ['Toronto', 'Canada', 'France', 'Japon'], 0),
       ('Which doesn\'t belong? Celsius, Fahrenheit, Kelvin, Kilogram', 'Lequel n\'appartient pas ? Celsius, Fahrenheit, Kelvin, Kilogramme', ['Kilogram', 'Celsius', 'Fahrenheit', 'Kelvin'], ['Kilogramme', 'Celsius', 'Fahrenheit', 'Kelvin'], 0),
       ('Which doesn\'t belong? Democracy, Monarchy, Republic, Photosynthesis', 'Lequel n\'appartient pas ? Démocratie, Monarchie, République, Photosynthèse', ['Photosynthesis', 'Democracy', 'Monarchy', 'Republic'], ['Photosynthèse', 'Démocratie', 'Monarchie', 'République'], 0),
+      // Additional Level 11 verbal classification
+      ('Which doesn\'t belong? Copper, Iron, Gold, Oxygen', 'Lequel n\'appartient pas ? Cuivre, Fer, Or, Oxygène', ['Oxygen', 'Copper', 'Iron', 'Gold'], ['Oxygène', 'Cuivre', 'Fer', 'Or'], 0),
+      ('Which doesn\'t belong? Novel, Poem, Essay, Calculator', 'Lequel n\'appartient pas ? Roman, Poème, Essai, Calculatrice', ['Calculator', 'Novel', 'Poem', 'Essay'], ['Calculatrice', 'Roman', 'Poème', 'Essai'], 0),
+      ('Which doesn\'t belong? Jupiter, Saturn, Neptune, Moon', 'Lequel n\'appartient pas ? Jupiter, Saturne, Neptune, Lune', ['Moon', 'Jupiter', 'Saturn', 'Neptune'], ['Lune', 'Jupiter', 'Saturne', 'Neptune'], 0),
+      ('Which doesn\'t belong? Herbivore, Carnivore, Omnivore, Telescope', 'Lequel n\'appartient pas ? Herbivore, Carnivore, Omnivore, Télescope', ['Telescope', 'Herbivore', 'Carnivore', 'Omnivore'], ['Télescope', 'Herbivore', 'Carnivore', 'Omnivore'], 0),
+      ('Which doesn\'t belong? Addition, Subtraction, Division, Chemistry', 'Lequel n\'appartient pas ? Addition, Soustraction, Division, Chimie', ['Chemistry', 'Addition', 'Subtraction', 'Division'], ['Chimie', 'Addition', 'Soustraction', 'Division'], 0),
+      ('Which doesn\'t belong? Violin, Cello, Viola, Trumpet', 'Lequel n\'appartient pas ? Violon, Violoncelle, Alto, Trompette', ['Trumpet', 'Violin', 'Cello', 'Viola'], ['Trompette', 'Violon', 'Violoncelle', 'Alto'], 0),
+      ('Which doesn\'t belong? Everest, Kilimanjaro, Fuji, Amazon', 'Lequel n\'appartient pas ? Everest, Kilimandjaro, Fuji, Amazone', ['Amazon', 'Everest', 'Kilimanjaro', 'Fuji'], ['Amazone', 'Everest', 'Kilimandjaro', 'Fuji'], 0),
+      ('Which doesn\'t belong? Hydrogen, Helium, Lithium, Water', 'Lequel n\'appartient pas ? Hydrogène, Hélium, Lithium, Eau', ['Water', 'Hydrogen', 'Helium', 'Lithium'], ['Eau', 'Hydrogène', 'Hélium', 'Lithium'], 0),
+      ('Which doesn\'t belong? Washington, Lincoln, Roosevelt, Columbus', 'Lequel n\'appartient pas ? Washington, Lincoln, Roosevelt, Colomb', ['Columbus', 'Washington', 'Lincoln', 'Roosevelt'], ['Colomb', 'Washington', 'Lincoln', 'Roosevelt'], 0),
+      ('Which doesn\'t belong? Meter, Liter, Gram, Dollar', 'Lequel n\'appartient pas ? Mètre, Litre, Gramme, Dollar', ['Dollar', 'Meter', 'Liter', 'Gram'], ['Dollar', 'Mètre', 'Litre', 'Gramme'], 0),
     ] : [
       ('Which doesn\'t belong? Monarchy, Democracy, Republic, Capitalism', 'Lequel n\'appartient pas ? Monarchie, Démocratie, République, Capitalisme', ['Capitalism', 'Monarchy', 'Democracy', 'Republic'], ['Capitalisme', 'Monarchie', 'Démocratie', 'République'], 0),
       ('Which doesn\'t belong? Metaphor, Simile, Hyperbole, Paragraph', 'Lequel n\'appartient pas ? Métaphore, Comparaison, Hyperbole, Paragraphe', ['Paragraph', 'Metaphor', 'Simile', 'Hyperbole'], ['Paragraphe', 'Métaphore', 'Comparaison', 'Hyperbole'], 0),
@@ -458,6 +605,17 @@ class QuestionDataManager {
       ('Which doesn\'t belong? Impressionism, Cubism, Surrealism, Calculus', 'Lequel n\'appartient pas ? Impressionnisme, Cubisme, Surréalisme, Calcul', ['Calculus', 'Impressionism', 'Cubism', 'Surrealism'], ['Calcul', 'Impressionnisme', 'Cubisme', 'Surréalisme'], 0),
       ('Which doesn\'t belong? Syntax, Semantics, Pragmatics, Velocity', 'Lequel n\'appartient pas ? Syntaxe, Sémantique, Pragmatique, Vélocité', ['Velocity', 'Syntax', 'Semantics', 'Pragmatics'], ['Vélocité', 'Syntaxe', 'Sémantique', 'Pragmatique'], 0),
       ('Which doesn\'t belong? Mozart, Beethoven, Bach, Darwin', 'Lequel n\'appartient pas ? Mozart, Beethoven, Bach, Darwin', ['Darwin', 'Mozart', 'Beethoven', 'Bach'], ['Darwin', 'Mozart', 'Beethoven', 'Bach'], 0),
+      // Additional Level 12 verbal classification
+      ('Which doesn\'t belong? Hypothesis, Theory, Law, Novel', 'Lequel n\'appartient pas ? Hypothèse, Théorie, Loi, Roman', ['Novel', 'Hypothesis', 'Theory', 'Law'], ['Roman', 'Hypothèse', 'Théorie', 'Loi'], 0),
+      ('Which doesn\'t belong? Capitalism, Socialism, Communism, Geometry', 'Lequel n\'appartient pas ? Capitalisme, Socialisme, Communisme, Géométrie', ['Geometry', 'Capitalism', 'Socialism', 'Communism'], ['Géométrie', 'Capitalisme', 'Socialisme', 'Communisme'], 0),
+      ('Which doesn\'t belong? Proton, Neutron, Electron, Symphony', 'Lequel n\'appartient pas ? Proton, Neutron, Électron, Symphonie', ['Symphony', 'Proton', 'Neutron', 'Electron'], ['Symphonie', 'Proton', 'Neutron', 'Électron'], 0),
+      ('Which doesn\'t belong? Freud, Jung, Pavlov, Picasso', 'Lequel n\'appartient pas ? Freud, Jung, Pavlov, Picasso', ['Picasso', 'Freud', 'Jung', 'Pavlov'], ['Picasso', 'Freud', 'Jung', 'Pavlov'], 0),
+      ('Which doesn\'t belong? Alliteration, Assonance, Onomatopoeia, Momentum', 'Lequel n\'appartient pas ? Allitération, Assonance, Onomatopée, Élan', ['Momentum', 'Alliteration', 'Assonance', 'Onomatopoeia'], ['Élan', 'Allitération', 'Assonance', 'Onomatopée'], 0),
+      ('Which doesn\'t belong? Oligarchy, Theocracy, Autocracy, Velocity', 'Lequel n\'appartient pas ? Oligarchie, Théocratie, Autocratie, Vélocité', ['Velocity', 'Oligarchy', 'Theocracy', 'Autocracy'], ['Vélocité', 'Oligarchie', 'Théocratie', 'Autocratie'], 0),
+      ('Which doesn\'t belong? Osmosis, Diffusion, Evaporation, Multiplication', 'Lequel n\'appartient pas ? Osmose, Diffusion, Évaporation, Multiplication', ['Multiplication', 'Osmosis', 'Diffusion', 'Evaporation'], ['Multiplication', 'Osmose', 'Diffusion', 'Évaporation'], 0),
+      ('Which doesn\'t belong? Macbeth, Hamlet, Othello, Einstein', 'Lequel n\'appartient pas ? Macbeth, Hamlet, Othello, Einstein', ['Einstein', 'Macbeth', 'Hamlet', 'Othello'], ['Einstein', 'Macbeth', 'Hamlet', 'Othello'], 0),
+      ('Which doesn\'t belong? Dichotomy, Paradox, Juxtaposition, Photosynthesis', 'Lequel n\'appartient pas ? Dichotomie, Paradoxe, Juxtaposition, Photosynthèse', ['Photosynthesis', 'Dichotomy', 'Paradox', 'Juxtaposition'], ['Photosynthèse', 'Dichotomie', 'Paradoxe', 'Juxtaposition'], 0),
+      ('Which doesn\'t belong? Voltaire, Rousseau, Descartes, Galileo', 'Lequel n\'appartient pas ? Voltaire, Rousseau, Descartes, Galilée', ['Galileo', 'Voltaire', 'Rousseau', 'Descartes'], ['Galilée', 'Voltaire', 'Rousseau', 'Descartes'], 0),
     ];
 
     for (var i = 0; i < items.length; i++) {
@@ -503,6 +661,15 @@ class QuestionDataManager {
       ('5 : 15 :: 6 : ?', ['16', '17', '18', '19'], 2),
       ('8 : 16 :: 10 : ?', ['18', '19', '20', '21'], 2),
       ('3 : 15 :: 4 : ?', ['18', '19', '20', '21'], 2),
+      // Additional Level 10 number analogies
+      ('4 : 8 :: 7 : ?', ['12', '13', '14', '15'], 2),
+      ('2 : 8 :: 4 : ?', ['14', '15', '16', '17'], 2),
+      ('5 : 20 :: 3 : ?', ['10', '11', '12', '13'], 2),
+      ('6 : 18 :: 7 : ?', ['20', '21', '22', '23'], 1),
+      ('9 : 18 :: 5 : ?', ['8', '9', '10', '11'], 2),
+      ('3 : 12 :: 6 : ?', ['22', '23', '24', '25'], 2),
+      ('10 : 20 :: 12 : ?', ['22', '23', '24', '25'], 2),
+      ('4 : 20 :: 5 : ?', ['23', '24', '25', '26'], 2),
     ] : level == CCATLevel.level11 ? [
       ('5 : 25 :: 6 : ?', ['30', '36', '42', '48'], 1),
       ('8 : 64 :: 9 : ?', ['72', '81', '90', '99'], 1),
@@ -520,6 +687,15 @@ class QuestionDataManager {
       ('15 : 225 :: 13 : ?', ['156', '169', '182', '195'], 1),
       ('20 : 400 :: 15 : ?', ['200', '225', '250', '275'], 1),
       ('8 : 512 :: 5 : ?', ['100', '125', '150', '175'], 1),
+      // Additional Level 11 number analogies
+      ('12 : 144 :: 14 : ?', ['182', '196', '210', '224'], 1),
+      ('5 : 125 :: 6 : ?', ['180', '200', '216', '240'], 2),
+      ('13 : 169 :: 11 : ?', ['110', '111', '121', '132'], 2),
+      ('3 : 27 :: 5 : ?', ['100', '125', '150', '175'], 1),
+      ('16 : 256 :: 14 : ?', ['182', '196', '210', '224'], 1),
+      ('4 : 256 :: 3 : ?', ['81', '64', '27', '9'], 0),
+      ('6 : 1296 :: 4 : ?', ['256', '128', '64', '32'], 0),
+      ('7 : 2401 :: 5 : ?', ['625', '500', '375', '250'], 0),
     ] : [
       ('3 : 27 :: 4 : ?', ['64', '48', '36', '16'], 0),
       ('2 : 16 :: 3 : ?', ['81', '72', '64', '54'], 0),
@@ -537,6 +713,15 @@ class QuestionDataManager {
       ('3 : 81 :: 2 : ?', ['16', '8', '4', '2'], 0),
       ('5 : 3125 :: 4 : ?', ['1024', '512', '256', '128'], 0),
       ('6 : 7776 :: 3 : ?', ['243', '162', '81', '27'], 0),
+      // Additional Level 12 number analogies
+      ('12 : 1728 :: 8 : ?', ['512', '384', '256', '128'], 0),
+      ('2 : 128 :: 3 : ?', ['2187', '729', '243', '81'], 0),
+      ('5 : 625 :: 7 : ?', ['2401', '1764', '1225', '784'], 0),
+      ('3 : 729 :: 2 : ?', ['64', '32', '16', '8'], 0),
+      ('8 : 512 :: 10 : ?', ['1000', '800', '600', '400'], 0),
+      ('4 : 4096 :: 3 : ?', ['729', '512', '343', '216'], 0),
+      ('7 : 16807 :: 4 : ?', ['1024', '512', '256', '128'], 0),
+      ('9 : 6561 :: 6 : ?', ['1296', '972', '648', '324'], 0),
     ];
 
     for (var i = 0; i < analogies.length; i++) {
@@ -580,6 +765,15 @@ class QuestionDataManager {
       ('Which is greater? A: 11 - 3, B: 4 + 5', 'Lequel est plus grand ? A: 11 - 3, B: 4 + 5', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 1),
       ('Which is less? A: 6 x 3, B: 9 x 2', 'Lequel est plus petit ? A: 6 x 3, B: 9 x 2', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 2),
       ('Compare: A: 30 ÷ 5, B: 18 ÷ 3', 'Comparer : A: 30 ÷ 5, B: 18 ÷ 3', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
+      // Additional Level 10 quantitative relations
+      ('Which is greater? A: 8 + 4, B: 6 + 7', 'Lequel est plus grand ? A: 8 + 4, B: 6 + 7', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 1),
+      ('Which is less? A: 4 x 5, B: 7 x 3', 'Lequel est plus petit ? A: 4 x 5, B: 7 x 3', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 1),
+      ('Compare: A: 36 ÷ 6, B: 24 ÷ 4', 'Comparer : A: 36 ÷ 6, B: 24 ÷ 4', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
+      ('Which is greater? A: 12 - 5, B: 3 + 3', 'Lequel est plus grand ? A: 12 - 5, B: 3 + 3', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
+      ('Which is less? A: 9 + 9, B: 4 x 5', 'Lequel est plus petit ? A: 9 + 9, B: 4 x 5', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
+      ('Compare: A: 5 x 6, B: 10 x 3', 'Comparer : A: 5 x 6, B: 10 x 3', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
+      ('Which is greater? A: 45 ÷ 9, B: 25 ÷ 5', 'Lequel est plus grand ? A: 45 ÷ 9, B: 25 ÷ 5', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 2),
+      ('Which is less? A: 8 x 3, B: 5 x 5', 'Lequel est plus petit ? A: 8 x 3, B: 5 x 5', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
     ] : level == CCATLevel.level11 ? [
       ('Which is greater? A: 1/2 of 10, B: 1/3 of 12', 'Lequel est plus grand ? A: 1/2 de 10, B: 1/3 de 12', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
       ('Which is less? A: 0.5, B: 0.05', 'Lequel est plus petit ? A: 0.5, B: 0.05', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 1),
@@ -597,6 +791,15 @@ class QuestionDataManager {
       ('Which is greater? A: 7/9, B: 8/11', 'Lequel est plus grand ? A: 7/9, B: 8/11', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
       ('Which is less? A: 6 cubed, B: 200', 'Lequel est plus petit ? A: 6 au cube, B: 200', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 1),
       ('Compare: A: 2.5, B: 5/2', 'Comparer : A: 2.5, B: 5/2', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
+      // Additional Level 11 quantitative relations
+      ('Which is greater? A: 3/5 of 25, B: 2/3 of 21', 'Lequel est plus grand ? A: 3/5 de 25, B: 2/3 de 21', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
+      ('Which is less? A: 0.125, B: 1/8', 'Lequel est plus petit ? A: 0.125, B: 1/8', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 2),
+      ('Compare: A: 7 squared, B: 5 x 10', 'Comparer : A: 7 au carré, B: 5 x 10', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 1),
+      ('Which is greater? A: 40%, B: 2/5', 'Lequel est plus grand ? A: 40%, B: 2/5', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 2),
+      ('Which is less? A: 4/7, B: 5/9', 'Lequel est plus petit ? A: 4/7, B: 5/9', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 1),
+      ('Compare: A: 0.375, B: 3/8', 'Comparer : A: 0.375, B: 3/8', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
+      ('Which is greater? A: 2 cubed, B: 3 squared', 'Lequel est plus grand ? A: 2 au cube, B: 3 au carré', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 1),
+      ('Which is less? A: 1/6 of 42, B: 1/7 of 56', 'Lequel est plus petit ? A: 1/6 de 42, B: 1/7 de 56', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
     ] : [
       ('Compare: A: sqrt(144), B: 12', 'Comparer : A: sqrt(144), B: 12', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
       ('Which is less? A: -5, B: -10', 'Lequel est plus petit ? A: -5, B: -10', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 1),
@@ -614,6 +817,15 @@ class QuestionDataManager {
       ('Compare: A: 1/sqrt(2), B: sqrt(2)/2', 'Comparer : A: 1/sqrt(2), B: sqrt(2)/2', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
       ('Which is greater? A: (2/3)^2, B: 2/3', 'Lequel est plus grand ? A: (2/3)^2, B: 2/3', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 1),
       ('Compare: A: 10^(-2), B: 0.01', 'Comparer : A: 10^(-2), B: 0.01', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
+      // Additional Level 12 quantitative relations
+      ('Which is greater? A: sqrt(169), B: 13', 'Lequel est plus grand ? A: sqrt(169), B: 13', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 2),
+      ('Which is less? A: -3, B: -8', 'Lequel est plus petit ? A: -3, B: -8', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 1),
+      ('Compare: A: 3^4, B: 4^3', 'Comparer : A: 3^4, B: 4^3', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 0),
+      ('Which is greater? A: |-12|, B: |10|', 'Lequel est plus grand ? A: |-12|, B: |10|', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 0),
+      ('Compare: A: sqrt(81), B: 3^2', 'Comparer : A: sqrt(81), B: 3^2', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
+      ('Which is less? A: 4^4, B: 2^8', 'Lequel est plus petit ? A: 4^4, B: 2^8', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 2),
+      ('Compare: A: (1/2)^3, B: 1/8', 'Comparer : A: (1/2)^3, B: 1/8', ['A is greater', 'B is greater', 'Equal', 'Cannot tell'], ['A est plus grand', 'B est plus grand', 'Égal', 'Impossible à dire'], 2),
+      ('Which is greater? A: 6^2, B: 2^6', 'Lequel est plus grand ? A: 6^2, B: 2^6', ['A', 'B', 'Equal', 'Cannot tell'], ['A', 'B', 'Égal', 'Impossible à dire'], 1),
     ];
 
     for (var i = 0; i < relations.length; i++) {
@@ -657,6 +869,15 @@ class QuestionDataManager {
       ('8, 16, 24, 32, ?', ['36', '38', '40', '42'], 2),
       ('25, 20, 15, 10, ?', ['5', '6', '7', '8'], 0),
       ('9, 18, 27, 36, ?', ['42', '43', '44', '45'], 3),
+      // Additional Level 10 number series
+      ('11, 22, 33, 44, ?', ['50', '52', '55', '60'], 2),
+      ('30, 25, 20, 15, ?', ['8', '9', '10', '12'], 2),
+      ('4, 7, 10, 13, ?', ['15', '16', '17', '18'], 1),
+      ('12, 24, 36, 48, ?', ['56', '58', '60', '62'], 2),
+      ('40, 35, 30, 25, ?', ['18', '19', '20', '22'], 2),
+      ('5, 8, 11, 14, ?', ['16', '17', '18', '19'], 1),
+      ('10, 20, 30, 40, ?', ['45', '48', '50', '55'], 2),
+      ('60, 54, 48, 42, ?', ['34', '35', '36', '38'], 2),
     ] : level == CCATLevel.level11 ? [
       ('1, 4, 9, 16, ?', ['20', '24', '25', '30'], 2),
       ('2, 6, 12, 20, ?', ['28', '30', '32', '36'], 1),
@@ -674,6 +895,15 @@ class QuestionDataManager {
       ('4, 6, 9, 13, 18, ?', ['22', '23', '24', '25'], 2),
       ('1, 4, 10, 20, 35, ?', ['50', '55', '56', '60'], 2),
       ('2, 6, 14, 30, 62, ?', ['124', '126', '128', '130'], 1),
+      // Additional Level 11 number series
+      ('36, 49, 64, 81, ?', ['96', '100', '121', '144'], 1),
+      ('3, 9, 27, 81, ?', ['162', '189', '216', '243'], 3),
+      ('1, 5, 13, 29, 61, ?', ['93', '109', '117', '125'], 3),
+      ('4, 7, 12, 19, 28, ?', ['37', '39', '41', '43'], 1),
+      ('0, 1, 3, 7, 15, ?', ['29', '30', '31', '32'], 2),
+      ('5, 6, 8, 11, 15, ?', ['18', '19', '20', '21'], 2),
+      ('2, 5, 11, 23, 47, ?', ['91', '93', '95', '97'], 2),
+      ('1, 4, 13, 40, ?', ['81', '100', '121', '144'], 2),
     ] : [
       ('2, 3, 5, 7, 11, ?', ['12', '13', '14', '15'], 1),
       ('1, 8, 27, 64, ?', ['100', '125', '150', '200'], 1),
@@ -691,6 +921,15 @@ class QuestionDataManager {
       ('2, 9, 28, 65, 126, ?', ['189', '215', '217', '243'], 2),
       ('5, 11, 23, 47, 95, ?', ['143', '175', '191', '215'], 2),
       ('1, 4, 13, 40, 121, ?', ['244', '324', '364', '404'], 2),
+      // Additional Level 12 number series
+      ('2, 5, 17, 65, 257, ?', ['513', '767', '1025', '1281'], 2),
+      ('1, 2, 5, 14, 41, ?', ['86', '112', '122', '136'], 2),
+      ('0, 1, 8, 27, 64, ?', ['100', '125', '144', '216'], 1),
+      ('3, 7, 15, 31, 63, ?', ['95', '111', '127', '143'], 2),
+      ('4, 11, 30, 85, ?', ['164', '238', '256', '274'], 2),
+      ('1, 5, 14, 30, 55, ?', ['77', '85', '91', '105'], 2),
+      ('2, 10, 42, 170, ?', ['512', '602', '682', '730'], 2),
+      ('6, 13, 27, 55, 111, ?', ['180', '200', '223', '240'], 2),
     ];
 
     for (var i = 0; i < series.length; i++) {
@@ -741,6 +980,7 @@ class QuestionDataManager {
     }
 
     if (level == CCATLevel.level10) {
+      // Basic Row Repetition Patterns
       addMatrix('1', 'Complete the pattern.', 'Complétez le motif.',
         [['circle', 'circle', 'circle'], ['square', 'square', 'square'], ['triangle', 'triangle', '?']],
         ['Triangle', 'Square', 'Circle', 'Star'], 0,
@@ -771,7 +1011,6 @@ class QuestionDataManager {
         'The pattern shows shape-dot-shape in each row, where the shapes on the sides match. Row 3 has triangle on the left, so the right side must also be triangle.',
         'Le motif montre forme-point-forme dans chaque ligne, où les formes sur les côtés correspondent. La ligne 3 a un triangle à gauche, donc le côté droit doit aussi être triangle.');
         
-      // Additional Level 10 Matrix Questions
       addMatrix('6', 'Complete the pattern.', 'Complétez le motif.',
         [['star', 'star', 'star'], ['heart', 'heart', 'heart'], ['diamond', 'diamond', '?']],
         ['Diamond', 'Star', 'Heart', 'Circle'], 0,
@@ -789,6 +1028,79 @@ class QuestionDataManager {
         ['Triangle', 'Filled_Triangle', 'Circle', 'Square'], 0,
         'Each row has two filled shapes followed by one outline shape. Row 3 has two filled triangles, so the last must be an outline Triangle.',
         'Chaque ligne a deux formes remplies suivies d\'une forme contour. La ligne 3 a deux triangles remplis, donc le dernier doit être un Triangle contour.');
+        
+      // New Level 10 Matrix Questions - Simple Patterns
+      addMatrix('9', 'Complete the pattern.', 'Complétez le motif.',
+        [['heart', 'heart', 'heart'], ['star', 'star', 'star'], ['circle', 'circle', '?']],
+        ['Circle', 'Heart', 'Star', 'Square'], 0,
+        'Each row shows the same shape three times. Row 3 has circles, so the missing shape is Circle.',
+        'Chaque ligne montre la même forme trois fois. La ligne 3 a des cercles, donc la forme manquante est Cercle.');
+        
+      addMatrix('10', 'Complete the pattern.', 'Complétez le motif.',
+        [['square', 'circle', 'square'], ['circle', 'square', 'circle'], ['square', 'circle', '?']],
+        ['Square', 'Circle', 'Triangle', 'Star'], 0,
+        'The pattern alternates in a checkerboard: square-circle-square. Row 3 follows this pattern, so the answer is Square.',
+        'Le motif alterne en damier: carré-cercle-carré. La ligne 3 suit ce motif, donc la réponse est Carré.');
+        
+      addMatrix('11', 'Complete the pattern.', 'Complétez le motif.',
+        [['triangle', 'square', 'circle'], ['circle', 'triangle', 'square'], ['square', 'circle', '?']],
+        ['Triangle', 'Square', 'Circle', 'Star'], 0,
+        'Each row has all three shapes rotating. Row 3 needs Triangle to complete the set of square, circle, triangle.',
+        'Chaque ligne a les trois formes en rotation. La ligne 3 a besoin de Triangle pour compléter l\'ensemble carré, cercle, triangle.');
+        
+      addMatrix('12', 'Complete the pattern.', 'Complétez le motif.',
+        [['filled_star', 'star', 'filled_star'], ['star', 'filled_star', 'star'], ['filled_star', 'star', '?']],
+        ['filled_star', 'star', 'circle', 'filled_circle'], 0,
+        'Row 3 mirrors Row 1: filled, empty, filled. The answer is filled_star.',
+        'La ligne 3 reflète la ligne 1: rempli, vide, rempli. La réponse est étoile_remplie.');
+        
+      addMatrix('13', 'Complete the pattern.', 'Complétez le motif.',
+        [['diamond', 'diamond', 'heart'], ['diamond', 'heart', 'heart'], ['heart', 'heart', '?']],
+        ['Heart', 'Diamond', 'Star', 'Circle'], 0,
+        'The number of hearts increases each row. Row 3 should have all hearts, so the answer is Heart.',
+        'Le nombre de cœurs augmente à chaque ligne. La ligne 3 devrait avoir tous des cœurs, donc la réponse est Cœur.');
+        
+      addMatrix('14', 'Complete the pattern.', 'Complétez le motif.',
+        [['circle', 'circle', 'dot'], ['square', 'square', 'dot'], ['triangle', 'triangle', '?']],
+        ['dot', 'triangle', 'circle', 'square'], 0,
+        'Each row ends with a dot. Row 3 should end with dot.',
+        'Chaque ligne se termine par un point. La ligne 3 devrait se terminer par point.');
+        
+      addMatrix('15', 'Complete the pattern.', 'Complétez le motif.',
+        [['x', 'circle', 'x'], ['x', 'square', 'x'], ['x', 'triangle', '?']],
+        ['x', 'triangle', 'circle', 'square'], 0,
+        'Each row has x on both sides with a shape in the middle. Row 3 should end with x.',
+        'Chaque ligne a x des deux côtés avec une forme au milieu. La ligne 3 devrait se terminer par x.');
+        
+      addMatrix('16', 'Complete the pattern.', 'Complétez le motif.',
+        [['star', 'heart', 'star'], ['heart', 'star', 'heart'], ['star', 'heart', '?']],
+        ['Star', 'Heart', 'Diamond', 'Circle'], 0,
+        'Row 3 mirrors Row 1: star, heart, star. The answer is Star.',
+        'La ligne 3 reflète la ligne 1: étoile, cœur, étoile. La réponse est Étoile.');
+        
+      addMatrix('17', 'Complete the pattern.', 'Complétez le motif.',
+        [['pentagon', 'pentagon', 'pentagon'], ['hexagon', 'hexagon', 'hexagon'], ['diamond', 'diamond', '?']],
+        ['Diamond', 'Pentagon', 'Hexagon', 'Star'], 0,
+        'Each row shows the same shape three times. Row 3 has diamonds, so the answer is Diamond.',
+        'Chaque ligne montre la même forme trois fois. La ligne 3 a des losanges, donc la réponse est Losange.');
+        
+      addMatrix('18', 'Complete the pattern.', 'Complétez le motif.',
+        [['filled_circle', 'filled_circle', 'filled_circle'], ['circle', 'circle', 'circle'], ['filled_square', 'filled_square', '?']],
+        ['filled_square', 'square', 'filled_circle', 'circle'], 0,
+        'Row 3 follows Row 1\'s pattern of all filled shapes. The answer is filled_square.',
+        'La ligne 3 suit le motif de la ligne 1 avec toutes les formes remplies. La réponse est carré_rempli.');
+        
+      addMatrix('19', 'Complete the pattern.', 'Complétez le motif.',
+        [['+', 'dot', '+'], ['dot', '+', 'dot'], ['+', 'dot', '?']],
+        ['+', 'dot', 'x', 'circle'], 0,
+        'Row 3 mirrors Row 1: plus, dot, plus. The answer is +.',
+        'La ligne 3 reflète la ligne 1: plus, point, plus. La réponse est +.');
+        
+      addMatrix('20', 'Complete the pattern.', 'Complétez le motif.',
+        [['circle', 'star', 'circle'], ['star', 'circle', 'star'], ['circle', 'star', '?']],
+        ['Circle', 'Star', 'Heart', 'Diamond'], 0,
+        'This is a checkerboard pattern. Row 3 follows Row 1, so the answer is Circle.',
+        'C\'est un motif en damier. La ligne 3 suit la ligne 1, donc la réponse est Cercle.');
 
     } else if (level == CCATLevel.level11) {
       addMatrix('1', 'Complete the pattern.', 'Complétez le motif.',
@@ -821,7 +1133,6 @@ class QuestionDataManager {
         'Looking at the columns: Column 1 has all X. Column 2 changes from x to +. Column 3 should follow the same change pattern, going from x to +.',
         'En regardant les colonnes: La colonne 1 a tous des X. La colonne 2 passe de x à +. La colonne 3 devrait suivre le même changement, passant de x à +.');
         
-      // Additional Level 11 Matrix Questions
       addMatrix('6', 'Complete the pattern.', 'Complétez le motif.',
         [['pentagon', 'hexagon', 'pentagon'], ['hexagon', 'pentagon', 'hexagon'], ['pentagon', 'hexagon', '?']],
         ['Pentagon', 'Hexagon', 'Circle', 'Star'], 0,
@@ -839,6 +1150,79 @@ class QuestionDataManager {
         ['Filled_Circle', 'Circle', 'Square', 'Star'], 0,
         'Each row has 2 filled circles and 1 outline circle. Row 3 has filled_circle, circle, so the last position needs Filled_Circle to have 2 filled and 1 outline.',
         'Chaque ligne a 2 cercles remplis et 1 cercle contour. La ligne 3 a cercle_rempli, cercle, donc la dernière position nécessite Cercle_Rempli pour avoir 2 remplis et 1 contour.');
+        
+      // New Level 11 Matrix Questions - More Complex Patterns
+      addMatrix('9', 'Complete the pattern.', 'Complétez le motif.',
+        [['star', 'star', 'heart'], ['star', 'heart', 'heart'], ['heart', 'heart', '?']],
+        ['Heart', 'Star', 'Diamond', 'Circle'], 0,
+        'Stars decrease and hearts increase in each row. Row 3 has all hearts.',
+        'Les étoiles diminuent et les cœurs augmentent dans chaque ligne. La ligne 3 a tous des cœurs.');
+        
+      addMatrix('10', 'Complete the pattern.', 'Complétez le motif.',
+        [['filled_square', 'square', 'filled_square'], ['square', 'filled_square', 'square'], ['filled_square', 'square', '?']],
+        ['filled_square', 'square', 'filled_circle', 'circle'], 0,
+        'Row 3 mirrors Row 1: filled, empty, filled. The answer is filled_square.',
+        'La ligne 3 reflète la ligne 1: rempli, vide, rempli. La réponse est carré_rempli.');
+        
+      addMatrix('11', 'Complete the pattern.', 'Complétez le motif.',
+        [['circle', 'pentagon', 'hexagon'], ['pentagon', 'hexagon', 'circle'], ['hexagon', 'circle', '?']],
+        ['Pentagon', 'Hexagon', 'Circle', 'Star'], 0,
+        'Each row has all three shapes in rotating positions. Row 3 needs Pentagon.',
+        'Chaque ligne a les trois formes en positions rotatives. La ligne 3 a besoin de Pentagone.');
+        
+      addMatrix('12', 'Complete the pattern.', 'Complétez le motif.',
+        [['x', 'dot', 'x'], ['dot', 'x', 'dot'], ['x', 'dot', '?']],
+        ['x', 'dot', '+', 'circle'], 0,
+        'Row 3 mirrors Row 1: x, dot, x. The answer is x.',
+        'La ligne 3 reflète la ligne 1: x, point, x. La réponse est x.');
+        
+      addMatrix('13', 'Complete the pattern.', 'Complétez le motif.',
+        [['diamond', 'star', 'diamond'], ['star', 'diamond', 'star'], ['diamond', 'star', '?']],
+        ['Diamond', 'Star', 'Heart', 'Circle'], 0,
+        'Checkerboard pattern. Row 3 mirrors Row 1, so the answer is Diamond.',
+        'Motif en damier. La ligne 3 reflète la ligne 1, donc la réponse est Losange.');
+        
+      addMatrix('14', 'Complete the pattern.', 'Complétez le motif.',
+        [['filled_circle', 'circle', 'circle'], ['circle', 'filled_circle', 'circle'], ['circle', 'circle', '?']],
+        ['filled_circle', 'circle', 'filled_square', 'square'], 0,
+        'The filled circle moves diagonally. In Row 3, it should be in position 3.',
+        'Le cercle rempli se déplace en diagonale. Dans la ligne 3, il devrait être en position 3.');
+        
+      addMatrix('15', 'Complete the pattern.', 'Complétez le motif.',
+        [['heart', 'diamond', 'star'], ['star', 'heart', 'diamond'], ['diamond', 'star', '?']],
+        ['Heart', 'Diamond', 'Star', 'Circle'], 0,
+        'Latin square pattern - each shape appears once per row. Row 3 needs Heart.',
+        'Motif carré latin - chaque forme apparaît une fois par ligne. La ligne 3 a besoin de Cœur.');
+        
+      addMatrix('16', 'Complete the pattern.', 'Complétez le motif.',
+        [['pentagon', 'pentagon', 'hexagon'], ['pentagon', 'hexagon', 'hexagon'], ['hexagon', 'hexagon', '?']],
+        ['Hexagon', 'Pentagon', 'Star', 'Circle'], 0,
+        'Hexagons increase each row. Row 3 should have all hexagons.',
+        'Les hexagones augmentent à chaque ligne. La ligne 3 devrait avoir tous des hexagones.');
+        
+      addMatrix('17', 'Complete the pattern.', 'Complétez le motif.',
+        [['+', 'x', '+'], ['x', '+', 'x'], ['+', 'x', '?']],
+        ['+', 'x', 'dot', 'circle'], 0,
+        'Checkerboard alternation between + and x. Row 3 ends with +.',
+        'Alternance en damier entre + et x. La ligne 3 se termine par +.');
+        
+      addMatrix('18', 'Complete the pattern.', 'Complétez le motif.',
+        [['filled_star', 'filled_star', 'star'], ['filled_star', 'star', 'star'], ['star', 'star', '?']],
+        ['Star', 'Filled_Star', 'Circle', 'Heart'], 0,
+        'Filled stars decrease each row. Row 3 has all outline stars.',
+        'Les étoiles remplies diminuent à chaque ligne. La ligne 3 a toutes des étoiles contour.');
+        
+      addMatrix('19', 'Complete the pattern.', 'Complétez le motif.',
+        [['circle', 'circle', 'square'], ['circle', 'square', 'square'], ['square', 'square', '?']],
+        ['Square', 'Circle', 'Triangle', 'Star'], 0,
+        'Squares increase each row. Row 3 should have all squares.',
+        'Les carrés augmentent à chaque ligne. La ligne 3 devrait avoir tous des carrés.');
+        
+      addMatrix('20', 'Complete the pattern.', 'Complétez le motif.',
+        [['dot', 'dot', 'x'], ['dot', 'x', 'x'], ['x', 'x', '?']],
+        ['x', 'dot', '+', 'circle'], 0,
+        'X marks increase diagonally. Row 3 should have all x marks.',
+        'Les marques X augmentent en diagonale. La ligne 3 devrait avoir toutes des marques x.');
 
     } else { // Level 12
       addMatrix('1', 'Complete the pattern.', 'Complétez le motif.',
@@ -871,7 +1255,6 @@ class QuestionDataManager {
         'The pattern shows rows of the same symbol. Row 3 has x, x, so the missing element must be x to complete the row with matching symbols.',
         'Le motif montre des lignes du même symbole. La ligne 3 a x, x, donc l\'élément manquant doit être x pour compléter la ligne avec des symboles correspondants.');
         
-      // Additional Level 12 Matrix Questions  
       addMatrix('6', 'Complete the pattern.', 'Complétez le motif.',
         [['hexagon', 'pentagon', 'hexagon'], ['pentagon', 'hexagon', 'pentagon'], ['hexagon', 'pentagon', '?']],
         ['Hexagon', 'Pentagon', 'Star', 'Circle'], 0,
@@ -889,6 +1272,79 @@ class QuestionDataManager {
         ['Circle', 'Triangle', 'Square', 'Star'], 0,
         'Each row contains filled_square, circle, and filled_triangle in rotating order (Latin Square). Row 3 has filled_triangle, filled_square, so the missing shape is Circle.',
         'Chaque ligne contient carré_rempli, cercle et triangle_rempli en ordre rotatif (Carré Latin). La ligne 3 a triangle_rempli, carré_rempli, donc la forme manquante est Cercle.');
+        
+      // New Level 12 Matrix Questions - Advanced Patterns
+      addMatrix('9', 'Complete the pattern.', 'Complétez le motif.',
+        [['filled_star', 'star', 'filled_star'], ['star', 'filled_star', 'star'], ['filled_star', 'star', '?']],
+        ['filled_star', 'star', 'filled_diamond', 'diamond'], 0,
+        'Row 3 mirrors Row 1: filled, empty, filled. The answer is filled_star.',
+        'La ligne 3 reflète la ligne 1: rempli, vide, rempli. La réponse est étoile_remplie.');
+        
+      addMatrix('10', 'Complete the pattern.', 'Complétez le motif.',
+        [['pentagon', 'hexagon', 'diamond'], ['hexagon', 'diamond', 'pentagon'], ['diamond', 'pentagon', '?']],
+        ['Hexagon', 'Pentagon', 'Diamond', 'Circle'], 0,
+        'Latin square pattern. Row 3 needs Hexagon to complete the set.',
+        'Motif carré latin. La ligne 3 a besoin de Hexagone pour compléter l\'ensemble.');
+        
+      addMatrix('11', 'Complete the pattern.', 'Complétez le motif.',
+        [['dot', 'dot', 'x', 'x'], ['x', 'x', 'dot', 'dot'], ['dot', 'dot', 'x', '?']],
+        ['x', 'dot', '+', 'circle'], 0,
+        'Each row has two dots followed by two x marks (or vice versa). Row 3 ends with x.',
+        'Chaque ligne a deux points suivis de deux marques x (ou l\'inverse). La ligne 3 se termine par x.');
+        
+      addMatrix('12', 'Complete the pattern.', 'Complétez le motif.',
+        [['heart', 'star', 'heart'], ['star', 'heart', 'star'], ['heart', 'star', '?']],
+        ['Heart', 'Star', 'Diamond', 'Circle'], 0,
+        'Checkerboard pattern. Row 3 mirrors Row 1, answer is Heart.',
+        'Motif en damier. La ligne 3 reflète la ligne 1, la réponse est Cœur.');
+        
+      addMatrix('13', 'Complete the pattern.', 'Complétez le motif.',
+        [['filled_circle', 'filled_square', 'filled_triangle'], ['filled_square', 'filled_triangle', 'filled_circle'], ['filled_triangle', 'filled_circle', '?']],
+        ['filled_square', 'filled_circle', 'filled_triangle', 'circle'], 0,
+        'Latin square pattern with filled shapes. Row 3 needs filled_square.',
+        'Motif carré latin avec formes remplies. La ligne 3 a besoin de carré_rempli.');
+        
+      addMatrix('14', 'Complete the pattern.', 'Complétez le motif.',
+        [['+', '+', '+', 'x'], ['+', '+', 'x', 'x'], ['+', 'x', 'x', '?']],
+        ['x', '+', 'dot', 'circle'], 0,
+        'X marks increase diagonally. Row 3 should end with x.',
+        'Les marques X augmentent en diagonale. La ligne 3 devrait se terminer par x.');
+        
+      addMatrix('15', 'Complete the pattern.', 'Complétez le motif.',
+        [['circle', 'filled_circle', 'circle'], ['filled_circle', 'circle', 'filled_circle'], ['circle', 'filled_circle', '?']],
+        ['Circle', 'Filled_Circle', 'Square', 'Star'], 0,
+        'Row 3 mirrors Row 1: outline, filled, outline. Answer is Circle.',
+        'La ligne 3 reflète la ligne 1: contour, rempli, contour. La réponse est Cercle.');
+        
+      addMatrix('16', 'Complete the pattern.', 'Complétez le motif.',
+        [['diamond', 'heart', 'star', 'pentagon'], ['heart', 'star', 'pentagon', 'diamond'], ['star', 'pentagon', 'diamond', '?']],
+        ['Heart', 'Diamond', 'Star', 'Pentagon'], 0,
+        'Each row rotates the shapes by one position. Row 3 ends with Heart.',
+        'Chaque ligne fait tourner les formes d\'une position. La ligne 3 se termine par Cœur.');
+        
+      addMatrix('17', 'Complete the pattern.', 'Complétez le motif.',
+        [['filled_diamond', 'diamond', 'filled_diamond'], ['diamond', 'filled_diamond', 'diamond'], ['filled_diamond', 'diamond', '?']],
+        ['filled_diamond', 'diamond', 'filled_star', 'star'], 0,
+        'Row 3 mirrors Row 1: filled, empty, filled. Answer is filled_diamond.',
+        'La ligne 3 reflète la ligne 1: rempli, vide, rempli. La réponse est losange_rempli.');
+        
+      addMatrix('18', 'Complete the pattern.', 'Complétez le motif.',
+        [['hexagon', 'pentagon', 'star'], ['pentagon', 'star', 'hexagon'], ['star', 'hexagon', '?']],
+        ['Pentagon', 'Hexagon', 'Star', 'Diamond'], 0,
+        'Latin square rotation. Row 3 needs Pentagon.',
+        'Rotation carré latin. La ligne 3 a besoin de Pentagone.');
+        
+      addMatrix('19', 'Complete the pattern.', 'Complétez le motif.',
+        [['dot', 'x', 'dot', 'x'], ['x', 'dot', 'x', 'dot'], ['dot', 'x', 'dot', '?']],
+        ['x', 'dot', '+', 'circle'], 0,
+        'Alternating pattern. Row 3 follows Row 1, ending with x.',
+        'Motif alterné. La ligne 3 suit la ligne 1, se terminant par x.');
+        
+      addMatrix('20', 'Complete the pattern.', 'Complétez le motif.',
+        [['filled_heart', 'filled_heart', 'heart'], ['filled_heart', 'heart', 'heart'], ['heart', 'heart', '?']],
+        ['Heart', 'Filled_Heart', 'Circle', 'Star'], 0,
+        'Filled hearts decrease each row. Row 3 has all outline hearts.',
+        'Les cœurs remplis diminuent à chaque ligne. La ligne 3 a tous des cœurs contour.');
     }
     
     return questions;
@@ -977,6 +1433,91 @@ class QuestionDataManager {
         ['Diamond', 'Diamond', 'Square', 'Diamond'], 2,
         'Three shapes are diamonds (tilted squares), but position 3 is a regular square. While both have 4 sides, the diamond is rotated 45 degrees.',
         'Trois formes sont des losanges (carrés inclinés), mais la position 3 est un carré régulier. Bien que les deux aient 4 côtés, le losange est tourné de 45 degrés.');
+        
+      // Additional Level 10 Classification Questions - Expanded
+      addOddOneOut('9', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['triangle', 'triangle', 'triangle', 'star'],
+        [Colors.blue, Colors.blue, Colors.blue, Colors.blue],
+        ['Triangle', 'Triangle', 'Triangle', 'Star'], 3,
+        'Three shapes have 3 sides (triangles), but position 4 is a star with 5 points.',
+        'Trois formes ont 3 côtés (triangles), mais la position 4 est une étoile à 5 pointes.');
+        
+      addOddOneOut('10', 'Which color is different?', 'Quelle couleur est différente ?',
+        ['star', 'star', 'star', 'star'],
+        [Colors.orange, Colors.orange, Colors.purple, Colors.orange],
+        ['Orange', 'Orange', 'Purple', 'Orange'], 2,
+        'Three stars are orange, but position 3 is purple. Purple is the different color.',
+        'Trois étoiles sont orange, mais la position 3 est violet. Le violet est la couleur différente.');
+        
+      addOddOneOut('11', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['pentagon', 'pentagon', 'pentagon', 'square'],
+        [Colors.green, Colors.green, Colors.green, Colors.green],
+        ['Pentagon', 'Pentagon', 'Pentagon', 'Square'], 3,
+        'Three shapes have 5 sides (pentagons), but position 4 has only 4 sides (square).',
+        'Trois formes ont 5 côtés (pentagones), mais la position 4 n\'a que 4 côtés (carré).');
+        
+      addOddOneOut('12', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['filled_star', 'filled_star', 'star', 'filled_star'],
+        [Colors.yellow, Colors.yellow, Colors.yellow, Colors.yellow],
+        ['Filled', 'Filled', 'Outline', 'Filled'], 2,
+        'Three stars are filled/solid, but position 3 is just an outline.',
+        'Trois étoiles sont remplies/solides, mais la position 3 est juste un contour.');
+        
+      addOddOneOut('13', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['hexagon', 'hexagon', 'hexagon', 'circle'],
+        [Colors.teal, Colors.teal, Colors.teal, Colors.teal],
+        ['Hexagon', 'Hexagon', 'Hexagon', 'Circle'], 3,
+        'Three shapes have 6 sides (hexagons), but position 4 has no sides (circle).',
+        'Trois formes ont 6 côtés (hexagones), mais la position 4 n\'a pas de côtés (cercle).');
+        
+      addOddOneOut('14', 'Which color is different?', 'Quelle couleur est différente ?',
+        ['heart', 'heart', 'heart', 'heart'],
+        [Colors.pink, Colors.pink, Colors.pink, Colors.green],
+        ['Pink', 'Pink', 'Pink', 'Green'], 3,
+        'Three hearts are pink, but position 4 is green. Green is the different color.',
+        'Trois cœurs sont roses, mais la position 4 est verte. Le vert est la couleur différente.');
+        
+      addOddOneOut('15', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['circle', 'circle', 'heart', 'circle'],
+        [Colors.red, Colors.red, Colors.red, Colors.red],
+        ['Circle', 'Circle', 'Heart', 'Circle'], 2,
+        'Three shapes are circles, but position 3 is a heart shape.',
+        'Trois formes sont des cercles, mais la position 3 est une forme de cœur.');
+        
+      addOddOneOut('16', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['square', 'square', 'square', 'diamond'],
+        [Colors.purple, Colors.purple, Colors.purple, Colors.purple],
+        ['Square', 'Square', 'Square', 'Diamond'], 3,
+        'Three shapes are squares, but position 4 is a diamond (tilted square).',
+        'Trois formes sont des carrés, mais la position 4 est un losange (carré incliné).');
+        
+      addOddOneOut('17', 'Which color is different?', 'Quelle couleur est différente ?',
+        ['pentagon', 'pentagon', 'pentagon', 'pentagon'],
+        [Colors.cyan, Colors.red, Colors.cyan, Colors.cyan],
+        ['Cyan', 'Red', 'Cyan', 'Cyan'], 1,
+        'Three pentagons are cyan, but position 2 is red.',
+        'Trois pentagones sont cyan, mais la position 2 est rouge.');
+        
+      addOddOneOut('18', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['filled_circle', 'circle', 'filled_circle', 'filled_circle'],
+        [Colors.blue, Colors.blue, Colors.blue, Colors.blue],
+        ['Filled', 'Outline', 'Filled', 'Filled'], 1,
+        'Three circles are filled, but position 2 is just an outline.',
+        'Trois cercles sont remplis, mais la position 2 est juste un contour.');
+        
+      addOddOneOut('19', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['star', 'heart', 'star', 'star'],
+        [Colors.orange, Colors.orange, Colors.orange, Colors.orange],
+        ['Star', 'Heart', 'Star', 'Star'], 1,
+        'Three shapes are stars, but position 2 is a heart.',
+        'Trois formes sont des étoiles, mais la position 2 est un cœur.');
+        
+      addOddOneOut('20', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['diamond', 'diamond', 'diamond', 'triangle'],
+        [Colors.amber, Colors.amber, Colors.amber, Colors.amber],
+        ['Diamond', 'Diamond', 'Diamond', 'Triangle'], 3,
+        'Three shapes have 4 sides (diamonds), but position 4 has 3 sides (triangle).',
+        'Trois formes ont 4 côtés (losanges), mais la position 4 a 3 côtés (triangle).');
 
     } else if (level == CCATLevel.level11) {
       addOddOneOut('1', 'Which shape is different?', 'Quelle forme est différente ?',
@@ -1035,6 +1576,91 @@ class QuestionDataManager {
         ['Teal', 'Teal', 'Orange', 'Teal'], 2,
         'All shapes are pentagons (5 sides). Three are teal colored (positions 1, 2, 4), but position 3 is orange. Orange stands out as the different color.',
         'Toutes les formes sont des pentagones (5 côtés). Trois sont de couleur turquoise (positions 1, 2, 4), mais la position 3 est orange. L\'orange se distingue comme la couleur différente.');
+        
+      // Additional Level 11 Classification Questions - Expanded
+      addOddOneOut('9', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['hexagon', 'hexagon', 'hexagon', 'pentagon'],
+        [Colors.blue, Colors.blue, Colors.blue, Colors.blue],
+        ['6 sides', '6 sides', '6 sides', '5 sides'], 3,
+        'Three shapes are hexagons (6 sides), but position 4 is a pentagon (5 sides).',
+        'Trois formes sont des hexagones (6 côtés), mais la position 4 est un pentagone (5 côtés).');
+        
+      addOddOneOut('10', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['filled_triangle', 'filled_triangle', 'triangle', 'filled_triangle'],
+        [Colors.green, Colors.green, Colors.green, Colors.green],
+        ['Filled', 'Filled', 'Outline', 'Filled'], 2,
+        'Three triangles are filled, but position 3 is just an outline.',
+        'Trois triangles sont remplis, mais la position 3 est juste un contour.');
+        
+      addOddOneOut('11', 'Which color is different?', 'Quelle couleur est différente ?',
+        ['diamond', 'diamond', 'diamond', 'diamond'],
+        [Colors.purple, Colors.purple, Colors.yellow, Colors.purple],
+        ['Purple', 'Purple', 'Yellow', 'Purple'], 2,
+        'Three diamonds are purple, but position 3 is yellow.',
+        'Trois losanges sont violets, mais la position 3 est jaune.');
+        
+      addOddOneOut('12', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['star', 'star', 'hexagon', 'star'],
+        [Colors.orange, Colors.orange, Colors.orange, Colors.orange],
+        ['Star', 'Star', 'Hexagon', 'Star'], 2,
+        'Three shapes have pointed tips (stars), but position 3 has straight edges (hexagon).',
+        'Trois formes ont des pointes (étoiles), mais la position 3 a des bords droits (hexagone).');
+        
+      addOddOneOut('13', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['oval', 'oval', 'circle', 'oval'],
+        [Colors.cyan, Colors.cyan, Colors.cyan, Colors.cyan],
+        ['Oval', 'Oval', 'Circle', 'Oval'], 2,
+        'Three shapes are ovals (stretched), but position 3 is a perfect circle.',
+        'Trois formes sont des ovales (étirées), mais la position 3 est un cercle parfait.');
+        
+      addOddOneOut('14', 'Which color is different?', 'Quelle couleur est différente ?',
+        ['hexagon', 'hexagon', 'hexagon', 'hexagon'],
+        [Colors.amber, Colors.amber, Colors.amber, Colors.cyan],
+        ['Amber', 'Amber', 'Amber', 'Cyan'], 3,
+        'Three hexagons are amber, but position 4 is cyan.',
+        'Trois hexagones sont ambre, mais la position 4 est cyan.');
+        
+      addOddOneOut('15', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['filled_square', 'filled_square', 'filled_square', 'square'],
+        [Colors.red, Colors.red, Colors.red, Colors.red],
+        ['Filled', 'Filled', 'Filled', 'Outline'], 3,
+        'Three squares are filled, but position 4 is just an outline.',
+        'Trois carrés sont remplis, mais la position 4 est juste un contour.');
+        
+      addOddOneOut('16', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['diamond', 'diamond', 'diamond', 'heart'],
+        [Colors.cyan, Colors.cyan, Colors.cyan, Colors.cyan],
+        ['Diamond', 'Diamond', 'Diamond', 'Heart'], 3,
+        'Three shapes have straight edges (diamonds), but position 4 has curves (heart).',
+        'Trois formes ont des bords droits (losanges), mais la position 4 a des courbes (cœur).');
+        
+      addOddOneOut('17', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['pentagon', 'hexagon', 'hexagon', 'hexagon'],
+        [Colors.green, Colors.green, Colors.green, Colors.green],
+        ['5 sides', '6 sides', '6 sides', '6 sides'], 0,
+        'Position 1 is a pentagon (5 sides), but the rest are hexagons (6 sides).',
+        'La position 1 est un pentagone (5 côtés), mais le reste sont des hexagones (6 côtés).');
+        
+      addOddOneOut('18', 'Which color is different?', 'Quelle couleur est différente ?',
+        ['star', 'star', 'star', 'star'],
+        [Colors.yellow, Colors.yellow, Colors.blue, Colors.yellow],
+        ['Yellow', 'Yellow', 'Blue', 'Yellow'], 2,
+        'Three stars are yellow, but position 3 is blue.',
+        'Trois étoiles sont jaunes, mais la position 3 est bleue.');
+        
+      addOddOneOut('19', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['filled_heart', 'filled_heart', 'heart', 'filled_heart'],
+        [Colors.red, Colors.red, Colors.red, Colors.red],
+        ['Filled', 'Filled', 'Outline', 'Filled'], 2,
+        'Three hearts are filled, but position 3 is just an outline.',
+        'Trois cœurs sont remplis, mais la position 3 est juste un contour.');
+        
+      addOddOneOut('20', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['circle', 'square', 'circle', 'circle'],
+        [Colors.purple, Colors.purple, Colors.purple, Colors.purple],
+        ['Circle', 'Square', 'Circle', 'Circle'], 1,
+        'Three shapes are circles, but position 2 is a square.',
+        'Trois formes sont des cercles, mais la position 2 est un carré.');
 
     } else { // Level 12
       addOddOneOut('1', 'Which shape is different?', 'Quelle forme est différente ?',
@@ -1093,6 +1719,91 @@ class QuestionDataManager {
         ['Purple', 'Purple', 'Green', 'Purple'], 2,
         'All shapes are hexagons, but the colors differ. Three are deep purple (positions 1, 2, 4), but position 3 is light green. Green is the odd color out.',
         'Toutes les formes sont des hexagones, mais les couleurs diffèrent. Trois sont violet foncé (positions 1, 2, 4), mais la position 3 est vert clair. Le vert est la couleur différente.');
+        
+      // Additional Level 12 Classification Questions - Expanded
+      addOddOneOut('9', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['filled_star', 'filled_star', 'star', 'filled_star'],
+        [Colors.amber, Colors.amber, Colors.amber, Colors.amber],
+        ['Filled', 'Filled', 'Outline', 'Filled'], 2,
+        'Three stars are filled/solid, but position 3 is an outline star. The outline star is different because it\'s empty inside.',
+        'Trois étoiles sont remplies/solides, mais la position 3 est une étoile contour. L\'étoile contour est différente car elle est vide à l\'intérieur.');
+        
+      addOddOneOut('10', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['circle', 'oval', 'circle', 'circle'],
+        [Colors.blue, Colors.blue, Colors.blue, Colors.blue],
+        ['Circle', 'Oval', 'Circle', 'Circle'], 1,
+        'Three shapes are circles, but position 2 is an oval. The oval is stretched, making it different.',
+        'Trois formes sont des cercles, mais la position 2 est un ovale. L\'ovale est étiré, ce qui le rend différent.');
+        
+      addOddOneOut('11', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['diamond', 'diamond', 'diamond', 'heart'],
+        [Colors.pink, Colors.pink, Colors.pink, Colors.pink],
+        ['Diamond', 'Diamond', 'Diamond', 'Heart'], 3,
+        'Three shapes are diamonds with straight edges, but position 4 is a heart with curves. The heart is different.',
+        'Trois formes sont des losanges avec des bords droits, mais la position 4 est un cœur avec des courbes. Le cœur est différent.');
+        
+      addOddOneOut('12', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['pentagon', 'pentagon', 'pentagon', 'star'],
+        [Colors.teal, Colors.teal, Colors.teal, Colors.teal],
+        ['Pentagon', 'Pentagon', 'Pentagon', 'Star'], 3,
+        'Three shapes are pentagons (5 smooth sides), but position 4 is a star (5 pointed tips). The star has points.',
+        'Trois formes sont des pentagones (5 côtés lisses), mais la position 4 est une étoile (5 pointes). L\'étoile a des pointes.');
+        
+      addOddOneOut('13', 'Which color is different?', 'Quelle couleur est différente ?',
+        ['star', 'star', 'star', 'star'],
+        [Colors.orange, Colors.yellow, Colors.orange, Colors.orange],
+        ['Orange', 'Yellow', 'Orange', 'Orange'], 1,
+        'Three stars are orange, but position 2 is yellow. Yellow is the different color.',
+        'Trois étoiles sont orange, mais la position 2 est jaune. Le jaune est la couleur différente.');
+        
+      addOddOneOut('14', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['filled_diamond', 'filled_diamond', 'diamond', 'filled_diamond'],
+        [Colors.cyan, Colors.cyan, Colors.cyan, Colors.cyan],
+        ['Filled', 'Filled', 'Outline', 'Filled'], 2,
+        'Three diamonds are filled, but position 3 is an outline diamond. The outline is different.',
+        'Trois losanges sont remplis, mais la position 3 est un losange contour. Le contour est différent.');
+        
+      addOddOneOut('15', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['hexagon', 'octagon', 'hexagon', 'hexagon'],
+        [Colors.brown, Colors.brown, Colors.brown, Colors.brown],
+        ['6 sides', '8 sides', '6 sides', '6 sides'], 1,
+        'Three shapes are hexagons (6 sides), but position 2 has 8 sides (octagon). Count the sides to find the difference.',
+        'Trois formes sont des hexagones (6 côtés), mais la position 2 a 8 côtés (octogone). Comptez les côtés pour trouver la différence.');
+        
+      addOddOneOut('16', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['filled_circle', 'filled_square', 'filled_circle', 'filled_circle'],
+        [Colors.red, Colors.red, Colors.red, Colors.red],
+        ['Circle', 'Square', 'Circle', 'Circle'], 1,
+        'Three shapes are filled circles, but position 2 is a filled square. The square has corners.',
+        'Trois formes sont des cercles remplis, mais la position 2 est un carré rempli. Le carré a des coins.');
+        
+      addOddOneOut('17', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['triangle', 'triangle', 'pentagon', 'triangle'],
+        [Colors.purple, Colors.purple, Colors.purple, Colors.purple],
+        ['3 sides', '3 sides', '5 sides', '3 sides'], 2,
+        'Three shapes have 3 sides (triangles), but position 3 has 5 sides (pentagon). Different number of sides.',
+        'Trois formes ont 3 côtés (triangles), mais la position 3 a 5 côtés (pentagone). Nombre de côtés différent.');
+        
+      addOddOneOut('18', 'Which color is different?', 'Quelle couleur est différente ?',
+        ['diamond', 'diamond', 'diamond', 'diamond'],
+        [Colors.cyan, Colors.cyan, Colors.cyan, Colors.pink],
+        ['Cyan', 'Cyan', 'Cyan', 'Pink'], 3,
+        'Three diamonds are cyan, but position 4 is pink. Pink is the different color.',
+        'Trois losanges sont cyan, mais la position 4 est rose. Le rose est la couleur différente.');
+        
+      addOddOneOut('19', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['heart', 'heart', 'heart', 'circle'],
+        [Colors.red, Colors.red, Colors.red, Colors.red],
+        ['Heart', 'Heart', 'Heart', 'Circle'], 3,
+        'Three shapes are hearts with curves and a point, but position 4 is a round circle.',
+        'Trois formes sont des cœurs avec des courbes et une pointe, mais la position 4 est un cercle rond.');
+        
+      addOddOneOut('20', 'Which shape is different?', 'Quelle forme est différente ?',
+        ['filled_pentagon', 'filled_pentagon', 'pentagon', 'filled_pentagon'],
+        [Colors.green, Colors.green, Colors.green, Colors.green],
+        ['Filled', 'Filled', 'Outline', 'Filled'], 2,
+        'Three pentagons are filled, but position 3 is an outline pentagon.',
+        'Trois pentagones sont remplis, mais la position 3 est un pentagone contour.');
     }
     
     return questions;
@@ -1172,6 +1883,79 @@ class QuestionDataManager {
         ['Square', 'Circle', 'Triangle', 'Star'], 0,
         'The pattern shows three circles followed by one square. This could repeat, so after the square comes the next group starting with three circles. The next is Square to continue.',
         'Le motif montre trois cercles suivis d\'un carré. Cela pourrait se répéter, donc après le carré vient le groupe suivant commençant par trois cercles. Le suivant est Carré pour continuer.');
+        
+      // Additional Level 10 Sequence Questions - Expanded
+      addSequence('9', 'What comes next?', 'Quelle est la suite ?',
+        ['pentagon', 'pentagon', 'star', 'question'],
+        ['Pentagon', 'Star', 'Circle', 'Heart'], 0,
+        'Two pentagons, then one star. After star, the pattern repeats with Pentagon.',
+        'Deux pentagones, puis une étoile. Après étoile, le motif se répète avec Pentagone.');
+        
+      addSequence('10', 'What comes next?', 'Quelle est la suite ?',
+        ['heart', 'circle', 'heart', 'circle', 'question'],
+        ['Heart', 'Circle', 'Star', 'Diamond'], 0,
+        'Simple alternation: heart-circle. After circle, the next is Heart.',
+        'Simple alternance: cœur-cercle. Après cercle, le suivant est Cœur.');
+        
+      addSequence('11', 'What comes next?', 'Quelle est la suite ?',
+        ['filled_star', 'star', 'filled_star', 'question'],
+        ['star', 'filled_star', 'circle', 'heart'], 0,
+        'Alternating filled and outline stars. After filled, the next is star (outline).',
+        'Alternance d\'étoiles remplies et contour. Après rempli, le suivant est étoile (contour).');
+        
+      addSequence('12', 'What comes next?', 'Quelle est la suite ?',
+        ['hexagon', 'hexagon', 'hexagon', 'circle', 'question'],
+        ['Circle', 'Hexagon', 'Star', 'Square'], 0,
+        'Three hexagons then one circle. After circle, pattern continues with Circle.',
+        'Trois hexagones puis un cercle. Après cercle, le motif continue avec Cercle.');
+        
+      addSequence('13', 'What comes next?', 'Quelle est la suite ?',
+        ['square', 'square', 'triangle', 'question'],
+        ['Square', 'Triangle', 'Circle', 'Star'], 0,
+        'Two squares then one triangle. After triangle, pattern repeats with Square.',
+        'Deux carrés puis un triangle. Après triangle, le motif se répète avec Carré.');
+        
+      addSequence('14', 'What comes next?', 'Quelle est la suite ?',
+        ['star', 'heart', 'star', 'heart', 'question'],
+        ['Star', 'Heart', 'Diamond', 'Circle'], 0,
+        'Simple alternation: star-heart. After heart, the next is Star.',
+        'Simple alternance: étoile-cœur. Après cœur, le suivant est Étoile.');
+        
+      addSequence('15', 'What comes next?', 'Quelle est la suite ?',
+        ['filled_triangle', 'triangle', 'filled_triangle', 'question'],
+        ['triangle', 'filled_triangle', 'circle', 'star'], 0,
+        'Alternating filled and outline. After filled, the next is triangle (outline).',
+        'Alternance rempli et contour. Après rempli, le suivant est triangle (contour).');
+        
+      addSequence('16', 'What comes next?', 'Quelle est la suite ?',
+        ['pentagon', 'circle', 'pentagon', 'circle', 'question'],
+        ['Pentagon', 'Circle', 'Star', 'Heart'], 0,
+        'Simple alternation: pentagon-circle. After circle, the next is Pentagon.',
+        'Simple alternance: pentagone-cercle. Après cercle, le suivant est Pentagone.');
+        
+      addSequence('17', 'What comes next?', 'Quelle est la suite ?',
+        ['diamond', 'diamond', 'star', 'diamond', 'question'],
+        ['Diamond', 'Star', 'Circle', 'Heart'], 0,
+        'Two diamonds, one star, then diamond. After diamond, next is Diamond to complete the pair.',
+        'Deux losanges, une étoile, puis losange. Après losange, le suivant est Losange pour compléter la paire.');
+        
+      addSequence('18', 'What comes next?', 'Quelle est la suite ?',
+        ['heart', 'heart', 'heart', 'star', 'question'],
+        ['Star', 'Heart', 'Circle', 'Diamond'], 0,
+        'Three hearts then one star. After star, the pattern continues.',
+        'Trois cœurs puis une étoile. Après étoile, le motif continue.');
+        
+      addSequence('19', 'What comes next?', 'Quelle est la suite ?',
+        ['filled_circle', 'circle', 'circle', 'question'],
+        ['filled_circle', 'circle', 'square', 'star'], 0,
+        'One filled, two outline pattern. After two outlines, next is filled_circle.',
+        'Un rempli, deux contours. Après deux contours, le suivant est cercle_rempli.');
+        
+      addSequence('20', 'What comes next?', 'Quelle est la suite ?',
+        ['hexagon', 'pentagon', 'hexagon', 'question'],
+        ['pentagon', 'hexagon', 'star', 'circle'], 0,
+        'Alternation: hexagon-pentagon. After hexagon, the next is pentagon.',
+        'Alternance: hexagone-pentagone. Après hexagone, le suivant est pentagone.');
 
     } else if (level == CCATLevel.level11) {
       addSequence('1', 'What comes next?', 'Quelle est la suite ?',
@@ -1222,6 +2006,79 @@ class QuestionDataManager {
         ['Star', 'Heart', 'Diamond', 'Circle'], 0,
         'The sequence repeats: heart → diamond → star. After heart, diamond, the next is Star to complete the 3-shape cycle.',
         'La séquence se répète: cœur → losange → étoile. Après cœur, losange, le suivant est Étoile pour compléter le cycle de 3 formes.');
+        
+      // Additional Level 11 Sequence Questions - Expanded
+      addSequence('9', 'What comes next?', 'Quelle est la suite ?',
+        ['filled_pentagon', 'pentagon', 'filled_pentagon', 'pentagon', 'question'],
+        ['filled_pentagon', 'pentagon', 'filled_circle', 'circle'], 0,
+        'Alternating filled and outline pentagons. After outline, the next is filled_pentagon.',
+        'Alternance de pentagones remplis et contour. Après contour, le suivant est pentagone_rempli.');
+        
+      addSequence('10', 'What comes next?', 'Quelle est la suite ?',
+        ['hexagon', 'hexagon', 'star', 'hexagon', 'hexagon', 'question'],
+        ['Star', 'Hexagon', 'Pentagon', 'Circle'], 0,
+        'Two hexagons, one star, repeating. After two hexagons, the next is Star.',
+        'Deux hexagones, une étoile, répétition. Après deux hexagones, le suivant est Étoile.');
+        
+      addSequence('11', 'What comes next?', 'Quelle est la suite ?',
+        ['diamond', 'heart', 'pentagon', 'diamond', 'heart', 'question'],
+        ['Pentagon', 'Diamond', 'Heart', 'Circle'], 0,
+        'Three-shape cycle: diamond → heart → pentagon. The next is Pentagon.',
+        'Cycle de trois formes: losange → cœur → pentagone. Le suivant est Pentagone.');
+        
+      addSequence('12', 'What comes next?', 'Quelle est la suite ?',
+        ['filled_star', 'filled_star', 'star', 'filled_star', 'filled_star', 'question'],
+        ['Star', 'Filled_Star', 'Circle', 'Heart'], 0,
+        'Two filled, one outline pattern. After two filled, the next is Star (outline).',
+        'Deux remplis, un contour. Après deux remplis, le suivant est Étoile (contour).');
+        
+      addSequence('13', 'What comes next?', 'Quelle est la suite ?',
+        ['circle', 'pentagon', 'hexagon', 'circle', 'pentagon', 'question'],
+        ['Hexagon', 'Circle', 'Pentagon', 'Star'], 0,
+        'Three-shape cycle: circle → pentagon → hexagon. The next is Hexagon.',
+        'Cycle de trois formes: cercle → pentagone → hexagone. Le suivant est Hexagone.');
+        
+      addSequence('14', 'What comes next?', 'Quelle est la suite ?',
+        ['filled_diamond', 'diamond', 'filled_diamond', 'diamond', 'question'],
+        ['filled_diamond', 'diamond', 'filled_star', 'star'], 0,
+        'Alternating filled and outline diamonds. After outline, the next is filled_diamond.',
+        'Alternance de losanges remplis et contour. Après contour, le suivant est losange_rempli.');
+        
+      addSequence('15', 'What comes next?', 'Quelle est la suite ?',
+        ['star', 'pentagon', 'star', 'pentagon', 'question'],
+        ['Star', 'Pentagon', 'Heart', 'Circle'], 0,
+        'Simple alternation: star-pentagon. After pentagon, the next is Star.',
+        'Simple alternance: étoile-pentagone. Après pentagone, le suivant est Étoile.');
+        
+      addSequence('16', 'What comes next?', 'Quelle est la suite ?',
+        ['heart', 'heart', 'diamond', 'heart', 'heart', 'question'],
+        ['Diamond', 'Heart', 'Star', 'Circle'], 0,
+        'Two hearts, one diamond, repeating. After two hearts, the next is Diamond.',
+        'Deux cœurs, un losange, répétition. Après deux cœurs, le suivant est Losange.');
+        
+      addSequence('17', 'What comes next?', 'Quelle est la suite ?',
+        ['filled_hexagon', 'hexagon', 'filled_hexagon', 'question'],
+        ['hexagon', 'filled_hexagon', 'filled_star', 'star'], 0,
+        'Alternating filled and outline hexagons. After filled, the next is hexagon (outline).',
+        'Alternance d\'hexagones remplis et contour. Après rempli, le suivant est hexagone (contour).');
+        
+      addSequence('18', 'What comes next?', 'Quelle est la suite ?',
+        ['pentagon', 'pentagon', 'pentagon', 'diamond', 'question'],
+        ['Diamond', 'Pentagon', 'Star', 'Circle'], 0,
+        'Three pentagons then one diamond. The next continues the pattern.',
+        'Trois pentagones puis un losange. Le suivant continue le motif.');
+        
+      addSequence('19', 'What comes next?', 'Quelle est la suite ?',
+        ['hexagon', 'star', 'hexagon', 'star', 'question'],
+        ['Hexagon', 'Star', 'Diamond', 'Circle'], 0,
+        'Simple alternation: hexagon-star. After star, the next is Hexagon.',
+        'Simple alternance: hexagone-étoile. Après étoile, le suivant est Hexagone.');
+        
+      addSequence('20', 'What comes next?', 'Quelle est la suite ?',
+        ['filled_heart', 'filled_heart', 'heart', 'filled_heart', 'filled_heart', 'question'],
+        ['Heart', 'Filled_Heart', 'Star', 'Circle'], 0,
+        'Two filled hearts, one outline heart, repeating. The next is Heart (outline).',
+        'Deux cœurs remplis, un cœur contour, répétition. Le suivant est Cœur (contour).');
 
     } else { // Level 12
       addSequence('1', 'What comes next?', 'Quelle est la suite ?',
@@ -1272,6 +2129,79 @@ class QuestionDataManager {
         ['Circle', 'Filled_Circle', 'Square', 'Star'], 0,
         'The pattern is: two filled circles, one outline circle, then repeat. After two filled circles, the next must be Circle (outline).',
         'Le motif est: deux cercles remplis, un cercle contour, puis répétition. Après deux cercles remplis, le suivant doit être Cercle (contour).');
+        
+      // Additional Level 12 Sequence Questions - Expanded
+      addSequence('9', 'What comes next?', 'Quelle est la suite ?',
+        ['pentagon', 'pentagon', 'hexagon', 'pentagon', 'pentagon', 'question'],
+        ['Hexagon', 'Pentagon', 'Star', 'Circle'], 0,
+        'Two pentagons then one hexagon pattern. After two pentagons, the next is Hexagon.',
+        'Deux pentagones puis un hexagone. Après deux pentagones, le suivant est Hexagone.');
+        
+      addSequence('10', 'What comes next?', 'Quelle est la suite ?',
+        ['diamond', 'star', 'heart', 'diamond', 'star', 'question'],
+        ['Heart', 'Diamond', 'Star', 'Circle'], 0,
+        'Three-shape cycle: diamond → star → heart. The next is Heart.',
+        'Cycle de trois formes: losange → étoile → cœur. Le suivant est Cœur.');
+        
+      addSequence('11', 'What comes next?', 'Quelle est la suite ?',
+        ['filled_star', 'star', 'filled_star', 'star', 'question'],
+        ['filled_star', 'star', 'filled_circle', 'circle'], 0,
+        'Alternating filled and outline stars. After star, the next is filled_star.',
+        'Alternance d\'étoiles remplies et contour. Après étoile, le suivant est étoile_remplie.');
+        
+      addSequence('12', 'What comes next?', 'Quelle est la suite ?',
+        ['hexagon', 'hexagon', 'pentagon', 'pentagon', 'question'],
+        ['Hexagon', 'Pentagon', 'Star', 'Circle'], 0,
+        'Two hexagons, two pentagons, pattern repeats. The next is Hexagon.',
+        'Deux hexagones, deux pentagones, le motif se répète. Le suivant est Hexagone.');
+        
+      addSequence('13', 'What comes next?', 'Quelle est la suite ?',
+        ['x', '+', 'dot', 'x', '+', 'question'],
+        ['dot', 'x', '+', 'circle'], 0,
+        'Three-symbol cycle: x → + → dot. The next is dot.',
+        'Cycle de trois symboles: x → + → point. Le suivant est point.');
+        
+      addSequence('14', 'What comes next?', 'Quelle est la suite ?',
+        ['filled_diamond', 'diamond', 'filled_diamond', 'diamond', 'question'],
+        ['filled_diamond', 'diamond', 'filled_star', 'star'], 0,
+        'Alternating filled and outline diamonds. After diamond, the next is filled_diamond.',
+        'Alternance de losanges remplis et contour. Après losange, le suivant est losange_rempli.');
+        
+      addSequence('15', 'What comes next?', 'Quelle est la suite ?',
+        ['heart', 'heart', 'star', 'heart', 'heart', 'question'],
+        ['Star', 'Heart', 'Diamond', 'Circle'], 0,
+        'Two hearts, one star, repeating. After two hearts, the next is Star.',
+        'Deux cœurs, une étoile, répétition. Après deux cœurs, le suivant est Étoile.');
+        
+      addSequence('16', 'What comes next?', 'Quelle est la suite ?',
+        ['circle', 'triangle', 'square', 'circle', 'triangle', 'question'],
+        ['Square', 'Circle', 'Triangle', 'Star'], 0,
+        'Three-shape cycle repeating. After triangle, the next is Square.',
+        'Cycle de trois formes qui se répète. Après triangle, le suivant est Carré.');
+        
+      addSequence('17', 'What comes next?', 'Quelle est la suite ?',
+        ['filled_triangle', 'filled_triangle', 'triangle', 'filled_triangle', 'filled_triangle', 'question'],
+        ['Triangle', 'Filled_Triangle', 'Circle', 'Star'], 0,
+        'Two filled, one outline pattern. After two filled, the next is Triangle (outline).',
+        'Deux remplis, un contour. Après deux remplis, le suivant est Triangle (contour).');
+        
+      addSequence('18', 'What comes next?', 'Quelle est la suite ?',
+        ['star', 'star', 'star', 'diamond', 'question'],
+        ['Diamond', 'Star', 'Circle', 'Heart'], 0,
+        'Three stars then one diamond. After diamond, pattern restarts with Diamond.',
+        'Trois étoiles puis un losange. Après losange, le motif reprend avec Losange.');
+        
+      addSequence('19', 'What comes next?', 'Quelle est la suite ?',
+        ['pentagon', 'hexagon', 'pentagon', 'hexagon', 'question'],
+        ['Pentagon', 'Hexagon', 'Star', 'Circle'], 0,
+        'Simple alternation: pentagon-hexagon. After hexagon, the next is Pentagon.',
+        'Simple alternance: pentagone-hexagone. Après hexagone, le suivant est Pentagone.');
+        
+      addSequence('20', 'What comes next?', 'Quelle est la suite ?',
+        ['filled_heart', 'heart', 'filled_heart', 'heart', 'question'],
+        ['filled_heart', 'heart', 'filled_star', 'star'], 0,
+        'Alternating filled and outline hearts. After heart, the next is filled_heart.',
+        'Alternance de cœurs remplis et contour. Après cœur, le suivant est cœur_rempli.');
     }
     
     return questions;
@@ -1349,7 +2279,7 @@ class QuestionDataManager {
           'type': 'shapePattern', // Using shapePattern to display single shape
           'data': {
             'patterns': [targetShape.$1],
-            'colors': [targetShape.$4.value], // Store color value as int
+            'colors': [targetShape.$4.toARGB32()], // Store color value as int
           }
         },
       ));
@@ -1387,7 +2317,7 @@ class QuestionDataManager {
           'data': {
             'count': count,
             'icon': 0xe5f9, // Icons.star code point
-            'color': Colors.amber.value,
+            'color': Colors.amber.toARGB32(),
           }
         },
       ));
@@ -1464,7 +2394,7 @@ class QuestionDataManager {
         visualData: {
           'type': 'colorPattern',
           'data': {
-            'colors': [targetColor.$1.value],
+            'colors': [targetColor.$1.toARGB32()],
           }
         },
       ));

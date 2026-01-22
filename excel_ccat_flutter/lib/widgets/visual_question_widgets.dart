@@ -235,8 +235,8 @@ class PatternSequencePainter extends CustomPainter {
         break;
       case 'filled_square':
         paint.style = PaintingStyle.fill;
-        final rect = Rect.fromCenter(center: center, width: radius * 2, height: radius * 2);
-        canvas.drawRect(rect, paint);
+        final rectFilled = Rect.fromCenter(center: center, width: radius * 2, height: radius * 2);
+        canvas.drawRect(rectFilled, paint);
         break;
       case 'triangle':
         final path = Path()
@@ -254,6 +254,81 @@ class PatternSequencePainter extends CustomPainter {
           ..lineTo(center.dx - radius, center.dy + radius * 0.8)
           ..close();
         canvas.drawPath(filledPath, paint);
+        break;
+      case 'star':
+        _drawStar(canvas, center, radius, paint);
+        break;
+      case 'filled_star':
+        paint.style = PaintingStyle.fill;
+        _drawStar(canvas, center, radius, paint);
+        break;
+      case 'heart':
+        _drawHeart(canvas, center, radius, paint);
+        break;
+      case 'filled_heart':
+        paint.style = PaintingStyle.fill;
+        _drawHeart(canvas, center, radius, paint);
+        break;
+      case 'diamond':
+        final diamondPath = Path()
+          ..moveTo(center.dx, center.dy - radius)
+          ..lineTo(center.dx + radius * 0.7, center.dy)
+          ..lineTo(center.dx, center.dy + radius)
+          ..lineTo(center.dx - radius * 0.7, center.dy)
+          ..close();
+        canvas.drawPath(diamondPath, paint);
+        break;
+      case 'filled_diamond':
+        paint.style = PaintingStyle.fill;
+        final filledDiamondPath = Path()
+          ..moveTo(center.dx, center.dy - radius)
+          ..lineTo(center.dx + radius * 0.7, center.dy)
+          ..lineTo(center.dx, center.dy + radius)
+          ..lineTo(center.dx - radius * 0.7, center.dy)
+          ..close();
+        canvas.drawPath(filledDiamondPath, paint);
+        break;
+      case 'pentagon':
+        _drawPolygon(canvas, center, radius, 5, paint);
+        break;
+      case 'filled_pentagon':
+        paint.style = PaintingStyle.fill;
+        _drawPolygon(canvas, center, radius, 5, paint);
+        break;
+      case 'hexagon':
+        _drawPolygon(canvas, center, radius, 6, paint);
+        break;
+      case 'filled_hexagon':
+        paint.style = PaintingStyle.fill;
+        _drawPolygon(canvas, center, radius, 6, paint);
+        break;
+      case 'x':
+        canvas.drawLine(
+          Offset(center.dx - radius * 0.6, center.dy - radius * 0.6),
+          Offset(center.dx + radius * 0.6, center.dy + radius * 0.6),
+          paint,
+        );
+        canvas.drawLine(
+          Offset(center.dx + radius * 0.6, center.dy - radius * 0.6),
+          Offset(center.dx - radius * 0.6, center.dy + radius * 0.6),
+          paint,
+        );
+        break;
+      case '+':
+        canvas.drawLine(
+          Offset(center.dx, center.dy - radius * 0.7),
+          Offset(center.dx, center.dy + radius * 0.7),
+          paint,
+        );
+        canvas.drawLine(
+          Offset(center.dx - radius * 0.7, center.dy),
+          Offset(center.dx + radius * 0.7, center.dy),
+          paint,
+        );
+        break;
+      case 'dot':
+        paint.style = PaintingStyle.fill;
+        canvas.drawCircle(center, radius * 0.25, paint);
         break;
       case 'question':
         final textPainter = TextPainter(
@@ -273,7 +348,80 @@ class PatternSequencePainter extends CustomPainter {
           Offset(center.dx - textPainter.width / 2, center.dy - textPainter.height / 2),
         );
         break;
+      default:
+        // For unknown patterns, draw a placeholder circle
+        canvas.drawCircle(center, radius * 0.5, paint..style = PaintingStyle.stroke);
+        break;
     }
+  }
+
+  void _drawStar(Canvas canvas, Offset center, double radius, Paint paint) {
+    final path = Path();
+    for (int i = 0; i < 10; i++) {
+      final angle = (i * 36 - 90) * 3.14159 / 180;
+      final r = i.isEven ? radius : radius * 0.4;
+      final x = center.dx + r * _cos(angle);
+      final y = center.dy + r * _sin(angle);
+      if (i == 0) {
+        path.moveTo(x, y);
+      } else {
+        path.lineTo(x, y);
+      }
+    }
+    path.close();
+    canvas.drawPath(path, paint);
+  }
+
+  void _drawHeart(Canvas canvas, Offset center, double radius, Paint paint) {
+    final path = Path();
+    path.moveTo(center.dx, center.dy + radius * 0.7);
+    path.cubicTo(
+      center.dx - radius * 1.3, center.dy - radius * 0.3,
+      center.dx - radius * 0.5, center.dy - radius * 1.0,
+      center.dx, center.dy - radius * 0.4,
+    );
+    path.cubicTo(
+      center.dx + radius * 0.5, center.dy - radius * 1.0,
+      center.dx + radius * 1.3, center.dy - radius * 0.3,
+      center.dx, center.dy + radius * 0.7,
+    );
+    canvas.drawPath(path, paint);
+  }
+
+  void _drawPolygon(Canvas canvas, Offset center, double radius, int sides, Paint paint) {
+    final path = Path();
+    for (int i = 0; i < sides; i++) {
+      final angle = (i * 360 / sides - 90) * 3.14159 / 180;
+      final x = center.dx + radius * _cos(angle);
+      final y = center.dy + radius * _sin(angle);
+      if (i == 0) {
+        path.moveTo(x, y);
+      } else {
+        path.lineTo(x, y);
+      }
+    }
+    path.close();
+    canvas.drawPath(path, paint);
+  }
+
+  double _cos(double x) {
+    double result = 1.0;
+    double term = 1.0;
+    for (int i = 1; i < 10; i++) {
+      term *= -x * x / ((2 * i - 1) * (2 * i));
+      result += term;
+    }
+    return result;
+  }
+  
+  double _sin(double x) {
+    double result = x;
+    double term = x;
+    for (int i = 1; i < 10; i++) {
+      term *= -x * x / ((2 * i) * (2 * i + 1));
+      result += term;
+    }
+    return result;
   }
 
   @override
@@ -385,12 +533,13 @@ class MatrixPatternPainter extends CustomPainter {
   }
 
   void _drawCellPattern(Canvas canvas, Offset center, double radius, String pattern, Paint paint) {
+    final fillPaint = Paint()..color = Colors.black;
+    
     switch (pattern.toLowerCase()) {
       case 'circle':
         canvas.drawCircle(center, radius * 0.8, paint);
         break;
       case 'filled_circle':
-        final fillPaint = Paint()..color = Colors.black;
         canvas.drawCircle(center, radius * 0.8, fillPaint);
         break;
       case 'square':
@@ -398,9 +547,8 @@ class MatrixPatternPainter extends CustomPainter {
         canvas.drawRect(rect, paint);
         break;
       case 'filled_square':
-        final fillPaint = Paint()..color = Colors.black;
-        final rect = Rect.fromCenter(center: center, width: radius * 1.5, height: radius * 1.5);
-        canvas.drawRect(rect, fillPaint);
+        final rectFilled = Rect.fromCenter(center: center, width: radius * 1.5, height: radius * 1.5);
+        canvas.drawRect(rectFilled, fillPaint);
         break;
       case 'triangle':
         final path = Path()
@@ -411,13 +559,54 @@ class MatrixPatternPainter extends CustomPainter {
         canvas.drawPath(path, paint);
         break;
       case 'filled_triangle':
-        final fillPaintTri = Paint()..color = Colors.black;
         final filledTriPath = Path()
           ..moveTo(center.dx, center.dy - radius * 0.8)
           ..lineTo(center.dx + radius * 0.8, center.dy + radius * 0.6)
           ..lineTo(center.dx - radius * 0.8, center.dy + radius * 0.6)
           ..close();
-        canvas.drawPath(filledTriPath, fillPaintTri);
+        canvas.drawPath(filledTriPath, fillPaint);
+        break;
+      case 'star':
+        _drawCellStar(canvas, center, radius * 0.8, paint);
+        break;
+      case 'filled_star':
+        _drawCellStar(canvas, center, radius * 0.8, fillPaint);
+        break;
+      case 'heart':
+        _drawCellHeart(canvas, center, radius * 0.7, paint);
+        break;
+      case 'filled_heart':
+        _drawCellHeart(canvas, center, radius * 0.7, fillPaint);
+        break;
+      case 'diamond':
+        final diamondPath = Path()
+          ..moveTo(center.dx, center.dy - radius * 0.8)
+          ..lineTo(center.dx + radius * 0.6, center.dy)
+          ..lineTo(center.dx, center.dy + radius * 0.8)
+          ..lineTo(center.dx - radius * 0.6, center.dy)
+          ..close();
+        canvas.drawPath(diamondPath, paint);
+        break;
+      case 'filled_diamond':
+        final filledDiamondPath = Path()
+          ..moveTo(center.dx, center.dy - radius * 0.8)
+          ..lineTo(center.dx + radius * 0.6, center.dy)
+          ..lineTo(center.dx, center.dy + radius * 0.8)
+          ..lineTo(center.dx - radius * 0.6, center.dy)
+          ..close();
+        canvas.drawPath(filledDiamondPath, fillPaint);
+        break;
+      case 'pentagon':
+        _drawCellPolygon(canvas, center, radius * 0.75, 5, paint);
+        break;
+      case 'filled_pentagon':
+        _drawCellPolygon(canvas, center, radius * 0.75, 5, fillPaint);
+        break;
+      case 'hexagon':
+        _drawCellPolygon(canvas, center, radius * 0.75, 6, paint);
+        break;
+      case 'filled_hexagon':
+        _drawCellPolygon(canvas, center, radius * 0.75, 6, fillPaint);
         break;
       case 'x':
         canvas.drawLine(
@@ -444,13 +633,85 @@ class MatrixPatternPainter extends CustomPainter {
         );
         break;
       case 'dot':
-        final fillPaint = Paint()..color = Colors.black;
         canvas.drawCircle(center, radius * 0.2, fillPaint);
         break;
       case 'empty':
         // Draw nothing
         break;
+      default:
+        // Draw a small placeholder for unknown patterns
+        canvas.drawCircle(center, radius * 0.3, paint);
+        break;
     }
+  }
+
+  void _drawCellStar(Canvas canvas, Offset center, double radius, Paint paint) {
+    final path = Path();
+    for (int i = 0; i < 10; i++) {
+      final angle = (i * 36 - 90) * 3.14159 / 180;
+      final r = i.isEven ? radius : radius * 0.4;
+      final x = center.dx + r * _cellCos(angle);
+      final y = center.dy + r * _cellSin(angle);
+      if (i == 0) {
+        path.moveTo(x, y);
+      } else {
+        path.lineTo(x, y);
+      }
+    }
+    path.close();
+    canvas.drawPath(path, paint);
+  }
+
+  void _drawCellHeart(Canvas canvas, Offset center, double radius, Paint paint) {
+    final path = Path();
+    path.moveTo(center.dx, center.dy + radius * 0.7);
+    path.cubicTo(
+      center.dx - radius * 1.2, center.dy - radius * 0.2,
+      center.dx - radius * 0.5, center.dy - radius * 0.9,
+      center.dx, center.dy - radius * 0.3,
+    );
+    path.cubicTo(
+      center.dx + radius * 0.5, center.dy - radius * 0.9,
+      center.dx + radius * 1.2, center.dy - radius * 0.2,
+      center.dx, center.dy + radius * 0.7,
+    );
+    canvas.drawPath(path, paint);
+  }
+
+  void _drawCellPolygon(Canvas canvas, Offset center, double radius, int sides, Paint paint) {
+    final path = Path();
+    for (int i = 0; i < sides; i++) {
+      final angle = (i * 360 / sides - 90) * 3.14159 / 180;
+      final x = center.dx + radius * _cellCos(angle);
+      final y = center.dy + radius * _cellSin(angle);
+      if (i == 0) {
+        path.moveTo(x, y);
+      } else {
+        path.lineTo(x, y);
+      }
+    }
+    path.close();
+    canvas.drawPath(path, paint);
+  }
+
+  double _cellCos(double x) {
+    double result = 1.0;
+    double term = 1.0;
+    for (int i = 1; i < 10; i++) {
+      term *= -x * x / ((2 * i - 1) * (2 * i));
+      result += term;
+    }
+    return result;
+  }
+  
+  double _cellSin(double x) {
+    double result = x;
+    double term = x;
+    for (int i = 1; i < 10; i++) {
+      term *= -x * x / ((2 * i) * (2 * i + 1));
+      result += term;
+    }
+    return result;
   }
 
   @override
@@ -671,21 +932,41 @@ class VisualQuestionDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (questionData.type) {
       case VisualQuestionType.shapePattern:
+        final rawPatternColors = questionData.data['colors'] as List<dynamic>?;
+        List<Color>? patternColors;
+        if (rawPatternColors != null && rawPatternColors.isNotEmpty) {
+          patternColors = rawPatternColors.map((c) {
+            if (c is Color) return c;
+            if (c is int) return Color(c);
+            return Colors.black;
+          }).toList();
+        }
         return PatternSequenceWidget(
           patterns: List<String>.from(questionData.data['patterns'] ?? []),
-          colors: (questionData.data['colors'] as List<dynamic>?)
-              ?.map((c) => c as Color)
-              .toList(),
+          colors: patternColors,
         );
       case VisualQuestionType.colorPattern:
+        final rawColorPattern = questionData.data['colors'] as List<dynamic>? ?? [];
+        final colorPatternList = rawColorPattern.map((c) {
+          if (c is Color) return c;
+          if (c is int) return Color(c);
+          return Colors.black;
+        }).toList();
         return ColorPatternWidget(
-          colors: List<Color>.from(questionData.data['colors'] ?? []),
+          colors: colorPatternList,
         );
       case VisualQuestionType.countingObjects:
+        final rawCountColor = questionData.data['color'];
+        Color countColor = Colors.black;
+        if (rawCountColor is Color) {
+          countColor = rawCountColor;
+        } else if (rawCountColor is int) {
+          countColor = Color(rawCountColor);
+        }
         return CountingObjectsWidget(
           icon: questionData.data['icon'] as IconData? ?? Icons.star,
           count: questionData.data['count'] as int? ?? 5,
-          color: questionData.data['color'] as Color? ?? Colors.black,
+          color: countColor,
         );
       case VisualQuestionType.matrixPattern:
         return MatrixPatternWidget(
@@ -717,12 +998,19 @@ class VisualQuestionDisplay extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: shapes.map((shape) {
+        final rawShapeColor = shape['color'];
+        Color shapeColor = Colors.black;
+        if (rawShapeColor is Color) {
+          shapeColor = rawShapeColor;
+        } else if (rawShapeColor is int) {
+          shapeColor = Color(rawShapeColor);
+        }
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: ShapeWidget(
             shapeType: shape['type'] as String? ?? 'circle',
             size: (shape['size'] as num?)?.toDouble() ?? 50,
-            color: shape['color'] as Color? ?? Colors.black,
+            color: shapeColor,
           ),
         );
       }).toList(),
@@ -730,20 +1018,37 @@ class VisualQuestionDisplay extends StatelessWidget {
   }
 
   Widget _buildOddOneOut(Map<String, dynamic> data) {
-    final items = List<String>.from(data['items'] ?? []);
-    final colors = List<Color>.from(data['colors'] ?? 
-        List.filled(items.length, Colors.black));
+    final items = data['items'] as List<dynamic>? ?? [];
+    final itemsList = items.map((e) => e.toString()).toList();
+    
+    // Handle colors - could be Color objects, ints, or missing
+    List<Color> colorsList;
+    final rawColors = data['colors'] as List<dynamic>?;
+    if (rawColors != null && rawColors.isNotEmpty) {
+      colorsList = rawColors.map((c) {
+        if (c is Color) return c;
+        if (c is int) return Color(c);
+        return Colors.black;
+      }).toList();
+    } else {
+      colorsList = List.filled(itemsList.length, Colors.black);
+    }
+    
+    if (itemsList.isEmpty) {
+      return const Center(child: Text('No items to display'));
+    }
+    
     return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        for (int i = 0; i < items.length; i++)
+        for (int i = 0; i < itemsList.length; i++)
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: ShapeWidget(
-              shapeType: items[i],
+              shapeType: itemsList[i],
               size: 60,
-              color: colors[i],
+              color: i < colorsList.length ? colorsList[i] : Colors.black,
             ),
           ),
       ],

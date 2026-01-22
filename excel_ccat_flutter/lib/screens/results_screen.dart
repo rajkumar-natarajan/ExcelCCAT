@@ -196,7 +196,7 @@ class ResultsScreen extends StatelessWidget {
                   child: CircularProgressIndicator(
                     value: percentage / 100,
                     strokeWidth: 12,
-                    backgroundColor: color.withOpacity(0.1),
+                    backgroundColor: color.withValues(alpha: 0.1),
                     color: color,
                   ),
                 ),
@@ -275,19 +275,8 @@ class ResultsScreen extends StatelessWidget {
       children: result.scoreByType.entries.map((entry) {
         final type = entry.key;
         final score = entry.value;
-        // Calculate total questions for this type from answers
-        final total = result.answers.where((a) {
-          // This is a bit inefficient, but works for now. 
-          // Ideally we'd pass the questions list or store type in answer
-          // For now, let's just assume we can get it from the score map logic
-          // Actually, we can't easily get total per type from just scoreByType map
-          // Let's iterate answers and count
-          return true; // Placeholder
-        }).length; 
-        
-        // Better approach: Count totals from answers by looking up question type?
-        // Since we don't have questions list here easily without passing it,
-        // let's just show the raw score for now.
+        // Note: We only have score count, not total per type
+        // A future enhancement could pass questions list to calculate totals
         
         return Card(
           margin: const EdgeInsets.only(bottom: 12),

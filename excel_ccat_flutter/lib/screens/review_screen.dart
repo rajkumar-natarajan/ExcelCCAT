@@ -56,8 +56,8 @@ class ReviewScreen extends StatelessWidget {
                         ),
                         decoration: BoxDecoration(
                           color: userAnswer.isCorrect
-                              ? Colors.green.withOpacity(0.1)
-                              : Colors.red.withOpacity(0.1),
+                              ? Colors.green.withValues(alpha: 0.1)
+                              : Colors.red.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: Text(
@@ -103,18 +103,18 @@ class ReviewScreen extends StatelessWidget {
                     final isSelected = userAnswer.selectedOption == optIndex;
                     final isCorrect = question.correctAnswer == optIndex;
                     
-                    Color? backgroundColor;
-                    Color? borderColor;
+                    Color backgroundColor;
+                    Color borderColor;
                     IconData? icon;
                     Color? iconColor;
 
                     if (isCorrect) {
-                      backgroundColor = Colors.green.withOpacity(0.1);
+                      backgroundColor = Colors.green.withValues(alpha: 0.1);
                       borderColor = Colors.green;
                       icon = Icons.check_circle;
                       iconColor = Colors.green;
                     } else if (isSelected && !isCorrect) {
-                      backgroundColor = Colors.red.withOpacity(0.1);
+                      backgroundColor = Colors.red.withValues(alpha: 0.1);
                       borderColor = Colors.red;
                       icon = Icons.cancel;
                       iconColor = Colors.red;
@@ -129,7 +129,7 @@ class ReviewScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: backgroundColor,
                         border: Border.all(
-                          color: borderColor ?? Colors.grey.shade300,
+                          color: borderColor,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -178,10 +178,10 @@ class ReviewScreen extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Colors.blue.withOpacity(0.05),
+                        color: Colors.blue.withValues(alpha: 0.05),
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                          color: Colors.blue.withOpacity(0.2),
+                          color: Colors.blue.withValues(alpha: 0.2),
                         ),
                       ),
                       child: Column(
@@ -232,11 +232,16 @@ class ReviewScreen extends StatelessWidget {
     // Convert color int values to Color objects
     Map<String, dynamic> processedData = Map.from(data);
     
-    // Handle colors stored as int values
+    // Handle colors stored as int values or Color objects
     if (processedData.containsKey('colors')) {
       final colorsList = processedData['colors'] as List<dynamic>?;
-      if (colorsList != null && colorsList.isNotEmpty && colorsList.first is int) {
-        processedData['colors'] = colorsList.map((c) => Color(c as int)).toList();
+      if (colorsList != null && colorsList.isNotEmpty) {
+        if (colorsList.first is int) {
+          processedData['colors'] = colorsList.map((c) => Color(c as int)).toList();
+        } else if (colorsList.first is Color) {
+          // Already Color objects, ensure it's a proper list
+          processedData['colors'] = colorsList.cast<Color>().toList();
+        }
       }
     }
     if (processedData.containsKey('color')) {
@@ -244,6 +249,7 @@ class ReviewScreen extends StatelessWidget {
       if (colorVal is int) {
         processedData['color'] = Color(colorVal);
       }
+      // If already a Color, leave it as is
     }
     
     // Handle icon stored as int code point

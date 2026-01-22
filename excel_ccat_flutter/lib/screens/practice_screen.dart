@@ -93,7 +93,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
             ),
             const SizedBox(height: 16),
             DropdownButtonFormField<CCATLevel>(
-              value: _selectedLevel,
+              initialValue: _selectedLevel,
               decoration: const InputDecoration(
                 labelText: 'Grade Level',
                 border: OutlineInputBorder(),
@@ -115,7 +115,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
             ),
             const SizedBox(height: 16),
             DropdownButtonFormField<Language>(
-              value: _selectedLanguage,
+              initialValue: _selectedLanguage,
               decoration: const InputDecoration(
                 labelText: 'Language',
                 border: OutlineInputBorder(),
@@ -188,7 +188,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
+                  color: color.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(icon, color: color, size: 32),
@@ -252,13 +252,13 @@ class _PracticeScreenState extends State<PracticeScreen> {
     
     return Card(
       clipBehavior: Clip.antiAlias,
-      color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3),
+      color: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.3),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             padding: const EdgeInsets.all(16),
-            color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.5),
+            color: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.5),
             child: Row(
               children: [
                 Icon(

@@ -249,7 +249,7 @@ class _ProgressScreenState extends State<ProgressScreen> with SingleTickerProvid
                         decoration: BoxDecoration(
                           color: p.value > 0 
                               ? Theme.of(context).colorScheme.primary
-                              : Colors.grey.withOpacity(0.3),
+                                : Colors.grey.withValues(alpha: 0.3),
                           borderRadius: BorderRadius.circular(4),
                         ),
                       ),
@@ -361,7 +361,7 @@ class _ProgressScreenState extends State<ProgressScreen> with SingleTickerProvid
           margin: const EdgeInsets.only(bottom: 8),
           child: ListTile(
             leading: CircleAvatar(
-              backgroundColor: _getColorForAccuracy(session.accuracy).withOpacity(0.2),
+              backgroundColor: _getColorForAccuracy(session.accuracy).withValues(alpha: 0.2),
               child: Text(
                 '${session.accuracy.toInt()}%',
                 style: TextStyle(
@@ -452,7 +452,7 @@ class _ProgressScreenState extends State<ProgressScreen> with SingleTickerProvid
           height: 70,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: color.withOpacity(0.1),
+            color: color.withValues(alpha: 0.1),
             border: Border.all(color: color, width: 3),
           ),
           child: Center(
@@ -653,7 +653,7 @@ class _ProgressScreenState extends State<ProgressScreen> with SingleTickerProvid
 
   Widget _buildSmartLearningCard(BuildContext context, SmartLearningSummary summary) {
     return Card(
-      color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3),
+      color: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.3),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -712,7 +712,7 @@ class _ProgressScreenState extends State<ProgressScreen> with SingleTickerProvid
         Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
+            color: color.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Icon(icon, color: color),
@@ -775,7 +775,7 @@ class _ProgressScreenState extends State<ProgressScreen> with SingleTickerProvid
             leading: Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.orange.withOpacity(0.1),
+                color: Colors.orange.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: const Icon(Icons.warning_amber, color: Colors.orange),
@@ -886,7 +886,7 @@ class _ProgressScreenState extends State<ProgressScreen> with SingleTickerProvid
           LinearProgressIndicator(
             value: progress,
             color: color,
-            backgroundColor: color.withOpacity(0.1),
+            backgroundColor: color.withValues(alpha: 0.1),
             minHeight: 8,
             borderRadius: BorderRadius.circular(4),
           ),
